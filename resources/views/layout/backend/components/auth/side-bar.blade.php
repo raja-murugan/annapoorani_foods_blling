@@ -8,8 +8,8 @@
                         <li class="{{ Route::is('home') ? 'active' : '' }}">
                             <a href="{{ route('home') }}"><i data-feather="grid"></i><span>Dashboard</span></a>
                         </li>
-                        <li class="{{ Route::is('manager.invite.index', 'manager.invite.store') ? 'active' : '' }}">
-                            <a href="{{ route('manager.invite.index') }}"><i data-feather="user"></i><span>Delivery Plan</span></a>
+                        <li class="{{ Route::is('delivery.plan.index', 'delivery.plan.store') ? 'active' : '' }}">
+                            <a href="{{ route('delivery.plan.index') }}"><i data-feather="user"></i><span>Delivery Plan</span></a>
                         </li>
                         <li class="{{ Route::is('manager.invite.index', 'manager.invite.store') ? 'active' : '' }}">
                             <a href="{{ route('manager.invite.index') }}"><i data-feather="user"></i><span>Manager</span></a>
