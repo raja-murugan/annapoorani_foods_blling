@@ -1,7 +1,6 @@
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"
-    style="font-family:arial, 'helvetica neue', helvetica, sans-serif">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
     <meta charset="UTF-8">
@@ -9,10 +8,8 @@
     <meta name="x-apple-disable-message-reformatting">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="telephone=no" name="format-detection">
-    <title>Invitation to Access</title>
-    <!--[if !mso]><!-- -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-    <!--<![endif]-->
+    <title>Invite Mail From Annapoorani Foods - Invite You to Access the Zwork Technology Billing and Monthly Accounts Management Software</title>
+    <!--[if (mso 16)]><style type="text/css"> a {text-decoration: none;} </style><![endif]--><!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]--><!--[if gte mso 9]><xml> <o:OfficeDocumentSettings> <o:AllowPNG></o:AllowPNG> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><![endif]-->
     <style type="text/css">
         #outlook a {
             padding: 0;
@@ -42,17 +39,6 @@
             mso-hide: all;
         }
 
-        .es-button-border:hover a.es-button,
-        .es-button-border:hover button.es-button {
-            background: #58dfec !important;
-        }
-
-        .es-button-border:hover {
-            border-color: #26C6DA #26C6DA #26C6DA #26C6DA !important;
-            background: #58dfec !important;
-            border-style: solid solid solid solid !important;
-        }
-
         @media only screen and (max-width:600px) {
 
             p,
@@ -72,12 +58,12 @@
             }
 
             h1 {
-                font-size: 30px !important;
-                text-align: center
+                font-size: 36px !important;
+                text-align: left
             }
 
             h2 {
-                font-size: 24px !important;
+                font-size: 26px !important;
                 text-align: left
             }
 
@@ -89,14 +75,14 @@
             .es-header-body h1 a,
             .es-content-body h1 a,
             .es-footer-body h1 a {
-                font-size: 30px !important;
-                text-align: center
+                font-size: 36px !important;
+                text-align: left
             }
 
             .es-header-body h2 a,
             .es-content-body h2 a,
             .es-footer-body h2 a {
-                font-size: 24px !important;
+                font-size: 26px !important;
                 text-align: left
             }
 
@@ -108,7 +94,7 @@
             }
 
             .es-menu td a {
-                font-size: 14px !important
+                font-size: 12px !important
             }
 
             .es-header-body p,
@@ -122,7 +108,7 @@
             .es-content-body ul li,
             .es-content-body ol li,
             .es-content-body a {
-                font-size: 14px !important
+                font-size: 16px !important
             }
 
             .es-footer-body p,
@@ -176,7 +162,7 @@
 
             a.es-button,
             button.es-button {
-                font-size: 18px !important;
+                font-size: 20px !important;
                 display: inline-block !important
             }
 
@@ -207,19 +193,19 @@
             }
 
             .es-m-p0 {
-                padding: 0px !important
+                padding: 0 !important
             }
 
             .es-m-p0r {
-                padding-right: 0px !important
+                padding-right: 0 !important
             }
 
             .es-m-p0l {
-                padding-left: 0px !important
+                padding-left: 0 !important
             }
 
             .es-m-p0t {
-                padding-top: 0px !important
+                padding-top: 0 !important
             }
 
             .es-m-p0b {
@@ -274,6 +260,162 @@
                 display: inline-block !important
             }
 
+            .es-m-p5 {
+                padding: 5px !important
+            }
+
+            .es-m-p5t {
+                padding-top: 5px !important
+            }
+
+            .es-m-p5b {
+                padding-bottom: 5px !important
+            }
+
+            .es-m-p5r {
+                padding-right: 5px !important
+            }
+
+            .es-m-p5l {
+                padding-left: 5px !important
+            }
+
+            .es-m-p10 {
+                padding: 10px !important
+            }
+
+            .es-m-p10t {
+                padding-top: 10px !important
+            }
+
+            .es-m-p10b {
+                padding-bottom: 10px !important
+            }
+
+            .es-m-p10r {
+                padding-right: 10px !important
+            }
+
+            .es-m-p10l {
+                padding-left: 10px !important
+            }
+
+            .es-m-p15 {
+                padding: 15px !important
+            }
+
+            .es-m-p15t {
+                padding-top: 15px !important
+            }
+
+            .es-m-p15b {
+                padding-bottom: 15px !important
+            }
+
+            .es-m-p15r {
+                padding-right: 15px !important
+            }
+
+            .es-m-p15l {
+                padding-left: 15px !important
+            }
+
+            .es-m-p20 {
+                padding: 20px !important
+            }
+
+            .es-m-p20t {
+                padding-top: 20px !important
+            }
+
+            .es-m-p20r {
+                padding-right: 20px !important
+            }
+
+            .es-m-p20l {
+                padding-left: 20px !important
+            }
+
+            .es-m-p25 {
+                padding: 25px !important
+            }
+
+            .es-m-p25t {
+                padding-top: 25px !important
+            }
+
+            .es-m-p25b {
+                padding-bottom: 25px !important
+            }
+
+            .es-m-p25r {
+                padding-right: 25px !important
+            }
+
+            .es-m-p25l {
+                padding-left: 25px !important
+            }
+
+            .es-m-p30 {
+                padding: 30px !important
+            }
+
+            .es-m-p30t {
+                padding-top: 30px !important
+            }
+
+            .es-m-p30b {
+                padding-bottom: 30px !important
+            }
+
+            .es-m-p30r {
+                padding-right: 30px !important
+            }
+
+            .es-m-p30l {
+                padding-left: 30px !important
+            }
+
+            .es-m-p35 {
+                padding: 35px !important
+            }
+
+            .es-m-p35t {
+                padding-top: 35px !important
+            }
+
+            .es-m-p35b {
+                padding-bottom: 35px !important
+            }
+
+            .es-m-p35r {
+                padding-right: 35px !important
+            }
+
+            .es-m-p35l {
+                padding-left: 35px !important
+            }
+
+            .es-m-p40 {
+                padding: 40px !important
+            }
+
+            .es-m-p40t {
+                padding-top: 40px !important
+            }
+
+            .es-m-p40b {
+                padding-bottom: 40px !important
+            }
+
+            .es-m-p40r {
+                padding-right: 40px !important
+            }
+
+            .es-m-p40l {
+                padding-left: 40px !important
+            }
+
             .es-desk-hidden {
                 display: table-row !important;
                 width: auto !important;
@@ -286,136 +428,40 @@
 
 <body
     style="width:100%;font-family:arial, 'helvetica neue', helvetica, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
-    <div class="es-wrapper-color" style="background-color:#07023C">
+    <div class="es-wrapper-color" style="background-color:#FAFAFA">
+        <!--[if gte mso 9]><v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t"> <v:fill type="tile" color="#fafafa"></v:fill> </v:background><![endif]-->
         <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0"
-            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#07023C">
+            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#FAFAFA">
             <tr>
                 <td valign="top" style="padding:0;Margin:0">
-                    <table class="es-content" cellspacing="0" cellpadding="0" align="center"
-                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
+                    <table cellpadding="0" cellspacing="0" class="es-header" align="center"
+                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top">
                         <tr>
                             <td align="center" style="padding:0;Margin:0">
-                                <table class="es-content-body"
-                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#ffffff;background-repeat:no-repeat;width:600px;background-image:url(https://yhnomr.stripocdn.email/content/guids/CABINET_0e8fbb6adcc56c06fbd3358455fdeb41/images/vector_0Ia.png);background-position:center center"
-                                    cellspacing="0" cellpadding="0" bgcolor="#ffffff"
-                                    background="https://yhnomr.stripocdn.email/content/guids/CABINET_0e8fbb6adcc56c06fbd3358455fdeb41/images/vector_0Ia.png"
-                                    align="center">
+                                <table bgcolor="#ffffff" class="es-header-body" align="center" cellpadding="0"
+                                    cellspacing="0"
+                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px">
                                     <tr>
-                                        <td align="left"
-                                            style="Margin:0;padding-bottom:10px;padding-top:20px;padding-left:20px;padding-right:20px">
-                                            <table width="100%" cellspacing="0" cellpadding="0"
+                                        <td align="left" bgcolor="#ffffff"
+                                            style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;background-color:#ffffff">
+                                            <table cellpadding="0" cellspacing="0" width="100%"
                                                 style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                 <tr>
                                                     <td class="es-m-p0r" valign="top" align="center"
                                                         style="padding:0;Margin:0;width:560px">
-                                                        <table width="100%" cellspacing="0" cellpadding="0"
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
                                                             role="presentation"
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                            <tr>
-                                                                <td style="padding:0;Margin:0;font-size:0px"
-                                                                    align="center"><a target="_blank"
-                                                                        href="https://viewstripo.email"
-                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#26C6DA;font-size:14px"><img
-                                                                            src="https://yhnomr.stripocdn.email/content/guids/CABINET_843cc1b530a5c53f15f521f18ac8f365d2344c03a60c8861e51f421f2381a342/images/logo.png"
-                                                                            alt="Logo"
-                                                                            style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                                                            title="Logo" height="55"></a></td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"
-                                            style="Margin:0;padding-left:20px;padding-right:20px;padding-top:30px;padding-bottom:30px">
-                                            <table width="100%" cellspacing="0" cellpadding="0"
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                <tr>
-                                                    <td class="es-m-p0r es-m-p20b" valign="top" align="center"
-                                                        style="padding:0;Margin:0;width:560px">
-                                                        <table width="100%" cellspacing="0" cellpadding="0"
-                                                            role="presentation"
-                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                            <tr>
-                                                                <td align="center" style="padding:0;Margin:0">
-                                                                    <h1
-                                                                        style="Margin:0;line-height:53px;mso-line-height-rule:exactly;font-family:Orbitron, sans-serif;font-size:44px;font-style:normal;font-weight:bold;color:#10054D">
-                                                                        Invitation to Access <br></h1>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="padding:0;Margin:0;padding-bottom:10px;padding-top:15px;font-size:0px"
-                                                                    align="center"><a target="_blank"
-                                                                        href="https://viewstripo.email"
-                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#26C6DA;font-size:14px"><img
-                                                                            class="adapt-img"
-                                                                            src="https://yhnomr.stripocdn.email/content/guids/CABINET_dee64413d6f071746857ca8c0f13d696/images/852converted_1x3.png"
-                                                                            alt
-                                                                            style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                                                            height="300"></a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="left"
-                                                                    style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                                        We are delighted to invite you to join our
-                                                                        platform as a registered user. As a member of
-                                                                        our community, you will gain access to a range
-                                                                        of exciting features and exclusive content. We
-                                                                        value your participation and look forward to
-                                                                        having you on board.</p>
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                                        <br>
-                                                                    </p>
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                                        To accept the invitation and create your
-                                                                        account, please follow the steps below:</p>
-                                                                    <ol>
-                                                                        <li
-                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;Margin-bottom:15px;margin-left:0;color:#333333;font-size:14px">
-                                                                            Enter the below username and secure password
-                                                                            for your account.</li>
-                                                                        <li
-                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;Margin-bottom:15px;margin-left:0;color:#333333;font-size:14px">
-                                                                            Click on the "Sign In" button.<br></li>
-                                                                    </ol>
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                                        Once your account is created, you will be able
-                                                                        to explore our platform and enjoy all its
-                                                                        benefits. If you have any questions or need
-                                                                        assistance, please don't hesitate to contact our
-                                                                        support team at support@spmvegtables.co.in.<br>
-                                                                    </p>
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                                        <br>
-                                                                    </p>
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                                        We are thrilled to have you join us and can't
-                                                                        wait to see what you accomplish within our
-                                                                        community. Thank you for accepting our
-                                                                        invitation!<br></p>
-                                                                </td>
-                                                            </tr>
                                                             <tr>
                                                                 <td align="center"
-                                                                    style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px">
-
-                                                                    <!--[if !mso]><!-- --><span
-                                                                        class="msohide es-button-border"
-                                                                        style="border-style:solid;border-color:#26C6DA;background:#26C6DA;border-width:4px;display:inline-block;border-radius:10px;width:auto;mso-hide:all"><a
-                                                                            href="{{ url('accept', $invite->token) }}"
-                                                                            class="es-button" target="_blank"
-                                                                            style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;padding:10px 25px 10px 30px;display:inline-block;background:#26C6DA;border-radius:10px;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center;mso-padding-alt:0;mso-border-alt:10px solid #26C6DA">Accept
-                                                                            the invite</a></span>
-                                                                    <!--<![endif]-->
+                                                                    style="padding:0;Margin:0;padding-bottom:20px;font-size:0px">
+                                                                    <a target="_blank"
+                                                                        href="https://www.zworktechnology.com"
+                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#666666;font-size:14px"><img
+                                                                            src="https://yhnomr.stripocdn.email/content/guids/CABINET_f5032a01d82db9fd96ed2ff344547d13055ca42faae171cf8a3fb1516ac7126a/images/logowhite.png"
+                                                                            alt="Zwork Technology"
+                                                                            style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
+                                                                            width="200" title="Zwork Technology"></a>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -428,71 +474,233 @@
                             </td>
                         </tr>
                     </table>
-                    <table class="es-content" cellspacing="0" cellpadding="0" align="center"
+                    <table cellpadding="0" cellspacing="0" class="es-content" align="center"
                         style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
                         <tr>
                             <td align="center" style="padding:0;Margin:0">
-                                <table class="es-content-body"
-                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#10054d;width:600px"
-                                    cellspacing="0" cellpadding="0" bgcolor="#10054D" align="center">
+                                <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0"
+                                    cellspacing="0"
+                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px">
                                     <tr>
-                                        <td style="Margin:0;padding-left:20px;padding-right:20px;padding-top:35px;padding-bottom:35px;background-image:url(https://yhnomr.stripocdn.email/content/guids/CABINET_0e8fbb6adcc56c06fbd3358455fdeb41/images/vector_sSY.png);background-repeat:no-repeat;background-position:left center"
-                                            background="https://yhnomr.stripocdn.email/content/guids/CABINET_0e8fbb6adcc56c06fbd3358455fdeb41/images/vector_sSY.png"
-                                            align="left">
-                                            <!--[if mso]><table style="width:560px" cellpadding="0" cellspacing="0"><tr><td style="width:69px" valign="top"><![endif]-->
-                                            <table class="es-left" cellspacing="0" cellpadding="0" align="left"
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                                        <td align="left"
+                                            style="Margin:0;padding-bottom:10px;padding-left:20px;padding-right:20px;padding-top:30px">
+                                            <table cellpadding="0" cellspacing="0" width="100%"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                 <tr>
-                                                    <td class="es-m-p20b" align="left"
-                                                        style="padding:0;Margin:0;width:69px">
-                                                        <table width="100%" cellspacing="0" cellpadding="0"
+                                                    <td align="center" valign="top"
+                                                        style="padding:0;Margin:0;width:560px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
                                                             role="presentation"
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
-                                                                <td class="es-m-txt-l"
-                                                                    style="padding:0;Margin:0;font-size:0px"
-                                                                    align="center"><a target="_blank"
-                                                                        href="https://viewstripo.email"
-                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#26C6DA;font-size:14px"><img
-                                                                            src="https://yhnomr.stripocdn.email/content/guids/CABINET_dee64413d6f071746857ca8c0f13d696/images/group_118_lFL.png"
-                                                                            alt
-                                                                            style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                                                            width="69"></a></td>
+                                                                <td align="center"
+                                                                    style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0px">
+                                                                    <img src="https://yhnomr.stripocdn.email/content/guids/CABINET_a3448362093fd4087f87ff42df4565c1/images/78501618239341906.png"
+                                                                        alt
+                                                                        style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
+                                                                        width="100"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" class="es-m-txt-c"
+                                                                    style="padding:0;Margin:0;padding-bottom:10px">
+                                                                    <h1
+                                                                        style="Margin:0;line-height:46px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:46px;font-style:normal;font-weight:bold;color:#333333">
+                                                                        Access Invite<br></h1>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="es-m-p0r es-m-p0l"
+                                                                    style="Margin:0;padding-top:5px;padding-bottom:5px;padding-left:40px;padding-right:40px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px;text-align:justify">
+                                                                        We are delighted to welcome you to the
+                                                                        Annpoorani Foods team! As a valued member, you
+                                                                        now have access to our secure accounting and
+                                                                        sales portal, where you can manage our sales and
+                                                                        monthly accounts efficiently. Please find below
+                                                                        your account details to access the portal:</p>
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <!--[if mso]></td><td style="width:20px"></td><td style="width:471px" valign="top"><![endif]-->
-                                            <table class="es-right" cellspacing="0" cellpadding="0" align="right"
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"
+                                            style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px">
+                                            <table cellpadding="0" cellspacing="0" width="100%"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                 <tr>
-                                                    <td align="left" style="padding:0;Margin:0;width:471px">
-                                                        <table width="100%" cellspacing="0" cellpadding="0"
+                                                    <td align="center" valign="top"
+                                                        style="padding:0;Margin:0;width:560px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-left:2px dashed #cccccc;border-right:2px dashed #cccccc;border-top:2px dashed #cccccc;border-bottom:2px dashed #cccccc;border-radius:5px"
+                                                            role="presentation">
+                                                            <tr>
+                                                                <td align="center" class="es-m-txt-c"
+                                                                    style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+                                                                    <h2
+                                                                        style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:26px;font-style:normal;font-weight:bold;color:#333333">
+                                                                        {{ $manager->email }}<br type="_moz"></h2>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" class="es-m-txt-c"
+                                                                    style="Margin:0;padding-top:10px;padding-bottom:20px;padding-left:20px;padding-right:20px">
+                                                                    <h1
+                                                                        style="Margin:0;line-height:55px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:46px;font-style:normal;font-weight:bold;color:#5c68e2">
+                                                                        <strong>{{ $manager->password }}</strong></h1>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"
+                                            style="padding:0;Margin:0;padding-left:20px;padding-right:20px;padding-bottom:30px">
+                                            <table cellpadding="0" cellspacing="0" width="100%"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                <tr>
+                                                    <td align="center" valign="top"
+                                                        style="padding:0;Margin:0;width:560px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-radius:5px"
+                                                            role="presentation">
+                                                            <tr>
+                                                                <td class="es-m-p0r es-m-p0l"
+                                                                    style="Margin:0;padding-top:5px;padding-bottom:5px;padding-left:40px;padding-right:40px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px;text-align:justify">
+                                                                        If you encounter any issues or have questions
+                                                                        regarding your account access or the portal's
+                                                                        functionality, please don't hesitate to reach
+                                                                        out to our dedicated IT support team. They will
+                                                                        be more than happy to assist you.</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="es-m-p0r es-m-p0l"
+                                                                    style="Margin:0;padding-top:5px;padding-bottom:5px;padding-left:40px;padding-right:40px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px;text-align:justify">
+                                                                        We believe that your contributions will play an
+                                                                        integral role in our collective success. Your
+                                                                        dedication and talents are highly valued, and we
+                                                                        look forward to achieving great milestones
+                                                                        together.</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center"
+                                                                    style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
+                                                                    <!--[if mso]><a href="" target="_blank" hidden> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" esdevVmlButton href="" style="height:44px; v-text-anchor:middle; width:221px" arcsize="14%" stroke="f" fillcolor="#5c68e2"> <w:anchorlock></w:anchorlock> <center style='color:#ffffff; font-family:arial, "helvetica neue", helvetica, sans-serif; font-size:18px; font-weight:400; line-height:18px; mso-text-raise:1px'>GO SHOPPING</center> </v:roundrect></a><![endif]--><!--[if !mso]><!-- --><span
+                                                                        class="msohide es-button-border"
+                                                                        style="border-style:solid;border-color:#2CB543;background:#5C68E2;border-width:0px;display:inline-block;border-radius:6px;width:auto;mso-hide:all"><a
+                                                                            href="{{ url('accept', $manager->token) }}" class="es-button"
+                                                                            target="_blank"
+                                                                            style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;padding:10px 30px 10px 30px;display:inline-block;background:#5C68E2;border-radius:6px;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center;mso-padding-alt:0;mso-border-alt:10px solid #5C68E2;padding-left:30px;padding-right:30px">
+                                                                        Accept Now</a></span><!--<![endif]--></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0" class="es-footer" align="center"
+                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top">
+                        <tr>
+                            <td align="center" style="padding:0;Margin:0">
+                                <table class="es-footer-body" align="center" cellpadding="0" cellspacing="0"
+                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:640px">
+                                    <tr>
+                                        <td align="left"
+                                            style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px">
+                                            <table cellpadding="0" cellspacing="0" width="100%"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:600px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
                                                             role="presentation"
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
-                                                                <td align="left" style="padding:0;Margin:0">
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#ffffff;font-size:20px">
-                                                                        &nbsp;&nbsp;&nbsp; Username&nbsp;&nbsp;&nbsp;
-                                                                        :&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: white; text-decoration: none;">{{ $invite->email }}</span><br></p>
+                                                                <td style="padding:0;Margin:0">
+                                                                    <table cellpadding="0" cellspacing="0"
+                                                                        width="100%" class="es-menu"
+                                                                        role="presentation"
+                                                                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                                        <tr class="links">
+                                                                            <td align="center" valign="top"
+                                                                                width="33.33%"
+                                                                                style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0">
+                                                                                <a target="_blank" href=""
+                                                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#999999;font-size:12px">Visit
+                                                                                    Us </a></td>
+                                                                            <td align="center" valign="top"
+                                                                                width="33.33%"
+                                                                                style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0;border-left:1px solid #cccccc">
+                                                                                <a target="_blank" href=""
+                                                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#999999;font-size:12px">Privacy
+                                                                                    Policy</a></td>
+                                                                            <td align="center" valign="top"
+                                                                                width="33.33%"
+                                                                                style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0;border-left:1px solid #cccccc">
+                                                                                <a target="_blank" href=""
+                                                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#999999;font-size:12px">Terms
+                                                                                    of Use</a></td>
+                                                                        </tr>
+                                                                    </table>
                                                                 </td>
                                                             </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0" class="es-content" align="center"
+                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
+                        <tr>
+                            <td class="es-info-area" align="center" style="padding:0;Margin:0">
+                                <table class="es-content-body" align="center" cellpadding="0" cellspacing="0"
+                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px"
+                                    bgcolor="#FFFFFF">
+                                    <tr>
+                                        <td align="left" bgcolor="#ffffff"
+                                            style="padding:20px;Margin:0;background-color:#ffffff">
+                                            <table cellpadding="0" cellspacing="0" width="100%"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                <tr>
+                                                    <td align="center" valign="top"
+                                                        style="padding:0;Margin:0;width:560px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
-                                                                <td align="left" style="padding:0;Margin:0">
+                                                                <td align="center" class="es-infoblock"
+                                                                    style="padding:0;Margin:0;line-height:14px;font-size:12px;color:#CCCCCC">
                                                                     <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#ffffff;font-size:20px">
-                                                                        <br>
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:14px;color:#CCCCCC;font-size:12px">
+                                                                        <a target="_blank" href=""
+                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px"></a>This
+                                                                        is an auto-generated message. Please do not
+                                                                        reply directly to this email.<a target="_blank"
+                                                                            href=""
+                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px"></a>
                                                                     </p>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="left" style="padding:0;Margin:0">
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#ffffff;font-size:20px">
-                                                                        &nbsp;&nbsp;&nbsp; Password&nbsp;&nbsp;&nbsp;
-                                                                        :&nbsp;&nbsp;&nbsp;&nbsp; Password@1234<br></p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -510,5 +718,4 @@
         </table>
     </div>
 </body>
-
 </html>

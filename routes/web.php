@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
+
+// INVITE ACCEPT
+Route::get('/accept/{token}', [ManagerController::class, 'accept']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// BACKEND - ROUTE - WITH SANTUM VERIFIED
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    // DASHBOARD
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // MANAGER & INVITE CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/billing/manager/invite', [ManagerController::class, 'index'])->name('manager.invite.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/billing/manager/invite/store', [ManagerController::class, 'store'])->name('manager.invite.store');
+    });
+});
