@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Deliveryarea extends Model
+class Deliveryboy extends Model
 {
     use HasFactory;
 
@@ -14,12 +14,13 @@ class Deliveryarea extends Model
         'unique_key',
         'soft_delete',
         'name',
-        'note'
+        'phone_number',
+        'address',
+        'delivery_area_id'
     ];
 
-
-    public function deliveryboy()
+    public function deliveryarea()
     {
-        return $this->hasMany(Deliveryboy::class, 'delivery_area_id');
+        return $this->belongsTo(Deliveryarea::class, 'delivery_area_id');
     }
 }

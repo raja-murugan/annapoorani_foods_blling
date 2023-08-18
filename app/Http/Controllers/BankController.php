@@ -34,12 +34,12 @@ class BankController extends Controller
 
     public function edit(Request $request, $unique_key)
     {
-        $plandata = Bank::where('unique_key', '=', $unique_key)->first();
+        $bankdata = Bank::where('unique_key', '=', $unique_key)->first();
 
-        $plandata->name = $request->get('name');
-        $plandata->note = $request->get('note');
+        $bankdata->name = $request->get('name');
+        $bankdata->note = $request->get('note');
 
-        $plandata->update();
+        $bankdata->update();
 
         return redirect()->route('bank.index')->with('info', 'Updated !');
     }

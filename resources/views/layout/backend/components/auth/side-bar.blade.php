@@ -14,6 +14,9 @@
                         <li class="{{ Route::is('delivery.area.index', 'delivery.area.store') ? 'active' : '' }} m-2">
                             <a href="{{ route('delivery.area.index') }}"><i data-feather="user"></i><span>Delivery Areas</span></a>
                         </li>
+                        <li class="{{ Route::is('delivery.boy.index', 'delivery.boy.store') ? 'active' : '' }} m-2">
+                            <a href="{{ route('delivery.boy.index') }}"><i data-feather="user"></i><span>Delivery Boys</span></a>
+                        </li>
                         <li class="{{ Route::is('delivery.plan.index', 'delivery.plan.store') ? 'active' : '' }} m-2">
                             <a href="{{ route('delivery.plan.index') }}"><i data-feather="user"></i><span>Delivery Plan</span></a>
                         </li>

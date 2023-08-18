@@ -34,12 +34,12 @@ class DeliveryareaController extends Controller
 
     public function edit(Request $request, $unique_key)
     {
-        $plandata = Deliveryarea::where('unique_key', '=', $unique_key)->first();
+        $areadata = Deliveryarea::where('unique_key', '=', $unique_key)->first();
 
-        $plandata->name = $request->get('name');
-        $plandata->note = $request->get('note');
+        $areadata->name = $request->get('name');
+        $areadata->note = $request->get('note');
 
-        $plandata->update();
+        $areadata->update();
 
         return redirect()->route('delivery.area.index')->with('info', 'Updated !');
     }
