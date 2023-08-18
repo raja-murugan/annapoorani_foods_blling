@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\DeliveryareaController;
 use App\Http\Controllers\DeliveryplanController;
 use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Route;
@@ -57,5 +58,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/payment/method/edit/{unique_key}', [BankController::class, 'edit'])->name('bank.edit');
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/payment/method/delete/{unique_key}', [BankController::class, 'delete'])->name('bank.delete');
+    });
+    // DELIVERY AREA CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery/area', [DeliveryareaController::class, 'index'])->name('delivery.area.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/delivery/area/store', [DeliveryareaController::class, 'store'])->name('delivery.area.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/delivery/area/edit/{unique_key}', [DeliveryareaController::class, 'edit'])->name('delivery.area.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery/area/delete/{unique_key}', [DeliveryareaController::class, 'delete'])->name('delivery.area.delete');
     });
 });

@@ -10,13 +10,13 @@
                     <div class="col-lg-12 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Name <span style="color: red;">*</span></label>
-                            <input type="text" name="name" placeholder="Enter manager name" required value="{{ $bankdata->name }}">
+                            <input type="text" name="name" placeholder="Enter name" required value="{{ $bankdata->name }}">
                         </div>
                     </div>
                     <div class="col-lg-12 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Note<span style="color: red;">*</span></label>
-                            <textarea type="text" name="note" placeholder="Enter plan note" required>{{ $bankdata->note }}</textarea>
+                            <textarea type="text" name="note" placeholder="Enter note" required>{{ $bankdata->note }}</textarea>
                         </div>
                     </div>
                     <hr>

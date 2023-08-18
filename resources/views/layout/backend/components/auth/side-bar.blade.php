@@ -11,6 +11,9 @@
                         <li class="{{ Route::is('bank.index', 'bank.store') ? 'active' : '' }} m-2">
                             <a href="{{ route('bank.index') }}"><i data-feather="user"></i><span>Payment Method</span></a>
                         </li>
+                        <li class="{{ Route::is('delivery.area.index', 'delivery.area.store') ? 'active' : '' }} m-2">
+                            <a href="{{ route('delivery.area.index') }}"><i data-feather="user"></i><span>Delivery Areas</span></a>
+                        </li>
                         <li class="{{ Route::is('delivery.plan.index', 'delivery.plan.store') ? 'active' : '' }} m-2">
                             <a href="{{ route('delivery.plan.index') }}"><i data-feather="user"></i><span>Delivery Plan</span></a>
                         </li>

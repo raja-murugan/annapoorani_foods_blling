@@ -4,7 +4,7 @@
             <h5 class="modal-title" id="myExtraLargeModalLabel">Create</h5>
         </div>
         <div class="modal-body">
-            <form autocomplete="off" method="POST" action="{{ route('bank.store') }}">
+            <form autocomplete="off" method="POST" action="{{ route('delivery.area.store') }}">
                 @csrf
                 <div class="row">
                     <div class="col-lg-12 col-sm-6 col-12">
@@ -16,7 +16,7 @@
                     <div class="col-lg-12 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Note<span style="color: red;">*</span></label>
-                            <textarea type="text" name="note" placeholder="Enter note" required></textarea>
+                            <textarea type="text" name="note" placeholder="Enter locations" required></textarea>
                         </div>
                     </div>
                     <hr>
