@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-l">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="myExtraLargeModalLabel">Delivery Plan</h5>
+            <h5 class="modal-title" id="myExtraLargeModalLabel">Update</h5>
         </div>
         <div class="modal-body">
             <form autocomplete="off" method="POST" action="{{ route('delivery.plan.edit', ['unique_key' => $deliveryplandata->unique_key]) }}">

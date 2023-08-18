@@ -4,19 +4,13 @@
             <h5 class="modal-title" id="myExtraLargeModalLabel">Create</h5>
         </div>
         <div class="modal-body">
-            <form autocomplete="off" method="POST" action="{{ route('delivery.plan.store') }}">
+            <form autocomplete="off" method="POST" action="{{ route('bank.store') }}">
                 @csrf
                 <div class="row">
                     <div class="col-lg-12 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Name <span style="color: red;">*</span></label>
                             <input type="text" name="name" placeholder="Enter manager name" required>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Price <span style="color: red;">*</span></label>
-                            <input type="text" name="price" placeholder="Enter plan price" required>
                         </div>
                     </div>
                     <div class="col-lg-12 col-sm-6 col-12">

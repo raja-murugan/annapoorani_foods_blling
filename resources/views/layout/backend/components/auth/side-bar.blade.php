@@ -5,13 +5,16 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Menu</h6>
                     <ul>
-                        <li class="{{ Route::is('home') ? 'active' : '' }}">
+                        <li class="{{ Route::is('home') ? 'active' : '' }} m-2">
                             <a href="{{ route('home') }}"><i data-feather="grid"></i><span>Dashboard</span></a>
                         </li>
-                        <li class="{{ Route::is('delivery.plan.index', 'delivery.plan.store') ? 'active' : '' }}">
+                        <li class="{{ Route::is('bank.index', 'bank.store') ? 'active' : '' }} m-2">
+                            <a href="{{ route('bank.index') }}"><i data-feather="user"></i><span>Payment Method</span></a>
+                        </li>
+                        <li class="{{ Route::is('delivery.plan.index', 'delivery.plan.store') ? 'active' : '' }} m-2">
                             <a href="{{ route('delivery.plan.index') }}"><i data-feather="user"></i><span>Delivery Plan</span></a>
                         </li>
-                        <li class="{{ Route::is('manager.invite.index', 'manager.invite.store') ? 'active' : '' }}">
+                        <li class="{{ Route::is('manager.invite.index', 'manager.invite.store') ? 'active' : '' }} m-2">
                             <a href="{{ route('manager.invite.index') }}"><i data-feather="user"></i><span>Manager</span></a>
                         </li>
                     </ul>
@@ -20,3 +23,5 @@
         </div>
     </div>
 </div>
+
+
