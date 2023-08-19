@@ -5,6 +5,10 @@ use App\Http\Controllers\DeliveryareaController;
 use App\Http\Controllers\DeliveryboyController;
 use App\Http\Controllers\DeliveryplanController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -81,5 +85,61 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/delivery/boy/edit/{unique_key}', [DeliveryboyController::class, 'edit'])->name('delivery.boy.edit');
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery/boy/delete/{unique_key}', [DeliveryboyController::class, 'delete'])->name('delivery.boy.delete');
+    });
+
+
+
+    // CUSTOMER CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/customer', [CustomerController::class, 'index'])->name('customer.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/customer/store', [CustomerController::class, 'store'])->name('customer.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/customer/edit/{unique_key}', [CustomerController::class, 'edit'])->name('customer.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/customer/delete/{unique_key}', [CustomerController::class, 'delete'])->name('customer.delete');
+        // CHECK DUPLICATE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/customer/checkduplicate', [CustomerController::class, 'checkduplicate'])->name('customer.checkduplicate');
+    });
+
+
+    // EMPLOYEE CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/employee', [EmployeeController::class, 'index'])->name('employee.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/employee/store', [EmployeeController::class, 'store'])->name('employee.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/employee/edit/{unique_key}', [EmployeeController::class, 'edit'])->name('employee.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/employee/delete/{unique_key}', [EmployeeController::class, 'delete'])->name('employee.delete');
+        // CHECK DUPLICATE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/employee/checkduplicate', [EmployeeController::class, 'checkduplicate'])->name('employee.checkduplicate');
+    });
+
+
+    // SESSION CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/session', [SessionController::class, 'index'])->name('session.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/session/store', [SessionController::class, 'store'])->name('session.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/session/edit/{unique_key}', [SessionController::class, 'edit'])->name('session.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/session/delete/{unique_key}', [SessionController::class, 'delete'])->name('session.delete');
+    });
+
+    // CATEGORY CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/category', [CategoryController::class, 'index'])->name('category.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/category/store', [CategoryController::class, 'store'])->name('category.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/category/edit/{unique_key}', [CategoryController::class, 'edit'])->name('category.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/category/delete/{unique_key}', [CategoryController::class, 'delete'])->name('category.delete');
     });
 });
