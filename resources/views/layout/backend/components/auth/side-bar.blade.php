@@ -19,6 +19,9 @@
                         <li class="{{ Route::is('category.index', 'category.store') ? 'active' : '' }}">
                             <a href="{{ route('category.index') }}"><i data-feather="credit-card"></i><span>Category</span></a>
                         </li>
+                        <li class="{{ Route::is('product.index', 'product.store') ? 'active' : '' }}">
+                            <a href="{{ route('product.index') }}"><i data-feather="box"></i><span>Product</span></a>
+                        </li>
                         <li class="">
                             <a href="#"><i data-feather="shopping-cart"></i><span>Sales</span></a>
                         </li>

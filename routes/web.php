@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -142,4 +143,25 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/category/delete/{unique_key}', [CategoryController::class, 'delete'])->name('category.delete');
     });
+
+
+
+    // PRODUCT CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/product', [ProductController::class, 'index'])->name('product.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/product/store', [ProductController::class, 'store'])->name('product.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/product/edit/{unique_key}', [ProductController::class, 'edit'])->name('product.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/product/delete/{unique_key}', [ProductController::class, 'delete'])->name('product.delete');
+        // CHECK DUPLICATE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/product/checkduplicate', [ProductController::class, 'checkduplicate'])->name('product.checkduplicate');
+    });
+
+
 });
+
+
+Route::get('/getcategories', [ProductController::class, 'getcategories']);

@@ -78,6 +78,69 @@
             });
 
 
+            $(".product_name").keyup(function() {
+                var query = $(this).val();
+                var productsession_id = $(".productsession_id").val();
+                var productcategory_id = $(".productcategory_id").val();
+
+                if (query != '') {
+
+                    $.ajax({
+                        url: "{{ route('product.checkduplicate') }}",
+                        type: 'POST',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            query: query,
+                            productsession_id: productsession_id,
+                            productcategory_id: productcategory_id
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response['data']);
+                            if(response['data'] != null){
+                                alert('Already Existed');
+                                $('.product_name').val('');
+                            }
+                        }
+                    });
+                }
+            });
+
+
+            $('.productsession_id').on('change', function() {
+                var productsession_id = this.value;
+                    $.ajax({
+                        url: '/getcategories/',
+                        type: 'get',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            productsession_id: productsession_id,
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response);
+                            var len = response.length;
+                            $('.productcategory_id').empty();
+
+                            var $select = $(".productcategory_id").append(
+                                $('<option>', {
+                                    value: '0',
+                                    text: 'Select'
+                                }));
+                            $(".productcategory_id").append($select);
+
+                            for (var i = 0; i < len; i++) {
+                                $(".productcategory_id").append($('<option>', {
+                                    value: response[i].id,
+                                    text: response[i].name
+                                }));
+                            }
+                            
+                        }
+                    });
+            });
+
+
     });
 
     function customercheck()
@@ -99,4 +162,20 @@
 
         }
     }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#category-img-tag').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    $("#productimage").change(function(){
+        readURL(this);
+    });
 </script>
