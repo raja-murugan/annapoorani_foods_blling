@@ -20,6 +20,8 @@
 <script src="{{ asset('assets/backend/plugins/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/backend/plugins/toastr/toastr.js') }}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
 <script src="{{ asset('assets/backend/js/script.js') }}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -135,7 +137,7 @@
                                     text: response[i].name
                                 }));
                             }
-                            
+
                         }
                     });
             });
@@ -166,15 +168,15 @@
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            
+
             reader.onload = function (e) {
                 $('#category-img-tag').attr('src', e.target.result);
             }
-            
+
             reader.readAsDataURL(input.files[0]);
         }
     }
-    
+
     $("#productimage").change(function(){
         readURL(this);
     });

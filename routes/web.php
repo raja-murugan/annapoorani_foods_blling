@@ -87,9 +87,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery/boy/delete/{unique_key}', [DeliveryboyController::class, 'delete'])->name('delivery.boy.delete');
     });
-
-
-
     // CUSTOMER CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
@@ -103,8 +100,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // CHECK DUPLICATE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/customer/checkduplicate', [CustomerController::class, 'checkduplicate'])->name('customer.checkduplicate');
     });
-
-
     // EMPLOYEE CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
@@ -118,8 +113,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // CHECK DUPLICATE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/employee/checkduplicate', [EmployeeController::class, 'checkduplicate'])->name('employee.checkduplicate');
     });
-
-
     // SESSION CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
@@ -131,7 +124,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/session/delete/{unique_key}', [SessionController::class, 'delete'])->name('session.delete');
     });
-
     // CATEGORY CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
@@ -143,9 +135,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/category/delete/{unique_key}', [CategoryController::class, 'delete'])->name('category.delete');
     });
-
-
-
     // PRODUCT CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
@@ -159,8 +148,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // CHECK DUPLICATE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/product/checkduplicate', [ProductController::class, 'checkduplicate'])->name('product.checkduplicate');
     });
-
-
+    Route::get('/sales', function () {return view('page/backend/sales/index');});
 });
 
 
