@@ -21,6 +21,13 @@
     float: left
 }
 
+.pos-price {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .pass-group .toggle-password,
 .pass-group .toggle-passworda,
 .profile-set .profile-top .profileupload a,
@@ -9383,6 +9390,8 @@ span.select2-container.select2-container--default.select2-container--open {
     margin-top: 10px
 }
 
+
+
 .increment-decrement .input-groups input[type=button] {
     background-color: transparent;
     font-size: 20px;
@@ -9855,6 +9864,14 @@ span.select2-container.select2-container--default.select2-container--open {
 
 .btn-scanner-set {
     background: #7367f0;
+    max-width: 160px;
+    margin-left: auto;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700
+}
+
+.btn-scanner-set2 {
     max-width: 160px;
     margin-left: auto;
     color: #fff;
