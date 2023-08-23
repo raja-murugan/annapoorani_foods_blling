@@ -15,24 +15,24 @@
                         <ul class="nav nav-tabs" id="myTabs" role="tablist">
                         @foreach ($session as $keydata => $sessions)
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link 
+                                <button class="nav-link
                                 @if ($keydata == 0)
                                 active
                                 @endif
-                                
+
                                 " id="purchase{{$sessions->id}}-tab" data-bs-toggle="tab"
                                     data-bs-target="#purchase{{$sessions->id}}" type="button" aria-controls="purchase{{$sessions->id}}" aria-selected="true"
                                     role="tab">{{$sessions->name}}</button>
                             </li>
-                            @endforeach 
+                            @endforeach
                         </ul>
                     </div>
 
 
-                    
+
                     <div class="tab-content" id="myTabContent">
 
-                            
+
                             @foreach ($session as $index => $session_ss)
                                 <div class="tab-pane fade show @if ($session_ss->id == 1) active @endif" id="purchase{{$session_ss->id}}" role="tabpanel" aria-labelledby="purchase{{$session_ss->id}}-tab">
                                     <ul class=" tabs owl-carousel owl-theme owl-product  border-0 ">
@@ -45,13 +45,13 @@
                                             </div>
                                         </li>
                                         @endif
-                                    @endforeach 
+                                    @endforeach
                                     </ul>
                                 </div>
-                            @endforeach 
+                            @endforeach
                     </div>
 
-                    
+
                     <div class="tabs_container">
 
 
@@ -67,13 +67,13 @@
                                         <div class="productset flex-fill">
                                             <div class="productsetimg">
                                                 <img src="{{ asset('assets/product/' .$productss->image) }}" alt="img">
-                                                <h6>Qty: 1.00</h6>
                                             </div>
-                                            
+
                                             <div class="productsetcontent">
-                                                <h5>{{$productss->name}}</h5>
-                                                <h4>₹  {{ $productss->price }}</h4>
-                                                <div class="increment-decrement" style="margin-left:31%;margin-bottom:10px;">
+                                                <h4>{{$productss->name}}</h4>
+                                                <div style="display: flex">
+                                                    <h6 class="pos-price">₹  {{ $productss->price }}.00</h6>
+                                                <div class="increment-decrement" style="margin-left:31%;margin-bottom:10px;" hidden>
                                                     <div class="input-groups">
                                                         <input type="button" value="-"
                                                             class="button-minus dec button">
@@ -83,17 +83,18 @@
                                                             class="button-plus inc button ">
                                                     </div>
                                                 </div>
-                                                <h6><input type="button"  class="btn btn-sm text-center selectproduct addedproduct{{$productss->id}}" data-product_id="{{$productss->id}}" 
-                                                id="addedproduct{{$productss->id}}" style="background: #751818;color: #fff;"  value="Add to cart" /> </h6>
+                                                <h6><input type="button"  class="btn btn-scanner-set selectproduct addedproduct{{$productss->id}}" data-product_id="{{$productss->id}}"
+                                                    id="addedproduct{{$productss->id}}" style="background: #751818;color: #fff;"  value="Add to cart" /> </h6>
+                                                    </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                     @endif
-                                    @endforeach 
+                                    @endforeach
                             </div>
                         </div>
-                        @endforeach 
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12 ">
