@@ -165,3 +165,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 
 Route::get('/getcategories', [ProductController::class, 'getcategories']);
+Route::get('/getselectedproducts', [SaleController::class, 'getselectedproducts']);

@@ -199,6 +199,8 @@
             }
         });
 
+
+        
         $('#add_to_cart').click(function(){
             var product_id = [];
             var product_name = [];
@@ -216,7 +218,39 @@
 
                 if(product_id.length > 0)
                 {
-                    console.log(product_id);
+                    //console.log(product_id);
+
+                    $.ajax({
+                        url: '/getselectedproducts/',
+                        type: 'get',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            product_id: product_id,
+                            product_name: product_name,
+                            product_price: product_price,
+                            action: action,
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data);
+
+                                $('.select_product').each(function(){
+                                    if($(this).prop('checked') == true)
+                                    {
+                                        $(this).prop('checked', false);
+                                        var temp_product_id = $(this).data('product_id');
+                                        $('#product_'+temp_product_id).css('background-color', 'transparent');
+                                        $('#product_'+temp_product_id).css('border-color', '#ccc');
+                                    }
+                                });
+
+
+                                
+
+                            alert("Item has been Added into Cart");
+
+                        }
+                    });
                 }
 
         });
