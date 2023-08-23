@@ -9822,7 +9822,7 @@ span.select2-container.select2-container--default.select2-container--open {
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 4px 4px 0 rgba(237, 237, 237, .2509803922);
-    border: 1px solid #f8f8f8 !important;
+    border: 1px solid #bfbdd6 !important;
     height: 105px;
     flex-direction: column
 }
@@ -9982,7 +9982,6 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .productset .check-product {
-    display: none;
     width: 34px;
     height: 23px;
     color: #fff;

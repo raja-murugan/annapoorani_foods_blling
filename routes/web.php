@@ -10,6 +10,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -148,6 +149,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // CHECK DUPLICATE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/product/checkduplicate', [ProductController::class, 'checkduplicate'])->name('product.checkduplicate');
     });
+
+
+        // SALES CONTROLLER
+        Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+            // INDEX
+            Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/sales', [SaleController::class, 'index'])->name('sales.index');
+            // CREATE
+            Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/sales/create', [SaleController::class, 'create'])->name('sales.create');
+        });
+
+
     Route::get('/sales', function () {return view('page/backend/sales/index');});
 });
 

@@ -22,8 +22,8 @@
                         <li class="{{ Route::is('product.index', 'product.store') ? 'active' : '' }}">
                             <a href="{{ route('product.index') }}"><i data-feather="box"></i><span>Product</span></a>
                         </li>
-                        <li class="">
-                            <a href="#"><i data-feather="shopping-cart"></i><span>Sales</span></a>
+                        <li class="{{ Route::is('sales.index') ? 'active' : '' }}">
+                            <a href="{{ route('sales.index') }}"><i data-feather="shopping-cart"></i><span>Sales</span></a>
                         </li>
                     </ul>
                 </li>

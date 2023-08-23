@@ -180,4 +180,47 @@
     $("#productimage").change(function(){
         readURL(this);
     });
+
+
+
+
+    $(document).ready(function(){
+
+        $(document).on('click', '.select_product', function(){
+            var product_id = $(this).data('product_id');
+            //console.log(product_id);
+            if($(this).prop('checked') == true)
+            {
+            $('#product_'+product_id).css('background-color', '#97a2d236');
+            }
+            else
+            {
+            $('#product_'+product_id).css('background-color', 'transparent');
+            }
+        });
+
+        $('#add_to_cart').click(function(){
+            var product_id = [];
+            var product_name = [];
+            var product_price = [];
+            var action = "add";
+                $('.select_product').each(function(){
+                if($(this).prop('checked') == true)
+                {
+
+                    product_id.push($(this).data('product_id'));
+                    product_name.push($(this).data('product_name'));
+                    product_price.push($(this).data('product_price'));
+                }
+                });
+
+                if(product_id.length > 0)
+                {
+                    console.log(product_id);
+                }
+
+        });
+
+        
+    });
 </script>
