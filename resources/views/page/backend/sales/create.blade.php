@@ -159,14 +159,15 @@
                                 <a href="javascript:void(0);">Clear all</a>
                             </div>
                             <div class="table-responsive" id="">
-                                <table class="table datanew">
+                                <table class="table ">
                                  <thead>
                                  <tr>
-                                       <th>S.No</th>
+                                       <th>#</th>
                                        <th>Product</th>
                                        <th>Price</th>
                                        <th>Quantiy</th>
                                        <th>Total</th>
+                                       <th></th>
                                     </tr>
                                  </thead>
                                  <tbody id="shopping_cart">
@@ -183,7 +184,7 @@
                                 <ul>
                                     <li>
                                         <h5>Subtotal </h5>
-                                        <h6>55.00$</h6>
+                                        <h6 class="sales_subtotal"></h6>
                                     </li>
                                     <li>
                                         <h5>Tax </h5>

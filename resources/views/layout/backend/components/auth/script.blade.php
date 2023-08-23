@@ -231,8 +231,8 @@
                             action: action,
                         },
                         dataType: 'json',
-                        success: function(data) {
-                            console.log(data);
+                        success: function(response) {
+                            console.log(response);
 
                                 $('.select_product').each(function(){
                                     if($(this).prop('checked') == true)
@@ -244,8 +244,38 @@
                                     }
                                 });
 
+                                //$('#shopping_cart').html('');
+                                var len = response.length;
+                                for (var i = 0; i < len; i++) {
+                                    var column_1 = $('<td/>', {
+                                        html:  '<img src="' + response[i].product_image + '" alt="" width="50" height="50">' ,
+                                    });
+                                    
+                                    var column_2 = $('<td/>', {
+                                        html:  response[i].product_name +
+                                                '<input type="hidden" class="form-control product_name" id="product_name" name="product_name[]" value="' + response[i].product_name + '" />',
+                                    });
+                                    
+                                    var column_3 = $('<td/>', {
+                                        html:  response[i].product_price +
+                                                '<input type="hidden" class="form-control product_price" id="product_price" name="product_price[]" value="' + response[i].product_price + '" />',
+                                    });
+                                    
+                                    var column_4 = $('<td/>', {
+                                        html: '<input type="text" class="form-control product_quanity" id="product_quanity" name="product_quanity[]" />',
+                                    });
+                                    var column_5 = $('<td/>', {
+                                        html: '<input type="text" readonly class="form-control product_total" id="product_total" name="product_total[]" />',
+                                    });
 
-                                
+                                    var column_6 = $('<td/>', {
+                                        html: '<input type="button" value="-" class="btn btn-sm btn-danger remove-salestr">',
+                                    });
+
+                                    var row = $('<tr/>', {
+                                    }).append(column_1, column_2, column_3, column_4, column_5, column_6);
+                                    $('#shopping_cart').append(row);
+                                }
 
                             alert("Item has been Added into Cart");
 
@@ -253,6 +283,27 @@
                     });
                 }
 
+        });
+
+        $(document).on("blur", "input[name*=product_quanity]", function() {
+            var product_quanity = $(this).val();
+            var product_price = $(this).parents('tr').find('.product_price').val();
+            var sales_total = product_quanity * product_price;
+            $(this).parents('tr').find('.product_total').val(sales_total);
+
+            var totalAmount = 0;
+            $("input[name='product_total[]']").each(
+                                    function() {
+                                        //alert($(this).val());
+                                        totalAmount = Number(totalAmount) +
+                                            Number($(this).val());
+                                        $('.sales_subtotal').html(
+                                            totalAmount);
+                                    });
+        });
+
+        $(document).on('click', '.remove-salestr', function() {
+            $(this).parents('tr').remove();
         });
 
         

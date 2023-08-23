@@ -57,7 +57,7 @@ class SaleController extends Controller
                 'product_id' => $Getproducts_arr->id,
                 'product_name' => $Getproducts_arr->name,
                 'product_price' => $Getproducts_arr->price,
-                'product_image' => $Getproducts_arr->image
+                'product_image' => asset('assets/product/'.$Getproducts_arr->image)
             );
 
             
