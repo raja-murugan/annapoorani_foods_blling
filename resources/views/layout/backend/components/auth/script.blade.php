@@ -184,128 +184,130 @@
 
 
 
-    $(document).ready(function(){
-
-        $(document).on('click', '.select_product', function(){
-            var product_id = $(this).data('product_id');
-            //console.log(product_id);
-            if($(this).prop('checked') == true)
-            {
-            $('#product_'+product_id).css('background-color', '#97a2d236');
+    var productids = [];  
+        $('.selectproduct').on('click', function(e){
+            
+            e.preventDefault();    
+            product_id = $(this).data('product_id');
+            $('#addedproduct' + product_id).attr('style', 'background-color:#751818;border-color:black;color:white;').val('Added').attr('disabled', true);
+            if ($('#addedproduct' + product_id).attr("disabled", true)) {
+                var selectproductid = $(this).data('product_id');
+            } else {
+                var selectproductid = '';
             }
-            else
-            {
-            $('#product_'+product_id).css('background-color', 'transparent');
-            }
-        });
+            productids.push(selectproductid);
+
+            console.log(productids); 
+
+            
+
+                $.ajax({
+                    url: '/getselectedproducts/',
+                    type: 'get',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        productids: productids,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response);
+
+                        $('.product-table').html('');
+                        var len = response.length;
+
+                        $('.total_count').html(len);
+                        for (var i = 0; i < len; i++) {
+                            var e = $('<ul class="product-lists">'+
+                            '<li>' +
+                            '<div class="productimg">' +
+                            '<div class="productimgs"><img src=" ' + response[i].product_image +  ' "alt="img"></div>' +
+                            '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' + 
+                            '<div class="increment-decrement">' +
+                            '<div class="input-groups">' +
+                            '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].product_id +')">' +
+                            '<input type="text" name="child" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id +  '">' +
+                            '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].product_id +')">' +
+                            '</div>' +
+                            '<input type="hidden" name="product_price" id="product_price' + response[i].product_id +  '"  value="' + response[i].product_price + '"/>' +
+                            '</div></div></div>' +
+                            '</li><li><div class="input-groups"><span class="totalprice' + response[i].product_id +  '">' + response[i].product_price +  '</span>' +
+                            '<input type="hidden" name="total_price[]" class="total_price' + response[i].product_id +  '" value="' + response[i].product_price +  '"/></div></li>' +
+                            '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text" href="javascript:void(0);"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
+
+                            $('.product-table').append(e); 
 
 
-        
-        $('#add_to_cart').click(function(){
-            var product_id = [];
-            var product_name = [];
-            var product_price = [];
-            var action = "add";
-                $('.select_product').each(function(){
-                if($(this).prop('checked') == true)
-                {
+                            
+                        }
+                        
 
-                    product_id.push($(this).data('product_id'));
-                    product_name.push($(this).data('product_name'));
-                    product_price.push($(this).data('product_price'));
-                }
+
+                    }
                 });
 
-                if(product_id.length > 0)
-                {
-                    //console.log(product_id);
 
-                    $.ajax({
-                        url: '/getselectedproducts/',
-                        type: 'get',
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            product_id: product_id,
-                            product_name: product_name,
-                            product_price: product_price,
-                            action: action,
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                            console.log(response);
 
-                                $('.select_product').each(function(){
-                                    if($(this).prop('checked') == true)
-                                    {
-                                        $(this).prop('checked', false);
-                                        var temp_product_id = $(this).data('product_id');
-                                        $('#product_'+temp_product_id).css('background-color', 'transparent');
-                                        $('#product_'+temp_product_id).css('border-color', '#ccc');
-                                    }
-                                });
 
-                                //$('#shopping_cart').html('');
-                                var len = response.length;
-                                for (var i = 0; i < len; i++) {
-                                    var column_1 = $('<td/>', {
-                                        html:  '<img src="' + response[i].product_image + '" alt="" width="50" height="50">' ,
-                                    });
-                                    
-                                    var column_2 = $('<td/>', {
-                                        html:  response[i].product_name +
-                                                '<input type="hidden" class="form-control product_name" id="product_name" name="product_name[]" value="' + response[i].product_name + '" />',
-                                    });
-                                    
-                                    var column_3 = $('<td/>', {
-                                        html:  response[i].product_price +
-                                                '<input type="hidden" class="form-control product_price" id="product_price" name="product_price[]" value="' + response[i].product_price + '" />',
-                                    });
-                                    
-                                    var column_4 = $('<td/>', {
-                                        html: '<input type="text" class="form-control product_quanity" id="product_quanity" name="product_quanity[]" />',
-                                    });
-                                    var column_5 = $('<td/>', {
-                                        html: '<input type="text" readonly class="form-control product_total" id="product_total" name="product_total[]" />',
-                                    });
-
-                                    var column_6 = $('<td/>', {
-                                        html: '<input type="button" value="-" class="btn btn-sm btn-danger remove-salestr">',
-                                    });
-
-                                    var row = $('<tr/>', {
-                                    }).append(column_1, column_2, column_3, column_4, column_5, column_6);
-                                    $('#shopping_cart').append(row);
-                                }
-
-                            alert("Item has been Added into Cart");
-
-                        }
-                    });
-                }
-
-        });
-
-        $(document).on("blur", "input[name*=product_quanity]", function() {
-            var product_quanity = $(this).val();
-            var product_price = $(this).parents('tr').find('.product_price').val();
-            var sales_total = product_quanity * product_price;
-            $(this).parents('tr').find('.product_total').val(sales_total);
-
-            var totalAmount = 0;
-            $("input[name='product_total[]']").each(
+                var tot_expense_amount = 0;
+                                $("input[name='total_price[]']").each(
                                     function() {
                                         //alert($(this).val());
-                                        totalAmount = Number(totalAmount) +
+                                        tot_expense_amount = Number(tot_expense_amount) +
                                             Number($(this).val());
-                                        $('.sales_subtotal').html(
-                                            totalAmount);
+                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
                                     });
+
+                
         });
 
-        $(document).on('click', '.remove-salestr', function() {
-            $(this).parents('tr').remove();
-        });
+                            function increment_quantity(productid) {
 
+                                var inputQuantityElement = $('#product_quantity' + productid);
+                                console.log(inputQuantityElement);
+                                var newQuantity = parseInt($(inputQuantityElement).val())+1;
+                                var QuantityElement = $('#product_quantity' + productid);
+                                $(inputQuantityElement).val(newQuantity);
+
+                                var product_price = $('#product_price' + productid).val();
+                                var totalprice = product_price * newQuantity;
+                                $('.totalprice' + productid).text(totalprice);
+                                $('.total_price' + productid).val(totalprice);
+
+
+
+                                var tot_expense_amount = 0;
+                                $("input[name='total_price[]']").each(
+                                    function() {
+                                        //alert($(this).val());
+                                        tot_expense_amount = Number(tot_expense_amount) +
+                                            Number($(this).val());
+                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                    });
+                            }
+
+                            function decrement_quantity(productid) {
+                                var inputQuantityElement = $('#product_quantity' + productid);
+                                if($(inputQuantityElement).val() > 1) 
+                                {
+                                var newQuantity = parseInt($(inputQuantityElement).val()) - 1;
+                                $(inputQuantityElement).val(newQuantity);
+
+                                var product_price = $('#product_price' + productid).val();
+                                var totalprice = product_price * newQuantity;
+                                $('.totalprice' + productid).text(totalprice);
+                                $('.total_price' + productid).val(totalprice);
+
+                                var tot_expense_amount = 0;
+                                $("input[name='total_price[]']").each(
+                                    function() {
+                                        //alert($(this).val());
+                                        tot_expense_amount = Number(tot_expense_amount) +
+                                            Number($(this).val());
+                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                    });
+                                }
+                            }
+
+                            
         
-    });
 </script>

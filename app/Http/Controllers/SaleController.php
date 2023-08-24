@@ -45,23 +45,33 @@ class SaleController extends Controller
 
     public function getselectedproducts()
     {
-        $product_id = request()->get('product_id');
-        $product_name = request()->get('product_name');
-        $product_price = request()->get('product_price');
-
-        $Getproducts = Product::findOrFail($product_id);
+        $product_id = request()->get('productids');
         $output = [];
-        foreach ($Getproducts as $key => $Getproducts_arr) {
-
-            $output[] = array(
-                'product_id' => $Getproducts_arr->id,
-                'product_name' => $Getproducts_arr->name,
-                'product_price' => $Getproducts_arr->price,
-                'product_image' => asset('assets/product/'.$Getproducts_arr->image)
-            );
-
+        foreach ($product_id as $key => $product_ids) {
+            $Getproducts = Product::where('id', '=', $product_ids)->get();
+            
+            foreach ($Getproducts as $key => $Getproducts_arr) {
+    
+                $output[] = array(
+                    'product_id' => $Getproducts_arr->id,
+                    'product_name' => $Getproducts_arr->name,
+                    'product_price' => $Getproducts_arr->price,
+                    'product_image' => asset('assets/product/'.$Getproducts_arr->image)
+                );
+            }
             
         }
         echo json_encode($output);
+
+        //$cart = session()->get('cart', []);
+        //session()->put('cart', $output);
     }
+
+
+
+    
+
+
+
+    
 }

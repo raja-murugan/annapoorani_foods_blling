@@ -13,659 +13,75 @@
                     </div>
                     <div class="tabs-sets">
                         <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                        @foreach ($session as $keydata => $sessions)
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="purchase-tab" data-bs-toggle="tab"
-                                    data-bs-target="#purchase" type="button" aria-controls="purchase" aria-selected="true"
-                                    role="tab">Session 1</button>
+                                <button class="nav-link 
+                                @if ($keydata == 0)
+                                active
+                                @endif
+                                
+                                " id="purchase{{$sessions->id}}-tab" data-bs-toggle="tab"
+                                    data-bs-target="#purchase{{$sessions->id}}" type="button" aria-controls="purchase{{$sessions->id}}" aria-selected="true"
+                                    role="tab">{{$sessions->name}}</button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment"
-                                    type="button" aria-controls="payment" aria-selected="false" role="tab">Session
-                                    2</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="return-tab" data-bs-toggle="tab" data-bs-target="#return"
-                                    type="button" aria-controls="return" aria-selected="false" role="tab">Session
-                                    3</button>
-                            </li>
+                            @endforeach 
                         </ul>
                     </div>
-                    <ul class=" tabs owl-carousel owl-theme owl-product  border-0 ">
-                        <li class="active" id="fruits">
-                            <div class="product-details ">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 1</h6>
-                            </div>
-                        </li>
-                        <li id="headphone">
-                            <div class="product-details ">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 2</h6>
-                            </div>
-                        </li>
-                        <li id="Accessories">
-                            <div class="product-details">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 3</h6>
-                            </div>
-                        </li>
-                        <li id="Shoes">
-                            <a class="product-details">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 4</h6>
-                            </a>
-                        </li>
-                        <li id="computer">
-                            <a class="product-details">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 5</h6>
-                            </a>
-                        </li>
-                        <li id="Snacks">
-                            <a class="product-details">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 6</h6>
-                            </a>
-                        </li>
-                        <li id="watch">
-                            <a class="product-details">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 7</h6>
-                            </a>
-                        </li>
-                        <li id="cycle">
-                            <a class="product-details">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 8</h6>
-                            </a>
-                        </li>
-                        <li id="fruits1">
-                            <div class="product-details ">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 9</h6>
-                            </div>
-                        </li>
-                        <li id="headphone1">
-                            <div class="product-details ">
-                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                <h6>Category 10</h6>
-                            </div>
-                        </li>
-                    </ul>
+
+
+                    
+                    <div class="tab-content" id="myTabContent">
+
+                            
+                            @foreach ($session as $index => $session_ss)
+                                <div class="tab-pane fade show @if ($session_ss->id == 1) active @endif" id="purchase{{$session_ss->id}}" role="tabpanel" aria-labelledby="purchase{{$session_ss->id}}-tab">
+                                    <ul class=" tabs owl-carousel owl-theme owl-product  border-0 ">
+                                    @foreach ($category as $categoryes)
+                                        @if ($categoryes->session_id == $session_ss->id)
+                                        <li class="@if ($categoryes->id == 1) active @endif" id="fruits{{$categoryes->id}}" >
+                                            <div class="product-details ">
+                                                <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
+                                                <h6>{{$categoryes->name}}</h6>
+                                            </div>
+                                        </li>
+                                        @endif
+                                    @endforeach 
+                                    </ul>
+                                </div>
+                            @endforeach 
+                    </div>
+
+                    
                     <div class="tabs_container">
-                        <div class="tab_content active" data-tab="fruits">
+
+
+
+
+
+                    @foreach ($category as $categories)
+                        <div class="tab_content @if ($categories->id == 1) active @endif" data-tab="fruits{{$categories->id}}">
                             <div class="row ">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill active">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Product 1</h4>
-                                            <div style="display: flex">
-                                                <h6 class="pos-price">150.00</h6>
-                                                <a class="btn btn-scanner-set">Add to Cart</a>
+                                @foreach ($product as $productss)
+                                @if ($productss->category_id == $categories->id)
+                                    <div class="col-lg-3 col-sm-6 d-flex " >
+                                        <div class="productset flex-fill">
+                                            <div class="productsetimg">
+                                                <img src="{{ asset('assets/product/' .$productss->image) }}" alt="img">
+                                                <h6>Qty: 1.00</h6>
                                             </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill active">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Product 2</h4>
-                                            <div style="display: flex">
-                                                <h6 class="pos-price">150.00</h6>
-                                                <a class="btn btn-scanner-set2">
-                                                    <div class="increment-decrement">
-                                                        <div class="input-groups" style="margin-top: 0px;">
-                                                            <input type="button" value="-"
-                                                                class="button-minus dec button">
-                                                            <input type="text" name="child" value="0"
-                                                                class="quantity-field">
-                                                            <input type="button" value="+"
-                                                                class="button-plus inc button ">
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill active">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Product 3</h4>
-                                            <div style="display: flex">
-                                                <h6 class="pos-price">150.00</h6>
-                                                <a class="btn btn-scanner-set">Add to Cart</a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill active">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Product 4</h4>
-                                            <div style="display: flex">
-                                                <h6 class="pos-price">150.00</h6>
-                                                <a class="btn btn-scanner-set2">
-                                                    <div class="increment-decrement">
-                                                        <div class="input-groups" style="margin-top: 0px;">
-                                                            <input type="button" value="-"
-                                                                class="button-minus dec button">
-                                                            <input type="text" name="child" value="0"
-                                                                class="quantity-field">
-                                                            <input type="button" value="+"
-                                                                class="button-plus inc button ">
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill active">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Orange</h4>
-                                            <div style="display: flex">
-                                                <h6 class="pos-price">150.00</h6>
-                                                <a class="btn btn-scanner-set2">
-                                                    <div class="increment-decrement">
-                                                        <div class="input-groups" style="margin-top: 0px;">
-                                                            <input type="button" value="-"
-                                                                class="button-minus dec button">
-                                                            <input type="text" name="child" value="0"
-                                                                class="quantity-field">
-                                                            <input type="button" value="+"
-                                                                class="button-plus inc button ">
-                                                        </div>
-                                                    </div>
-                                                </a>
+                                            <div class="productsetcontent">
+                                                <h5>{{$productss->name}}</h5>
+                                                <h4>₹  {{ $productss->price }}</h4>
+                                                <h6><input type="button"  class="btn btn-sm text-center selectproduct addedproduct{{$productss->id}}" data-product_id="{{$productss->id}}" 
+                                                id="addedproduct{{$productss->id}}" style="background: #751818;color: #fff;"  value="Add to cart" /> </h6>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill active">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Product 3</h4>
-                                            <div style="display: flex">
-                                                <h6 class="pos-price">150.00</h6>
-                                                <a class="btn btn-scanner-set">Add to Cart</a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                                    @endif
+                                    @endforeach 
                             </div>
                         </div>
-                        <div class="tab_content" data-tab="headphone">
-                            <div class="row ">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Fruits</h5>
-                                            <h4>Strawberry</h4>
-                                            <h6>15.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Fruits</h5>
-                                            <h4>Strawberry</h4>
-                                            <h6>15.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Fruits</h5>
-                                            <h4>Strawberry</h4>
-                                            <h6>15.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Fruits</h5>
-                                            <h4>Strawberry</h4>
-                                            <h6>15.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab_content" data-tab="Accessories">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Accessories</h5>
-                                            <h4>Sunglasses</h4>
-                                            <h6>15.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Accessories</h5>
-                                            <h4>Pendrive</h4>
-                                            <h6>150.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Accessories</h5>
-                                            <h4>Mouse</h4>
-                                            <h6>150.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab_content" data-tab="Shoes">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Shoes</h5>
-                                            <h4>Red nike</h4>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab_content" data-tab="computer">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Computers</h5>
-                                            <h4>Desktop</h4>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab_content" data-tab="Snacks">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Snacks</h5>
-                                            <h4>Duck Salad</h4>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Snacks</h5>
-                                            <h4>Breakfast board</h4>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Snacks</h5>
-                                            <h4>California roll</h4>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Snacks</h5>
-                                            <h4>Sashimi</h4>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab_content" data-tab="watch">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Watch</h4>
-                                            <h5>Watch</h5>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Watch</h4>
-                                            <h5>Watch</h5>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab_content" data-tab="cycle">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Cycle</h4>
-                                            <h5>Cycle</h5>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h4>Cycle</h4>
-                                            <h5>Cycle</h5>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab_content" data-tab="fruits1">
-                            <div class="row ">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 5.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Fruits</h5>
-                                            <h4>Orange</h4>
-                                            <h6>150.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 1.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Fruits</h5>
-                                            <h4>Strawberry</h4>
-                                            <h6>15.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 5.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Fruits</h5>
-                                            <h4>Banana</h4>
-                                            <h6>150.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 5.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Fruits</h5>
-                                            <h4>Limon</h4>
-                                            <h6>1500.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab_content" data-tab="headphone1">
-                            <div class="row ">
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 5.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Headphones</h5>
-                                            <h4>Earphones</h4>
-                                            <h6>150.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 5.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Headphones</h5>
-                                            <h4>Earphones</h4>
-                                            <h6>150.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                    <div class="productset flex-fill">
-                                        <div class="productsetimg">
-                                            <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                alt="img">
-                                            <h6>Qty: 5.00</h6>
-                                            <div class="check-product">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        </div>
-                                        <div class="productsetcontent">
-                                            <h5>Headphones</h5>
-                                            <h4>Earphones</h4>
-                                            <h6>150.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach 
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12 ">
@@ -698,150 +114,10 @@
                         </div>
                         <div class="card-body pt-0">
                             <div class="totalitem">
-                                <h4>Total items : 4</h4>
+                                <h4>Total items : <span class="total_count"></span></h4>
                                 <a href="javascript:void(0);">Clear all</a>
                             </div>
                             <div class="product-table">
-                                <ul class="product-lists">
-                                    <li>
-                                        <div class="productimg">
-                                            <div class="productimgs">
-                                                <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                    alt="img">
-                                            </div>
-                                            <div class="productcontet">
-                                                <h4>Product 1
-                                                    <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"
-                                                        data-bs-target="#edit"><img
-                                                            src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"
-                                                            alt="img"></a>
-                                                </h4>
-                                                <div class="productlinkset">
-                                                    <h5>Category 1</h5>
-                                                </div>
-                                                <div class="increment-decrement">
-                                                    <div class="input-groups">
-                                                        <input type="button" value="-"
-                                                            class="button-minus dec button">
-                                                        <input type="text" name="child" value="1"
-                                                            class="quantity-field">
-                                                        <input type="button" value="+"
-                                                            class="button-plus inc button ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>3000.00 </li>
-                                    <li><a class="confirm-text" href="javascript:void(0);"><img
-                                                src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"
-                                                alt="img"></a></li>
-                                </ul>
-                                <ul class="product-lists">
-                                    <li>
-                                        <div class="productimg">
-                                            <div class="productimgs">
-                                                <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                    alt="img">
-                                            </div>
-                                            <div class="productcontet">
-                                                <h4>Product 2
-                                                    <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"
-                                                        data-bs-target="#edit"><img
-                                                            src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"
-                                                            alt="img"></a>
-                                                </h4>
-                                                <div class="productlinkset">
-                                                    <h5>Category 2</h5>
-                                                </div>
-                                                <div class="increment-decrement">
-                                                    <div class="input-groups">
-                                                        <input type="button" value="-"
-                                                            class="button-minus dec button">
-                                                        <input type="text" name="child" value="1"
-                                                            class="quantity-field">
-                                                        <input type="button" value="+"
-                                                            class="button-plus inc button ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>3000.00 </li>
-                                    <li><a class="confirm-text" href="javascript:void(0);"><img
-                                                src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"
-                                                alt="img"></a></li>
-                                </ul>
-                                <ul class="product-lists">
-                                    <li>
-                                        <div class="productimg">
-                                            <div class="productimgs">
-                                                <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                    alt="img">
-                                            </div>
-                                            <div class="productcontet">
-                                                <h4>Pineapple
-                                                    <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"
-                                                        data-bs-target="#edit"><img
-                                                            src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"
-                                                            alt="img"></a>
-                                                </h4>
-                                                <div class="productlinkset">
-                                                    <h5>PT001</h5>
-                                                </div>
-                                                <div class="increment-decrement">
-                                                    <div class="input-groups">
-                                                        <input type="button" value="-"
-                                                            class="button-minus dec button">
-                                                        <input type="text" name="child" value="0"
-                                                            class="quantity-field">
-                                                        <input type="button" value="+"
-                                                            class="button-plus inc button ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>3000.00 </li>
-                                    <li><a class="confirm-text" href="javascript:void(0);"><img
-                                                src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"
-                                                alt="img"></a></li>
-                                </ul>
-                                <ul class="product-lists">
-                                    <li>
-                                        <div class="productimg">
-                                            <div class="productimgs">
-                                                <img src="{{ asset('assets/backend/img/product/product62.jpg') }}"
-                                                    alt="img">
-                                            </div>
-                                            <div class="productcontet">
-                                                <h4>Pineapple
-                                                    <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"
-                                                        data-bs-target="#edit"><img
-                                                            src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"
-                                                            alt="img"></a>
-                                                </h4>
-                                                <div class="productlinkset">
-                                                    <h5>PT001</h5>
-                                                </div>
-                                                <div class="increment-decrement">
-                                                    <div class="input-groups">
-                                                        <input type="button" value="-"
-                                                            class="button-minus dec button">
-                                                        <input type="text" name="child" value="0"
-                                                            class="quantity-field">
-                                                        <input type="button" value="+"
-                                                            class="button-plus inc button ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>3000.00 </li>
-                                    <li><a class="confirm-text" href="javascript:void(0);"><img
-                                                src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"
-                                                alt="img"></a></li>
-                                </ul>
                             </div>
                         </div>
                         <div class="split-card">
@@ -851,15 +127,15 @@
                                 <ul>
                                     <li>
                                         <h5>Subtotal </h5>
-                                        <h6>55.00$</h6>
+                                        <h6 class="subtotalamount"></h6>
                                     </li>
                                     <li>
                                         <h5>Tax </h5>
-                                        <h6>5.00$</h6>
+                                        <h6>₹ 0</h6>
                                     </li>
                                     <li class="total-value">
                                         <h5>Total </h5>
-                                        <h6>60.00$</h6>
+                                        <h6 class="subtotalamount"></h6>
                                     </li>
                                 </ul>
                             </div>
@@ -876,21 +152,14 @@
                                         <a href="javascript:void(0);" class="paymentmethod">
                                             <img src="{{ asset('assets/backend/img/icons/debitcard.svg') }}"
                                                 alt="img" class="me-2">
-                                            Debit
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);" class="paymentmethod">
-                                            <img src="{{ asset('assets/backend/img/icons/scan.svg') }}" alt="img"
-                                                class="me-2">
-                                            Scan
+                                            Online
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="btn-totallabel">
-                                <h5>Checkout</h5>
-                                <h6>60.00$</h6>
+                                <h5>Save</h5>
+                                <h6  class="subtotalamount"></h6>
                             </div>
                             <div class="btn-pos">
                                 <ul>
