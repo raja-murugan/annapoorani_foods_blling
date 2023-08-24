@@ -184,20 +184,22 @@
 
 
 
-    var productids = [];  
+    //var productids = [];  
         $('.selectproduct').on('click', function(e){
             
             e.preventDefault();    
             product_id = $(this).data('product_id');
-            $('#addedproduct' + product_id).attr('style', 'background-color:#751818;border-color:black;color:white;').val('Added').attr('disabled', true);
+            $('#addedproduct' + product_id).attr('style', 'background-color:#751818;color:white;').val('Added').attr('disabled', true);
             if ($('#addedproduct' + product_id).attr("disabled", true)) {
                 var selectproductid = $(this).data('product_id');
+
+                
             } else {
                 var selectproductid = '';
             }
-            productids.push(selectproductid);
+            //productids.push(selectproductid);
 
-            console.log(productids); 
+            //console.log(productids); 
 
             
 
@@ -206,13 +208,13 @@
                     type: 'get',
                     data: {
                         _token: "{{ csrf_token() }}",
-                        productids: productids,
+                        selectproductid: selectproductid,
                     },
                     dataType: 'json',
                     success: function(response) {
                         console.log(response);
 
-                        $('.product-table').html('');
+                        //$('.product-table').html('');
                         var len = response.length;
 
                         $('.total_count').html(len);
@@ -225,7 +227,7 @@
                             '<div class="increment-decrement">' +
                             '<div class="input-groups">' +
                             '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].product_id +')">' +
-                            '<input type="text" name="child" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id +  '">' +
+                            '<input type="text" name="child" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id + '">' +
                             '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].product_id +')">' +
                             '</div>' +
                             '<input type="hidden" name="product_price" id="product_price' + response[i].product_id +  '"  value="' + response[i].product_price + '"/>' +
@@ -235,9 +237,25 @@
                             '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text" href="javascript:void(0);"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
 
                             $('.product-table').append(e); 
+                            var product_div = $('.child' + response[i].product_id).val();
+                            $('#product_quantity' + response[i].product_id).val(product_div);
 
 
-                            
+                            var product_price = $('#product_price' + response[i].product_id).val();
+                                var totalprice = product_price * product_div;
+                                $('.totalprice' + response[i].product_id).text(totalprice);
+                                $('.total_price' + response[i].product_id).val(totalprice);
+
+
+
+                                var tot_expense_amount = 0;
+                                $("input[name='total_price[]']").each(
+                                    function() {
+                                        //alert($(this).val());
+                                        tot_expense_amount = Number(tot_expense_amount) +
+                                            Number($(this).val());
+                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                    });
                         }
                         
 
@@ -246,7 +264,7 @@
                 });
 
 
-
+                
 
                 var tot_expense_amount = 0;
                                 $("input[name='total_price[]']").each(

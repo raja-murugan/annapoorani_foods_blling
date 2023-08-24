@@ -45,10 +45,9 @@ class SaleController extends Controller
 
     public function getselectedproducts()
     {
-        $product_id = request()->get('productids');
+        $product_id = request()->get('selectproductid');
         $output = [];
-        foreach ($product_id as $key => $product_ids) {
-            $Getproducts = Product::where('id', '=', $product_ids)->get();
+            $Getproducts = Product::where('id', '=', $product_id)->get();
             
             foreach ($Getproducts as $key => $Getproducts_arr) {
     
@@ -60,7 +59,7 @@ class SaleController extends Controller
                 );
             }
             
-        }
+        
         echo json_encode($output);
 
         //$cart = session()->get('cart', []);

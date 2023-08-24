@@ -69,12 +69,24 @@
                                                 <img src="{{ asset('assets/product/' .$productss->image) }}" alt="img">
                                                 <h6>Qty: 1.00</h6>
                                             </div>
+                                            
                                             <div class="productsetcontent">
                                                 <h5>{{$productss->name}}</h5>
                                                 <h4>₹  {{ $productss->price }}</h4>
+                                                <div class="increment-decrement" style="margin-left:31%;margin-bottom:10px;">
+                                                    <div class="input-groups">
+                                                        <input type="button" value="-"
+                                                            class="button-minus dec button">
+                                                        <input type="text" name="child{{ $productss->id }}" value="1"
+                                                            class="quantity-field child{{ $productss->id }}">
+                                                        <input type="button" value="+"
+                                                            class="button-plus inc button ">
+                                                    </div>
+                                                </div>
                                                 <h6><input type="button"  class="btn btn-sm text-center selectproduct addedproduct{{$productss->id}}" data-product_id="{{$productss->id}}" 
                                                 id="addedproduct{{$productss->id}}" style="background: #751818;color: #fff;"  value="Add to cart" /> </h6>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     @endif
