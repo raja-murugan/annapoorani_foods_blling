@@ -6647,7 +6647,7 @@ span.select2-container.select2-container--default.select2-container--open {
 
 .tabs-sets .nav-tabs {
     border-bottom: 0;
-    margin: 0 0 30px
+    margin: 0 0 10px
 }
 
 .tabs-sets .nav-tabs .nav-link {
@@ -9535,9 +9535,9 @@ span.select2-container.select2-container--default.select2-container--open {
     padding: 10px
 }
 
-.owl-product {
+/* .owl-product {
     padding-top: 25px
-}
+} */
 
 .owl-product .owl-nav {
     margin-top: 10px;
@@ -9979,9 +9979,9 @@ span.select2-container.select2-container--default.select2-container--open {
     border-radius: 5px
 }
 
-.tabs_wrapper .owl-product {
+/* .tabs_wrapper .owl-product {
     margin-bottom: 25px
-}
+} */
 
 .productset {
     border: 1px solid #f8f8f8;

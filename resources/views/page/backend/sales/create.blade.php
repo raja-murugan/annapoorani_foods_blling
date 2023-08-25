@@ -6,7 +6,7 @@
             <form name="sales_store" id="sales_store" method="post" action="javascript:void(0)">
                 @csrf
                 <div class="row">
-                
+
                     <div class="col-lg-8 col-sm-12 tabs_wrapper">
                         <div class="page-header ">
                             <div class="page-title">
@@ -16,17 +16,19 @@
                         </div>
                         <div class="tabs-sets">
                             <ul class="nav nav-tabs" id="myTabs" role="tablist">
-                            @foreach ($session as $keydata => $sessions)
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link
-                                    @if ($keydata == 0)
-                                    active
-                                    @endif
+                                @foreach ($session as $keydata => $sessions)
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                            class="nav-link
+                                    @if ($keydata == 0) active @endif
 
-                                    " id="purchase{{$sessions->id}}-tab" data-bs-toggle="tab"  onclick="sessiontype({{$sessions->id}})"
-                                        data-bs-target="#purchase{{$sessions->id}}" type="button" aria-controls="purchase{{$sessions->id}}" aria-selected="true"
-                                        role="tab">{{$sessions->name}}</button>
-                                </li>
+                                    "
+                                            id="purchase{{ $sessions->id }}-tab" data-bs-toggle="tab"
+                                            onclick="sessiontype({{ $sessions->id }})"
+                                            data-bs-target="#purchase{{ $sessions->id }}" type="button"
+                                            aria-controls="purchase{{ $sessions->id }}" aria-selected="true"
+                                            role="tab">{{ $sessions->name }}</button>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -36,77 +38,94 @@
                         <div class="tab-content" id="myTabContent">
 
 
-                                @foreach ($session as $index => $session_ss)
-                                    <div class="tab-pane fade show @if ($session_ss->id == 1) active @endif" id="purchase{{$session_ss->id}}" role="tabpanel" aria-labelledby="purchase{{$session_ss->id}}-tab">
-                                        <ul class=" tabs owl-carousel owl-theme owl-product  border-0 ">
+                            @foreach ($session as $index => $session_ss)
+                                <div class="tab-pane fade show @if ($session_ss->id == 1) active @endif"
+                                    id="purchase{{ $session_ss->id }}" role="tabpanel"
+                                    aria-labelledby="purchase{{ $session_ss->id }}-tab">
+                                    <ul class=" tabs owl-carousel owl-theme owl-product  border-0 ">
                                         @foreach ($category as $categoryes)
                                             @if ($categoryes->session_id == $session_ss->id)
-                                            <li class="@if ($categoryes->id == 1) active @endif  category_type" id="fruits{{$categoryes->id}}">
-                                                <div class="product-details ">
-                                                    <img src="{{ asset('assets/backend/img/product/product63.png') }}" alt="img">
-                                                    <h6>{{$categoryes->name}}</h6>
-                                                </div>
-                                            </li>
+                                                <li class="@if ($categoryes->id == 1) active @endif  category_type"
+                                                    id="fruits{{ $categoryes->id }}">
+                                                    <div class="product-details ">
+                                                        <img src="{{ asset('assets/backend/img/product/product63.png') }}"
+                                                            alt="img">
+                                                        <h6>{{ $categoryes->name }}</h6>
+                                                    </div>
+                                                </li>
                                             @endif
                                         @endforeach
-                                        </ul>
-                                    </div>
-                                @endforeach
+                                    </ul>
+                                </div>
+                            @endforeach
                         </div>
 
 
                         <div class="tabs_container">
                             @foreach ($category as $categories)
-                                <div class="tab_content @if ($categories->id == 1) active @endif" data-tab="fruits{{$categories->id}}">
+                                <div class="tab_content @if ($categories->id == 1) active @endif"
+                                    data-tab="fruits{{ $categories->id }}">
                                     <div class="row ">
                                         @foreach ($product as $productss)
-                                        @if ($productss->category_id == $categories->id)
-                                            <div class="col-lg-3 col-sm-6 d-flex " >
-                                                <div class="productset flex-fill">
-                                                    <div class="productsetimg">
-                                                        <img src="{{ asset('assets/product/' .$productss->image) }}" alt="img">
-                                                    </div>
+                                            @if ($productss->category_id == $categories->id)
+                                                <div class="col-lg-3 col-sm-6 d-flex ">
+                                                    <div class="productset flex-fill">
+                                                        <div class="productsetimg">
+                                                            <img src="{{ asset('assets/product/' . $productss->image) }}"
+                                                                alt="img">
+                                                        </div>
 
-                                                    <div class="productsetcontent">
-                                                        <h4>{{$productss->name}}</h4>
-                                                        <div style="display: flex">
-                                                            <h6 class="pos-price">₹  {{ $productss->price }}.00</h6>
-                                                        <div class="increment-decrement" style="margin-left:31%;margin-bottom:10px;" hidden>
-                                                            <div class="input-groups">
-                                                                <input type="button" value="-"
-                                                                    class="button-minus dec button">
-                                                                <input type="text" name="child{{ $productss->id }}" value="1"
-                                                                    class="quantity-field child{{ $productss->id }}">
-                                                                <input type="button" value="+"
-                                                                    class="button-plus inc button ">
+                                                        <div class="productsetcontent">
+                                                            <h4>{{ $productss->name }}</h4>
+                                                            <div style="display: flex">
+                                                                <h6 class="pos-price">₹ {{ $productss->price }}.00</h6>
+                                                                <div class="increment-decrement"
+                                                                    style="margin-left:31%;margin-bottom:10px;" hidden>
+                                                                    <div class="input-groups">
+                                                                        <input type="button" value="-"
+                                                                            class="button-minus dec button">
+                                                                        <input type="text"
+                                                                            name="child{{ $productss->id }}" value="1"
+                                                                            class="quantity-field child{{ $productss->id }}">
+                                                                        <input type="button" value="+"
+                                                                            class="button-plus inc button ">
+                                                                    </div>
+                                                                </div>
+                                                                <h6><input type="button"
+                                                                        class="btn btn-scanner-set selectproduct addedproduct{{ $productss->id }}"
+                                                                        data-product_id="{{ $productss->id }}"
+                                                                        id="addedproduct{{ $productss->id }}"
+                                                                        style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"
+                                                                        value="Add to cart" /> </h6>
                                                             </div>
                                                         </div>
-                                                        <h6><input type="button"  class="btn btn-scanner-set selectproduct addedproduct{{$productss->id}}" data-product_id="{{$productss->id}}"
-                                                            id="addedproduct{{$productss->id}}" style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"  value="Add to cart" /> </h6>
-                                                            </div>
-                                                    </div>
 
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endif
-                                            @endforeach
+                                        @endforeach
                                     </div>
                                 </div>
-                                @endforeach
-                            </div>
+                            @endforeach
+                        </div>
                     </div>
-                
+
                     <div class="col-lg-4 col-sm-12 ">
                         <div class="order-list">
                             <div class="orderid">
                                 <h4>Order List</h4>
-                                <h5>Bill No : #<span class="billno">{{$latestbillno}}</span><input type="hidden" name="billno" id="billno" value="{{$latestbillno}}"/></h5>
+                                <h5>Bill No : #<span class="billno">{{ $latestbillno }}</span><input type="hidden"
+                                        name="billno" id="billno" value="{{ $latestbillno }}" /></h5>
                             </div>
                             <div class="orderid">
-                                <h5> <p class="current_date"></p></h5>
-                                <h5 > <p class="current_time"></p></h5>
-                                <input type="hidden" name="date" id="date" class="currentdate" value=""/>
-                                <input type="hidden" name="time" id="time" class="currenttime" value=""/>
+                                <h5>
+                                    <p class="current_date"></p>
+                                </h5>
+                                <h5>
+                                    <p class="current_time"></p>
+                                </h5>
+                                <input type="hidden" name="date" id="date" class="currentdate" value="" />
+                                <input type="hidden" name="time" id="time" class="currenttime" value="" />
                             </div>
                         </div>
                         <div class="card card-order">
@@ -115,9 +134,32 @@
                                     <div class="col-lg-12">
                                         <div class="select-split ">
                                             <div class="select-group w-100">
-                                                <select class="select">
-                                                    <option>Walk-in Customer</option>
-                                                </select>
+                                                <div style="display: flex">
+                                                    <div class="input-group" style="margin-right: 5px;">
+                                                        <div class="input-group-text">
+                                                            <input class="form-check-input" type="radio" value="Dine In" id ="sales_type" name="sales_type"
+                                                                aria-label="Radio button for following text input" checked>
+                                                        </div>
+                                                        <input type="text" class="form-control" value="Dine In" disabled
+                                                            aria-label="Text input with radio button">
+                                                    </div>
+                                                    <div class="input-group" style="margin-right: 5px;">
+                                                        <div class="input-group-text">
+                                                            <input class="form-check-input" type="radio" value="Take Away" id ="sales_type" name="sales_type"
+                                                                aria-label="Radio button for following text input">
+                                                        </div>
+                                                        <input type="text" class="form-control" value="Take Away" disabled
+                                                            aria-label="Text input with radio button">
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <div class="input-group-text">
+                                                            <input class="form-check-input" type="radio" value="Delivery" id ="sales_type" name="sales_type"
+                                                                aria-label="Radio button for following text input">
+                                                        </div>
+                                                        <input type="text" class="form-control" value="Delivery" disabled
+                                                            aria-label="Text input with radio button">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -126,10 +168,8 @@
                                     <div class="col-lg-12">
                                         <div class="select-split ">
                                             <div class="select-group w-100">
-                                                <select class="select" name="sales_type" id="sales_type">
-                                                    <option value="Dine In">Dine In</option>
-                                                    <option value="Take Away">Take Away</option>
-                                                    <option value="Delivery">Delivery</option>
+                                                <select class="select">
+                                                    <option>Walk-in Customer</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -152,32 +192,45 @@
                                         <li>
                                             <h5>Subtotal </h5>
                                             <h6 class="subtotalamount"></h6>
-                                            <input type="hidden" name="subtotal" id="subtotal" value=""/>
+                                            <input type="hidden" name="subtotal" id="subtotal" value="" />
                                         </li>
                                         <li>
                                             <h5>Tax </h5>
                                             <h6>₹ 0</h6>
-                                            <input type="hidden" name="taxamount" id="taxamount" value="0"/>
+                                            <input type="hidden" name="taxamount" id="taxamount" value="0" />
                                         </li>
                                         <li class="total-value">
                                             <h5>Total </h5>
                                             <h6 class="subtotalamount"></h6>
-                                            <input type="hidden" name="totalamount" id="totalamount" value=""/>
+                                            <input type="hidden" name="totalamount" id="totalamount" value="" />
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="setvaluecash">
-                                    <ul>
-                                        @foreach ($Bank as $Banks)
-                                        <li>
-                                            <a><img src="{{ asset('assets/backend/img/icons/cash.svg') }}" alt="img"><input type="radio" class=""name="paymentmethod" id="paymentmethod" value="{{$Banks->name}}">{{$Banks->name}}</a>
-                                        </li>
-                                        @endforeach
-                                    </ul>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="select-split ">
+                                                <div class="select-group w-100">
+                                                    <div style="display: flex">
+                                                        @foreach ($Bank as $Banks)
+                                                        <div class="input-group" style="margin-right: 5px;">
+                                                            <div class="input-group-text">
+                                                                <input class="form-check-input" type="radio" value="Dine In" id ="paymentmethod" name="paymentmethod"
+                                                                    aria-label="Radio button for following text input">
+                                                            </div>
+                                                            <input type="text" class="form-control" value="{{ $Banks->name }}" disabled
+                                                                aria-label="Text input with radio button">
+                                                        </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="btn-totallabel">
-                                    <button type="submit" class="btn btn-sm btn-primary" id="submit" style="color:white;font-size:15px">Save</button>
-                                    <h6  class="subtotalamount"></h6>
+                                    <button type="submit" class="btn btn-sm " id="submit"
+                                        style="color:white; font-size:15px; display:contents;">Save<span class="subtotalamount"></span></button>
                                 </div>
                                 <div class="btn-pos">
                                     <ul>
@@ -192,7 +245,7 @@
                             </div>
                         </div>
                     </div>
-                
+
                 </div>
             </form>
         </div>
