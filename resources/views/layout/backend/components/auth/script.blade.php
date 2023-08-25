@@ -212,31 +212,33 @@
                     },
                     dataType: 'json',
                     success: function(response) {
-                        console.log(response);
+                        
 
                         //$('.product-table').html('');
                         var len = response.length;
-
-                        $('.total_count').html(len);
+                        occurs = {};
+                        
                         for (var i = 0; i < len; i++) {
+                            
                             var e = $('<ul class="product-lists">'+
                             '<li>' +
                             '<div class="productimg">' +
                             '<div class="productimgs"><img src=" ' + response[i].product_image +  ' "alt="img"></div>' +
                             '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' + 
-                            '<div class="increment-decrement">' +
+                            '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
                             '<div class="input-groups">' +
+                            '<input type="hidden" name="product_id[]"  value="' + response[i].product_id + '"/>' +
                             '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].product_id +')">' +
-                            '<input type="text" name="child" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id + '">' +
+                            '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id + '">' +
                             '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].product_id +')">' +
                             '</div>' +
-                            '<input type="hidden" name="product_price" id="product_price' + response[i].product_id +  '"  value="' + response[i].product_price + '"/>' +
+                            '<input type="hidden" name="product_price[]" id="product_price' + response[i].product_id +  '"  value="' + response[i].product_price + '"/>' +
                             '</div></div></div>' +
                             '</li><li><div class="input-groups"><span class="totalprice' + response[i].product_id +  '">' + response[i].product_price +  '</span>' +
                             '<input type="hidden" name="total_price[]" class="total_price' + response[i].product_id +  '" value="' + response[i].product_price +  '"/></div></li>' +
-                            '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text" href="javascript:void(0);"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
+                            '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
 
-                            $('.product-table').append(e); 
+                            $('.product-table').prepend(e); 
                             var product_div = $('.child' + response[i].product_id).val();
                             $('#product_quantity' + response[i].product_id).val(product_div);
 
@@ -255,10 +257,12 @@
                                         tot_expense_amount = Number(tot_expense_amount) +
                                             Number($(this).val());
                                             $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                            $('#subtotal').val(tot_expense_amount);
+                                            $('#totalamount').val(tot_expense_amount);
                                     });
                         }
                         
-
+                        $(".total_count").text($('.product-table').children('.product-lists').length);
 
                     }
                 });
@@ -273,6 +277,8 @@
                                         tot_expense_amount = Number(tot_expense_amount) +
                                             Number($(this).val());
                                             $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                            $('#subtotal').val(tot_expense_amount);
+                                            $('#totalamount').val(tot_expense_amount);
                                     });
 
                 
@@ -300,6 +306,8 @@
                                         tot_expense_amount = Number(tot_expense_amount) +
                                             Number($(this).val());
                                             $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                            $('#subtotal').val(tot_expense_amount);
+                                            $('#totalamount').val(tot_expense_amount);
                                     });
                             }
 
@@ -322,10 +330,145 @@
                                         tot_expense_amount = Number(tot_expense_amount) +
                                             Number($(this).val());
                                             $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                            $('#subtotal').val(tot_expense_amount);
+                                            $('#totalamount').val(tot_expense_amount);
                                     });
                                 }
                             }
 
+
+
+function sessiontype(sessionid) {
+console.log(sessionid);
+$(".category_type li:first").addClass('active');
+
+}
+
+var dt = new Date();
+var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+$(".current_time").html(time);
+$(".currenttime").val(time);
+
+var today = new Date();
+var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+$(".current_date").html(date);
+$(".currentdate").val(date);
+
+
+function cashclick() {
+    $('#cashpaymentmethod').val('Cash');
+    $('#onlinepaymentmethod').val('');
+    $(".cashmethod").attr('style', 'border-color:black;');
+    $(".onlinemethod").attr('style', '');
+}
+function onlineclick() {
+    $('#onlinepaymentmethod').val('Online');
+    $('#cashpaymentmethod').val('');
+    $(".onlinemethod").attr('style', 'border-color:black;');
+    $(".cashmethod").attr('style', '');
+}
+
+
+$(document).on('click', '.remove-tr', function() {
+    $(this).parents('ul').remove();
+
+    var tot_expense_amount = 0;
+                                $("input[name='total_price[]']").each(
+                                    function() {
+                                        //alert($(this).val());
+                                        tot_expense_amount = Number(tot_expense_amount) +
+                                            Number($(this).val());
+                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                            $('#subtotal').val(tot_expense_amount);
+                                            $('#totalamount').val(tot_expense_amount);
+                                    });
+});
+$(document).on('click', '.remove-ultr', function() {
+    $('.product-table').empty('');
+    $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
+
+});
+
+
+
+$(document).ready(function(){
+    $('#sales_store').submit(function(e){
+        e.preventDefault();
+
+        console.log($(this).serialize());
+
+        var billno = $('#billno').val();
+        var date = $('#date').val();
+        var time = $('#time').val();
+        var sales_type = $('#sales_type').val();
+        var subtotal = $('#subtotal').val();
+        var taxamount = $('#taxamount').val();
+        var paymentmethod = $('input[name=paymentmethod]:checked').val();
+        var totalamount = $('#totalamount').val();
+
+
+        var product_ids = $("input[name='product_id[]']")
+                .map(function () {
+                    return $(this).val();
+                }).get(); 
+
+        var product_quantity = $("input[name='product_quantity[]']")
+                .map(function () {
+                    return $(this).val();
+                }).get(); 
+
+
+        var product_price = $("input[name='product_price[]']")
+                .map(function () {
+                    return $(this).val();
+                }).get(); 
+
+        var total_price = $("input[name='total_price[]']")
+                .map(function () {
+                    return $(this).val();
+                }).get(); 
+
+        //console.log(subtotal);
+
+
+                $.ajax({
+                    url: '/storeSalesData/',
+                    type: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        billno: billno,
+                        date: date,
+                        time: time,
+                        sales_type: sales_type,
+                        subtotal: subtotal,
+                        taxamount: taxamount,
+                        paymentmethod: paymentmethod,
+                        totalamount: totalamount,
+                        product_ids: product_ids,
+                        product_quantity: product_quantity,
+                        product_price: product_price,
+                        total_price: total_price,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response);
+                        alert('Bill Added');
+                        document.getElementById("sales_store").reset(); 
+                        $('.product-table').empty('');
+                        $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
+
+                        $('#billno').val(response);
+                        $('.billno').text(response);
+                        $('.total_count').text('');
+                        $('.subtotalamount').text('');
+                        $('#subtotal').val('');
+                        $('#taxamount').val('');
+                        $('input[name=paymentmethod]:checked').val('');
+                        $('#totalamount').val('');
+                    }
+                });    
+    });
+});
                             
         
 </script>

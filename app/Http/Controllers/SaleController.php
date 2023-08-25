@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Session;
 use App\Models\Category;
+use App\Models\Bank;
 use App\Models\Sale;
+use App\Models\SaleProduct;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -34,12 +36,18 @@ class SaleController extends Controller
         $session = Session::where('soft_delete', '!=', 1)->get();
         $category = Category::where('soft_delete', '!=', 1)->get();
         $product = Product::where('soft_delete', '!=', 1)->get();
+        $Bank = Bank::where('soft_delete', '!=', 1)->get();
         $today = Carbon::now()->format('Y-m-d');
         $timenow = Carbon::now()->format('H:i');
 
+        $Latest_Sale = Sale::latest('id')->first();
+        if($Latest_Sale != ''){
+            $latestbillno = $Latest_Sale->bill_no + 1;
+        }else {
+            $latestbillno = 1;
+        }
 
-
-        return view('page.backend.sales.create', compact('session', 'category', 'product', 'today', 'timenow'));
+        return view('page.backend.sales.create', compact('session', 'category', 'product', 'today', 'timenow', 'Bank', 'latestbillno'));
     }
 
 
@@ -50,12 +58,14 @@ class SaleController extends Controller
             $Getproducts = Product::where('id', '=', $product_id)->get();
             
             foreach ($Getproducts as $key => $Getproducts_arr) {
+                $Category = Category::findOrFail($Getproducts_arr->category_id);
     
                 $output[] = array(
                     'product_id' => $Getproducts_arr->id,
                     'product_name' => $Getproducts_arr->name,
                     'product_price' => $Getproducts_arr->price,
-                    'product_image' => asset('assets/product/'.$Getproducts_arr->image)
+                    'product_image' => asset('assets/product/'.$Getproducts_arr->image),
+                    'Category' => $Category->name,
                 );
             }
             
@@ -64,6 +74,55 @@ class SaleController extends Controller
 
         //$cart = session()->get('cart', []);
         //session()->put('cart', $output);
+    }
+
+    public function storeSalesData(Request $request)
+    {
+        $randomkey = Str::random(5);
+
+
+        $data = new Sale;
+        $data->unique_key = $randomkey;
+        $data->bill_no = $request->billno;
+        $data->date = $request->date;
+        $data->time = $request->time;
+        $data->sales_type = $request->sales_type;
+        $data->sub_total = $request->subtotal;
+        $data->tax = $request->taxamount;
+        $data->total = $request->totalamount;
+        $data->payment_method = $request->paymentmethod;
+        $data->save();
+
+
+        $sales_id = $data->id;
+
+        foreach (($request->product_ids) as $key => $product_id) {
+            $SaleProduct = new SaleProduct;
+            $SaleProduct->sales_id = $sales_id;
+            $SaleProduct->product_id = $product_id;
+            $SaleProduct->quantity = $request->product_quantity[$key];
+            $SaleProduct->price = $request->product_price[$key];
+            $SaleProduct->total_price = $request->total_price[$key];
+            $SaleProduct->save();
+        }
+        
+            $next_billno = $data->bill_no + 1;
+            return response()->json($next_billno);
+        //$SaleData->save();
+
+        //return redirect('form')->with('status', 'Ajax Form Data Has Been validated and store into database');
+
+    }
+
+    public function delete($unique_key)
+    {
+        $data = Sale::where('unique_key', '=', $unique_key)->first();
+
+        $data->soft_delete = 1;
+
+        $data->update();
+
+        return redirect()->route('sales.index')->with('warning', 'Deleted !');
     }
 
 

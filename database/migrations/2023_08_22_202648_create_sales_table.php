@@ -22,11 +22,10 @@ return new class extends Migration
             $table->string('bill_no');
             $table->string('date');
             $table->string('time');
-            $table->unsignedBigInteger('sales_type')->nullable();
+            $table->string('sales_type')->nullable();
 
             
-            $table->unsignedBigInteger('employee_id');
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->unsignedBigInteger('employee_id')->nullable();
 
             $table->string('sub_total')->nullable();
             $table->string('tax')->nullable();
