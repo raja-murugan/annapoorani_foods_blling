@@ -55,25 +55,21 @@ class SaleController extends Controller
     {
         $product_id = request()->get('selectproductid');
         $output = [];
-            $Getproducts = Product::where('id', '=', $product_id)->get();
-            
-            foreach ($Getproducts as $key => $Getproducts_arr) {
-                $Category = Category::findOrFail($Getproducts_arr->category_id);
-    
-                $output[] = array(
-                    'product_id' => $Getproducts_arr->id,
-                    'product_name' => $Getproducts_arr->name,
-                    'product_price' => $Getproducts_arr->price,
-                    'product_image' => asset('assets/product/'.$Getproducts_arr->image),
+        
+            $Getproducts = Product::findOrFail($product_id);
+
+            $Category = Category::findOrFail($Getproducts->category_id);
+                $output[] = [
+                    "quantity" => 1,
+                    'product_id' => $Getproducts->id,
+                    'product_name' => $Getproducts->name,
+                    'product_price' => $Getproducts->price,
+                    'product_image' => asset('assets/product/'.$Getproducts->image),
                     'Category' => $Category->name,
-                );
-            }
+                ];
             
         
-        echo json_encode($output);
-
-        //$cart = session()->get('cart', []);
-        //session()->put('cart', $output);
+            echo json_encode($output);
     }
 
     public function storeSalesData(Request $request)

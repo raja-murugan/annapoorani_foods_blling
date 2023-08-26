@@ -91,12 +91,15 @@
                                                                             class="button-plus inc button ">
                                                                     </div>
                                                                 </div>
-                                                                <h6><input type="button"
+                                                                <h6><input type="button" name="add_to_cart"
                                                                         class="btn btn-scanner-set selectproduct addedproduct{{ $productss->id }}"
                                                                         data-product_id="{{ $productss->id }}"
+                                                                        data-product_price="{{ $productss->price }}"
                                                                         id="addedproduct{{ $productss->id }}"
                                                                         style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"
                                                                         value="Add to cart" /> </h6>
+                                                                <input type="hidden" name="singlequantity" id="singlequantity{{ $productss->id }}" class="form-control" value="1" />
+                                                                <input type="hidden" name="singlequantityprice" id="singlequantityprice{{ $productss->id }}" class="form-control" value="{{ $productss->price }}" />
                                                             </div>
                                                         </div>
 
@@ -182,6 +185,7 @@
                                     <a class="remove-ultr" hidden>Clear all</a>
                                 </div>
                                 <div class="product-table">
+                                
                                 </div>
                             </div>
                             <div class="split-card">

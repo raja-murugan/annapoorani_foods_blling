@@ -181,14 +181,16 @@
         readURL(this);
     });
 
+    
 
-
-
+    var h = 1;
     //var productids = [];  
         $('.selectproduct').on('click', function(e){
             
             e.preventDefault();    
-            product_id = $(this).data('product_id');
+
+            var product_id = $(this).data('product_id');
+
             $('#addedproduct' + product_id).attr('style', 'background-color:#751818;color:white;').val('Added').attr('disabled', true);
             if ($('#addedproduct' + product_id).attr("disabled", true)) {
                 var selectproductid = $(this).data('product_id');
@@ -197,11 +199,9 @@
             } else {
                 var selectproductid = '';
             }
-            //productids.push(selectproductid);
 
-            //console.log(productids); 
 
-            
+          
 
                 $.ajax({
                     url: '/getselectedproducts/',
@@ -213,21 +213,21 @@
                     dataType: 'json',
                     success: function(response) {
                         
-
+                        //console.log(response);
                         //$('.product-table').html('');
                         var len = response.length;
                         occurs = {};
                         
                         for (var i = 0; i < len; i++) {
                             
-                            var e = $('<ul class="product-lists">'+
+                            var e = $('<ul class="product-lists" id="productlist">'+
                             '<li>' +
                             '<div class="productimg">' +
                             '<div class="productimgs"><img src=" ' + response[i].product_image +  ' "alt="img"></div>' +
                             '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' + 
                             '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
                             '<div class="input-groups">' +
-                            '<input type="hidden" name="product_id[]"  value="' + response[i].product_id + '"/>' +
+                            '<input type="hidden" class="li_productid" id="li_productid" name="product_id[]"  value="' + response[i].product_id + '"/>' +
                             '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].product_id +')">' +
                             '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id + '">' +
                             '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].product_id +')">' +
@@ -280,6 +280,17 @@
                                             $('#subtotal').val(tot_expense_amount);
                                             $('#totalamount').val(tot_expense_amount);
                                     });
+            
+
+
+            
+            
+            //productids.push(selectproductid);
+
+            //console.log(selectproductid); 
+
+            
+
 
                 
         });
@@ -370,8 +381,15 @@ function onlineclick() {
 
 
 $(document).on('click', '.remove-tr', function() {
+    var liProductid = $(this).parents('ul').find("#li_productid").val();
+
+    console.log(liProductid);
+
+    $('#addedproduct' + liProductid).attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
+
     $(this).parents('ul').remove();
 
+    
     var tot_expense_amount = 0;
                                 $("input[name='total_price[]']").each(
                                     function() {
