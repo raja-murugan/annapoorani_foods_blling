@@ -191,15 +191,18 @@
 
             var product_id = $(this).data('product_id');
 
-            $('#addedproduct' + product_id).attr('style', 'background-color:#751818;color:white;').val('Added').attr('disabled', true);
-            if ($('#addedproduct' + product_id).attr("disabled", true)) {
-                var selectproductid = $(this).data('product_id');
+           // $('#addedproduct' + product_id).attr('style', 'display:none').val('Added').attr('disabled', true);
+            //if ($('#addedproduct' + product_id).attr("disabled", true)) {
+             //   var selectproductid = $(this).data('product_id');
 
                 
-            } else {
-                var selectproductid = '';
-            }
+            //} else {
+            //    var selectproductid = '';
+           // }
 
+            $('#addedproduct' + product_id).attr('style', 'display:none');
+            $('.clickquantity' + product_id).attr('style', 'display:block');
+            var selectproductid = $(this).data('product_id');
 
           
 

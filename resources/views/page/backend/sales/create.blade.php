@@ -97,7 +97,8 @@
                                                                         data-product_price="{{ $productss->price }}"
                                                                         id="addedproduct{{ $productss->id }}"
                                                                         style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"
-                                                                        value="Add to cart" /> </h6>
+                                                                        value="Add to cart" />
+                                                                        <input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity{{ $productss->id }}" onClick="increment_quantity({{ $productss->id }})"> </h6>
                                                                 <input type="hidden" name="singlequantity" id="singlequantity{{ $productss->id }}" class="form-control" value="1" />
                                                                 <input type="hidden" name="singlequantityprice" id="singlequantityprice{{ $productss->id }}" class="form-control" value="{{ $productss->price }}" />
                                                             </div>
