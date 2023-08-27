@@ -19,10 +19,9 @@
                     <table class="table  datanew">
                         <thead>
                             <tr>
-                                <th>Sl. No</th>
                                 <th>Bill No</th>
-                                <th>Sub Total</th>
-                                <th>Tax</th>
+                                <th>Date</th>
+                                <th>Sales Type</th>
                                 <th>Total</th>
                                 <th>Payment</th>
                                 <th>Action</th>
@@ -31,10 +30,9 @@
                         <tbody>
                             @foreach ($data as $keydata => $datas)
                                 <tr>
-                                    <td>{{ ++$keydata }}</td>
                                     <td>#{{ $datas->bill_no }}</td>
-                                    <td>₹ {{ $datas->sub_total  }}</td>
-                                    <td>₹ {{ $datas->tax  }}</td>
+                                    <td> {{ $datas->date  }}</td>
+                                    <td> {{ $datas->sales_type  }}</td>
                                     <td>₹ {{ $datas->total   }}</td> 
                                     <td>{{ $datas->payment_method   }}</td>
                                     <td>

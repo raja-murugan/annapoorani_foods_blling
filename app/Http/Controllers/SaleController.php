@@ -23,7 +23,7 @@ class SaleController extends Controller
 {
     public function index()
     {
-        $data = Sale::where('soft_delete', '!=', 1)->get();
+        $data = Sale::orderBy('id', 'DESC')->where('soft_delete', '!=', 1)->get();
         
         $session = Session::where('soft_delete', '!=', 1)->get();
         $category = Category::where('soft_delete', '!=', 1)->get();

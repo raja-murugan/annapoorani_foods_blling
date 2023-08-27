@@ -259,7 +259,7 @@
                                                         @foreach ($Bank as $Banks)
                                                         <div class="input-group" style="margin-right: 5px;">
                                                             <div class="input-group-text">
-                                                                <input class="form-check-input" type="radio" value="Dine In" id ="paymentmethod" name="paymentmethod"
+                                                                <input class="form-check-input" type="radio" value="{{ $Banks->name }}" id ="paymentmethod" name="paymentmethod"
                                                                     aria-label="Radio button for following text input">
                                                             </div>
                                                             <input type="text" class="form-control" value="{{ $Banks->name }}" disabled
