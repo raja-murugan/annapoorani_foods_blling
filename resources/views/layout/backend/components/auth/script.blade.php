@@ -389,7 +389,7 @@ $(document).on('click', '.remove-tr', function() {
     console.log(liProductid);
 
     $('#addedproduct' + liProductid).attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
-
+    $('.clickquantity' + liProductid).attr('style', 'display:none');
     $(this).parents('ul').remove();
 
     
@@ -407,7 +407,7 @@ $(document).on('click', '.remove-tr', function() {
 $(document).on('click', '.remove-ultr', function() {
     $('.product-table').empty('');
     $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
-
+    $('.clickquantity').attr('style', 'display:none');
 });
 
 
