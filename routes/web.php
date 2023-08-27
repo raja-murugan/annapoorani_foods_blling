@@ -157,10 +157,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/sales/create', [SaleController::class, 'create'])->name('sales.create');
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/sales/delete/{unique_key}', [SaleController::class, 'delete'])->name('sales.delete');
+
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/sales/print/{last_salesid}', [SaleController::class, 'getLastId'])->name('sales.getLastId');
     });
 
 
-    Route::get('/zworktechnologyles/sales/print', function () {return view('page/backend/sales/print');});
+    //Route::get('/zworktechnology/sales/print/{sales_id}', function () {return view('page/backend/sales/print');});
 });
 
 

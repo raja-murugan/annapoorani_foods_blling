@@ -18,9 +18,9 @@
             <div class="cs-invoice_in" id="download_section">
                 <div class="cs-invoice_head cs-type1 cs-mb25">
                     <div class="cs-invoice_left">
-                        <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Bill No:</b> #1</p>
-                        <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Bill Type:</b> Walk-In</p>
-                                <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Date:</b> 25.08.2023</p>
+                        <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Bill No:</b> # {{ $billno }}</p>
+                        <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Bill Type:</b> {{ $sales_type }}</p>
+                                <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Date:</b> {{ $date }}</p>
                     </div>
                     <div class="cs-invoice_right cs-text_right">
                         <div class="cs-logo cs-mb5"><img src="{{ asset('assets/backend/img/logo.png') }}" alt="Logo" style="width: 100px"></div>
@@ -42,30 +42,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @foreach ($output as $output_arr)
                                     <tr>
-                                        <td class="cs-width_5">Idly</td>
-                                        <td class="cs-width_5">02</td>
-                                        <td class="cs-width_2 cs-text_right cs-primary_color">100</td>
+                                        <td class="cs-width_5">{{$output_arr['productname'] }}</td>
+                                        <td class="cs-width_5">{{$output_arr['quantity'] }} Qty</td>
+                                        <td class="cs-width_2 cs-text_right cs-primary_color">Rs. {{$output_arr['price'] }}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="cs-width_5">Dosa</td>
-                                        <td class="cs-width_5">01</td>
-                                        <td class="cs-width_2 cs-text_right cs-primary_color">100</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cs-width_5">Rava Dosa</td>
-                                        <td class="cs-width_5">03</td>
-                                        <td class="cs-width_2 cs-text_right cs-primary_color">200</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cs-width_5">Milk</td>
-                                        <td class="cs-width_5">02</td>
-                                        <td class="cs-width_2 cs-text_right cs-primary_color">40</td>
-                                    </tr>
+                                @endforeach
                                     <tr class="cs-focus_bg cs-no_border">
                                         <td class="cs-width_5 cs-text_right cs-primary_color cs-semi_bold"
                                             colspan="2">Total charges:</td>
-                                        <td class="cs-width_2 cs-text_right cs-primary_color cs-semi_bold">440</td>
+                                        <td class="cs-width_2 cs-text_right cs-primary_color cs-semi_bold">Rs. ₹ {{ $total }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -114,6 +101,17 @@
     <script src="{{ asset('assets/backend/bill/js/jspdf.min.js') }}"></script>
     <script src="{{ asset('assets/backend/bill/js/html2canvas.min.js') }}"></script>
     <script src="{{ asset('assets/backend/bill/js/main.js') }}"></script>
+
+    
+    <script>
+        //setTimeout(window.close, 7000);
+        window.onload=function(){self.print();} 
+        window.onafterprint = function() {
+            history.go(-1);
+        };
+    </script>
 </body>
 
 </html>
+
+

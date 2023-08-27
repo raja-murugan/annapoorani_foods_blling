@@ -480,7 +480,19 @@ $(document).ready(function(){
                                 $('.alert-success').fadeOut("slow");
                             }, 2000 );
 
+                            var last_salesid = response.last_id;
+                           window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                           // window.location.close();
 
+                            
+
+                           // var win=window.open("http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid);
+           //  with(win.document)
+           //  {
+            //    setTimeout(function() {
+            //        win.document.close();
+            //                }, 5);
+            // }
 
                         document.getElementById("sales_store").reset(); 
                         $('.product-table').empty('');
@@ -498,7 +510,23 @@ $(document).ready(function(){
                     }
                 });    
     });
+
+
+    
 });
+
+function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+
+
                             
         
 </script>

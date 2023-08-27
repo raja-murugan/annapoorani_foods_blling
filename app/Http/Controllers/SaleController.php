@@ -103,7 +103,7 @@ class SaleController extends Controller
         }
         
             $next_billno = $data->bill_no + 1;
-            return response()->json(['next_billno' => $next_billno, 'msg' => 'Bill Added']);
+            return response()->json(['next_billno' => $next_billno, 'msg' => 'Bill Added', 'last_id' => $sales_id]);
         //$SaleData->save();
 
         //return redirect('form')->with('status', 'Ajax Form Data Has Been validated and store into database');
@@ -119,6 +119,35 @@ class SaleController extends Controller
         $data->update();
 
         return redirect()->route('sales.index')->with('warning', 'Deleted !');
+    }
+
+
+    public function getLastId($last_salesid)
+    {
+        $GetSale = Sale::findOrFail($last_salesid);
+        $output = [];
+        $SaleProducts = SaleProduct::where('sales_id', '=', $GetSale->id)->get();
+        foreach ($SaleProducts as $key => $SaleProducts_arr) {
+
+            $Getproducts = Product::findOrFail($SaleProducts_arr->product_id);
+
+            $output[] = array(
+                'payment_method' => $GetSale->payment_method,
+                'productname' => $Getproducts->name,
+                'quantity' => $SaleProducts_arr->quantity,
+                'price' => $SaleProducts_arr->price,
+                'total_price' => $SaleProducts_arr->total_price,
+
+            );
+        }
+
+        $billno = $GetSale->bill_no;
+        $sales_type = $GetSale->sales_type;
+        $date = $GetSale->date;
+        $total = $GetSale->total;
+
+        return view('page.backend.sales.print', compact('output', 'billno', 'sales_type', 'date', 'total'));
+
     }
 
 
