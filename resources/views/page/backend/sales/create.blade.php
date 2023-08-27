@@ -7,6 +7,45 @@
                 @csrf
                 <div class="row">
 
+
+                <style>
+                    .alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+}
+
+.alert.success {background-color: #04AA6D;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+                </style>
+                <div class="col-lg-9 col-sm-12">
+                <div class="alert-success" style="display:none;">
+                    <span class="closebtn">&times;</span>  
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                </div>
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                
+                </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-8 col-sm-12 tabs_wrapper">
                         <div class="page-header ">
                             <div class="page-title">
@@ -98,7 +137,7 @@
                                                                         id="addedproduct{{ $productss->id }}"
                                                                         style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"
                                                                         value="Add to cart" />
-                                                                        <input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity{{ $productss->id }}" onClick="increment_quantity({{ $productss->id }})"> </h6>
+                                                                        <input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity{{ $productss->id }}  rise_quantity" onClick="increment_quantity({{ $productss->id }})"> </h6>
                                                                 <input type="hidden" name="singlequantity" id="singlequantity{{ $productss->id }}" class="form-control" value="1" />
                                                                 <input type="hidden" name="singlequantityprice" id="singlequantityprice{{ $productss->id }}" class="form-control" value="{{ $productss->price }}" />
                                                             </div>

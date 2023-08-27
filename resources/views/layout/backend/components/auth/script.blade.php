@@ -369,18 +369,18 @@ $(".current_date").html(date);
 $(".currentdate").val(date);
 
 
-function cashclick() {
-    $('#cashpaymentmethod').val('Cash');
-    $('#onlinepaymentmethod').val('');
-    $(".cashmethod").attr('style', 'border-color:black;');
-    $(".onlinemethod").attr('style', '');
-}
-function onlineclick() {
-    $('#onlinepaymentmethod').val('Online');
-    $('#cashpaymentmethod').val('');
-    $(".onlinemethod").attr('style', 'border-color:black;');
-    $(".cashmethod").attr('style', '');
-}
+//function cashclick() {
+  //  $('#cashpaymentmethod').val('Cash');
+  //  $('#onlinepaymentmethod').val('');
+  //  $(".cashmethod").attr('style', 'border-color:black;');
+  //  $(".onlinemethod").attr('style', '');
+//}
+//function onlineclick() {
+  //  $('#onlinepaymentmethod').val('Online');
+ //   $('#cashpaymentmethod').val('');
+ //   $(".onlinemethod").attr('style', 'border-color:black;');
+ //   $(".cashmethod").attr('style', '');
+//}
 
 
 $(document).on('click', '.remove-tr', function() {
@@ -473,13 +473,22 @@ $(document).ready(function(){
                     dataType: 'json',
                     success: function(response) {
                         console.log(response);
-                        alert('Bill Added');
+                        //alert('Bill Added').attr('style', 'background-color:yellow;');
+
+                                    $('.alert-success').fadeIn().html(response.msg);
+                            setTimeout(function() {
+                                $('.alert-success').fadeOut("slow");
+                            }, 2000 );
+
+
+
                         document.getElementById("sales_store").reset(); 
                         $('.product-table').empty('');
                         $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
+                        $('.rise_quantity').attr('style', 'display:none');
 
-                        $('#billno').val(response);
-                        $('.billno').text(response);
+                        $('#billno').val(response.next_billno);
+                        $('.billno').text(response.next_billno);
                         $('.total_count').text('');
                         $('.subtotalamount').text('');
                         $('#subtotal').val('');

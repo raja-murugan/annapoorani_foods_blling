@@ -103,7 +103,7 @@ class SaleController extends Controller
         }
         
             $next_billno = $data->bill_no + 1;
-            return response()->json($next_billno);
+            return response()->json(['next_billno' => $next_billno, 'msg' => 'Bill Added']);
         //$SaleData->save();
 
         //return redirect('form')->with('status', 'Ajax Form Data Has Been validated and store into database');

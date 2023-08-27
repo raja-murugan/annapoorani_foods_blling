@@ -160,7 +160,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
 
-    Route::get('/zworktechnologyles/pri/sant', function () {return view('page/backend/sales/print');});
+    Route::get('/zworktechnologyles/sales/print', function () {return view('page/backend/sales/print');});
 });
 
 
