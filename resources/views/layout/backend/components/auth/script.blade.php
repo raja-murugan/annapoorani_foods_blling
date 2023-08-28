@@ -181,13 +181,13 @@
         readURL(this);
     });
 
-    
+
 
     var h = 1;
-    //var productids = [];  
+    //var productids = [];
         $('.selectproduct').on('click', function(e){
-            
-            e.preventDefault();    
+
+            e.preventDefault();
 
             var product_id = $(this).data('product_id');
 
@@ -195,7 +195,7 @@
             //if ($('#addedproduct' + product_id).attr("disabled", true)) {
              //   var selectproductid = $(this).data('product_id');
 
-                
+
             //} else {
             //    var selectproductid = '';
            // }
@@ -204,7 +204,7 @@
             $('.clickquantity' + product_id).attr('style', 'display:block');
             var selectproductid = $(this).data('product_id');
 
-          
+
 
                 $.ajax({
                     url: '/getselectedproducts/',
@@ -215,19 +215,19 @@
                     },
                     dataType: 'json',
                     success: function(response) {
-                        
+
                         //console.log(response);
                         //$('.product-table').html('');
                         var len = response.length;
                         occurs = {};
-                        
+
                         for (var i = 0; i < len; i++) {
-                            
+
                             var e = $('<ul class="product-lists" id="productlist">'+
                             '<li>' +
                             '<div class="productimg">' +
                             '<div class="productimgs"><img src=" ' + response[i].product_image +  ' "alt="img"></div>' +
-                            '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' + 
+                            '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' +
                             '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
                             '<div class="input-groups">' +
                             '<input type="hidden" class="li_productid" id="li_productid" name="product_id[]"  value="' + response[i].product_id + '"/>' +
@@ -241,7 +241,7 @@
                             '<input type="hidden" name="total_price[]" class="total_price' + response[i].product_id +  '" value="' + response[i].product_price +  '"/></div></li>' +
                             '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
 
-                            $('.product-table').prepend(e); 
+                            $('.product-table').prepend(e);
                             var product_div = $('.child' + response[i].product_id).val();
                             $('#product_quantity' + response[i].product_id).val(product_div);
 
@@ -264,14 +264,14 @@
                                             $('#totalamount').val(tot_expense_amount);
                                     });
                         }
-                        
+
                         $(".total_count").text($('.product-table').children('.product-lists').length);
 
                     }
                 });
 
 
-                
+
 
                 var tot_expense_amount = 0;
                                 $("input[name='total_price[]']").each(
@@ -283,19 +283,19 @@
                                             $('#subtotal').val(tot_expense_amount);
                                             $('#totalamount').val(tot_expense_amount);
                                     });
-            
 
 
-            
-            
+
+
+
             //productids.push(selectproductid);
 
-            //console.log(selectproductid); 
-
-            
+            //console.log(selectproductid);
 
 
-                
+
+
+
         });
 
                             function increment_quantity(productid) {
@@ -327,7 +327,7 @@
 
                             function decrement_quantity(productid) {
                                 var inputQuantityElement = $('#product_quantity' + productid);
-                                if($(inputQuantityElement).val() > 1) 
+                                if($(inputQuantityElement).val() > 1)
                                 {
                                 var newQuantity = parseInt($(inputQuantityElement).val()) - 1;
                                 $(inputQuantityElement).val(newQuantity);
@@ -392,7 +392,7 @@ $(document).on('click', '.remove-tr', function() {
     $('.clickquantity' + liProductid).attr('style', 'display:none');
     $(this).parents('ul').remove();
 
-    
+
     var tot_expense_amount = 0;
                                 $("input[name='total_price[]']").each(
                                     function() {
@@ -431,23 +431,23 @@ $(document).ready(function(){
         var product_ids = $("input[name='product_id[]']")
                 .map(function () {
                     return $(this).val();
-                }).get(); 
+                }).get();
 
         var product_quantity = $("input[name='product_quantity[]']")
                 .map(function () {
                     return $(this).val();
-                }).get(); 
+                }).get();
 
 
         var product_price = $("input[name='product_price[]']")
                 .map(function () {
                     return $(this).val();
-                }).get(); 
+                }).get();
 
         var total_price = $("input[name='total_price[]']")
                 .map(function () {
                     return $(this).val();
-                }).get(); 
+                }).get();
 
         //console.log(subtotal);
 
@@ -481,10 +481,11 @@ $(document).ready(function(){
                             }, 2000 );
 
                             var last_salesid = response.last_id;
-                           window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                        //    window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                           window.location= "http://annapooranifoods.zworktechnology.in/zworktechnology/sales/print/" + last_salesid;
                            // window.location.close();
 
-                            
+
 
                            // var win=window.open("http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid);
            //  with(win.document)
@@ -494,7 +495,7 @@ $(document).ready(function(){
             //                }, 5);
             // }
 
-                        document.getElementById("sales_store").reset(); 
+                        document.getElementById("sales_store").reset();
                         $('.product-table').empty('');
                         $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
                         $('.rise_quantity').attr('style', 'display:none');
@@ -508,11 +509,11 @@ $(document).ready(function(){
                         $('input[name=paymentmethod]:checked').val('');
                         $('#totalamount').val('');
                     }
-                });    
+                });
     });
 
 
-    
+
 });
 
 function printDiv(divName) {
@@ -527,6 +528,6 @@ function printDiv(divName) {
         }
 
 
-                            
-        
+
+
 </script>
