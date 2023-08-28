@@ -453,7 +453,7 @@ $(document).ready(function(){
 
 
                 $.ajax({
-                    url: '/zworktechnology/sales/storeSalesData/',
+                    url: "{{ route('sales.store.salesdata') }}",
                     type: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",
@@ -482,7 +482,7 @@ $(document).ready(function(){
 
                             var last_salesid = response.last_id;
                         //    window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                           window.location= "http://annapooranifoods.zworktechnology.in/zworktechnology/sales/print/" + last_salesid;
+                           window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
                            // window.location.close();
 
 
