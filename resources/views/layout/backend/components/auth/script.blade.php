@@ -453,7 +453,7 @@ $(document).ready(function(){
 
 
                 $.ajax({
-                    url: '/sales/storeSalesData/',
+                    url: '/storeSalesData/',
                     type: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",
