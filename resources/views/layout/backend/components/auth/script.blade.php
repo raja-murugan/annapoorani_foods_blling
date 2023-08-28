@@ -453,7 +453,7 @@ $(document).ready(function(){
 
 
                 $.ajax({
-                    url: '/storeSalesData/',
+                    url: '/zworktechnology/sales/storeSalesData/',
                     type: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",

@@ -168,4 +168,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 Route::get('/getcategories', [ProductController::class, 'getcategories']);
 Route::get('/getselectedproducts', [SaleController::class, 'getselectedproducts']);
-Route::post('/storeSalesData', [SaleController::class, 'storeSalesData']);
+Route::post('/zworktechnology/sales/storeSalesData', [SaleController::class, 'storeSalesData']);
