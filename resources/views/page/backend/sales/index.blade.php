@@ -33,7 +33,7 @@
                                     <td>#{{ $datas->bill_no }}</td>
                                     <td> {{ $datas->date  }}</td>
                                     <td> {{ $datas->sales_type  }}</td>
-                                    <td>₹ {{ $datas->total   }}</td> 
+                                    <td>₹ {{ $datas->grandtotal   }}</td> 
                                     <td>{{ $datas->payment_method   }}</td>
                                     <td>
 

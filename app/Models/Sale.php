@@ -21,6 +21,8 @@ class Sale extends Model
         'sub_total',
         'tax',
         'total',
+        'sale_discount',
+        'grandtotal',
         'payment_method'
     ];
 

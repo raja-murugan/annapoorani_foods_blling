@@ -78,18 +78,19 @@
 
 
                             @foreach ($session as $index => $session_ss)
-                                <div class="tab-pane fade show @if ($session_ss->id == 1) active @endif"
+                                <div class="tab-pane fade show cat_div @if ($session_ss->id == 1) active @endif "
                                     id="purchase{{ $session_ss->id }}" role="tabpanel"
                                     aria-labelledby="purchase{{ $session_ss->id }}-tab">
                                     <ul class=" tabs owl-carousel owl-theme owl-product  border-0 ">
                                         @foreach ($category as $categoryes)
                                             @if ($categoryes->session_id == $session_ss->id)
-                                                <li class="@if ($categoryes->id == 1) active @endif  category_type"
+                                                <li class="@if ($categoryes->id == 1) active @endif  category_type "
                                                     id="fruits{{ $categoryes->id }}">
                                                     <div class="product-details ">
                                                         <img src="{{ asset('assets/backend/img/product/product63.png') }}"
                                                             alt="img">
                                                         <h6>{{ $categoryes->name }}</h6>
+                                                        <input type="hidden" name="product_catid" id="product_catid" value="{{ $categoryes->id }}" />
                                                     </div>
                                                 </li>
                                             @endif
@@ -272,9 +273,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder="Enter Discount" class="sale_discount" name="sale_discount" id="sale_discount"/>
+                                </div>
                                 <div class="btn-totallabel">
                                     <button type="submit" class="btn btn-sm " id="submit"
-                                        style="color:white; font-size:15px; display:contents;">Save<span class="subtotalamount"></span></button>
+                                        style="color:white; font-size:15px; display:contents;">Save<span class="grand_total"></span></button>
+                                        <input type="hidden" name="grandtotal" class="grandtotal" id="grandtotal"/>
                                 </div>
                                 <div class="btn-pos">
                                     <ul>

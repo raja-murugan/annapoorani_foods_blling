@@ -262,6 +262,12 @@
                                             $('.subtotalamount').text('₹ ' + tot_expense_amount);
                                             $('#subtotal').val(tot_expense_amount);
                                             $('#totalamount').val(tot_expense_amount);
+
+
+                                            var sale_discount = $('#sale_discount').val();
+                                            var payment = Number(tot_expense_amount) - Number(sale_discount);
+                                            $('.grand_total').text(payment.toFixed(2));
+                                            $('.grandtotal').val(payment.toFixed(2));
                                     });
                         }
 
@@ -282,6 +288,8 @@
                                             $('.subtotalamount').text('₹ ' + tot_expense_amount);
                                             $('#subtotal').val(tot_expense_amount);
                                             $('#totalamount').val(tot_expense_amount);
+                                            $('.grand_total').text('₹ ' + tot_expense_amount);
+                                            $('.grandtotal').val(tot_expense_amount);
                                     });
 
 
@@ -322,6 +330,11 @@
                                             $('.subtotalamount').text('₹ ' + tot_expense_amount);
                                             $('#subtotal').val(tot_expense_amount);
                                             $('#totalamount').val(tot_expense_amount);
+
+                                            var sale_discount = $('#sale_discount').val();
+                                            var payment = Number(tot_expense_amount) - Number(sale_discount);
+                                            $('.grand_total').text(payment.toFixed(2));
+                                            $('.grandtotal').val(payment.toFixed(2));
                                     });
                             }
 
@@ -346,6 +359,11 @@
                                             $('.subtotalamount').text('₹ ' + tot_expense_amount);
                                             $('#subtotal').val(tot_expense_amount);
                                             $('#totalamount').val(tot_expense_amount);
+
+                                            var sale_discount = $('#sale_discount').val();
+                                            var payment = Number(tot_expense_amount) - Number(sale_discount);
+                                            $('.grand_total').text(payment.toFixed(2));
+                                            $('.grandtotal').val(payment.toFixed(2));
                                     });
                                 }
                             }
@@ -402,6 +420,11 @@ $(document).on('click', '.remove-tr', function() {
                                             $('.subtotalamount').text('₹ ' + tot_expense_amount);
                                             $('#subtotal').val(tot_expense_amount);
                                             $('#totalamount').val(tot_expense_amount);
+
+                                            var sale_discount = $('#sale_discount').val();
+                                            var payment = Number(tot_expense_amount) - Number(sale_discount);
+                                            $('.grand_total').text(payment.toFixed(2));
+                                            $('.grandtotal').val(payment.toFixed(2));
                                     });
 });
 $(document).on('click', '.remove-ultr', function() {
@@ -426,7 +449,8 @@ $(document).ready(function(){
         var taxamount = $('#taxamount').val();
         var paymentmethod = $('input[name=paymentmethod]:checked').val();
         var totalamount = $('#totalamount').val();
-
+        var sale_discount = $('#sale_discount').val();
+        var grandtotal = $('#grandtotal').val();
 
         var product_ids = $("input[name='product_id[]']")
                 .map(function () {
@@ -469,6 +493,8 @@ $(document).ready(function(){
                         product_quantity: product_quantity,
                         product_price: product_price,
                         total_price: total_price,
+                        sale_discount: sale_discount,
+                        grandtotal: grandtotal,
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -481,8 +507,8 @@ $(document).ready(function(){
                             }, 2000 );
 
                             var last_salesid = response.last_id;
-                        //    window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                           window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
+                            //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                            window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
                            // window.location.close();
 
 
@@ -508,6 +534,9 @@ $(document).ready(function(){
                         $('#taxamount').val('');
                         $('input[name=paymentmethod]:checked').val('');
                         $('#totalamount').val('');
+                        $('#sale_discount').val('');
+                        $('.grand_total').text('');
+                        $('.grandtotal').val('');
                     }
                 });
     });
@@ -528,6 +557,160 @@ function printDiv(divName) {
         }
 
 
+        $(document).ready(function() {
+            $('.cat_div').on('click', function(){
+                var product_catid =  $(this).find("#product_catid").val();
+                console.log(product_catid);
 
+                if(product_catid){
+                    $(document).on("keyup", '.serchproduct_name', function() {
+                        var query = $(this).val();
+                        if (query != '') {
+                            var _token = $('input[name="_token"]').val();
+
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('sales.autocomplete') }}",
+                                data: {
+                                    query: query,
+                                    product_catid: product_catid,
+                                    _token: _token
+                                },
+
+                                success: function(data) {
+                                    //console.log(data);
+                                    $('.productlist').fadeIn();
+                                    $('.productlist').html(data);
+                                }
+                            });
+                        }
+                    });
+                }
+
+                
+
+            });
+
+
+
+            
+            $(document).on('click', 'li.autosearchli', function() {
+                $('#serchproduct_name').val('');
+                $('.productlist').fadeOut();
+                //console.log($(this).text());
+                $.ajax({
+                    url: '/getproduct_Id_by_name/' + $(this).text(),
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response['data']);
+
+                        
+                        var selectproductid = response['data'];
+
+
+                    $.ajax({
+                            url: '/getselectedproducts/',
+                            type: 'get',
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                selectproductid: selectproductid,
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+
+                                //console.log(response);
+                                //$('.product-table').html('');
+                                var len = response.length;
+                                occurs = {};
+
+                                for (var i = 0; i < len; i++) {
+
+                                    var e = $('<ul class="product-lists" id="productlist">'+
+                                    '<li>' +
+                                    '<div class="productimg">' +
+                                    '<div class="productimgs"><img src=" ' + response[i].product_image +  ' "alt="img"></div>' +
+                                    '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' +
+                                    '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
+                                    '<div class="input-groups">' +
+                                    '<input type="hidden" class="li_productid" id="li_productid" name="product_id[]"  value="' + response[i].product_id + '"/>' +
+                                    '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].product_id +')">' +
+                                    '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id + '">' +
+                                    '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].product_id +')">' +
+                                    '</div>' +
+                                    '<input type="hidden" name="product_price[]" id="product_price' + response[i].product_id +  '"  value="' + response[i].product_price + '"/>' +
+                                    '</div></div></div>' +
+                                    '</li><li><div class="input-groups"><span class="totalprice' + response[i].product_id +  '">' + response[i].product_price +  '</span>' +
+                                    '<input type="hidden" name="total_price[]" class="total_price' + response[i].product_id +  '" value="' + response[i].product_price +  '"/></div></li>' +
+                                    '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
+
+                                    $('.product-table').prepend(e);
+                                    var product_div = $('.child' + response[i].product_id).val();
+                                    $('#product_quantity' + response[i].product_id).val(product_div);
+
+
+                                    var product_price = $('#product_price' + response[i].product_id).val();
+                                        var totalprice = product_price * product_div;
+                                        $('.totalprice' + response[i].product_id).text(totalprice);
+                                        $('.total_price' + response[i].product_id).val(totalprice);
+
+
+
+                                        var tot_expense_amount = 0;
+                                        $("input[name='total_price[]']").each(
+                                            function() {
+                                                //alert($(this).val());
+                                                tot_expense_amount = Number(tot_expense_amount) +
+                                                    Number($(this).val());
+                                                    $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                                    $('#subtotal').val(tot_expense_amount);
+                                                    $('#totalamount').val(tot_expense_amount);
+                                                     $('.grand_total').text('₹ ' + tot_expense_amount);
+                                                    $('.grandtotal').val(tot_expense_amount);
+                                            });
+                                }
+
+                                $(".total_count").text($('.product-table').children('.product-lists').length);
+
+                            }
+                        });
+
+
+
+
+                var tot_expense_amount = 0;
+                                $("input[name='total_price[]']").each(
+                                    function() {
+                                        //alert($(this).val());
+                                        tot_expense_amount = Number(tot_expense_amount) +
+                                            Number($(this).val());
+                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                            $('#subtotal').val(tot_expense_amount);
+                                            $('#totalamount').val(tot_expense_amount);
+                                            $('.grand_total').text('₹ ' + tot_expense_amount);
+                                            $('.grandtotal').val(tot_expense_amount);
+                                    });
+
+
+
+                        
+                    }
+                });
+            });
+            
+        });
+
+
+        $(document).on("keyup", '.sale_discount', function() {
+                var sale_discount = $(this).val();
+                var totalamount = $("#totalamount").val();
+                var payment = Number(totalamount) - Number(sale_discount);
+                $('.grand_total').text(payment.toFixed(2));
+                $('.grandtotal').val(payment.toFixed(2));
+            });
+
+
+
+            
 
 </script>

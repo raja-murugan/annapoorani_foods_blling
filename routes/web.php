@@ -159,6 +159,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/sales/delete/{unique_key}', [SaleController::class, 'delete'])->name('sales.delete');
 
         Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/sales/print/{last_salesid}', [SaleController::class, 'getLastId'])->name('sales.getLastId');
+
+        // AUTO COMPLETE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/sales/autocomplete', [SaleController::class, 'autocomplete'])->name('sales.autocomplete');
     });
 
 
@@ -169,3 +172,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::get('/getcategories', [ProductController::class, 'getcategories']);
 Route::get('/getselectedproducts', [SaleController::class, 'getselectedproducts']);
 Route::post('/zworktechnology/sales/storeSalesData', [SaleController::class, 'storeSalesData'])->name('sales.store.salesdata');
+Route::get('/getproduct_Id_by_name/{product_name}', [SaleController::class, 'getproduct_Id_by_name']);

@@ -30,6 +30,8 @@ return new class extends Migration
             $table->string('sub_total')->nullable();
             $table->string('tax')->nullable();
             $table->string('total')->nullable();
+            $table->string('sale_discount')->nullable();
+            $table->string('grandtotal')->nullable();
 
             $table->string('payment_method')->nullable();
 

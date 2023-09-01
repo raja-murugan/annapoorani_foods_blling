@@ -24,6 +24,20 @@
 
     <ul class="nav user-menu">
         <li class="nav-item nav-searchinputs">
+            <div class="top-nav-search">
+                <a href="javascript:void(0);" class="responsive-search">
+                <i class="fa fa-search"></i>
+                </a>
+                <form action="#">
+                    <div class="searchinputs">
+                        <input type="text" class="serchproduct_name" id="serchproduct_name" placeholder="Search Product">
+                        <div class="productlist " style="display:none"></div>
+                        <div class="search-addon"><span><i data-feather="search" class="feather-14"></i></span></div>
+                        
+                    </div>
+                    
+                </form>
+            </div>
         </li>
 
         <li class="nav-item dropdown has-arrow main-drop">

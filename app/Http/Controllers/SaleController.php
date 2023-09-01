@@ -86,6 +86,8 @@ class SaleController extends Controller
         $data->sub_total = $request->subtotal;
         $data->tax = $request->taxamount;
         $data->total = $request->totalamount;
+        $data->sale_discount = $request->sale_discount;
+        $data->grandtotal = $request->grandtotal;
         $data->payment_method = $request->paymentmethod;
         $data->save();
 
@@ -144,7 +146,7 @@ class SaleController extends Controller
         $billno = $GetSale->bill_no;
         $sales_type = $GetSale->sales_type;
         $date = $GetSale->date;
-        $total = $GetSale->total;
+        $total = $GetSale->grandtotal;
 
         return view('page.backend.sales.print', compact('output', 'billno', 'sales_type', 'date', 'total'));
 
@@ -153,7 +155,33 @@ class SaleController extends Controller
 
 
     
+    public function autocomplete(Request $request)
+    {
+        if($request->get('query'))
+        {
+            $query = $request->get('query');
+            $product_catid = $request->get('product_catid');
+            $data = Product::select ("id", "name", "category_id", "session_id")
+                    ->where('name', 'LIKE', "%{$query}%")->where('category_id', '=', $product_catid)->distinct()->get();
+            $output = '<ul class="form-control" style="display:block; position:relative;background: #9ddbdb2e;">';
+            foreach(($data) as $row)
+            {
+                $session = session::findOrFail($row->session_id);
+                $Category = Category::findOrFail($row->category_id);
+                $output .= '<li class="autosearchli"><a class="" style="color:black;background: #f8f9fa;">'.$row->name.'</a></li>';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
+    }
 
+
+    public function getproduct_Id_by_name($product_name)
+    {
+        $GetProductId = Product::select('*')->where('name', $product_name)->latest('id')->first();
+        $userData['data'] = $GetProductId->id;
+        echo json_encode($userData);
+    }
 
 
     
