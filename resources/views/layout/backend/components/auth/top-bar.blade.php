@@ -28,7 +28,7 @@
                 <a href="javascript:void(0);" class="responsive-search">
                 <i class="fa fa-search"></i>
                 </a>
-                <form action="#">
+                <form action="#" autocomplete="off">
                     <div class="searchinputs">
                         <input type="text" class="serchproduct_name" id="serchproduct_name" placeholder="Search Product">
                         <div class="productlist " style="display:none"></div>
