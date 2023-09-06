@@ -57,15 +57,11 @@
                             <ul class="nav nav-tabs" id="myTabs" role="tablist">
                                 @foreach ($session as $keydata => $sessions)
                                     <li class="nav-item" role="presentation">
-                                        <button
-                                            class="nav-link
-                                    @if ($keydata == 0) active @endif
-
-                                    "
+                                        <button class="nav-link @if ($keydata == 0) active @endif "
                                             id="purchase{{ $sessions->id }}-tab" data-bs-toggle="tab"
                                             onclick="sessiontype({{ $sessions->id }})"
                                             data-bs-target="#purchase{{ $sessions->id }}" type="button"
-                                            aria-controls="purchase{{ $sessions->id }}" aria-selected="true"
+                                            aria-controls="purchase{{ $sessions->id }}" aria-selected="true" 
                                             role="tab">{{ $sessions->name }}</button>
                                     </li>
                                 @endforeach
@@ -85,7 +81,7 @@
                                         @foreach ($category as $categoryes)
                                             @if ($categoryes->session_id == $session_ss->id)
                                                 <li class="@if ($categoryes->id == 1) active @endif  category_type "
-                                                    id="fruits{{ $categoryes->id }}">
+                                                    id="fruits{{ $categoryes->id }}" data-cat_id="{{ $categoryes->id }}">
                                                     <div class="product-details ">
                                                         <img src="{{ asset('assets/backend/img/product/product63.png') }}"
                                                             alt="img">
@@ -105,50 +101,55 @@
                             @foreach ($category as $categories)
                                 <div class="tab_content @if ($categories->id == 1) active @endif"
                                     data-tab="fruits{{ $categories->id }}">
-                                    <div class="row ">
-                                        @foreach ($product as $productss)
-                                            @if ($productss->category_id == $categories->id)
-                                                <div class="col-lg-3 col-sm-6 d-flex ">
-                                                    <div class="productset flex-fill">
-                                                        <div class="productsetimg">
-                                                            <img src="{{ asset('assets/product/' . $productss->image) }}"
-                                                                alt="img">
-                                                        </div>
-
-                                                        <div class="productsetcontent">
-                                                            <h4>{{ $productss->name }}</h4>
-                                                            <div style="display: flex">
-                                                                <h6 class="pos-price">₹ {{ $productss->price }}.00</h6>
-                                                                <div class="increment-decrement"
-                                                                    style="margin-left:31%;margin-bottom:10px;" hidden>
-                                                                    <div class="input-groups">
-                                                                        <input type="button" value="-"
-                                                                            class="button-minus dec button">
-                                                                        <input type="text"
-                                                                            name="child{{ $productss->id }}" value="1"
-                                                                            class="quantity-field child{{ $productss->id }}">
-                                                                        <input type="button" value="+"
-                                                                            class="button-plus inc button ">
-                                                                    </div>
-                                                                </div>
-                                                                <h6><input type="button" name="add_to_cart"
-                                                                        class="btn btn-scanner-set selectproduct addedproduct{{ $productss->id }}"
-                                                                        data-product_id="{{ $productss->id }}"
-                                                                        data-product_price="{{ $productss->price }}"
-                                                                        id="addedproduct{{ $productss->id }}"
-                                                                        style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"
-                                                                        value="Add to cart" />
-                                                                        <input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity{{ $productss->id }}  rise_quantity" onClick="increment_quantity({{ $productss->id }})"> </h6>
-                                                                <input type="hidden" name="singlequantity" id="singlequantity{{ $productss->id }}" class="form-control" value="1" />
-                                                                <input type="hidden" name="singlequantityprice" id="singlequantityprice{{ $productss->id }}" class="form-control" value="{{ $productss->price }}" />
+                                    
+                                    <div class="row prodcttsdiv" >
+                                    @foreach ($product as $productss)
+                                                @if ($productss->category_id == $categories->id)
+                                                    <div class="col-lg-3 col-sm-6 d-flex  ">
+                                                        <div class="productset flex-fill">
+                                                            <div class="productsetimg">
+                                                                <img src="{{ asset('assets/product/' . $productss->image) }}"
+                                                                    alt="img">
                                                             </div>
-                                                        </div>
 
+                                                            <div class="productsetcontent">
+                                                                <h4>{{ $productss->name }}</h4>
+                                                                <div style="display: flex">
+                                                                    <h6 class="pos-price">₹ {{ $productss->price }}.00</h6>
+                                                                    <div class="increment-decrement"
+                                                                        style="margin-left:31%;margin-bottom:10px;" hidden>
+                                                                        <div class="input-groups">
+                                                                            <input type="button" value="-"
+                                                                                class="button-minus dec button">
+                                                                            <input type="text"
+                                                                                name="child{{ $productss->id }}" value="1"
+                                                                                class="quantity-field child{{ $productss->id }}">
+                                                                            <input type="button" value="+"
+                                                                                class="button-plus inc button ">
+                                                                        </div>
+                                                                    </div>
+                                                                    <h6><input type="button" name="add_to_cart"
+                                                                            class="btn btn-scanner-set selectproduct addedproduct{{ $productss->id }}"
+                                                                            data-product_id="{{ $productss->id }}"
+                                                                            data-product_price="{{ $productss->price }}"
+                                                                            id="addedproduct{{ $productss->id }}"
+                                                                            style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"
+                                                                            value="Add to cart" />
+                                                                            <input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity{{ $productss->id }}  rise_quantity" onClick="increment_quantity({{ $productss->id }})"> </h6>
+                                                                    <input type="hidden" name="singlequantity" id="singlequantity{{ $productss->id }}" class="form-control" value="1" />
+                                                                    <input type="hidden" name="singlequantityprice" id="singlequantityprice{{ $productss->id }}" class="form-control" value="{{ $productss->price }}" />
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    
+                                    
+
+                                    
                                 </div>
                             @endforeach
                         </div>

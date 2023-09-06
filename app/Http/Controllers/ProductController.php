@@ -154,5 +154,25 @@ class ProductController extends Controller
             echo json_encode($userData);
         }
     }
+
+
+    public function getselectedcat_products()
+    {
+        $catogry_id = request()->get('catogry_id');
+        $output = [];
+
+            $CategoryProducts = Product::where('category_id', '=', $catogry_id)->get();
+            foreach ($CategoryProducts as $key => $CategoryProducts_arr) {
+                $output[] = [
+                    'productname' => $CategoryProducts_arr->name,
+                    'product_image' => asset('assets/product/'.$CategoryProducts_arr->image),
+                    'productprice' => $CategoryProducts_arr->price,
+                    'id' => $CategoryProducts_arr->id,
+                ];
+            }
+        
+            echo json_encode($output);
+    }
+
     
 }

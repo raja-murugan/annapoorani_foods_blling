@@ -181,26 +181,110 @@
         readURL(this);
     });
 
+    function sessiontype(sessionid) {
+        console.log(sessionid);
+        $('#purchase' + sessionid).each(function(){
+            $(this).find('.category_type').first().addClass('active');
+            var catogry_id = $(this).find('.category_type').first().data('cat_id');
+            console.log(catogry_id);
 
+                            $.ajax({
+                                url: '/getselectedcat_products/',
+                                type: 'get',
+                                data: {
+                                    _token: "{{ csrf_token() }}",
+                                    catogry_id: catogry_id,
+                                },
+                                dataType: 'json',
+                                success: function(response) {
+                                    console.log(response);
+                                    $('.prodcttsdiv').html('');
+                                    
+                                    var len = response.length;
+                                    for (var i = 0; i < len; i++) {
+                                        var productsdiv = $('<div class="col-lg-3 col-sm-6 d-flex  ">' + 
+                                                                '<div class="productset flex-fill">' +
+                                                                    '<div class="productsetimg">' +
+                                                                        '<img src="'+ response[i].product_image +'" alt="img">' +
+                                                                    '</div>' +
+                                                                    '<div class="productsetcontent">' +
+                                                                        '<h4>'+ response[i].productname +'</h4>' +
+                                                                        '<div style="display: flex">' +
+                                                                            '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
+                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct'+ response[i].id +'" data-product_id="'+ response[i].id +'" data-product_price="'+ response[i].productprice +'"id="addedproduct'+ response[i].id +'" style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"value="Add to cart" />' +
+                                                                            '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity'+ response[i].id +'  rise_quantity" onClick="increment_quantity('+ response[i].id +')"> </h6>' +
+                                                                        '</div>' +
+                                                                    '</div>' +
+                                                                '</div>' +
+                                                            '</div>');
+                                        $('.prodcttsdiv').append(productsdiv);
+                                    }
+                                }
+                            });
+            
+        });
+
+            $(document).on('click', '.category_type', function() {
+            var catogry_id = $(this).data('cat_id');
+
+
+                            $.ajax({
+                                url: '/getselectedcat_products/',
+                                type: 'get',
+                                data: {
+                                    _token: "{{ csrf_token() }}",
+                                    catogry_id: catogry_id,
+                                },
+                                dataType: 'json',
+                                success: function(response) {
+                                    console.log(response);
+                                    $('.prodcttsdiv').html('');
+                                    
+                                    var len = response.length;
+                                    for (var i = 0; i < len; i++) {
+                                        var productsdiv = $('<div class="col-lg-3 col-sm-6 d-flex  ">' + 
+                                                                '<div class="productset flex-fill">' +
+                                                                    '<div class="productsetimg">' +
+                                                                        '<img src="'+ response[i].product_image +'" alt="img">' +
+                                                                    '</div>' +
+                                                                    '<div class="productsetcontent">' +
+                                                                        '<h4>'+ response[i].productname +'</h4>' +
+                                                                        '<div style="display: flex">' +
+                                                                            '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
+                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct' + response[i].id + '" id="addedproduct' + response[i].id + '"  data-product_id="' + response[i].id + '" data-product_price="'+ response[i].productprice +'" value="Add to cart" />' +
+                                                                            '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity' + response[i].id + '  rise_quantity" onClick="increment_quantity(' + response[i].id + ')"> </h6>' +
+                                                                        '</div>' +
+                                                                    '</div>' +
+                                                                '</div>' +
+                                                            '</div>');
+                                        $('.prodcttsdiv').append(productsdiv);
+                                        //$('#addedproduct' + response[i].id).attr('style', 'display:none');
+                                       // $('.clickquantity' + response[i].id).attr('style', 'display:block');
+                                    }
+                                }
+                            });
+
+                            
+                });
+
+
+
+                
+
+
+
+
+
+    }
 
     var h = 1;
-    //var productids = [];
-        $('.selectproduct').on('click', function(e){
+        $(document).on('click', '.selectproduct', function() {
 
-            e.preventDefault();
+                
 
             var product_id = $(this).data('product_id');
-
-           // $('#addedproduct' + product_id).attr('style', 'display:none').val('Added').attr('disabled', true);
-            //if ($('#addedproduct' + product_id).attr("disabled", true)) {
-             //   var selectproductid = $(this).data('product_id');
-
-
-            //} else {
-            //    var selectproductid = '';
-           // }
-
-            $('#addedproduct' + product_id).attr('style', 'display:none');
+            console.log(product_id);
+            $('.addedproduct' + product_id).attr('style', 'display:none');
             $('.clickquantity' + product_id).attr('style', 'display:block');
             var selectproductid = $(this).data('product_id');
 
@@ -215,9 +299,6 @@
                     },
                     dataType: 'json',
                     success: function(response) {
-
-                        //console.log(response);
-                        //$('.product-table').html('');
                         var len = response.length;
                         occurs = {};
 
@@ -242,7 +323,7 @@
                             '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
 
                             $('.product-table').prepend(e);
-                            var product_div = $('.child' + response[i].product_id).val();
+                            var product_div = '1';
                             $('#product_quantity' + response[i].product_id).val(product_div);
 
 
@@ -275,10 +356,6 @@
 
                     }
                 });
-
-
-
-
                 var tot_expense_amount = 0;
                                 $("input[name='total_price[]']").each(
                                     function() {
@@ -292,19 +369,10 @@
                                             $('.grandtotal').val(tot_expense_amount);
                                     });
 
-
-
-
-
-            //productids.push(selectproductid);
-
-            //console.log(selectproductid);
-
-
-
-
-
         });
+
+
+
 
                             function increment_quantity(productid) {
 
@@ -370,11 +438,7 @@
 
 
 
-function sessiontype(sessionid) {
-console.log(sessionid);
-$(".category_type li:first").addClass('active');
 
-}
 
 var dt = new Date();
 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
@@ -645,7 +709,8 @@ function printDiv(divName) {
                                     '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
 
                                     $('.product-table').prepend(e);
-                                    var product_div = $('.child' + response[i].product_id).val();
+                                    //var product_div = $('.child' + response[i].product_id).val();
+                                    var product_div = '1';
                                     $('#product_quantity' + response[i].product_id).val(product_div);
 
 

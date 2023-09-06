@@ -173,3 +173,4 @@ Route::get('/getcategories', [ProductController::class, 'getcategories']);
 Route::get('/getselectedproducts', [SaleController::class, 'getselectedproducts']);
 Route::post('/zworktechnology/sales/storeSalesData', [SaleController::class, 'storeSalesData'])->name('sales.store.salesdata');
 Route::get('/getproduct_Id_by_name/{product_name}', [SaleController::class, 'getproduct_Id_by_name']);
+Route::get('/getselectedcat_products', [ProductController::class, 'getselectedcat_products']);
