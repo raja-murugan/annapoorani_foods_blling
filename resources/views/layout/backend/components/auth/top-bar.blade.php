@@ -1,12 +1,12 @@
 <div class="header">
     <div class="header-left active">
-        <a href="index.html" class="logo logo-normal">
+        <a href="{{ route('home') }}" class="logo logo-normal">
             <img src="{{ asset('assets/backend/img/logo.png') }}" alt>
         </a>
-        <a href="index.html" class="logo logo-white">
+        <a href="{{ route('home') }}" class="logo logo-white">
             <img src="{{ asset('assets/backend/img/logo-white.png') }}" alt>
         </a>
-        <a href="index.html" class="logo-small">
+        <a href="{{ route('home') }}" class="logo-small">
             <img src="{{ asset('assets/backend/img/logo-small.png') }}" alt>
         </a>
         <a id="toggle_btn" href="javascript:void(0);">
@@ -33,9 +33,9 @@
                         <input type="text" class="serchproduct_name" id="serchproduct_name" placeholder="Search Product">
                         <div class="productlist " style="display:none"></div>
                         <div class="search-addon"><span><i data-feather="search" class="feather-14"></i></span></div>
-                        
+
                     </div>
-                    
+
                 </form>
             </div>
         </li>
