@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('date');
             $table->string('time');
             $table->string('sales_type')->nullable();
+            $table->string('customer_type')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
 
             
             $table->unsignedBigInteger('employee_id')->nullable();

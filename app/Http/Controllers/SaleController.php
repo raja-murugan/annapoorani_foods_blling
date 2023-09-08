@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Bank;
 use App\Models\Sale;
 use App\Models\SaleProduct;
+use App\Models\Customer;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -39,6 +40,7 @@ class SaleController extends Controller
         $Bank = Bank::where('soft_delete', '!=', 1)->get();
         $today = Carbon::now()->format('Y-m-d');
         $timenow = Carbon::now()->format('H:i');
+        $customer_rray = Customer::where('soft_delete', '!=', 1)->get();
 
         $Latest_Sale = Sale::latest('id')->first();
         if($Latest_Sale != ''){
@@ -47,7 +49,49 @@ class SaleController extends Controller
             $latestbillno = 1;
         }
 
-        return view('page.backend.sales.create', compact('session', 'category', 'product', 'today', 'timenow', 'Bank', 'latestbillno'));
+        $DineIn = Sale::where('sales_type', '=', 'Dine In')->where('soft_delete', '!=', 1)->latest()->take(10)->get();
+        $DineInoutput = [];
+        foreach ($DineIn as $key => $DineIn_arr) {
+
+            $DineInoutput[] = array(
+                'date' => date('d-m-Y', strtotime($DineIn_arr->date)),
+                'bill_no' => $DineIn_arr->bill_no,
+                'grandtotal' => $DineIn_arr->grandtotal,
+                'unique_key' => $DineIn_arr->unique_key
+            );
+        }
+
+        $TakeAway = Sale::where('sales_type', '=', 'Take Away')->where('soft_delete', '!=', 1)->latest()->take(10)->get();
+        $TakeAwayInoutput = [];
+        foreach ($TakeAway as $key => $TakeAway_arr) {
+
+            $TakeAwayInoutput[] = array(
+                'date' => date('d-m-Y', strtotime($TakeAway_arr->date)),
+                'bill_no' => $TakeAway_arr->bill_no,
+                'grandtotal' => $TakeAway_arr->grandtotal,
+                'unique_key' => $TakeAway_arr->unique_key
+            );
+        }
+
+
+
+        $Delivery = Sale::where('sales_type', '=', 'Delivery')->where('soft_delete', '!=', 1)->latest()->take(10)->get();
+        $DeliveryInoutput = [];
+        foreach ($Delivery as $key => $Delivery_arr) {
+
+            $customer = Customer::findOrFail($Delivery_arr->customer_id);
+
+            $DeliveryInoutput[] = array(
+                'date' => date('d-m-Y', strtotime($Delivery_arr->date)),
+                'bill_no' => $Delivery_arr->bill_no,
+                'grandtotal' => $Delivery_arr->grandtotal,
+                'customer' => $customer->name,
+                'unique_key' => $Delivery_arr->unique_key
+            );
+        }
+
+
+        return view('page.backend.sales.create', compact('session', 'category', 'product', 'today', 'timenow', 'Bank', 'latestbillno', 'customer_rray', 'DineInoutput', 'TakeAwayInoutput', 'DeliveryInoutput'));
     }
 
 
@@ -83,6 +127,8 @@ class SaleController extends Controller
         $data->date = $request->date;
         $data->time = $request->time;
         $data->sales_type = $request->sales_type;
+        $data->customer_type = $request->customer_type;
+        $data->customer_id = $request->customer_id;
         $data->sub_total = $request->subtotal;
         $data->tax = $request->taxamount;
         $data->total = $request->totalamount;

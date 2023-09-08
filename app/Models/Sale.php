@@ -18,6 +18,8 @@ class Sale extends Model
         'time',
         'sales_type',
         'employee_id',
+        'customer_type',
+        'customer_id',
         'sub_total',
         'tax',
         'total',

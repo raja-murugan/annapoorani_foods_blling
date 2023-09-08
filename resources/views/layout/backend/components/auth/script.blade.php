@@ -613,7 +613,9 @@ $(document).ready(function(){
         var billno = $('#billno').val();
         var date = $('#date').val();
         var time = $('#time').val();
-        var sales_type = $('#sales_type').val();
+        var sales_type = $('input[name=sales_type]:checked').val();
+        var customer_type = $('#customer_type').val();
+        var customer_id = $('#customer_id').val();
         var subtotal = $('#subtotal').val();
         var taxamount = $('#taxamount').val();
         var paymentmethod = $('input[name=paymentmethod]:checked').val();
@@ -654,6 +656,8 @@ $(document).ready(function(){
                         date: date,
                         time: time,
                         sales_type: sales_type,
+                        customer_type: customer_type,
+                        customer_id: customer_id,
                         subtotal: subtotal,
                         taxamount: taxamount,
                         paymentmethod: paymentmethod,
@@ -676,8 +680,8 @@ $(document).ready(function(){
                             }, 2000 );
 
                             var last_salesid = response.last_id;
-                            //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                            window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
+                            window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                            //window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
                            // window.location.close();
 
 
@@ -700,12 +704,17 @@ $(document).ready(function(){
                         $('.total_count').text('');
                         $('.subtotalamount').text('');
                         $('#subtotal').val('');
+                        $('#customer_type').val('walkincustomer');
+                        $('#customer_type').select2().trigger('change');
+                        $('#customer_id').val('');
                         $('#taxamount').val('');
                         $('input[name=paymentmethod]:checked').val('');
                         $('#totalamount').val('');
                         $('#sale_discount').val('');
                         $('.grand_total').text('');
                         $('.grandtotal').val('');
+                        $('.cutomer_arr').hide();
+                        $('.customertyp').show();
                     }
                 });
     });
@@ -733,7 +742,7 @@ function printDiv(divName) {
                
                 var productid = $(this).find('option').filter(':selected').val()
                 console.log(productid);
-
+                $('option:selected', this).remove();
                         
                         var selectproductid = productid;
 
@@ -749,7 +758,8 @@ function printDiv(divName) {
                             success: function(response) {
 
                                 //console.log(response);
-                                //$(this).find('option').filter(':selected').val('')
+                                //$(this).find('option').filter(':selected').val('');
+                                
                                 var len = response.length;
                                 occurs = {};
 
@@ -838,6 +848,34 @@ function printDiv(divName) {
 
 
 
-          
+            $(function(){
+
+                $("input:radio[name='sales_type']").change(function(){
+                    var _val = $(this).val();
+                    console.log(_val);
+                    if(_val == 'Dine In'){
+
+                        $('#customer_type').val('walkincustomer');
+                        $('#customer_type').select2().trigger('change');
+                        $('.customertyp').show();
+                        $('.cutomer_arr').hide();
+
+                    }else if(_val == 'Take Away'){
+
+                        $('#customer_type').val('walkoutcustomer');
+                        $('#customer_type').select2().trigger('change');
+                        $('.customertyp').show();
+                        $('.cutomer_arr').hide();
+                        
+
+                    }else if(_val == 'Delivery'){
+                        $('.customertyp').hide();
+                        $('.cutomer_arr').show();
+                        $('#customer_type').val('');
+
+                    }
+                });
+
+            });
             
 </script>

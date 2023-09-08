@@ -212,9 +212,18 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="select-split ">
-                                            <div class="select-group w-100">
-                                                <select class="select">
-                                                    <option>Walk-in Customer</option>
+                                            <div class="select-group w-100 customertyp">
+                                                <select class="select" name="customer_type" id="customer_type">
+                                                    <option value="walkincustomer">Walk-in Customer</option>
+                                                    <option value="walkoutcustomer">Walk-out Customer</option>
+                                                </select>
+                                            </div>
+                                            <div class="select-group w-100 cutomer_arr" style="display:none">
+                                                <select class="form-control js-example-basic-single select" name="customer_id" id="customer_id">
+                                                    <option value="" disabled selected hiddden>Select Customer</option>
+                                                    @foreach ($customer_rray as $customers)
+                                                        <option value="{{ $customers->id }}">{{ $customers->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -364,133 +373,34 @@
                                         <thead>
                                             <tr>
                                                 <th>Date</th>
-                                                <th>Reference</th>
+                                                <th>Bill No</th>
                                                 <th>Customer</th>
                                                 <th>Amount </th>
                                                 <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($DineInoutput as $DineInoutputs)
                                             <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
+                                                <td>{{ $DineInoutputs['date'] }}</td>
+                                                <td># {{ $DineInoutputs['bill_no'] }}</td>
                                                 <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
+                                                <td>₹ {{ $DineInoutputs['grandtotal'] }}</td>
                                                 <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
+                                                    <a href="#delete{{ $DineInoutputs['unique_key'] }}" data-bs-toggle="modal"
+                                                        data-id="{{ $DineInoutputs['unique_key'] }}"
+                                                        data-bs-target=".dineinedelete-modal-xl{{ $DineInoutputs['unique_key'] }}"
+                                                        class="badges bg-lightyellow" style="color: white">Delete</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            <div class="modal fade dineinedelete-modal-xl{{ $DineInoutputs['unique_key'] }}"
+                                                tabindex="-1" role="dialog"data-bs-backdrop="static"
+                                                aria-labelledby="deleteLargeModalLabel{{ $DineInoutputs['unique_key'] }}"
+                                                aria-hidden="true">
+                                                @include('page.backend.sales.dineindelete')
+                                            </div>
+                                            @endforeach
+                                           
                                         </tbody>
                                     </table>
                                 </div>
@@ -529,133 +439,33 @@
                                         <thead>
                                             <tr>
                                                 <th>Date</th>
-                                                <th>Reference</th>
+                                                <th>Bill No</th>
                                                 <th>Customer</th>
                                                 <th>Amount </th>
                                                 <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($TakeAwayInoutput as $TakeAwayInoutputs)
                                             <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
+                                                <td>{{ $TakeAwayInoutputs['date'] }}</td>
+                                                <td># {{ $TakeAwayInoutputs['bill_no'] }}</td>
+                                                <td>Walk-out Customer</td>
+                                                <td>₹ {{ $TakeAwayInoutputs['grandtotal'] }}</td>
                                                 <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
+                                                    <a href="#takeawayedelete{{ $TakeAwayInoutputs['unique_key'] }}" data-bs-toggle="modal"
+                                                        data-id="{{ $TakeAwayInoutputs['unique_key'] }}"
+                                                        data-bs-target=".takeawayedelete-modal-xl{{ $TakeAwayInoutputs['unique_key'] }}"
+                                                        class="badges bg-lightyellow" style="color: white">Delete</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            <div class="modal fade takeawayedelete-modal-xl{{ $TakeAwayInoutputs['unique_key'] }}"
+                                                tabindex="-1" role="dialog"data-bs-backdrop="static"
+                                                aria-labelledby="deleteLargeModalLabel{{ $TakeAwayInoutputs['unique_key'] }}"
+                                                aria-hidden="true">
+                                                @include('page.backend.sales.takeawaydelete')
+                                            </div>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -694,133 +504,33 @@
                                         <thead>
                                             <tr>
                                                 <th>Date</th>
-                                                <th>Reference</th>
+                                                <th>Bill No</th>
                                                 <th>Customer</th>
                                                 <th>Amount </th>
                                                 <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($DeliveryInoutput as $DeliveryInoutputs)
                                             <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
+                                                <td>{{ $DeliveryInoutputs['date'] }}</td>
+                                                <td># {{ $DeliveryInoutputs['bill_no'] }}</td>
+                                                <td>{{ $DeliveryInoutputs['customer'] }}</td>
+                                                <td>₹ {{ $DeliveryInoutputs['grandtotal'] }}</td>
                                                 <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
+                                                    <a href="#deliveryedelete{{ $DeliveryInoutputs['unique_key'] }}" data-bs-toggle="modal"
+                                                        data-id="{{ $DeliveryInoutputs['unique_key'] }}"
+                                                        data-bs-target=".deliveryedelete-modal-xl{{ $DeliveryInoutputs['unique_key'] }}"
+                                                        class="badges bg-lightyellow" style="color: white">Delete</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2022-03-07 </td>
-                                                <td>INV/SL0101</td>
-                                                <td>Walk-in Customer</td>
-                                                <td>$ 1500.00</td>
-                                                <td>
-                                                    <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                        <img src="{{ asset('assets/backend/img/icons/delete.svg') }}"
-                                                            alt="img">
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            <div class="modal fade deliveryedelete-modal-xl{{ $DeliveryInoutputs['unique_key'] }}"
+                                                tabindex="-1" role="dialog"data-bs-backdrop="static"
+                                                aria-labelledby="deleteLargeModalLabel{{ $DeliveryInoutputs['unique_key'] }}"
+                                                aria-hidden="true">
+                                                @include('page.backend.sales.deliverydelete')
+                                            </div>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
