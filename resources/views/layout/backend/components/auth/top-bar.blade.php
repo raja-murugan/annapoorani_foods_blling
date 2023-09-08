@@ -36,7 +36,7 @@
                             $live_url = "https://allhighcare.com/zworktechnology/sales/create"
                             @endphp
 
-                            @if ($lastword == $live_url)
+                            @if ($lastword == $current_url)
                     <div class="searchinputs">
                             <style>
                                 option.avatar {
