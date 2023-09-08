@@ -387,7 +387,7 @@
                                                 <td>Walk-in Customer</td>
                                                 <td>₹ {{ $DineInoutputs['grandtotal'] }}</td>
                                                 <td>
-                                                    <a href="#delete{{ $DineInoutputs['unique_key'] }}" data-bs-toggle="modal"
+                                                    <a href="#dineinedelete{{ $DineInoutputs['unique_key'] }}" data-bs-toggle="modal"
                                                         data-id="{{ $DineInoutputs['unique_key'] }}"
                                                         data-bs-target=".dineinedelete-modal-xl{{ $DineInoutputs['unique_key'] }}"
                                                         class="badges bg-lightyellow" style="color: white">Delete</a>

@@ -680,8 +680,8 @@ $(document).ready(function(){
                             }, 2000 );
 
                             var last_salesid = response.last_id;
-                            window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                            //window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
+                            //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                            window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
                            // window.location.close();
 
 
