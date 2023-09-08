@@ -30,7 +30,11 @@
                 </a>
                 <form action="#" autocomplete="off">
 
+                            @php
+                            $lastword = Request::url();
+                            @endphp
 
+                            @if ($lastword == "http://127.0.0.1:8000/zworktechnology/sales/create")
                     <div class="searchinputs">
                             <style>
                                 option.avatar {
@@ -49,7 +53,7 @@
                         
 
                     </div>
-
+                    @endif
 
 
                 </form>

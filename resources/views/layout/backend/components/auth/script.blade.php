@@ -214,7 +214,7 @@
 
                                 $(".select2PS").append($('<option>', {
                                     value: response[i].product_id,
-                                    text:  response[i].product_name,
+                                    text:  response[i].product_name + ' - ₹ ' + response[i].product_price,
                                 }));
                             }
                         }
@@ -363,7 +363,7 @@
 
                                 $(".select2PS").append($('<option>', {
                                     value: response[i].product_id,
-                                    text:  response[i].product_name
+                                    text:  response[i].product_name + ' - ₹ ' + response[i].product_price,
                                 }));
                             }
                         }
@@ -730,6 +730,7 @@ function printDiv(divName) {
             
             $('.select2PS').on('change', function () {
                // $('.productlist').fadeOut();
+               
                 var productid = $(this).find('option').filter(':selected').val()
                 console.log(productid);
 
@@ -748,7 +749,7 @@ function printDiv(divName) {
                             success: function(response) {
 
                                 //console.log(response);
-                                //$('.product-table').html('');
+                                //$(this).find('option').filter(':selected').val('')
                                 var len = response.length;
                                 occurs = {};
 
