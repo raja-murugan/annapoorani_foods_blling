@@ -176,13 +176,31 @@ class SaleController extends Controller
     }
 
 
-    public function getproduct_Id_by_name($product_name)
+
+    public function GetAutosearchProducts()
     {
-        $GetProductId = Product::select('*')->where('name', $product_name)->latest('id')->first();
-        $userData['data'] = $GetProductId->id;
-        echo json_encode($userData);
+        $sessionid = request()->get('sessionid');
+        $productoutput = [];
+        //$productids = [];
+        //$prdoct_array = [];
+        
+            $Getproducts = Product::where('session_id', '=', $sessionid)->get();
+            foreach ($Getproducts as $key => $Getproducts_arr) {
+
+                $Category = Category::findOrFail($Getproducts_arr->category_id);
+                $productoutput[] = [
+                    'product_id' => $Getproducts_arr->id,
+                    'product_name' => $Getproducts_arr->name,
+                    'product_price' => $Getproducts_arr->price,
+                    'product_image' => asset('assets/product/'.$Getproducts_arr->image),
+                    'Category' => $Category->name,
+                ];
+            
+            }
+
+            
+            //$prdoct_array =  array_replace_recursive($productids, $productoutput);
+            echo json_encode($productoutput);
     }
-
-
     
 }

@@ -54,10 +54,10 @@
                             </div>
                         </div>
                         <div class="tabs-sets">
-                            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                            <ul class="nav nav-tabs " id="myTabs" role="tablist">
                                 @foreach ($session as $keydata => $sessions)
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link @if ($keydata == 0) active @endif "
+                                    <li class="nav-item sessionclass" role="presentation" data-sesion_id="{{ $sessions->id }}">
+                                        <button class="nav-link @if ($keydata == 0) active @endif"
                                             id="purchase{{ $sessions->id }}-tab" data-bs-toggle="tab"
                                             onclick="sessiontype({{ $sessions->id }})"
                                             data-bs-target="#purchase{{ $sessions->id }}" type="button"

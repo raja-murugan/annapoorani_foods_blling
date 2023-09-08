@@ -29,12 +29,28 @@
                 <i class="fa fa-search"></i>
                 </a>
                 <form action="#" autocomplete="off">
+
+
                     <div class="searchinputs">
-                        <input type="text" class="serchproduct_name" id="serchproduct_name" placeholder="Search Product">
-                        <div class="productlist " style="display:none"></div>
-                        <div class="search-addon"><span><i data-feather="search" class="feather-14"></i></span></div>
+                            <style>
+                                option.avatar {
+                                background-repeat: no-repeat !important;
+                                padding-left: 20px;
+                                }
+                                .avatar .ui-icon {
+                                background-position: left top;
+                                }
+                            </style>      
+                            
+                            
+                          <select class="select2PS js-example-basic-single select form-control" id="select2PS" style="width : 200%" data-placeholder="Select a Product" >                             
+                            <option>Select Product...</option>
+                        </select>
+                        
 
                     </div>
+
+
 
                 </form>
             </div>

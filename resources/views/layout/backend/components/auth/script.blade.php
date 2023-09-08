@@ -44,7 +44,7 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response['data']);
+                           // console.log(response['data']);
                             if(response['data'] != null){
                                 alert('Already Existed');
                                 $('.customer_contactno').val('');
@@ -69,7 +69,7 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response['data']);
+                           // console.log(response['data']);
                             if(response['data'] != null){
                                 alert('Already Existed');
                                 $('.employee_contactno').val('');
@@ -98,7 +98,7 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response['data']);
+                           // console.log(response['data']);
                             if(response['data'] != null){
                                 alert('Already Existed');
                                 $('.product_name').val('');
@@ -120,7 +120,7 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response);
+                           // console.log(response);
                             var len = response.length;
                             $('.productcategory_id').empty();
 
@@ -181,6 +181,71 @@
         readURL(this);
     });
 
+
+
+                $(document).ready(function() {
+                    var sessionid = '1';
+                    $.ajax({
+                        type: 'get',
+                        url: '/GetAutosearchProducts/',
+                        data: {
+                                _token: "{{ csrf_token() }}",
+                                sessionid: sessionid,
+                            },
+                        dataType: 'json',
+                        success: function (response) {
+                            //console.log(response);
+                            $('.select2PS').html('');
+
+                            var $select = $(".select2PS").append(
+                                $('<option>', {
+                                    value: '0',
+                                    text: 'Select Product...'
+                                }));
+                            $(".select2PS").append($select);
+
+
+                            var output = response.length;
+                            for (var i = 0; i < output; i++) {
+
+                                //console.log(response[i].product_id);
+
+
+
+                                $(".select2PS").append($('<option>', {
+                                    value: response[i].product_id,
+                                    text:  response[i].product_name,
+                                }));
+                            }
+                        }
+                    });
+
+
+                   
+                           // $("#select2PS").select2({
+                            //    templateResult: formatOptions
+                           // });
+                            
+                        
+
+                }); 
+               // function formatOptions (state) 
+              //  {
+             //           if (!state.id) { return state.text; }
+
+                //        console.log(state.style);
+
+                //        <!-- here i am creating a route of the images folder -->
+
+               //         var $state = $(
+                //                '<span ><img sytle="display: inline-block;" src="' + state.src + '"  /> ' + state.text + '</span>'
+                //                );
+
+                //            return $state;
+                //}
+
+
+
     function sessiontype(sessionid) {
         console.log(sessionid);
         $('#purchase' + sessionid).each(function(){
@@ -197,7 +262,7 @@
                                 },
                                 dataType: 'json',
                                 success: function(response) {
-                                    console.log(response);
+                                    //console.log(response);
                                     $('.prodcttsdiv').html('');
                                     
                                     var len = response.length;
@@ -237,7 +302,7 @@
                                 },
                                 dataType: 'json',
                                 success: function(response) {
-                                    console.log(response);
+                                   // console.log(response);
                                     $('.prodcttsdiv').html('');
                                     
                                     var len = response.length;
@@ -268,11 +333,49 @@
                 });
 
 
+                $(document).ready(function() {
+                    $.ajax({
+                        type: 'get',
+                        url: '/GetAutosearchProducts/',
+                        data: {
+                                _token: "{{ csrf_token() }}",
+                                sessionid: sessionid,
+                            },
+                        dataType: 'json',
+                        success: function (response) {
+                            //console.log(response);
+                            $('.select2PS').html('');
 
-                
+                            var $select = $(".select2PS").append(
+                                $('<option>', {
+                                    value: '0',
+                                    text: 'Select Product...'
+                                }));
+                            $(".select2PS").append($select);
+
+
+                            var output = response.length;
+                            for (var i = 0; i < output; i++) {
+
+                                //console.log(response[i].product_id);
 
 
 
+                                $(".select2PS").append($('<option>', {
+                                    value: response[i].product_id,
+                                    text:  response[i].product_name
+                                }));
+                            }
+                        }
+                    });
+
+
+
+                       
+                       
+
+
+                }); 
 
 
     }
@@ -500,6 +603,8 @@ $(document).on('click', '.remove-ultr', function() {
 
 
 $(document).ready(function(){
+
+    
     $('#sales_store').submit(function(e){
         e.preventDefault();
 
@@ -621,59 +726,18 @@ function printDiv(divName) {
         }
 
 
-        $(document).ready(function() {
-            $('.cat_div').on('click', function(){
-                var product_catid =  $(this).find("#product_catid").val();
-                console.log(product_catid);
-
-                if(product_catid){
-                    $(document).on("keyup", '.serchproduct_name', function() {
-                        var query = $(this).val();
-                        if (query != '') {
-                            var _token = $('input[name="_token"]').val();
-
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ route('sales.autocomplete') }}",
-                                data: {
-                                    query: query,
-                                    product_catid: product_catid,
-                                    _token: _token
-                                },
-
-                                success: function(data) {
-                                    //console.log(data);
-                                    $('.productlist').fadeIn();
-                                    $('.productlist').html(data);
-                                }
-                            });
-                        }
-                    });
-                }
-
-                
-
-            });
-
-
 
             
-            $(document).on('click', 'li.autosearchli', function() {
-                $('#serchproduct_name').val('');
-                $('.productlist').fadeOut();
-                //console.log($(this).text());
-                $.ajax({
-                    url: '/getproduct_Id_by_name/' + $(this).text(),
-                    type: 'get',
-                    dataType: 'json',
-                    success: function(response) {
-                        console.log(response['data']);
+            $('.select2PS').on('change', function () {
+               // $('.productlist').fadeOut();
+                var productid = $(this).find('option').filter(':selected').val()
+                console.log(productid);
 
                         
-                        var selectproductid = response['data'];
+                        var selectproductid = productid;
 
 
-                    $.ajax({
+                        $.ajax({
                             url: '/getselectedproducts/',
                             type: 'get',
                             data: {
@@ -743,7 +807,7 @@ function printDiv(divName) {
 
 
 
-                var tot_expense_amount = 0;
+                                var tot_expense_amount = 0;
                                 $("input[name='total_price[]']").each(
                                     function() {
                                         //alert($(this).val());
@@ -759,11 +823,7 @@ function printDiv(divName) {
 
 
                         
-                    }
-                });
             });
-            
-        });
 
 
         $(document).on("keyup", '.sale_discount', function() {
@@ -776,6 +836,7 @@ function printDiv(divName) {
 
 
 
-            
 
+          
+            
 </script>
