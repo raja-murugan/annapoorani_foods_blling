@@ -386,6 +386,7 @@
                 
 
             var product_id = $(this).data('product_id');
+            
             console.log(product_id);
             $('.addedproduct' + product_id).attr('style', 'display:none');
             $('.clickquantity' + product_id).attr('style', 'display:block');
@@ -680,8 +681,8 @@ $(document).ready(function(){
                             }, 2000 );
 
                             var last_salesid = response.last_id;
-                            //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                            window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
+                            window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                           // window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
                            // window.location.close();
 
 
@@ -715,6 +716,7 @@ $(document).ready(function(){
                         $('.grandtotal').val('');
                         $('.cutomer_arr').hide();
                         $('.customertyp').show();
+                        $('.selectproduct').show();
                     }
                 });
     });
@@ -743,6 +745,8 @@ function printDiv(divName) {
                 var productid = $(this).find('option').filter(':selected').val()
                 console.log(productid);
                 $('option:selected', this).remove();
+
+                $('.addedproduct' + productid).hide();
                         
                         var selectproductid = productid;
 

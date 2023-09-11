@@ -348,25 +348,6 @@
                                                     alt="img"></a>
                                         </div>
                                     </div>
-                                    <div class="wordset">
-                                        <ul>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                                        src="{{ asset('assets/backend/img/icons/pdf.svg') }}"
-                                                        alt="img"></a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
-                                                        src="{{ asset('assets/backend/img/icons/excel.svg') }}"
-                                                        alt="img"></a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                                        src="{{ asset('assets/backend/img/icons/printer.svg') }}"
-                                                        alt="img"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table datanew">
