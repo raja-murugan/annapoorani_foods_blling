@@ -28,6 +28,20 @@
                     </ul>
                 </li>
                 <li class="submenu-open">
+                    <h6 class="submenu-hdr">Purchase</h6>
+                    <ul>
+                        <li class="{{ Route::is('purchase_product.index', 'purchase_product.store') ? 'active' : '' }}">
+                            <a href="{{ route('purchase_product.index') }}"><i data-feather="credit-card"></i><span>Product</span></a>
+                        </li>
+                        <li class="{{ Route::is('supplier.index', 'supplier.store') ? 'active' : '' }}">
+                            <a href="{{ route('supplier.index') }}"><i data-feather="credit-card"></i><span>Supplier</span></a>
+                        </li>
+                        <li class="{{ Route::is('purchase.index', 'purchase.store') ? 'active' : '' }}">
+                            <a href="{{ route('purchase.index') }}"><i data-feather="credit-card"></i><span>Purchase</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="submenu-open">
                     <h6 class="submenu-hdr">General</h6>
                     <ul>
                         <li class="{{ Route::is('bank.index', 'bank.store') ? 'active' : '' }}">

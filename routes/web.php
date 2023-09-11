@@ -11,6 +11,9 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\PurchaseproductController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -162,6 +165,53 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         // AUTO COMPLETE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/sales/autocomplete', [SaleController::class, 'autocomplete'])->name('sales.autocomplete');
+    });
+
+
+    // PURCHASE PRODUCT CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/purchase_product', [PurchaseproductController::class, 'index'])->name('purchase_product.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/purchase_product/store', [PurchaseproductController::class, 'store'])->name('purchase_product.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/purchase_product/edit/{unique_key}', [PurchaseproductController::class, 'edit'])->name('purchase_product.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchase_product/delete/{unique_key}', [PurchaseproductController::class, 'delete'])->name('purchase_product.delete');
+        // CHECK DUPLICATE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/purchase_product/checkduplicate', [PurchaseproductController::class, 'checkduplicate'])->name('purchase_product.checkduplicate');
+    });
+
+
+    // SUPPLIER CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/supplier', [SupplierController::class, 'index'])->name('supplier.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/supplier/store', [SupplierController::class, 'store'])->name('supplier.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/supplier/edit/{unique_key}', [SupplierController::class, 'edit'])->name('supplier.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/supplier/delete/{unique_key}', [SupplierController::class, 'delete'])->name('supplier.delete');
+        // CHECK DUPLICATE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/supplier/checkduplicate', [SupplierController::class, 'checkduplicate'])->name('supplier.checkduplicate');
+    });
+
+
+    // PURCHASE CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/purchase', [PurchaseController::class, 'index'])->name('purchase.index');
+        // CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/purchase/store', [PurchaseController::class, 'store'])->name('purchase.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/purchase/edit/{unique_key}', [PurchaseController::class, 'edit'])->name('purchase.edit');
+        // UPDATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchase/update/{unique_key}', [PurchaseController::class, 'update'])->name('purchase.update');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchase/delete/{unique_key}', [PurchaseController::class, 'delete'])->name('purchase.delete');
     });
 
 

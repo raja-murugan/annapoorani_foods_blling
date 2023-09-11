@@ -395,25 +395,6 @@
                                                     alt="img"></a>
                                         </div>
                                     </div>
-                                    <div class="wordset">
-                                        <ul>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                                        src="{{ asset('assets/backend/img/icons/pdf.svg') }}"
-                                                        alt="img"></a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
-                                                        src="{{ asset('assets/backend/img/icons/excel.svg') }}"
-                                                        alt="img"></a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                                        src="{{ asset('assets/backend/img/icons/printer.svg') }}"
-                                                        alt="img"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table datanew">
@@ -460,25 +441,6 @@
                                                     alt="img"></a>
                                         </div>
                                     </div>
-                                    <div class="wordset">
-                                        <ul>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                                        src="{{ asset('assets/backend/img/icons/pdf.svg') }}"
-                                                        alt="img"></a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
-                                                        src="{{ asset('assets/backend/img/icons/excel.svg') }}"
-                                                        alt="img"></a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                                        src="{{ asset('assets/backend/img/icons/printer.svg') }}"
-                                                        alt="img"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table datanew">
@@ -507,7 +469,7 @@
                                             </tr>
                                             <div class="modal fade deliveryedelete-modal-xl{{ $DeliveryInoutputs['unique_key'] }}"
                                                 tabindex="-1" role="dialog"data-bs-backdrop="static"
-                                                aria-labelledby="deleteLargeModalLabel{{ $DeliveryInoutputs['unique_key'] }}"
+                                                aria-labelledby="deliverydeleteLargeModalLabel{{ $DeliveryInoutputs['unique_key'] }}"
                                                 aria-hidden="true">
                                                 @include('page.backend.sales.deliverydelete')
                                             </div>
