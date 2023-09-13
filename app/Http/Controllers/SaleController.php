@@ -36,7 +36,7 @@ class SaleController extends Controller
     {
         $session = Session::where('soft_delete', '!=', 1)->get();
         $category = Category::where('soft_delete', '!=', 1)->get();
-        $product = Product::where('soft_delete', '!=', 1)->get();
+        $product_array = Product::where('soft_delete', '!=', 1)->get();
         $Bank = Bank::where('soft_delete', '!=', 1)->get();
         $today = Carbon::now()->format('Y-m-d');
         $timenow = Carbon::now()->format('H:i');
@@ -91,7 +91,7 @@ class SaleController extends Controller
         }
 
 
-        return view('page.backend.sales.create', compact('session', 'category', 'product', 'today', 'timenow', 'Bank', 'latestbillno', 'customer_rray', 'DineInoutput', 'TakeAwayInoutput', 'DeliveryInoutput'));
+        return view('page.backend.sales.create', compact('session', 'category', 'product_array', 'today', 'timenow', 'Bank', 'latestbillno', 'customer_rray', 'DineInoutput', 'TakeAwayInoutput', 'DeliveryInoutput'));
     }
 
 

@@ -103,7 +103,7 @@
                                     data-tab="fruits{{ $categories->id }}">
                                     
                                     <div class="row prodcttsdiv" >
-                                    @foreach ($product as $productss)
+                                    @foreach ($product_array as $productss)
                                                 @if ($productss->category_id == $categories->id)
                                                     <div class="col-lg-3 col-sm-6 d-flex  ">
                                                         <div class="productset flex-fill">
