@@ -21,8 +21,13 @@ class Purchase extends Model
         'sub_total',
         'tax',
         'total',
+        'tax_amount',
+        'discount_price',
+        'discount_type',
         'discount',
         'grandtotal',
+        'paidamount',
+        'balanceamount',
         'payment_method'
     ];
 }

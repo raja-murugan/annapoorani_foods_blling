@@ -225,3 +225,4 @@ Route::post('/zworktechnology/sales/storeSalesData', [SaleController::class, 'st
 Route::get('/getproduct_Id_by_name/{productid}', [SaleController::class, 'getproduct_Id_by_name']);
 Route::get('/getselectedcat_products', [ProductController::class, 'getselectedcat_products']);
 Route::get('/GetAutosearchProducts', [SaleController::class, 'GetAutosearchProducts']);
+Route::get('getProducts/', [PurchaseController::class, 'getProducts']);

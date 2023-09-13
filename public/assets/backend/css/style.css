@@ -9035,11 +9035,16 @@ span.select2-container.select2-container--default.select2-container--open {
 .total-order {
     max-width: 430px;
     width: 100%;
+    margin: 30px 30px 30px auto;
 }
 
 .total-order ul {
     margin: 0;
     padding: 0
+}
+
+.total-order ul li {
+    border: 1px solid #f8f9fa;
 }
 
 .total-order ul li h4 {
@@ -9049,6 +9054,7 @@ span.select2-container.select2-container--default.select2-container--open {
     font-weight: 500;
     padding: 10px;
     border-right: 1px solid #f8f8f8;
+    background: #FAFBFE;
 }
 
 .total-order ul li h5 {
@@ -9057,7 +9063,7 @@ span.select2-container.select2-container--default.select2-container--open {
     padding: 10px;
     font-weight: 700;
     text-align: right;
-    width: 50%
+    width: 50%;
 }
 
 .total-order ul li.total h5 {
