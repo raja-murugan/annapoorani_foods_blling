@@ -13,96 +13,263 @@
 </head>
 
 <body>
-    <div class="cs-container">
-        <div class="cs-invoice cs-style1">
-            <div class="cs-invoice_in" id="download_section">
-                <div class="cs-invoice_head cs-type1 cs-mb25">
-                    <div class="cs-invoice_left">
-                        <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Bill No:</b> # {{ $billno }}</p>
-                        <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Bill Type:</b> {{ $sales_type }}</p>
-                                <p class="cs-invoice_number cs-primary_color cs-mb0 cs-f16"><b class="cs-primary_color">Date:</b> {{ $date }}</p>
-                    </div>
-                    <div class="cs-invoice_right cs-text_right">
-                        <div class="cs-logo cs-mb5"><img src="{{ asset('assets/backend/img/logo.png') }}" alt="Logo" style="width: 100px"></div>
-                        <b class="cs-primary_color">ANNAPORANI FOODS</b>
-                        <p>
-                            39 3rd cross west, Puthur, Bharthi Nagar, Tiruchirappalli, Tamil Nadu 620017
-                        </p>
-                    </div>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+    *,
+    ::after,
+    ::before {
+        box-sizing: border-box;
+    }
+
+    body {
+        color: #666;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.4em;
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background-color: #f5f6fa;
+    }
+
+    .tm_pos_invoice_wrap {
+        max-width: 340px;
+        margin: auto;
+        margin-top: 30px;
+        padding: 30px 20px;
+        background-color: #fff;
+    }
+
+    .tm_pos_company_logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 7px;
+    }
+
+    .tm_pos_company_logo img {
+        vertical-align: middle;
+        border: 0;
+        max-width: 100%;
+        height: auto;
+        max-height: 45px;
+    }
+
+    .tm_pos_invoice_top {
+        text-align: center;
+        margin-bottom: 18px;
+    }
+
+    .tm_pos_invoice_heading {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 500;
+        margin: 10px 0;
+    }
+
+    .tm_pos_invoice_heading:before {
+        content: '';
+        position: absolute;
+        height: 0;
+        width: 100%;
+        left: 0;
+        top: 46%;
+        border-top: 1px dashed #666;
+    }
+
+    .tm_pos_invoice_heading span {
+        display: inline-flex;
+        padding: 0 5px;
+        background-color: #fff;
+        z-index: 1;
+        font-weight: 500;
+    }
+
+    .tm_list.tm_style1 {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .tm_list.tm_style1 li {
+        display: flex;
+        width: 50%;
+        font-size: 12px;
+        line-height: 1.2em;
+        margin-bottom: 7px;
+    }
+
+    .text-right {
+        text-align: right;
+        justify-content: flex-end;
+    }
+
+    .tm_list_title {
+        color: #111;
+        margin-right: 4px;
+        font-weight: 500;
+    }
+
+    .tm_invoice_seperator {
+        width: 150px;
+        border-top: 1px dashed #666;
+        margin: 9px 0;
+        margin-left: auto;
+    }
+
+    .tm_pos_invoice_table {
+        width: 100%;
+        margin-top: 10px;
+        line-height: 1.3em;
+    }
+
+    .tm_pos_invoice_table thead th {
+        font-weight: 500;
+        color: #111;
+        text-align: left;
+        padding: 8px 3px;
+        border-top: 1px dashed #666;
+        border-bottom: 1px dashed #666;
+    }
+
+    .tm_pos_invoice_table td {
+        padding: 4px;
+    }
+
+    .tm_pos_invoice_table tbody tr:first-child td {
+        padding-top: 10px;
+    }
+
+    .tm_pos_invoice_table tbody tr:last-child td {
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #666;
+    }
+
+    .tm_pos_invoice_table th:last-child,
+    .tm_pos_invoice_table td:last-child {
+        text-align: right;
+        padding-right: 0;
+    }
+
+    .tm_pos_invoice_table th:first-child,
+    .tm_pos_invoice_table td:first-child {
+        padding-left: 0;
+    }
+
+    .tm_pos_invoice_table tr {
+        vertical-align: baseline;
+    }
+
+    .tm_bill_list {
+        list-style: none;
+        margin: 0;
+        padding: 12px 0;
+        border-bottom: 1px dashed #666;
+    }
+
+    .tm_bill_list_in {
+        display: flex;
+        text-align: right;
+        justify-content: flex-end;
+        padding: 3px 0;
+    }
+
+    .tm_bill_title {
+        padding-right: 20px;
+    }
+
+    .tm_bill_value {
+        width: 90px;
+    }
+
+    .tm_bill_value.tm_bill_focus,
+    .tm_bill_title.tm_bill_focus {
+        font-weight: 500;
+        color: #111;
+    }
+
+    .tm_pos_invoice_footer {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .tm_pos_sample_text {
+        text-align: center;
+        padding: 12px 0;
+        border-bottom: 1px dashed #666;
+        line-height: 1.6em;
+        color: #9c9c9c;
+    }
+
+    .tm_pos_company_name {
+        font-weight: 500;
+        color: #111;
+        font-size: 16px;
+        line-height: 1.4em;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="tm_pos_invoice_wrap">
+        <div class="tm_pos_invoice_top">
+            
+            <div class="tm_pos_company_name">ANNAPORANI FOODS</div>
+            <div class="tm_pos_company_address">39 3rd cross west, Puthur, Bharthi Nagar, Tiruchirappalli, Tamil Nadu 620017</div>
+            <div class="tm_pos_company_mobile"></div>
+        </div>
+        <div class="tm_pos_invoice_body">
+            <div class="tm_pos_invoice_heading"><span>Retail Receipt</span></div>
+            <ul class="tm_list tm_style1">
+                <li>
+                    <div class="tm_list_title">Bill No:</div>
+                    <div class="tm_list_desc"># {{ $billno }}</div>
+                </li>
+                <li class="text-right">
+                    <div class="tm_list_title">Bill Type:</div>
+                    <div class="tm_list_desc">{{ $sales_type }}</div>
+                </li>
+                <li>
+                    <div class="tm_list_title">Date:</div>
+                    <div class="tm_list_desc">{{ $date }}</div>
+                </li>
+            </ul>
+            <table class="tm_pos_invoice_table">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($output as $output_arr)
+                    <tr>
+                        <td>1.</td>
+                        <td>{{$output_arr['productname'] }}</td>
+                        <td>{{$output_arr['price'] }}</td>
+                        <td>{{$output_arr['quantity'] }}</td>
+                        <td>{{$output_arr['total_price'] }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="tm_bill_list">
+                
+                <div class="tm_bill_list_in">
+                    <div class="tm_bill_title tm_bill_focus">Total payable:</div>
+                    <div class="tm_bill_value tm_bill_focus">{{ $total }}</div>
                 </div>
-                <div class="cs-table cs-style2">
-                    <div class="">
-                        <div class="cs-table_responsive">
-                            <table>
-                                <thead>
-                                    <tr class="cs-focus_bg">
-                                        <th class="cs-width_5 cs-semi_bold cs-primary_color">Description</th>
-                                        <th class="cs-width_5 cs-semi_bold cs-primary_color">Count</th>
-                                        <th class="cs-width_2 cs-semi_bold cs-primary_color cs-text_right">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($output as $output_arr)
-                                    <tr>
-                                        <td class="cs-width_5">{{$output_arr['productname'] }}</td>
-                                        <td class="cs-width_5">{{$output_arr['quantity'] }} Qty</td>
-                                        <td class="cs-width_2 cs-text_right cs-primary_color">Rs. {{$output_arr['price'] }}</td>
-                                    </tr>
-                                @endforeach
-                                    <tr class="cs-focus_bg cs-no_border">
-                                        <td class="cs-width_5 cs-text_right cs-primary_color cs-semi_bold"
-                                            colspan="2">Total charges:</td>
-                                        <td class="cs-width_2 cs-text_right cs-primary_color cs-semi_bold">Rs. ₹ {{ $total }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="cs-note">
-                    <div class="cs-note_right">
-                        <p class="cs-mb0"><b class="cs-primary_color cs-bold">Note:</b></p>
-                        <p class="cs-m0">Here we can write a additional notes for the client to get a better
-                            understanding of this invoice.</p>
-                    </div>
-                </div><!-- .cs-note -->
             </div>
-            <div class="cs-invoice_btns cs-hide_print">
-                <a href="javascript:window.print()" class="cs-invoice_btn cs-color1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                        <path
-                            d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
-                            fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
-                        <rect x="128" y="240" width="256" height="208" rx="24.32"
-                            ry="24.32" fill="none" stroke="currentColor" stroke-linejoin="round"
-                            stroke-width="32" />
-                        <path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24" fill="none"
-                            stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
-                        <circle cx="392" cy="184" r="24" />
-                    </svg>
-                    <span>Print</span>
-                </a>
-                <button id="download_btn" class="cs-invoice_btn cs-color2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                        <title>Download</title>
-                        <path
-                            d="M336 176h40a40 40 0 0140 40v208a40 40 0 01-40 40H136a40 40 0 01-40-40V216a40 40 0 0140-40h40"
-                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="32" />
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="32" d="M176 272l80 80 80-80M256 48v288" />
-                    </svg>
-                    <span>Download</span>
-                </button>
-            </div>
+            <div class="tm_pos_sample_text">Note: Here we can write a additional notes for the client to get a better
+                            understanding of this invoice.</div>
         </div>
     </div>
-    <script src="{{ asset('assets/backend/bill/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/bill/js/jspdf.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/bill/js/html2canvas.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/bill/js/main.js') }}"></script>
-
-    
     <script>
         //setTimeout(window.close, 7000);
         window.onload=function(){self.print();} 
