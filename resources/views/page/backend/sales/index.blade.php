@@ -13,7 +13,7 @@
                             @method('PUT')
                             @csrf
                             <div style="display: flex">
-                                 <div style="margin-right: 10px;" hidden>
+                                 <div style="margin-right: 10px;" >
                                        <select class="form-control" name="sales_type" id="sales_type">
                                           <option value="none">Status</option>
                                           <option value="Dine In">Dine In</option>
