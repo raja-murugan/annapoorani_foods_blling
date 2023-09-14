@@ -922,6 +922,7 @@ function printDiv(divName) {
                         $('#customer_type').select2().trigger('change');
                         $('.customertyp').show();
                         $('.cutomer_arr').hide();
+                        $('.setvaluecash').show();
 
                     }else if(_val == 'Take Away'){
 
@@ -929,13 +930,13 @@ function printDiv(divName) {
                         $('#customer_type').select2().trigger('change');
                         $('.customertyp').show();
                         $('.cutomer_arr').hide();
-                        
+                        $('.setvaluecash').show();
 
                     }else if(_val == 'Delivery'){
                         $('.customertyp').hide();
                         $('.cutomer_arr').show();
                         $('#customer_type').val('');
-
+                        $('.setvaluecash').hide();
                     }
                 });
 
