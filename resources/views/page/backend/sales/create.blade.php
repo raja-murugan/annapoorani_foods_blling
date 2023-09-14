@@ -107,7 +107,7 @@
                                                 @if ($productss->category_id == $categories->id)
                                                     <div class="col-lg-3 col-sm-6 d-flex  ">
                                                         <div class="productset flex-fill">
-                                                            <div class="productsetimg">
+                                                            <div class="productsetimg" style="height:200px;">
                                                                 <img src="{{ asset('assets/product/' . $productss->image) }}"
                                                                     alt="img">
                                                             </div>

@@ -328,7 +328,7 @@
                                     for (var i = 0; i < len; i++) {
                                         var productsdiv = $('<div class="col-lg-3 col-sm-6 d-flex  ">' + 
                                                                 '<div class="productset flex-fill">' +
-                                                                    '<div class="productsetimg">' +
+                                                                    '<div class="productsetimg" style="height:200px;">' +
                                                                         '<img src="'+ response[i].product_image +'" alt="img">' +
                                                                     '</div>' +
                                                                     '<div class="productsetcontent">' +
@@ -368,7 +368,7 @@
                                     for (var i = 0; i < len; i++) {
                                         var productsdiv = $('<div class="col-lg-3 col-sm-6 d-flex  ">' + 
                                                                 '<div class="productset flex-fill">' +
-                                                                    '<div class="productsetimg">' +
+                                                                    '<div class="productsetimg" style="height:200px;">' +
                                                                         '<img src="'+ response[i].product_image +'" alt="img">' +
                                                                     '</div>' +
                                                                     '<div class="productsetcontent">' +
@@ -740,8 +740,8 @@ $(document).ready(function(){
                             }, 2000 );
 
                             var last_salesid = response.last_id;
-                            //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                            window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
+                            window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                            //window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
                            // window.location.close();
 
 
