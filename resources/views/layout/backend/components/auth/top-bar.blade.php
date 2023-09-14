@@ -33,10 +33,11 @@
                             @php
                             $lastword = Request::url();
                             $current_url = "http://127.0.0.1:8000/zworktechnology/sales/create";
-                            $live_url = "https://allhighcare.com/zworktechnology/sales/create"
+                            $live_url = "https://allhighcare.com/zworktechnology/sales/create";
+                            
                             @endphp
 
-                            @if ($lastword == $live_url)
+                            @if ($lastword == $current_url)
                     <div class="searchinputs">
                             <style>
                                 option.avatar {
