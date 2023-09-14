@@ -327,7 +327,7 @@
                                     var len = response.length;
                                     for (var i = 0; i < len; i++) {
                                         var productsdiv = $('<div class="col-lg-3 col-sm-6 d-flex  ">' + 
-                                                                '<div class="productset flex-fill">' +
+                                                                '<div class="productset flex-fill" style="border: 1px solid #8ea0af;">' +
                                                                     '<div class="productsetimg" style="height:110px;">' +
                                                                         '<img src="'+ response[i].product_image +'" alt="img">' +
                                                                     '</div>' +
@@ -367,7 +367,7 @@
                                     var len = response.length;
                                     for (var i = 0; i < len; i++) {
                                         var productsdiv = $('<div class="col-lg-3 col-sm-6 d-flex  ">' + 
-                                                                '<div class="productset flex-fill">' +
+                                                                '<div class="productset flex-fill" style="border: 1px solid #8ea0af;">' +
                                                                     '<div class="productsetimg" style="height:110px;">' +
                                                                         '<img src="'+ response[i].product_image +'" alt="img">' +
                                                                     '</div>' +
