@@ -358,7 +358,6 @@
                                                 <th>Bill No</th>
                                                 <th>Customer</th>
                                                 <th>Amount </th>
-                                                <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -368,19 +367,7 @@
                                                 <td># {{ $DineInoutputs['bill_no'] }}</td>
                                                 <td>Walk-in Customer</td>
                                                 <td>₹ {{ $DineInoutputs['grandtotal'] }}</td>
-                                                <td>
-                                                    <a href="#dineinedelete{{ $DineInoutputs['unique_key'] }}" data-bs-toggle="modal"
-                                                        data-id="{{ $DineInoutputs['unique_key'] }}"
-                                                        data-bs-target=".dineinedelete-modal-xl{{ $DineInoutputs['unique_key'] }}"
-                                                        class="badges bg-lightyellow" style="color: white">Delete</a>
-                                                </td>
                                             </tr>
-                                            <div class="modal fade dineinedelete-modal-xl{{ $DineInoutputs['unique_key'] }}"
-                                                tabindex="-1" role="dialog"data-bs-backdrop="static"
-                                                aria-labelledby="deleteLargeModalLabel{{ $DineInoutputs['unique_key'] }}"
-                                                aria-hidden="true">
-                                                @include('page.backend.sales.dineindelete')
-                                            </div>
                                             @endforeach
                                            
                                         </tbody>
@@ -405,7 +392,6 @@
                                                 <th>Bill No</th>
                                                 <th>Customer</th>
                                                 <th>Amount </th>
-                                                <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -415,19 +401,7 @@
                                                 <td># {{ $TakeAwayInoutputs['bill_no'] }}</td>
                                                 <td>Walk-out Customer</td>
                                                 <td>₹ {{ $TakeAwayInoutputs['grandtotal'] }}</td>
-                                                <td>
-                                                    <a href="#takeawayedelete{{ $TakeAwayInoutputs['unique_key'] }}" data-bs-toggle="modal"
-                                                        data-id="{{ $TakeAwayInoutputs['unique_key'] }}"
-                                                        data-bs-target=".takeawayedelete-modal-xl{{ $TakeAwayInoutputs['unique_key'] }}"
-                                                        class="badges bg-lightyellow" style="color: white">Delete</a>
-                                                </td>
                                             </tr>
-                                            <div class="modal fade takeawayedelete-modal-xl{{ $TakeAwayInoutputs['unique_key'] }}"
-                                                tabindex="-1" role="dialog"data-bs-backdrop="static"
-                                                aria-labelledby="deleteLargeModalLabel{{ $TakeAwayInoutputs['unique_key'] }}"
-                                                aria-hidden="true">
-                                                @include('page.backend.sales.takeawaydelete')
-                                            </div>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -451,7 +425,6 @@
                                                 <th>Bill No</th>
                                                 <th>Customer</th>
                                                 <th>Amount </th>
-                                                <th class="text-end">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -461,19 +434,7 @@
                                                 <td># {{ $DeliveryInoutputs['bill_no'] }}</td>
                                                 <td>{{ $DeliveryInoutputs['customer'] }}</td>
                                                 <td>₹ {{ $DeliveryInoutputs['grandtotal'] }}</td>
-                                                <td>
-                                                    <a href="#deliveryedelete{{ $DeliveryInoutputs['unique_key'] }}" data-bs-toggle="modal"
-                                                        data-id="{{ $DeliveryInoutputs['unique_key'] }}"
-                                                        data-bs-target=".deliveryedelete-modal-xl{{ $DeliveryInoutputs['unique_key'] }}"
-                                                        class="badges bg-lightyellow" style="color: white">Delete</a>
-                                                </td>
                                             </tr>
-                                            <div class="modal fade deliveryedelete-modal-xl{{ $DeliveryInoutputs['unique_key'] }}"
-                                                tabindex="-1" role="dialog"data-bs-backdrop="static"
-                                                aria-labelledby="deliverydeleteLargeModalLabel{{ $DeliveryInoutputs['unique_key'] }}"
-                                                aria-hidden="true">
-                                                @include('page.backend.sales.deliverydelete')
-                                            </div>
                                             @endforeach
                                         </tbody>
                                     </table>
