@@ -45,7 +45,7 @@ class PurchaseController extends Controller
             }
 
 
-
+            $payment_method = Bank::findOrFail($datas->payment_method);
             $purchase_data[] = array(
                 'unique_key' => $datas->unique_key,
                 'bill_no' => $datas->bill_no,
@@ -67,7 +67,69 @@ class PurchaseController extends Controller
                 'grandtotal' => $datas->grandtotal,
                 'paidamount' => $datas->paidamount,
                 'balanceamount' => $datas->balanceamount,
-                'payment_method' => $datas->payment_method,
+                'payment_method' => $payment_method->name,
+                'terms' => $terms,
+            );
+
+        }
+
+
+        $Purchaseproduct = Purchaseproduct::where('soft_delete', '!=', 1)->get();
+        $Supplier = Supplier::where('soft_delete', '!=', 1)->get();
+        $bank = Bank::where('soft_delete', '!=', 1)->get();
+        $timenow = Carbon::now()->format('H:i');
+
+        return view('page.backend.purchase.index', compact('purchase_data', 'today', 'timenow', 'Purchaseproduct', 'Supplier', 'bank'));
+    }
+
+    public function datefilter(Request $request) {
+        $today = $request->get('from_date');
+
+        $data = Purchase::where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+        $purchase_data = [];
+        $terms = [];
+        foreach ($data as $key => $datas) {
+            $supplier_name = Supplier::findOrFail($datas->supplier_id);
+
+
+            $PurchaseProducts = PurchaseProductdata::where('purchase_id', '=', $datas->id)->get();
+            foreach ($PurchaseProducts as $key => $PurchaseProducts_arrdata) {
+
+                $purchaseproduct_id = Purchaseproduct::findOrFail($PurchaseProducts_arrdata->purchaseproduct_id);
+                $terms[] = array(
+                    'product_name' => $purchaseproduct_id->name,
+                    'quantity' => $PurchaseProducts_arrdata->quantity,
+                    'price' => $PurchaseProducts_arrdata->price,
+                    'total_price' => $PurchaseProducts_arrdata->total_price,
+                    'purchase_id' => $PurchaseProducts_arrdata->purchase_id,
+
+                );
+            }
+
+
+            $payment_method = Bank::findOrFail($datas->payment_method);
+            $purchase_data[] = array(
+                'unique_key' => $datas->unique_key,
+                'bill_no' => $datas->bill_no,
+                'voucher_no' => $datas->voucher_no,
+                'date' => $datas->date,
+                'time' => $datas->time,
+                'supplier_id' => $datas->supplier_id,
+                'supplier_name' => $supplier_name->name,
+                'supplier_phone_number' => $supplier_name->phone_number,
+                'supplier_address' => $supplier_name->address,
+                'sub_total' => $datas->sub_total,
+                'id' => $datas->id,
+                'tax' => $datas->tax,
+                'tax_amount' => $datas->tax_amount,
+                'discount_price' => $datas->discount_price,
+                'total' => $datas->total,
+                'discount_type' => $datas->discount_type,
+                'discount' => $datas->discount,
+                'grandtotal' => $datas->grandtotal,
+                'paidamount' => $datas->paidamount,
+                'balanceamount' => $datas->balanceamount,
+                'payment_method' => $payment_method->name,
                 'terms' => $terms,
             );
 

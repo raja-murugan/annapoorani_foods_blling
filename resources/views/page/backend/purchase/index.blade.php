@@ -7,8 +7,20 @@
                 <h4>Purchase</h4>
             </div>
             <div class="page-btn">
-            <a href="{{ route('purchase.create') }}" class="btn btn-added" style="margin-right: 10px;">Add
-                            New</a>
+
+                <div style="display: flex;">
+                        <form autocomplete="off" method="POST" action="{{ route('purchase.datefilter') }}">
+                            @method('PUT')
+                            @csrf
+                            <div style="display: flex">
+                                 <div style="margin-right: 10px;"><input type="date" name="from_date"
+                                        class="form-control from_date" value="{{ $today }}"></div>
+                                <div style="margin-right: 10px;"><input type="submit" class="btn btn-success"
+                                        value="Search" /></div>
+                            </div>
+                        </form>
+                        <a href="{{ route('purchase.create') }}" class="btn btn-added" style="margin-right: 10px;">Add New</a>
+                </div>  
                     
             </div>
         </div>

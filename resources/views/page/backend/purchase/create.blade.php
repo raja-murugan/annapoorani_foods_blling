@@ -73,7 +73,7 @@
                         <div class="table-responsive col-lg-12 col-sm-12 col-12">
                             <table class="table">
                                 <thead>
-                                    <tr style="background: #b9cadc;">
+                                    <tr style="background: #f8f9fa;">
                                         <th style="font-size:15px; width:30%;">Product</th>
                                         <th style="font-size:15px; width:20%;">Quantity</th>
                                         <th style="font-size:15px; width:20%;">Rate / Quantity </th>

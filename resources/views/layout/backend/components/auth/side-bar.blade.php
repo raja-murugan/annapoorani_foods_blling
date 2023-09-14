@@ -22,7 +22,7 @@
                         <li class="{{ Route::is('product.index', 'product.store') ? 'active' : '' }}">
                             <a href="{{ route('product.index') }}"><i data-feather="box"></i><span>Product</span></a>
                         </li>
-                        <li class="{{ Route::is('sales.index') ? 'active' : '' }}">
+                        <li class="{{ Route::is('sales.index', 'sales.datefilter') ? 'active' : '' }}">
                             <a href="{{ route('sales.index') }}"><i data-feather="shopping-cart"></i><span>Sales</span></a>
                         </li>
                     </ul>
@@ -36,7 +36,7 @@
                         <li class="{{ Route::is('supplier.index', 'supplier.store') ? 'active' : '' }}">
                             <a href="{{ route('supplier.index') }}"><i data-feather="credit-card"></i><span>Supplier</span></a>
                         </li>
-                        <li class="{{ Route::is('purchase.index', 'purchase.store') ? 'active' : '' }}">
+                        <li class="{{ Route::is('purchase.index', 'purchase.store', 'purchase.edit', 'purchase.datefilter') ? 'active' : '' }}">
                             <a href="{{ route('purchase.index') }}"><i data-feather="credit-card"></i><span>Purchase</span></a>
                         </li>
                     </ul>

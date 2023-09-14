@@ -24,11 +24,272 @@ class SaleController extends Controller
 {
     public function index()
     {
-        $data = Sale::orderBy('id', 'DESC')->where('soft_delete', '!=', 1)->get();
+        
+        $today = Carbon::now()->format('Y-m-d');
+        $data = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+        $sale_data = [];
+        foreach ($data as $key => $datas) {
+            
+            if($datas->customer_id != ""){
+                $customer = Customer::findOrFail($datas->customer_id);
+                $customername = $customer->name;
+            }else {
+                $customername = '';
+            }
+
+            $sale_data[] = array(
+                'date' => date('d-m-Y', strtotime($datas->date)),
+                'bill_no' => $datas->bill_no,
+                'time' => $datas->time,
+                'sales_type' => $datas->sales_type,
+                'customer_type' => $datas->customer_type,
+                'customer' => $customername,
+                'sub_total' => $datas->sub_total,
+                'tax' => $datas->tax,
+                'total' => $datas->total,
+                'sale_discount' => $datas->sale_discount,
+                'grandtotal' => $datas->grandtotal,
+                'payment_method' => $datas->payment_method,
+                'id' => $datas->id,
+                'unique_key' => $datas->unique_key,
+            );
+        }
         
         $session = Session::where('soft_delete', '!=', 1)->get();
         $category = Category::where('soft_delete', '!=', 1)->get();
-        return view('page.backend.sales.index', compact('data', 'session', 'category'));
+
+        $todaydate = Carbon::now()->format('d-m-Y');
+        return view('page.backend.sales.index', compact('sale_data', 'session', 'category', 'today', 'todaydate'));
+    }
+
+
+    public function datefilter(Request $request) {
+        $today = $request->get('from_date');
+        $sales_type = $request->get('sales_type');
+
+        
+            if($today){
+                $data = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+                $sale_data = [];
+                foreach ($data as $key => $datas) {
+                    
+                    if($datas->customer_id != ""){
+                        $customer = Customer::findOrFail($datas->customer_id);
+                        $customername = $customer->name;
+                    }else {
+                        $customername = '';
+                    }
+
+                    $sale_data[] = array(
+                        'date' => date('d-m-Y', strtotime($datas->date)),
+                        'bill_no' => $datas->bill_no,
+                        'time' => $datas->time,
+                        'sales_type' => $datas->sales_type,
+                        'customer_type' => $datas->customer_type,
+                        'customer' => $customername,
+                        'sub_total' => $datas->sub_total,
+                        'tax' => $datas->tax,
+                        'total' => $datas->total,
+                        'sale_discount' => $datas->sale_discount,
+                        'grandtotal' => $datas->grandtotal,
+                        'payment_method' => $datas->payment_method,
+                        'id' => $datas->id,
+                        'unique_key' => $datas->unique_key,
+                    );
+                }
+            }
+
+
+            if($sales_type){
+                if($sales_type == 'Dine In'){
+                    $data = Sale::where('sales_type', '=', 'Dine In')->where('soft_delete', '!=', 1)->get();
+                    $sale_data = [];
+                    foreach ($data as $key => $datas) {
+                        
+                        if($datas->customer_id != ""){
+                            $customer = Customer::findOrFail($datas->customer_id);
+                            $customername = $customer->name;
+                        }else {
+                            $customername = '';
+                        }
+    
+                        $sale_data[] = array(
+                            'date' => date('d-m-Y', strtotime($datas->date)),
+                            'bill_no' => $datas->bill_no,
+                            'time' => $datas->time,
+                            'sales_type' => $datas->sales_type,
+                            'customer_type' => $datas->customer_type,
+                            'customer' => $customername,
+                            'sub_total' => $datas->sub_total,
+                            'tax' => $datas->tax,
+                            'total' => $datas->total,
+                            'sale_discount' => $datas->sale_discount,
+                            'grandtotal' => $datas->grandtotal,
+                            'payment_method' => $datas->payment_method,
+                            'id' => $datas->id,
+                            'unique_key' => $datas->unique_key,
+                        );
+                    }
+                }else if($sales_type == 'Take Away'){
+                    $data = Sale::where('sales_type', '=', 'Take Away')->where('soft_delete', '!=', 1)->get();
+                    $sale_data = [];
+                    foreach ($data as $key => $datas) {
+                        
+                        if($datas->customer_id != ""){
+                            $customer = Customer::findOrFail($datas->customer_id);
+                            $customername = $customer->name;
+                        }else {
+                            $customername = '';
+                        }
+    
+                        $sale_data[] = array(
+                            'date' => date('d-m-Y', strtotime($datas->date)),
+                            'bill_no' => $datas->bill_no,
+                            'time' => $datas->time,
+                            'sales_type' => $datas->sales_type,
+                            'customer_type' => $datas->customer_type,
+                            'customer' => $customername,
+                            'sub_total' => $datas->sub_total,
+                            'tax' => $datas->tax,
+                            'total' => $datas->total,
+                            'sale_discount' => $datas->sale_discount,
+                            'grandtotal' => $datas->grandtotal,
+                            'payment_method' => $datas->payment_method,
+                            'id' => $datas->id,
+                            'unique_key' => $datas->unique_key,
+                        );
+                    }
+                }else if($sales_type == 'Delivery'){
+                    $data = Sale::where('sales_type', '=', 'Delivery')->where('soft_delete', '!=', 1)->get();
+                    $sale_data = [];
+                    foreach ($data as $key => $datas) {
+                        
+                        if($datas->customer_id != ""){
+                            $customer = Customer::findOrFail($datas->customer_id);
+                            $customername = $customer->name;
+                        }else {
+                            $customername = '';
+                        }
+    
+                        $sale_data[] = array(
+                            'date' => date('d-m-Y', strtotime($datas->date)),
+                            'bill_no' => $datas->bill_no,
+                            'time' => $datas->time,
+                            'sales_type' => $datas->sales_type,
+                            'customer_type' => $datas->customer_type,
+                            'customer' => $customername,
+                            'sub_total' => $datas->sub_total,
+                            'tax' => $datas->tax,
+                            'total' => $datas->total,
+                            'sale_discount' => $datas->sale_discount,
+                            'grandtotal' => $datas->grandtotal,
+                            'payment_method' => $datas->payment_method,
+                            'id' => $datas->id,
+                            'unique_key' => $datas->unique_key,
+                        );
+                    }
+                }
+            }
+
+
+
+            if($today && $sales_type){
+                if($sales_type == 'Dine In'){
+                    $data = Sale::where('sales_type', '=', 'Dine In')->where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+                    $sale_data = [];
+                    foreach ($data as $key => $datas) {
+                        
+                        if($datas->customer_id != ""){
+                            $customer = Customer::findOrFail($datas->customer_id);
+                            $customername = $customer->name;
+                        }else {
+                            $customername = '';
+                        }
+    
+                        $sale_data[] = array(
+                            'date' => date('d-m-Y', strtotime($datas->date)),
+                            'bill_no' => $datas->bill_no,
+                            'time' => $datas->time,
+                            'sales_type' => $datas->sales_type,
+                            'customer_type' => $datas->customer_type,
+                            'customer' => $customername,
+                            'sub_total' => $datas->sub_total,
+                            'tax' => $datas->tax,
+                            'total' => $datas->total,
+                            'sale_discount' => $datas->sale_discount,
+                            'grandtotal' => $datas->grandtotal,
+                            'payment_method' => $datas->payment_method,
+                            'id' => $datas->id,
+                            'unique_key' => $datas->unique_key,
+                        );
+                    }
+                }else if($sales_type == 'Take Away'){
+                    $data = Sale::where('sales_type', '=', 'Take Away')->where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+                    $sale_data = [];
+                    foreach ($data as $key => $datas) {
+                        
+                        if($datas->customer_id != ""){
+                            $customer = Customer::findOrFail($datas->customer_id);
+                            $customername = $customer->name;
+                        }else {
+                            $customername = '';
+                        }
+    
+                        $sale_data[] = array(
+                            'date' => date('d-m-Y', strtotime($datas->date)),
+                            'bill_no' => $datas->bill_no,
+                            'time' => $datas->time,
+                            'sales_type' => $datas->sales_type,
+                            'customer_type' => $datas->customer_type,
+                            'customer' => $customername,
+                            'sub_total' => $datas->sub_total,
+                            'tax' => $datas->tax,
+                            'total' => $datas->total,
+                            'sale_discount' => $datas->sale_discount,
+                            'grandtotal' => $datas->grandtotal,
+                            'payment_method' => $datas->payment_method,
+                            'id' => $datas->id,
+                            'unique_key' => $datas->unique_key,
+                        );
+                    }
+                }else if($sales_type == 'Delivery'){
+                    $data = Sale::where('sales_type', '=', 'Delivery')->where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+                    $sale_data = [];
+                    foreach ($data as $key => $datas) {
+                        
+                        if($datas->customer_id != ""){
+                            $customer = Customer::findOrFail($datas->customer_id);
+                            $customername = $customer->name;
+                        }else {
+                            $customername = '';
+                        }
+    
+                        $sale_data[] = array(
+                            'date' => date('d-m-Y', strtotime($datas->date)),
+                            'bill_no' => $datas->bill_no,
+                            'time' => $datas->time,
+                            'sales_type' => $datas->sales_type,
+                            'customer_type' => $datas->customer_type,
+                            'customer' => $customername,
+                            'sub_total' => $datas->sub_total,
+                            'tax' => $datas->tax,
+                            'total' => $datas->total,
+                            'sale_discount' => $datas->sale_discount,
+                            'grandtotal' => $datas->grandtotal,
+                            'payment_method' => $datas->payment_method,
+                            'id' => $datas->id,
+                            'unique_key' => $datas->unique_key,
+                        );
+                    }
+                }
+            }
+        
+
+        
+        $session = Session::where('soft_delete', '!=', 1)->get();
+        $category = Category::where('soft_delete', '!=', 1)->get();
+        $todaydate = Carbon::now()->format('d-m-Y');
+        return view('page.backend.sales.index', compact('sale_data', 'session', 'category', 'today', 'todaydate'));
     }
 
 

@@ -162,7 +162,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/sales/delete/{unique_key}', [SaleController::class, 'delete'])->name('sales.delete');
 
         Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/sales/print/{last_salesid}', [SaleController::class, 'getLastId'])->name('sales.getLastId');
-
+        // DATAE FILTER
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/sales/datefilter', [SaleController::class, 'datefilter'])->name('sales.datefilter');
         // AUTO COMPLETE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/sales/autocomplete', [SaleController::class, 'autocomplete'])->name('sales.autocomplete');
     });
@@ -212,6 +213,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchase/update/{unique_key}', [PurchaseController::class, 'update'])->name('purchase.update');
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchase/delete/{unique_key}', [PurchaseController::class, 'delete'])->name('purchase.delete');
+        // DATAE FILTER
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchase/datefilter', [PurchaseController::class, 'datefilter'])->name('purchase.datefilter');
     });
 
 

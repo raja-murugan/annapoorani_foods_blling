@@ -611,7 +611,7 @@ $(".currenttime").val(time);
 var today = new Date();
 var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
 $(".current_date").html(date);
-$(".currentdate").val(date);
+//$(".currentdate").val(date);
 
 
 //function cashclick() {

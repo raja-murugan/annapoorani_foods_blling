@@ -169,7 +169,7 @@
                                 <h5>
                                     <p class="current_time"></p>
                                 </h5>
-                                <input type="hidden" name="date" id="date" class="currentdate" value="" />
+                                <input type="hidden" name="date" id="date" class="currentdate" value="{{ $today }}" />
                                 <input type="hidden" name="time" id="time" class="currenttime" value="" />
                             </div>
                         </div>
