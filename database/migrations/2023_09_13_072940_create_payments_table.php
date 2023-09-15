@@ -17,11 +17,16 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('supplier_id')->nullable();
-            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
 
             $table->string('purchase_amount')->nullable();
             $table->string('purchase_paid')->nullable();
             $table->string('purchase_balance')->nullable();
+
+            $table->unsignedBigInteger('customer_id')->nullable();
+
+            $table->string('saleamount')->nullable();
+            $table->string('salepaid')->nullable();
+            $table->string('salebalance')->nullable();
             
             $table->timestamps();
         });

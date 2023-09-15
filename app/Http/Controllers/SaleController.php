@@ -10,6 +10,7 @@ use App\Models\Bank;
 use App\Models\Sale;
 use App\Models\SaleProduct;
 use App\Models\Customer;
+use App\Models\Payment;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -409,6 +410,38 @@ class SaleController extends Controller
             $SaleProduct->price = $request->product_price[$key];
             $SaleProduct->total_price = $request->total_price[$key];
             $SaleProduct->save();
+        }
+
+
+        $sales_type = $request->sales_type;
+        if($sales_type == 'Delivery'){
+
+            $customerid = $request->customer_id;
+
+            $saleamountData = Payment::where('customer_id', '=', $customerid)->first();
+            if($saleamountData != ""){
+
+                $old_grossamount = $saleamountData->saleamount;
+
+                $gross_amount = $request->grandtotal;
+
+                $new_grossamount = $old_grossamount + $gross_amount;
+
+                DB::table('payments')->where('customer_id', $customerid)->update([
+                    'saleamount' => $new_grossamount
+                ]);
+
+            }else {
+                $gross_amount = $request->grandtotal;
+
+                $Paymentata = new Payment();
+
+                $Paymentata->customer_id = $customerid;
+                $Paymentata->saleamount = $request->grandtotal;
+                $Paymentata->save();
+            }
+            //dd($customerid);
+
         }
         
             $next_billno = $data->bill_no + 1;

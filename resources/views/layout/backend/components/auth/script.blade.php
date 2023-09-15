@@ -306,11 +306,11 @@
 
 
     function sessiontype(sessionid) {
-        console.log(sessionid);
+       // console.log(sessionid);
         $('#purchase' + sessionid).each(function(){
             $(this).find('.category_type').first().addClass('active');
             var catogry_id = $(this).find('.category_type').first().data('cat_id');
-            console.log(catogry_id);
+            //console.log(catogry_id);
 
                             $.ajax({
                                 url: '/getselectedcat_products/',
@@ -446,7 +446,7 @@
 
             var product_id = $(this).data('product_id');
             
-            console.log(product_id);
+            //console.log(product_id);
             $('.addedproduct' + product_id).attr('style', 'display:none');
             $('.clickquantity' + product_id).attr('style', 'display:block');
             var selectproductid = $(this).data('product_id');
@@ -540,7 +540,7 @@
                             function increment_quantity(productid) {
 
                                 var inputQuantityElement = $('#product_quantity' + productid);
-                                console.log(inputQuantityElement);
+                                //console.log(inputQuantityElement);
                                 var newQuantity = parseInt($(inputQuantityElement).val())+1;
                                 var QuantityElement = $('#product_quantity' + productid);
                                 $(inputQuantityElement).val(newQuantity);
@@ -631,7 +631,7 @@ $(".current_date").html(date);
 $(document).on('click', '.remove-tr', function() {
     var liProductid = $(this).parents('ul').find("#li_productid").val();
 
-    console.log(liProductid);
+    //console.log(liProductid);
 
     $('#addedproduct' + liProductid).attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
     $('.clickquantity' + liProductid).attr('style', 'display:none');
@@ -668,7 +668,7 @@ $(document).ready(function(){
     $('#sales_store').submit(function(e){
         e.preventDefault();
 
-        console.log($(this).serialize());
+        //console.log($(this).serialize());
 
         var billno = $('#billno').val();
         var date = $('#date').val();
@@ -731,7 +731,7 @@ $(document).ready(function(){
                     },
                     dataType: 'json',
                     success: function(response) {
-                        console.log(response);
+                        console.log(response.data);
                         //alert('Bill Added').attr('style', 'background-color:yellow;');
 
                                     $('.alert-success').fadeIn().html(response.msg);
@@ -740,8 +740,8 @@ $(document).ready(function(){
                             }, 2000 );
 
                             var last_salesid = response.last_id;
-                            //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                            window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
+                            window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                            //window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
                            // window.location.close();
 
 
@@ -915,7 +915,7 @@ function printDiv(divName) {
 
                 $("input:radio[name='sales_type']").change(function(){
                     var _val = $(this).val();
-                    console.log(_val);
+                    //console.log(_val);
                     if(_val == 'Dine In'){
 
                         $('#customer_type').val('walkincustomer');

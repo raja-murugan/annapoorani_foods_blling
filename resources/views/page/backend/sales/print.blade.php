@@ -32,7 +32,7 @@
     }
 
     .tm_pos_invoice_wrap {
-        max-width: 340px;
+        max-width: 450px;
         margin: auto;
         margin-top: 30px;
         padding: 30px 20px;

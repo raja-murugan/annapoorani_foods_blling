@@ -25,6 +25,9 @@
                         <li class="{{ Route::is('sales.index', 'sales.datefilter') ? 'active' : '' }}">
                             <a href="{{ route('sales.index') }}"><i data-feather="shopping-cart"></i><span>Sales</span></a>
                         </li>
+                        <li class="{{ Route::is('salespayment.index') ? 'active' : '' }}">
+                            <a href="{{ route('salespayment.index') }}"><i data-feather="shopping-cart"></i><span>Sales Payment</span></a>
+                        </li>
                     </ul>
                 </li>
                 <li class="submenu-open">
