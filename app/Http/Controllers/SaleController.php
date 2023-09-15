@@ -422,13 +422,16 @@ class SaleController extends Controller
             if($saleamountData != ""){
 
                 $old_grossamount = $saleamountData->saleamount;
+                $old_paid = $saleamountData->salepaid;
 
                 $gross_amount = $request->grandtotal;
 
                 $new_grossamount = $old_grossamount + $gross_amount;
+                $new_paid = $old_paid;
+                $new_balance = $new_grossamount - $new_paid;
 
                 DB::table('payments')->where('customer_id', $customerid)->update([
-                    'saleamount' => $new_grossamount
+                    'saleamount' => $new_grossamount,  'salepaid' => $new_paid, 'salebalance' => $new_balance
                 ]);
 
             }else {
@@ -544,5 +547,36 @@ class SaleController extends Controller
             //$prdoct_array =  array_replace_recursive($productids, $productoutput);
             echo json_encode($productoutput);
     }
+
+
+    public function getoldbalanceforPayment()
+    {
+
+        $customerid = request()->get('customerid');
+
+
+
+        $last_idrow = Payment::where('customer_id', '=', $customerid)->first();
+        if($last_idrow != ""){
+
+            if($last_idrow->salebalance != NULL){
+
+                $output[] = array(
+                    'payment_pending' => $last_idrow->salebalance,
+                );
+            }else {
+                $output[] = array(
+                    'payment_pending' => 0,
+                );
+
+            }
+        }else {
+            $output[] = array(
+                'payment_pending' => 0,
+            );
+        }
+        echo json_encode($output);
+    }
+
     
 }

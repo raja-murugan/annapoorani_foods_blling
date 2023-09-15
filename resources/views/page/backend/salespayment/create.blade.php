@@ -8,7 +8,7 @@
                       <div class="col-lg-12 col-md-12 col-sm-12">
                          <div class="form-group">
                             <label>Customer <span style="color: red;">*</span></label>
-                              <select class="form-control  select js-example-basic-single customer_id" name="customer_id" id="customer_id" required>
+                              <select class="form-control  select js-example-basic-single salespaymentcustomer_id" name="customer_id" id="customer_id" required>
                                     <option value="" disabled selected hiddden>Select Customer</option>
                                     @foreach ($Customer as $Customers)
                                         <option value="{{ $Customers->id }}">{{ $Customers->name }}</option>
@@ -30,7 +30,7 @@
                       <div class="col-lg-12 col-md-12 col-sm-12">
                          <div class="form-group">
                             <label>Old Balance</label>
-                            <input type="text" name="saleoldbalance" id="saleoldbalance" placeholder="" readonly>
+                            <input type="text" class="saleoldbalance" name="saleoldbalance" id="saleoldbalance" placeholder="" readonly>
                          </div>
                       </div>
                    </div>
@@ -38,7 +38,7 @@
                       <div class="col-lg-12 col-md-12 col-sm-12">
                          <div class="form-group">
                             <label>Payable Amount</label>
-                            <input type="text" name="paid_amount" id="paid_amount" placeholder="Enter Payable Amount">
+                            <input type="text" name="paid_amount" id="paid_amount" class="salepaymentpaidamt" placeholder="Enter Payable Amount">
                          </div>
                       </div>
                    </div>
@@ -46,7 +46,7 @@
                       <div class="col-lg-12 col-md-12 col-sm-12">
                          <div class="form-group">
                             <label> Balance</label>
-                            <input type="text" name="salebalance" id="salebalance" placeholder="" readonly>
+                            <input type="text" name="salebalance" id="salebalance" class="salepaymentbal" placeholder="" readonly>
                          </div>
                       </div>
                    </div>

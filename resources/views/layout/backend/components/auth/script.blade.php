@@ -776,6 +776,7 @@ $(document).ready(function(){
                         $('.cutomer_arr').hide();
                         $('.customertyp').show();
                         $('.selectproduct').show();
+                        $('.setvaluecash').show();
                     }
                 });
     });
@@ -1401,5 +1402,40 @@ function purchasesubmitForm(btn) {
         // submit the form
         btn.form.submit();
     }
+
+    $(document).ready(function() {
+            $('.salespaymentcustomer_id').on('change', function() {
+                var customerid = this.value;
+                //alert(branch_id);
+                $('.saleoldbalance').val('');
+                    $.ajax({
+                        url: '/getoldbalanceforPayment/',
+                        type: 'get',
+                        data: {
+                                customerid: customerid
+                            },
+                        dataType: 'json',
+                        success: function(response) {
+                            //
+                            console.log(response);
+                            var len = response.length;
+                            for (var i = 0; i < len; i++) {
+                                $(".saleoldbalance").val(response[i].payment_pending);
+                                var salepaymentpaidamt = $(".salepaymentpaidamt").val();
+                                var balance_amount = Number(response[i].payment_pending) - Number(salepaymentpaidamt);
+                                $('.salepaymentbal').val(balance_amount.toFixed(2));
+                            }
+                        }
+                    });
+            });
+    });
+
+    $(document).on("keyup", '.salepaymentpaidamt', function() {
+        var salepaymentpaidamt = $(this).val();
+        var saleoldbalance = $(".saleoldbalance").val();
+        //alert(bill_paid_amount);
+        var balance_amount = Number(saleoldbalance) - Number(salepaymentpaidamt);
+        $('.salepaymentbal').val(balance_amount.toFixed(2));
+    });
             
 </script>

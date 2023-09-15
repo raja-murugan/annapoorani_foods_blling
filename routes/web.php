@@ -245,3 +245,5 @@ Route::get('/getproduct_Id_by_name/{productid}', [SaleController::class, 'getpro
 Route::get('/getselectedcat_products', [ProductController::class, 'getselectedcat_products']);
 Route::get('/GetAutosearchProducts', [SaleController::class, 'GetAutosearchProducts']);
 Route::get('getProducts/', [PurchaseController::class, 'getProducts']);
+
+Route::get('/getoldbalanceforPayment', [SaleController::class, 'getoldbalanceforPayment']);
