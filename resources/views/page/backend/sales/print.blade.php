@@ -219,7 +219,7 @@
             <div class="tm_pos_company_logo">
                 <img src="{{ asset('assets/backend/img/logo.png') }}" alt="" width="150" height="150">            
             </div>
-            <div class="tm_pos_company_address">39 3rd cross west, Puthur, Bharthi Nagar, Tiruchirappalli, Tamil Nadu 620017</div>
+            <div class="tm_pos_company_address" style="font-weight:500;color:#354555;">39 3rd cross west, Puthur, Bharthi Nagar, Tiruchirappalli, Tamil Nadu 620017</div>
             <div class="tm_pos_company_mobile"></div>
         </div>
         <div class="tm_pos_invoice_body">
@@ -227,15 +227,15 @@
             <ul class="tm_list tm_style1">
                 <li>
                     <div class="tm_list_title">Bill No:</div>
-                    <div class="tm_list_desc"># {{ $billno }}</div>
+                    <div class="tm_list_desc" style="font-weight:500;color:#354555;"># {{ $billno }}</div>
                 </li>
                 <li class="text-right">
                     <div class="tm_list_title">Bill Type:</div>
-                    <div class="tm_list_desc">{{ $sales_type }}</div>
+                    <div class="tm_list_desc" style="font-weight:500;color:#354555;">{{ $sales_type }}</div>
                 </li>
                 <li>
                     <div class="tm_list_title">Date:</div>
-                    <div class="tm_list_desc">{{ $date }}</div>
+                    <div class="tm_list_desc" style="font-weight:500;color:#354555;">{{ $date }}</div>
                 </li>
             </ul>
             <table class="tm_pos_invoice_table">
@@ -249,13 +249,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($output as $output_arr)
+                    @foreach ($output as $keydata => $output_arr)
                     <tr>
-                        <td>1.</td>
-                        <td>{{$output_arr['productname'] }}</td>
-                        <td>{{$output_arr['price'] }}</td>
-                        <td>{{$output_arr['quantity'] }}</td>
-                        <td>{{$output_arr['total_price'] }}</td>
+                        <td style="font-weight:500;color:#354555;">{{ ++$keydata }}.</td>
+                        <td style="font-weight:500;color:#354555;">{{$output_arr['productname'] }}</td>
+                        <td style="font-weight:500;color:#354555;">{{$output_arr['price'] }}</td>
+                        <td style="font-weight:500;color:#354555;">{{$output_arr['quantity'] }}</td>
+                        <td style="font-weight:500;color:#354555;">{{$output_arr['total_price'] }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -267,7 +267,7 @@
                     <div class="tm_bill_value tm_bill_focus">{{ $total }}</div>
                 </div>
             </div>
-            <div class="tm_pos_sample_text">Note: Here we can write a additional notes for the client to get a better
+            <div class="tm_pos_sample_text" style="font-weight:500;color:#354555;">Note: Here we can write a additional notes for the client to get a better
                             understanding of this invoice.</div>
         </div>
     </div>
