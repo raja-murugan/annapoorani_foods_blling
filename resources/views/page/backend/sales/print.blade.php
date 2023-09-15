@@ -216,8 +216,9 @@
 <body>
     <div class="tm_pos_invoice_wrap">
         <div class="tm_pos_invoice_top">
-            
-            <div class="tm_pos_company_name">ANNAPORANI FOODS</div>
+            <div class="tm_pos_company_logo">
+                <img src="{{ asset('assets/backend/img/logo.png') }}" alt="" width="150" height="150">            
+            </div>
             <div class="tm_pos_company_address">39 3rd cross west, Puthur, Bharthi Nagar, Tiruchirappalli, Tamil Nadu 620017</div>
             <div class="tm_pos_company_mobile"></div>
         </div>
