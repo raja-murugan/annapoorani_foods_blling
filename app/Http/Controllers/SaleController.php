@@ -438,6 +438,8 @@ class SaleController extends Controller
 
                 $Paymentata->customer_id = $customerid;
                 $Paymentata->saleamount = $request->grandtotal;
+                $Paymentata->salepaid = 0;
+                $Paymentata->salebalance = $request->grandtotal;
                 $Paymentata->save();
             }
             //dd($customerid);
