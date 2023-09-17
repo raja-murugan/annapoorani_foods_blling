@@ -1,19 +1,24 @@
 <div class="modal-dialog modal-l">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="myExtraLargeModalLabel">Create Category</h5>
+            <h5 class="modal-title" id="myExtraLargeModalLabel">Create Product Session</h5>
         </div>
         <div class="modal-body">
-            <form autocomplete="off" method="POST" action="{{ route('category.store') }}">
+            <form autocomplete="off" method="POST" action="{{ route('productsession.store') }}">
                 @csrf
                 <div class="row">
                     <div class="col-lg-12 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Name <span style="color: red;">*</span></label>
-                            <input type="text" name="name" placeholder="Enter Category name" required>
+                            <label>Product <span style="color: red;">*</span></label>
+                            <select class="form-control  select product_id" name="product_id" id="product_id" >
+                                 <option value="" disabled selected hiddden>Select Product</option>
+                                 @foreach ($Product as $Products)
+                                    <option value="{{ $Products->id }}">{{ $Products->name }}</option>
+                                 @endforeach
+                           </select>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-sm-6 col-12" hidden>
+                    <div class="col-lg-12 col-sm-6 col-12">
 
                         <div class="select-split ">
                             <div class="select-group w-100">

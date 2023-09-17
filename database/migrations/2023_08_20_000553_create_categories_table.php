@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('unique_key')->unique();
             $table->boolean('soft_delete')->default(0);
             $table->string('name');
-            $table->unsignedBigInteger('session_id');
+            $table->unsignedBigInteger('session_id')->nullable();
             $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
             $table->timestamps();
         });

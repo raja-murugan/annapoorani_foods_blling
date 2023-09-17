@@ -15,6 +15,7 @@ use App\Http\Controllers\PurchaseproductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SalespaymentController;
+use App\Http\Controllers\ProductsessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -153,6 +154,23 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // CHECK DUPLICATE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/product/checkduplicate', [ProductController::class, 'checkduplicate'])->name('product.checkduplicate');
     });
+
+
+    // PRODUCT SESSION CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/productsession', [ProductsessionController::class, 'index'])->name('productsession.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/productsession/store', [ProductsessionController::class, 'store'])->name('productsession.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/productsession/edit/{id}', [ProductsessionController::class, 'edit'])->name('productsession.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/productsession/delete/{id}', [ProductsessionController::class, 'delete'])->name('productsession.delete');
+        // CHECK DUPLICATE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/productsession/checkduplicate', [ProductsessionController::class, 'checkduplicate'])->name('productsession.checkduplicate');
+    });
+
+
     // SALES CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
@@ -245,5 +263,7 @@ Route::get('/getproduct_Id_by_name/{productid}', [SaleController::class, 'getpro
 Route::get('/getselectedcat_products', [ProductController::class, 'getselectedcat_products']);
 Route::get('/GetAutosearchProducts', [SaleController::class, 'GetAutosearchProducts']);
 Route::get('getProducts/', [PurchaseController::class, 'getProducts']);
+Route::get('getsalelatest/', [SaleController::class, 'getsalelatest']);
+Route::get('/getselectedsessioncat', [SaleController::class, 'getselectedsessioncat']);
 
 Route::get('/getoldbalanceforPayment', [SaleController::class, 'getoldbalanceforPayment']);

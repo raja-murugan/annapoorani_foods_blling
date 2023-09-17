@@ -104,7 +104,6 @@
                 }
             });
 
-
             $(".product_name").keyup(function() {
                 var query = $(this).val();
                 var productsession_id = $(".productsession_id").val();
@@ -158,38 +157,43 @@
             });
 
 
-            $('.productsession_id').on('change', function() {
-                var productsession_id = this.value;
-                    $.ajax({
-                        url: '/getcategories/',
-                        type: 'get',
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            productsession_id: productsession_id,
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                           // console.log(response);
-                            var len = response.length;
-                            $('.productcategory_id').empty();
+           
+                //var productsession_id = $('.productsession_id').val();
+                //    $.ajax({
+                //        url: '/getcategories/',
+                //        type: 'get',
+                 //       data: {
+                 //           _token: "{{ csrf_token() }}",
+                 //           productsession_id: productsession_id,
+                 //       },
+                 //       dataType: 'json',
+                 //       success: function(response) {
+                  //         // console.log(response);
+                 //           var len = response.length;
+                 //           $('.productcategory_id').empty();
 
-                            var $select = $(".productcategory_id").append(
-                                $('<option>', {
-                                    value: '0',
-                                    text: 'Select'
-                                }));
-                            $(".productcategory_id").append($select);
+                 //           var $select = $(".productcategory_id").append(
+                 //               $('<option>', {
+                   //                 value: '0',
+                 //                   text: 'Select'
+                 //               }));
+                 //           $(".productcategory_id").append($select);
 
-                            for (var i = 0; i < len; i++) {
-                                $(".productcategory_id").append($('<option>', {
-                                    value: response[i].id,
-                                    text: response[i].name
-                                }));
-                            }
+                   //         for (var i = 0; i < len; i++) {
+                   //             $(".productcategory_id").append($('<option>', {
+                  //                  value: response[i].id,
+                  //                  text: response[i].name
+                  //              }));
+                   //         }
 
-                        }
-                    });
-            });
+                  //      }
+                  //  });
+
+
+
+
+
+                
 
 
     });
@@ -239,6 +243,42 @@
     $("#productimage").change(function(){
         readURL(this);
     });
+
+
+
+    function readURLtwo(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#category-img-tagtwo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#productimagetwo").change(function(){
+        readURLtwo(this);
+    });
+
+
+    function readURLthree(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#category-img-tagthree').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#productimagethree").change(function(){
+        readURLthree(this);
+    });
+
 
 
 
@@ -306,11 +346,10 @@
 
 
     function sessiontype(sessionid) {
-       // console.log(sessionid);
         $('#purchase' + sessionid).each(function(){
+            $(this).find('.category_type').removeClass('active');
             $(this).find('.category_type').first().addClass('active');
             var catogry_id = $(this).find('.category_type').first().data('cat_id');
-            //console.log(catogry_id);
 
                             $.ajax({
                                 url: '/getselectedcat_products/',
@@ -345,11 +384,10 @@
                                     }
                                 }
                             });
-            
         });
 
-            $(document).on('click', '.category_type', function() {
-            var catogry_id = $(this).data('cat_id');
+                $(document).on('click', '.category_type', function() {
+				    var catogry_id = $(this).data('cat_id');
 
 
                             $.ajax({
@@ -382,192 +420,182 @@
                                                                 '</div>' +
                                                             '</div>');
                                         $('.prodcttsdiv').append(productsdiv);
-                                        //$('#addedproduct' + response[i].id).attr('style', 'display:none');
-                                       // $('.clickquantity' + response[i].id).attr('style', 'display:block');
                                     }
                                 }
                             });
-
-                            
                 });
 
+          
 
-                $(document).ready(function() {
-                    $.ajax({
-                        type: 'get',
-                        url: '/GetAutosearchProducts/',
-                        data: {
-                                _token: "{{ csrf_token() }}",
-                                sessionid: sessionid,
-                            },
-                        dataType: 'json',
-                        success: function (response) {
-                            //console.log(response);
-                            $('.select2PS').html('');
+                    $(document).ready(function() {
+                        $.ajax({
+                            type: 'get',
+                            url: '/GetAutosearchProducts/',
+                            data: {
+                                    _token: "{{ csrf_token() }}",
+                                    sessionid: sessionid,
+                                },
+                            dataType: 'json',
+                            success: function (response) {
+                                //console.log(response);
+                                $('.select2PS').html('');
 
-                            var $select = $(".select2PS").append(
-                                $('<option>', {
-                                    value: '0',
-                                    text: 'Select Product...'
-                                }));
-                            $(".select2PS").append($select);
-
-
-                            var output = response.length;
-                            for (var i = 0; i < output; i++) {
-
-                                //console.log(response[i].product_id);
+                                var $select = $(".select2PS").append(
+                                    $('<option>', {
+                                        value: '0',
+                                        text: 'Select Product...'
+                                    }));
+                                $(".select2PS").append($select);
 
 
+                                var output = response.length;
+                                for (var i = 0; i < output; i++) {
 
-                                $(".select2PS").append($('<option>', {
-                                    value: response[i].product_id,
-                                    text:  response[i].product_name + ' - ₹ ' + response[i].product_price,
-                                }));
+                                    //console.log(response[i].product_id);
+
+
+
+                                    $(".select2PS").append($('<option>', {
+                                        value: response[i].product_id,
+                                        text:  response[i].product_name + ' - ₹ ' + response[i].product_price,
+                                    }));
+                                }
                             }
-                        }
-                    });
-
-
-
-                       
-                       
-
-
-                }); 
+                        });
+                    }); 
 
 
     }
 
+
     var h = 1;
-        $(document).on('click', '.selectproduct', function() {
+    $(document).on('click', '.selectproduct', function() {
 
                 
 
-            var product_id = $(this).data('product_id');
-            
-            //console.log(product_id);
-            $('.addedproduct' + product_id).attr('style', 'display:none');
-            $('.clickquantity' + product_id).attr('style', 'display:block');
-            var selectproductid = $(this).data('product_id');
+    var product_id = $(this).data('product_id');
+
+    //console.log(product_id);
+    $('.addedproduct' + product_id).attr('style', 'display:none');
+    $('.clickquantity' + product_id).attr('style', 'display:block');
+    var selectproductid = $(this).data('product_id');
 
 
 
-                $.ajax({
-                    url: '/getselectedproducts/',
-                    type: 'get',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        selectproductid: selectproductid,
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        var len = response.length;
-                        occurs = {};
+    $.ajax({
+        url: '/getselectedproducts/',
+        type: 'get',
+        data: {
+            _token: "{{ csrf_token() }}",
+            selectproductid: selectproductid,
+        },
+        dataType: 'json',
+        success: function(response) {
+            var len = response.length;
+            occurs = {};
 
-                        for (var i = 0; i < len; i++) {
+            for (var i = 0; i < len; i++) {
 
-                            var e = $('<ul class="product-lists" id="productlist">'+
-                            '<li>' +
-                            '<div class="productimg">' +
-                            '<div class="productimgs"><img src=" ' + response[i].product_image +  ' "alt="img"></div>' +
-                            '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' +
-                            '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
-                            '<div class="input-groups">' +
-                            '<input type="hidden" class="li_productid" id="li_productid" name="product_id[]"  value="' + response[i].product_id + '"/>' +
-                            '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].product_id +')">' +
-                            '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id + '">' +
-                            '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].product_id +')">' +
-                            '</div>' +
-                            '<input type="hidden" name="product_price[]" id="product_price' + response[i].product_id +  '"  value="' + response[i].product_price + '"/>' +
-                            '</div></div></div>' +
-                            '</li><li><div class="input-groups"><span class="totalprice' + response[i].product_id +  '">' + response[i].product_price +  '</span>' +
-                            '<input type="hidden" name="total_price[]" class="total_price' + response[i].product_id +  '" value="' + response[i].product_price +  '"/></div></li>' +
-                            '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
+                var e = $('<ul class="product-lists" id="productlist">'+
+                '<li>' +
+                '<div class="productimg">' +
+                '<div class="productimgs"><img src=" ' + response[i].product_image +  ' "alt="img"></div>' +
+                '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' +
+                '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
+                '<div class="input-groups">' +
+                '<input type="hidden" class="li_productid" id="li_productid" name="product_id[]"  value="' + response[i].product_id + '"/>' +
+                '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].product_id +')">' +
+                '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id + '">' +
+                '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].product_id +')">' +
+                '</div>' +
+                '<input type="hidden" name="product_price[]" id="product_price' + response[i].product_id +  '"  value="' + response[i].product_price + '"/>' +
+                '</div></div></div>' +
+                '</li><li><div class="input-groups"><span class="totalprice' + response[i].product_id +  '">' + response[i].product_price +  '</span>' +
+                '<input type="hidden" name="total_price[]" class="total_price' + response[i].product_id +  '" value="' + response[i].product_price +  '"/></div></li>' +
+                '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
 
-                            $('.product-table').prepend(e);
-                            var product_div = '1';
-                            $('#product_quantity' + response[i].product_id).val(product_div);
-
-
-                            var product_price = $('#product_price' + response[i].product_id).val();
-                                var totalprice = product_price * product_div;
-                                $('.totalprice' + response[i].product_id).text(totalprice);
-                                $('.total_price' + response[i].product_id).val(totalprice);
+                $('.product-table').prepend(e);
+                var product_div = '1';
+                $('#product_quantity' + response[i].product_id).val(product_div);
 
 
-
-                                var tot_expense_amount = 0;
-                                $("input[name='total_price[]']").each(
-                                    function() {
-                                        //alert($(this).val());
-                                        tot_expense_amount = Number(tot_expense_amount) +
-                                            Number($(this).val());
-                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
-                                            $('#subtotal').val(tot_expense_amount);
-                                            $('#totalamount').val(tot_expense_amount);
-
-
-                                            var sale_discount = $('#sale_discount').val();
-                                            var payment = Number(tot_expense_amount) - Number(sale_discount);
-                                            $('.grand_total').text(payment.toFixed(2));
-                                            $('.grandtotal').val(payment.toFixed(2));
-                                    });
-                        }
-
-                        $(".total_count").text($('.product-table').children('.product-lists').length);
-
-                    }
-                });
-                var tot_expense_amount = 0;
-                                $("input[name='total_price[]']").each(
-                                    function() {
-                                        //alert($(this).val());
-                                        tot_expense_amount = Number(tot_expense_amount) +
-                                            Number($(this).val());
-                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
-                                            $('#subtotal').val(tot_expense_amount);
-                                            $('#totalamount').val(tot_expense_amount);
-                                            $('.grand_total').text('₹ ' + tot_expense_amount);
-                                            $('.grandtotal').val(tot_expense_amount);
-                                    });
-
-        });
+                var product_price = $('#product_price' + response[i].product_id).val();
+                    var totalprice = product_price * product_div;
+                    $('.totalprice' + response[i].product_id).text(totalprice);
+                    $('.total_price' + response[i].product_id).val(totalprice);
 
 
 
-
-                            function increment_quantity(productid) {
-
-                                var inputQuantityElement = $('#product_quantity' + productid);
-                                //console.log(inputQuantityElement);
-                                var newQuantity = parseInt($(inputQuantityElement).val())+1;
-                                var QuantityElement = $('#product_quantity' + productid);
-                                $(inputQuantityElement).val(newQuantity);
-
-                                var product_price = $('#product_price' + productid).val();
-                                var totalprice = product_price * newQuantity;
-                                $('.totalprice' + productid).text(totalprice);
-                                $('.total_price' + productid).val(totalprice);
+                    var tot_expense_amount = 0;
+                    $("input[name='total_price[]']").each(
+                        function() {
+                            //alert($(this).val());
+                            tot_expense_amount = Number(tot_expense_amount) +
+                                Number($(this).val());
+                                $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                $('#subtotal').val(tot_expense_amount);
+                                $('#totalamount').val(tot_expense_amount);
 
 
+                                var sale_discount = $('#sale_discount').val();
+                                var payment = Number(tot_expense_amount) - Number(sale_discount);
+                                $('.grand_total').text(payment.toFixed(2));
+                                $('.grandtotal').val(payment.toFixed(2));
+                        });
+            }
 
-                                var tot_expense_amount = 0;
-                                $("input[name='total_price[]']").each(
-                                    function() {
-                                        //alert($(this).val());
-                                        tot_expense_amount = Number(tot_expense_amount) +
-                                            Number($(this).val());
-                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
-                                            $('#subtotal').val(tot_expense_amount);
-                                            $('#totalamount').val(tot_expense_amount);
+            $(".total_count").text($('.product-table').children('.product-lists').length);
 
-                                            var sale_discount = $('#sale_discount').val();
-                                            var payment = Number(tot_expense_amount) - Number(sale_discount);
-                                            $('.grand_total').text(payment.toFixed(2));
-                                            $('.grandtotal').val(payment.toFixed(2));
-                                    });
-                            }
+        }
+    });
+    var tot_expense_amount = 0;
+                    $("input[name='total_price[]']").each(
+                        function() {
+                            //alert($(this).val());
+                            tot_expense_amount = Number(tot_expense_amount) +
+                                Number($(this).val());
+                                $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                $('#subtotal').val(tot_expense_amount);
+                                $('#totalamount').val(tot_expense_amount);
+                                $('.grand_total').text('₹ ' + tot_expense_amount);
+                                $('.grandtotal').val(tot_expense_amount);
+                        });
+
+});
+
+
+function increment_quantity(productid) {
+
+        var inputQuantityElement = $('#product_quantity' + productid);
+        //console.log(inputQuantityElement);
+        var newQuantity = parseInt($(inputQuantityElement).val())+1;
+        var QuantityElement = $('#product_quantity' + productid);
+        $(inputQuantityElement).val(newQuantity);
+
+        var product_price = $('#product_price' + productid).val();
+        var totalprice = product_price * newQuantity;
+        $('.totalprice' + productid).text(totalprice);
+        $('.total_price' + productid).val(totalprice);
+
+
+
+        var tot_expense_amount = 0;
+            $("input[name='total_price[]']").each(
+            function() {
+                //alert($(this).val());
+                tot_expense_amount = Number(tot_expense_amount) +
+                    Number($(this).val());
+                    $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                    $('#subtotal').val(tot_expense_amount);
+                    $('#totalamount').val(tot_expense_amount);
+
+                    var sale_discount = $('#sale_discount').val();
+                    var payment = Number(tot_expense_amount) - Number(sale_discount);
+                    $('.grand_total').text(payment.toFixed(2));
+                    $('.grandtotal').val(payment.toFixed(2));
+            });
+}
+
 
                             function decrement_quantity(productid) {
                                 var inputQuantityElement = $('#product_quantity' + productid);
@@ -602,7 +630,6 @@
 
 
 
-
 var dt = new Date();
 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 $(".current_time").html(time);
@@ -611,21 +638,7 @@ $(".currenttime").val(time);
 var today = new Date();
 var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
 $(".current_date").html(date);
-//$(".currentdate").val(date);
 
-
-//function cashclick() {
-  //  $('#cashpaymentmethod').val('Cash');
-  //  $('#onlinepaymentmethod').val('');
-  //  $(".cashmethod").attr('style', 'border-color:black;');
-  //  $(".onlinemethod").attr('style', '');
-//}
-//function onlineclick() {
-  //  $('#onlinepaymentmethod').val('Online');
- //   $('#cashpaymentmethod').val('');
- //   $(".onlinemethod").attr('style', 'border-color:black;');
- //   $(".cashmethod").attr('style', '');
-//}
 
 
 $(document).on('click', '.remove-tr', function() {
@@ -665,125 +678,118 @@ $(document).on('click', '.remove-ultr', function() {
 $(document).ready(function(){
 
     
-    $('#sales_store').submit(function(e){
-        e.preventDefault();
+$('#sales_store').submit(function(e){
+    e.preventDefault();
 
-        //console.log($(this).serialize());
+    //console.log($(this).serialize());
 
-        var billno = $('#billno').val();
-        var date = $('#date').val();
-        var time = $('#time').val();
-        var sales_type = $('input[name=sales_type]:checked').val();
-        var customer_type = $('#customer_type').val();
-        var customer_id = $('#customer_id').val();
-        var subtotal = $('#subtotal').val();
-        var taxamount = $('#taxamount').val();
-        var paymentmethod = $('input[name=paymentmethod]:checked').val();
-        var totalamount = $('#totalamount').val();
-        var sale_discount = $('#sale_discount').val();
-        var grandtotal = $('#grandtotal').val();
+    //var billno = $('#bill_no').val();
+    var date = $('#date').val();
+    var time = $('#time').val();
+    var sales_type = $('input[name=sales_type]:checked').val();
+    var customer_type = $('#customer_type').val();
+    var customer_id = $('#customer_id').val();
+    var subtotal = $('#subtotal').val();
+    var taxamount = $('#taxamount').val();
+    var paymentmethod = $('input[name=paymentmethod]:checked').val();
+    var totalamount = $('#totalamount').val();
+    var sale_discount = $('#sale_discount').val();
+    var grandtotal = $('#grandtotal').val();
 
-        var product_ids = $("input[name='product_id[]']")
-                .map(function () {
-                    return $(this).val();
-                }).get();
+    var product_ids = $("input[name='product_id[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
 
-        var product_quantity = $("input[name='product_quantity[]']")
-                .map(function () {
-                    return $(this).val();
-                }).get();
-
-
-        var product_price = $("input[name='product_price[]']")
-                .map(function () {
-                    return $(this).val();
-                }).get();
-
-        var total_price = $("input[name='total_price[]']")
-                .map(function () {
-                    return $(this).val();
-                }).get();
-
-        //console.log(subtotal);
+    var product_quantity = $("input[name='product_quantity[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
 
 
-                $.ajax({
-                    url: "{{ route('sales.store.salesdata') }}",
-                    type: 'POST',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        billno: billno,
-                        date: date,
-                        time: time,
-                        sales_type: sales_type,
-                        customer_type: customer_type,
-                        customer_id: customer_id,
-                        subtotal: subtotal,
-                        taxamount: taxamount,
-                        paymentmethod: paymentmethod,
-                        totalamount: totalamount,
-                        product_ids: product_ids,
-                        product_quantity: product_quantity,
-                        product_price: product_price,
-                        total_price: total_price,
-                        sale_discount: sale_discount,
-                        grandtotal: grandtotal,
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        console.log(response.data);
-                        //alert('Bill Added').attr('style', 'background-color:yellow;');
+    var product_price = $("input[name='product_price[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
 
-                                    $('.alert-success').fadeIn().html(response.msg);
-                            setTimeout(function() {
-                                $('.alert-success').fadeOut("slow");
-                            }, 2000 );
+    var total_price = $("input[name='total_price[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
 
-                            var last_salesid = response.last_id;
-                            //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                            window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
-                           // window.location.close();
+    //console.log(subtotal);
 
 
+            $.ajax({
+                url: "{{ route('sales.store.salesdata') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    date: date,
+                    time: time,
+                    sales_type: sales_type,
+                    customer_type: customer_type,
+                    customer_id: customer_id,
+                    subtotal: subtotal,
+                    taxamount: taxamount,
+                    paymentmethod: paymentmethod,
+                    totalamount: totalamount,
+                    product_ids: product_ids,
+                    product_quantity: product_quantity,
+                    product_price: product_price,
+                    total_price: total_price,
+                    sale_discount: sale_discount,
+                    grandtotal: grandtotal,
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response.data);
+                    //alert('Bill Added').attr('style', 'background-color:yellow;');
 
-                           // var win=window.open("http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid);
-           //  with(win.document)
-           //  {
-            //    setTimeout(function() {
-            //        win.document.close();
-            //                }, 5);
-            // }
+                                $('.alert-success').fadeIn().html(response.msg);
+                        setTimeout(function() {
+                            $('.alert-success').fadeOut("slow");
+                        }, 2000 );
 
-                        document.getElementById("sales_store").reset();
-                        $('.product-table').empty('');
-                        $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
-                        $('.rise_quantity').attr('style', 'display:none');
+                        var last_salesid = response.last_id;
+                        
+                    
+                        window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                        //window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
 
-                        $('#billno').val(response.next_billno);
-                        $('.billno').text(response.next_billno);
-                        $('.total_count').text('');
-                        $('.subtotalamount').text('');
-                        $('#subtotal').val('');
-                        $('#customer_type').val('walkincustomer');
-                        $('#customer_type').select2().trigger('change');
-                        $('#customer_id').val('');
-                        $('#taxamount').val('');
-                        $('input[name=paymentmethod]:checked').val('');
-                        $('#totalamount').val('');
-                        $('#sale_discount').val('');
-                        $('.grand_total').text('');
-                        $('.grandtotal').val('');
-                        $('.cutomer_arr').hide();
-                        $('.customertyp').show();
-                        $('.selectproduct').show();
-                        $('.setvaluecash').show();
-                    }
-                });
-    });
+
+                    document.getElementById("sales_store").reset();
+                    $('.product-table').empty('');
+                    $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
+                    $('.rise_quantity').attr('style', 'display:none');
+                    $('.total_count').text('');
+                    $('.subtotalamount').text('');
+                    $('#subtotal').val('');
+                    $('#customer_type').val('walkincustomer');
+                    $('#customer_type').select2().trigger('change');
+                    $('#customer_id').val('');
+                    $('#taxamount').val('');
+                    $('input[name=paymentmethod]:checked').val('');
+                    $('#totalamount').val('');
+                    $('#sale_discount').val('');
+                    $('.grand_total').text('');
+                    $('.grandtotal').val('');
+                    $('.cutomer_arr').hide();
+                    $('.customertyp').show();
+                    $('.selectproduct').show();
+                    $('.setvaluecash').show();
+
+
+                   
+                }
+            });
+});
 
 
 
 });
+
+
 
 function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
@@ -798,8 +804,8 @@ function printDiv(divName) {
 
 
 
-            
-            $('.select2PS').on('change', function () {
+               
+        $('.select2PS').on('change', function () {
                // $('.productlist').fadeOut();
                
                 var productid = $(this).find('option').filter(':selected').val()
@@ -900,6 +906,11 @@ function printDiv(divName) {
                         
             });
 
+
+
+
+
+       
 
         $(document).on("keyup", '.sale_discount', function() {
                 var sale_discount = $(this).val();

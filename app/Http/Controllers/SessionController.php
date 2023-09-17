@@ -56,4 +56,6 @@ class SessionController extends Controller
         return redirect()->route('session.index')->with('warning', 'Deleted !');
     }
 
+
+  
 }

@@ -20,16 +20,14 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
+       
         $randomkey = Str::random(5);
 
-        $data = new Category();
-
-        $data->unique_key = $randomkey;
-        $data->name = $request->get('name');
-        $data->session_id = $request->get('session_id');
-
-        $data->save();
-
+        $Category = new Category;
+        $Category->unique_key = $randomkey;
+        $Category->name = $request->get('name');
+        $Category->save();
+        
 
         return redirect()->route('category.index')->with('message', 'Added !');
     }
@@ -40,8 +38,7 @@ class CategoryController extends Controller
         $CategoryData = Category::where('unique_key', '=', $unique_key)->first();
 
         $CategoryData->name = $request->get('name');
-        $CategoryData->session_id = $request->get('session_id');
-
+        //$CategoryData->session_id = $request->get('session_id');
         $CategoryData->update();
 
         return redirect()->route('category.index')->with('info', 'Updated !');

@@ -24,7 +24,6 @@ class ProductController extends Controller
         $Productdata = [];
         foreach ($data as $key => $datas) {
             $Categoryid = Category::findOrFail($datas->category_id);
-            $sessionid = Session::findOrFail($datas->session_id);
 
             $Productdata[] = array(
                 'id' => $datas->id,
@@ -34,8 +33,6 @@ class ProductController extends Controller
                 'price' => $datas->price,
                 'image' => $datas->image,
                 'categoryname' => $Categoryid->name,
-                'sessionname' => $sessionid->name,
-                'session_id' => $datas->session_id,
                 'category_id' => $datas->category_id,
             );
         }
@@ -47,27 +44,27 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $randomkey = Str::random(5);
 
-        $data = new Product();
-        $random_no =  rand(100,999);
+            $randomkey = Str::random(5);
 
-        $data->unique_key = $randomkey;
-        $data->name = $request->get('name');
-        $data->note = $request->get('note');
-        $data->price = $request->get('price');
-        $data->category_id = $request->get('category_id');
-        $data->session_id = $request->get('session_id');
-
-        
-        if ($request->productimage != "") {
-            $productimage = $request->productimage;
-            $filename_one = $data->name . '_' . $random_no . '_' . '.' . $productimage->getClientOriginalExtension();
-            $request->productimage->move('assets/product', $filename_one);
-            $data->image = $filename_one;
-        }
-
-        $data->save();
+            $dataone = new Product();
+            $random_no =  rand(100,999);
+    
+            $dataone->unique_key = $randomkey;
+            $dataone->name = $request->get('name');
+            $dataone->note = $request->get('note');
+            $dataone->price = $request->get('price');
+            $dataone->category_id = $request->get('category_id');
+    
+            
+            if ($request->productimage != "") {
+                $productimage = $request->productimage;
+                $filename_one = $dataone->name . '_' . $random_no . '_' . '.' . $productimage->getClientOriginalExtension();
+                $request->productimage->move('assets/product', $filename_one);
+                $dataone->image = $filename_one;
+            }
+    
+            $dataone->save();
 
 
         return redirect()->route('product.index')->with('message', 'Added !');
@@ -84,7 +81,6 @@ class ProductController extends Controller
         $ProductData->note = $request->get('note');
         $ProductData->price = $request->get('price');
         $ProductData->category_id = $request->get('category_id');
-        $ProductData->session_id = $request->get('session_id');
 
 
         if ($request->productimage != "") {

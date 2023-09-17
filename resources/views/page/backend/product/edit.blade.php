@@ -7,17 +7,6 @@
             <form autocomplete="off" method="POST" action="{{ route('product.edit', ['unique_key' => $Productdatas['unique_key']]) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                     <div class="col-lg-6 col-sm-6 col-6">
-                        <div class="form-group">
-                            <label>Session <span style="color: red;">*</span></label>
-                              <select class="form-control  select productsession_id" name="session_id" id="session_id" required>
-                                    <option value="" disabled selected hiddden>Select Session</option>
-                                    @foreach ($session as $sessions)
-                                        <option value="{{ $sessions->id }}"@if ($sessions->id === $Productdatas['session_id']) selected='selected' @endif>{{ $sessions->name }}</option>
-                                    @endforeach 
-                                </select>
-                        </div>
-                    </div>
                     <div class="col-lg-6 col-sm-6 col-6">
                         <div class="form-group">
                             <label>Category <span style="color: red;">*</span></label>
@@ -43,17 +32,17 @@
                     </div>
                     <div class="col-lg-6 col-sm-6 col-6">
                         <div class="form-group">
+                            <label>Note</label>
+                            <textarea type="text" name="note" placeholder="Enter note" >{{ $Productdatas['note'] }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-6">
+                        <div class="form-group">
                             <label>Image<span style="color: red;">*</span></label>
                             <input type="file" id="" class="form-control" name="productimage"><br/><br/>
                             @if ($Productdatas['image'] != "")
                             <img src="{{ asset('assets/product/' .$Productdatas['image']) }}" alt="" width="150" height="100">
                             @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-6 col-6">
-                        <div class="form-group">
-                            <label>Note<span style="color: red;">*</span></label>
-                            <textarea type="text" name="note" placeholder="Enter note" required>{{ $Productdatas['note'] }}</textarea>
                         </div>
                     </div>
                     <hr>

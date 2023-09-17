@@ -11,6 +11,7 @@ use App\Models\Sale;
 use App\Models\SaleProduct;
 use App\Models\Customer;
 use App\Models\Payment;
+use App\Models\Productsession;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -303,8 +304,10 @@ class SaleController extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $timenow = Carbon::now()->format('H:i');
         $customer_rray = Customer::where('soft_delete', '!=', 1)->get();
+        $catProductsession = Productsession::select('session_id','category_id','category_name')->distinct('category_id')->where('soft_delete', '!=', 1)->get();
+        $Productsession = Productsession::select('category_id','productname','productimage', 'productprice', 'product_id')->distinct('product_id')->where('soft_delete', '!=', 1)->get();
 
-        $Latest_Sale = Sale::latest('id')->first();
+        $Latest_Sale = Sale::where('soft_delete', '!=', 1)->latest('id')->first();
         if($Latest_Sale != ''){
             $latestbillno = $Latest_Sale->bill_no + 1;
         }else {
@@ -351,9 +354,7 @@ class SaleController extends Controller
                 'unique_key' => $Delivery_arr->unique_key
             );
         }
-
-
-        return view('page.backend.sales.create', compact('session', 'category', 'product_array', 'today', 'timenow', 'Bank', 'latestbillno', 'customer_rray', 'DineInoutput', 'TakeAwayInoutput', 'DeliveryInoutput'));
+        return view('page.backend.sales.create', compact('session', 'category', 'product_array', 'today', 'timenow', 'Bank', 'latestbillno', 'customer_rray', 'DineInoutput', 'TakeAwayInoutput', 'DeliveryInoutput', 'catProductsession', 'Productsession'));
     }
 
 
@@ -383,9 +384,16 @@ class SaleController extends Controller
         $randomkey = Str::random(5);
 
 
+        $Latest_Sale = Sale::where('soft_delete', '!=', 1)->latest('id')->first();
+        if($Latest_Sale != ''){
+            $latestbillno = $Latest_Sale->bill_no + 1;
+        }else {
+            $latestbillno = 1;
+        }
+
         $data = new Sale;
         $data->unique_key = $randomkey;
-        $data->bill_no = $request->billno;
+        $data->bill_no = $latestbillno;
         $data->date = $request->date;
         $data->time = $request->time;
         $data->sales_type = $request->sales_type;
@@ -401,6 +409,7 @@ class SaleController extends Controller
 
 
         $sales_id = $data->id;
+        $next_billno = $request->billno + 1;
 
         foreach (($request->product_ids) as $key => $product_id) {
             $SaleProduct = new SaleProduct;
@@ -449,7 +458,7 @@ class SaleController extends Controller
 
         }
         
-            $next_billno = $data->bill_no + 1;
+            
             return response()->json(['next_billno' => $next_billno, 'msg' => 'Bill Added', 'last_id' => $sales_id]);
         //$SaleData->save();
 
@@ -461,9 +470,53 @@ class SaleController extends Controller
     {
         $data = Sale::where('unique_key', '=', $unique_key)->first();
 
-        $data->soft_delete = 1;
+        if($data->customer_id != ""){
 
-        $data->update();
+            $getinsertedP_Products = SaleProduct::where('sales_id', '=', $data->id)->get();
+            $SaleProducts = array();
+            foreach ($getinsertedP_Products as $key => $getinserted_P_Products) {
+                $SaleProducts[] = $getinserted_P_Products->id;
+            }
+
+
+            if (!empty($SaleProducts)) {
+                foreach ($SaleProducts as $key => $SaleProducts_arr) {
+                    SaleProduct::where('id', $SaleProducts_arr)->delete();
+                }
+            }
+
+            $salecustomer_id = $data->customer_id;
+
+            $PaymentsData = Payment::where('customer_id', '=', $salecustomer_id)->first();
+            if($PaymentsData != ""){
+
+
+                $old_grossamount = $PaymentsData->saleamount;
+                $old_paid = $PaymentsData->salepaid;
+
+                $oldentry_paid = $data->grandtotal;
+
+
+                $updated_gross = $old_grossamount - $oldentry_paid;
+
+                $new_balance = $updated_gross - $old_paid;
+
+                DB::table('payments')->where('customer_id', $salecustomer_id)->update([
+                    'saleamount' => $updated_gross,  'salepaid' => $old_paid, 'salebalance' => $new_balance
+                ]);
+
+            }
+
+            $data->delete();
+    
+        }else {
+            $data->soft_delete = 1;
+
+            $data->update();
+        }
+
+        
+        
 
         return redirect()->route('sales.index')->with('warning', 'Deleted !');
     }
@@ -529,16 +582,15 @@ class SaleController extends Controller
         //$productids = [];
         //$prdoct_array = [];
         
-            $Getproducts = Product::where('session_id', '=', $sessionid)->get();
+            $Getproducts = Productsession::where('session_id', '=', $sessionid)->distinct('product_id')->get();
             foreach ($Getproducts as $key => $Getproducts_arr) {
 
-                $Category = Category::findOrFail($Getproducts_arr->category_id);
                 $productoutput[] = [
-                    'product_id' => $Getproducts_arr->id,
-                    'product_name' => $Getproducts_arr->name,
-                    'product_price' => $Getproducts_arr->price,
-                    'product_image' => asset('assets/product/'.$Getproducts_arr->image),
-                    'Category' => $Category->name,
+                    'product_id' => $Getproducts_arr->product_id,
+                    'product_name' => $Getproducts_arr->productname,
+                    'product_price' => $Getproducts_arr->productprice,
+                    'product_image' => asset('assets/product/'.$Getproducts_arr->productimage),
+                    'Category' => $Getproducts_arr->category_name,
                 ];
             
             }
@@ -576,6 +628,39 @@ class SaleController extends Controller
             );
         }
         echo json_encode($output);
+    }
+
+
+    public function getselectedsessioncat()
+    {
+        $sessionid = request()->get('sessionid');
+        $output = [];
+
+        $GetCatgory = Productsession::where('session_id', '=', $sessionid)->where('soft_delete', '!=', 1)->select('category_id', 'session_id', 'category_name')->distinct()->get();
+            foreach ($GetCatgory as $key => $GetCatgorys) {
+                if($key == 0){
+                    $active = 'active';
+                }else {
+                    $active = '';
+                }
+                $output[] = [
+                    'category_id' => $GetCatgorys->category_id,
+                    'session_id' => $GetCatgorys->session_id,
+                    'category_name' => $GetCatgorys->category_name,
+                    'active' => $active,
+                ];
+            }
+        
+            echo json_encode($output);
+    }
+
+
+
+    public function getsalelatest()
+    {
+        $Getsale = Sale::where('soft_delete', '!=', 1)->latest('id')->first();
+        $userData['data'] = $Getsale->bill_no;
+        echo json_encode($userData);
     }
 
     

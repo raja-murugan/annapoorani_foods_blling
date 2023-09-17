@@ -9,6 +9,7 @@ use App\Models\SaleProduct;
 use App\Models\Customer;
 use App\Models\Deliveryplan;
 use App\Models\Salespayment;
+use App\Models\Payment;
 
 
 use Illuminate\Http\Request;
@@ -30,7 +31,13 @@ class SalespaymentController extends Controller
         foreach ($data as $key => $datas) {
 
                 $customer = Customer::findOrFail($datas->customer_id);
-                $deliveryplan = Deliveryplan::findOrFail($datas->deliveryplan_id);
+                if($datas->deliveryplan_id != ""){
+                    $deliveryplan = Deliveryplan::findOrFail($datas->deliveryplan_id);
+                    $delivery_plan = $deliveryplan->name;
+                }else {
+                    $delivery_plan = '';
+                }
+                
 
             $salepayment_data[] = array(
                 'customer' => $customer->name,
@@ -39,7 +46,7 @@ class SalespaymentController extends Controller
                 'time' => $datas->time,
                 'paid_amount' => $datas->paid_amount,
                 'deliveryplan_id' => $datas->deliveryplan_id,
-                'deliveryplan' => $deliveryplan->name,
+                'deliveryplan' => $delivery_plan,
                 'id' => $datas->id,
                 'unique_key' => $datas->unique_key,
             );
@@ -98,6 +105,24 @@ class SalespaymentController extends Controller
         $data->deliveryplan_id = $request->get('deliveryplan_id');
         $data->save();
 
+        $customerid = $request->get('customer_id');
+
+        $saleamountData = Payment::where('customer_id', '=', $customerid)->first();
+
+        if($saleamountData != ""){
+            $old_grossamount = $saleamountData->saleamount;
+            $old_paid = $saleamountData->salepaid;
+
+            $paidamount = $request->get('paid_amount');
+
+            $new_grossamount = $old_grossamount;
+            $new_paid = $old_paid + $paidamount;
+            $new_balance = $new_grossamount - $new_paid;
+
+            DB::table('payments')->where('customer_id', $customerid)->update([
+                'saleamount' => $new_grossamount,  'salepaid' => $new_paid, 'salebalance' => $new_balance
+            ]);
+        }
 
         return redirect()->route('salespayment.index')->with('message', 'Added !');
     }

@@ -226,7 +226,6 @@ class PurchaseController extends Controller
 
         }
 
-
         $PurchseData = Payment::where('supplier_id', '=', $supplierid)->first();
         if($PurchseData != ""){
 
@@ -408,9 +407,48 @@ class PurchaseController extends Controller
     {
         $data = Purchase::where('unique_key', '=', $unique_key)->first();
 
-        $data->soft_delete = 1;
 
-        $data->update();
+        $getinsertedP_Products = PurchaseProductdata::where('purchase_id', '=', $data->id)->get();
+        $Purchaseproducts = array();
+        foreach ($getinsertedP_Products as $key => $getinserted_P_Products) {
+            $Purchaseproducts[] = $getinserted_P_Products->id;
+        }
+
+        if (!empty($Purchaseproducts)) {
+            foreach ($Purchaseproducts as $key => $Purchaseproducts_arr) {
+                PurchaseProductdata::where('id', $Purchaseproducts_arr)->delete();
+            }
+        }
+
+
+        $purchase_supplier_id = $data->supplier_id;
+
+
+        $PurchasebranchwiseData = Payment::where('supplier_id', '=', $purchase_supplier_id)->first();
+        if($PurchasebranchwiseData != ""){
+
+
+            $old_grossamount = $PurchasebranchwiseData->purchase_amount;
+            $old_paid = $PurchasebranchwiseData->purchase_paid;
+
+            $oldentry_grossamount = $data->grandtotal;
+            $oldentry_paid = $data->paidamount;
+
+         
+                $updated_gross = $old_grossamount - $oldentry_grossamount;
+                $updated_paid = $old_paid - $oldentry_paid;
+
+                $new_balance = $updated_gross - $updated_paid;
+
+            DB::table('payments')->where('supplier_id', $purchase_supplier_id)->update([
+                'purchase_amount' => $updated_gross,  'purchase_paid' => $updated_paid, 'purchase_balance' => $new_balance
+            ]);
+
+        }
+
+
+
+        $data->delete();
 
         return redirect()->route('purchase.index')->with('warning', 'Deleted !');
     }

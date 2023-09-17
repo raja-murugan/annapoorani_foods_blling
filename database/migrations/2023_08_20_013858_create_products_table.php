@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
-            $table->unsignedBigInteger('session_id');
+            $table->unsignedBigInteger('session_id')->nullable();
             $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
 
             $table->timestamps();

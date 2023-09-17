@@ -4,11 +4,12 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Category</h4>
+                <h4>Product Session</h4>
             </div>
             <div class="page-btn">
                 <button type="button" class="btn btn-primary waves-effect waves-light btn-added" data-bs-toggle="modal"
-                    data-bs-target=".category-modal-xl">Add New</button>
+                    data-bs-target=".productsession-modal-xl">Add New</button>
+                    
             </div>
         </div>
 
@@ -19,44 +20,46 @@
                         <thead>
                             <tr>
                                 <th>Sl. No</th>
-                                <th>Name</th>
+                                <th>Product</th>
+                                <th>Session</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $keydata => $category_data)
+                            @foreach ($Productdata as $keydata => $Productdatas)
                                 <tr>
                                     <td>{{ ++$keydata }}</td>
-                                    <td>{{ $category_data->name }}</td>
+                                    <td>{{ $Productdatas['productname'] }}</td>
+                                    <td>{{ $Productdatas['sessionname'] }}</td>
                                     <td>
                                         <ul class="list-unstyled hstack gap-1 mb-0">
                                             <li>
-                                                <a href="#edit{{ $category_data->unique_key }}" data-bs-toggle="modal"
-                                                    data-id="{{ $category_data->unique_key }}"
-                                                    data-bs-target=".categoryeedit-modal-xl{{ $category_data->unique_key }}"
+                                                <a href="#edit{{ $Productdatas['id'] }}" data-bs-toggle="modal"
+                                                    data-id="{{ $Productdatas['id'] }}"
+                                                    data-bs-target=".productsessedit-modal-xl{{ $Productdatas['id'] }}"
                                                     class="badges bg-lightgrey" style="color: white">Edit</a>
                                             </li>
                                             <li>
-                                                <a href="#delete{{ $category_data->unique_key }}" data-bs-toggle="modal"
-                                                    data-id="{{ $category_data->unique_key }}"
-                                                    data-bs-target=".categorydelete-modal-xl{{ $category_data->unique_key }}"
+                                                <a href="#delete{{ $Productdatas['id'] }}" data-bs-toggle="modal"
+                                                    data-id="{{ $Productdatas['id'] }}"
+                                                    data-bs-target=".productsessedelete-modal-xl{{ $Productdatas['id'] }}"
                                                     class="badges bg-lightyellow" style="color: white">Delete</a>
                                             </li>
                                         </ul>
                                     </td>
                                 </tr>
 
-                                <div class="modal fade categoryeedit-modal-xl{{ $category_data->unique_key }}"
+                                <div class="modal fade productsessedit-modal-xl{{ $Productdatas['id'] }}"
                                     tabindex="-1" role="dialog" data-bs-backdrop="static"
-                                    aria-labelledby="editLargeModalLabel{{ $category_data->unique_key }}"
+                                    aria-labelledby="editLargeModalLabel{{ $Productdatas['id'] }}"
                                     aria-hidden="true">
-                                    @include('page.backend.category.edit')
+                                    @include('page.backend.productsession.edit')
                                 </div>
-                                <div class="modal fade categorydelete-modal-xl{{ $category_data->unique_key }}"
+                                <div class="modal fade productsessedelete-modal-xl{{ $Productdatas['id'] }}"
                                     tabindex="-1" role="dialog"data-bs-backdrop="static"
-                                    aria-labelledby="deleteLargeModalLabel{{ $category_data->unique_key }}"
+                                    aria-labelledby="deleteLargeModalLabel{{ $Productdatas['id'] }}"
                                     aria-hidden="true">
-                                    @include('page.backend.category.delete')
+                                    @include('page.backend.productsession.delete')
                                 </div>
                             @endforeach
                         </tbody>
@@ -65,9 +68,9 @@
             </div>
         </div>
 
-        <div class="modal fade category-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        <div class="modal fade productsession-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
             aria-hidden="true">
-            @include('page.backend.category.create')
+            @include('page.backend.productsession.create')
         </div>
     </div>
 @endsection

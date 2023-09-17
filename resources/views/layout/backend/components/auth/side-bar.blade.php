@@ -22,6 +22,9 @@
                         <li class="{{ Route::is('product.index', 'product.store') ? 'active' : '' }}">
                             <a href="{{ route('product.index') }}"><i data-feather="box"></i><span>Product</span></a>
                         </li>
+                        <li class="{{ Route::is('productsession.index', 'productsession.store') ? 'active' : '' }}">
+                            <a href="{{ route('productsession.index') }}"><i data-feather="box"></i><span>Product Session</span></a>
+                        </li>
                         <li class="{{ Route::is('sales.index', 'sales.datefilter') ? 'active' : '' }}">
                             <a href="{{ route('sales.index') }}"><i data-feather="shopping-cart"></i><span>Sales</span></a>
                         </li>

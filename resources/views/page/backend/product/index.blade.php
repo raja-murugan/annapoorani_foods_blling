@@ -22,7 +22,6 @@
                                 <th>Sl. No</th>
                                 <th>Product</th>
                                 <th>Category</th>
-                                <th>Session</th>
                                 <th>Image</th>
                                 <th>Price</th>
                                 <th>Action</th>
@@ -34,7 +33,6 @@
                                     <td>{{ ++$keydata }}</td>
                                     <td>{{ $Productdatas['name'] }}</td>
                                     <td>{{ $Productdatas['categoryname'] }}</td>
-                                    <td>{{ $Productdatas['sessionname']  }}</td>
                                     
                                         @if ($Productdatas['image'] == "")
                                         <td></td>
