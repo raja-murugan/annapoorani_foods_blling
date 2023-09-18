@@ -21,6 +21,7 @@
                             <tr>
                                 <th>Sl. No</th>
                                 <th>Product</th>
+                                <th>Category</th>
                                 <th>Session</th>
                                 <th>Action</th>
                             </tr>
@@ -30,6 +31,7 @@
                                 <tr>
                                     <td>{{ ++$keydata }}</td>
                                     <td>{{ $Productdatas['productname'] }}</td>
+                                    <td>{{ $Productdatas['category_name'] }}</td>
                                     <td>{{ $Productdatas['sessionname'] }}</td>
                                     <td>
                                         <ul class="list-unstyled hstack gap-1 mb-0">
