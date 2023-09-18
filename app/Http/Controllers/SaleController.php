@@ -365,7 +365,7 @@ class SaleController extends Controller
         $output = [];
 
 
-            $Productsessions = Productsession::where('product_id', '=', $product_id)->where('session_id', '=', $sessionid)->first();
+            $Productsessions = Productsession::where('soft_delete', '!=', 1)->where('product_id', '=', $product_id)->where('session_id', '=', $sessionid)->first();
                 $output[] = [
                     "quantity" => 1,
                     'product_id' => $Productsessions->product_id,

@@ -159,7 +159,7 @@ class ProductController extends Controller
         $sessionid = request()->get('sessionid');
         $output = [];
 
-            $CategoryProducts = Productsession::where('category_id', '=', $catogry_id)->where('session_id', '=', $sessionid)->get();
+            $CategoryProducts = Productsession::where('soft_delete', '!=', 1)->where('category_id', '=', $catogry_id)->where('session_id', '=', $sessionid)->get();
             foreach ($CategoryProducts as $key => $CategoryProducts_arr) {
                 $output[] = [
                     'productname' => $CategoryProducts_arr->productname,
