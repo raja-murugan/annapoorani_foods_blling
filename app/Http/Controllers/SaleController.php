@@ -605,7 +605,7 @@ class SaleController extends Controller
         //$productids = [];
         //$prdoct_array = [];
         
-            $Getproducts = Productsession::where('session_id', '=', $sessionid)->distinct('product_id')->get();
+            $Getproducts = Productsession::where('soft_delete', '!=', 1)->where('session_id', '=', $sessionid)->distinct('product_id')->get();
             foreach ($Getproducts as $key => $Getproducts_arr) {
 
                 $productoutput[] = [
