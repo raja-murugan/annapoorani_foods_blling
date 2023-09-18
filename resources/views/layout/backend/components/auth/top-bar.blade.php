@@ -37,7 +37,7 @@
 
                             @endphp
 
-                            @if ($lastword == $current_url)
+                            @if ($lastword == $live_url)
                     <div class="searchinputs">
                             <style>
                                 option.avatar {
