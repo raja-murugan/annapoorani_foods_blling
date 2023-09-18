@@ -304,8 +304,38 @@ class SaleController extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $timenow = Carbon::now()->format('H:i');
         $customer_rray = Customer::where('soft_delete', '!=', 1)->get();
+
         $catProductsession = Productsession::select('session_id','category_id','category_name')->distinct('category_id')->where('soft_delete', '!=', 1)->get();
+        $cat_Productsession = [];
+        foreach ($catProductsession as $key => $catProductsessions) {
+
+            $cat_session = Session::findOrFail($catProductsessions->session_id);
+            $cat_order = Category::findOrFail($catProductsessions->category_id);
+
+            $cat_Productsession[] = array(
+                'session_id' => $cat_session->id,
+                'category_id' => $cat_order->id,
+                'category_name' => $cat_order->name
+            );
+        }
+
         $Productsession = Productsession::select('category_id','productname','productimage', 'productprice', 'product_id', 'id', 'session_id')->distinct('product_id')->where('session_id', '=', 1)->where('soft_delete', '!=', 1)->get();
+        $produc_session_arr = [];
+        foreach ($Productsession as $key => $Productsession_arr) {
+
+            $cat_orderid = Category::findOrFail($Productsession_arr->category_id);
+            $product_orderid = Product::findOrFail($Productsession_arr->product_id);
+
+            $produc_session_arr[] = array(
+                'category_id' => $cat_orderid->id,
+                'product_id' => $product_orderid->id,
+                'productname' => $product_orderid->name,
+                'productimage' => $product_orderid->image,
+                'productprice' => $product_orderid->price,
+                'id' => $Productsession_arr->id,
+                'session_id' => 1,
+            );
+        }
 
         $Latest_Sale = Sale::where('soft_delete', '!=', 1)->latest('id')->first();
         if($Latest_Sale != ''){
@@ -354,7 +384,7 @@ class SaleController extends Controller
                 'unique_key' => $Delivery_arr->unique_key
             );
         }
-        return view('page.backend.sales.create', compact('session', 'category', 'product_array', 'today', 'timenow', 'Bank', 'latestbillno', 'customer_rray', 'DineInoutput', 'TakeAwayInoutput', 'DeliveryInoutput', 'catProductsession', 'Productsession'));
+        return view('page.backend.sales.create', compact('session', 'category', 'product_array', 'today', 'timenow', 'Bank', 'latestbillno', 'customer_rray', 'DineInoutput', 'TakeAwayInoutput', 'DeliveryInoutput', 'cat_Productsession', 'produc_session_arr'));
     }
 
 

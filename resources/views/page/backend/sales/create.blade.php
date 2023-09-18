@@ -78,15 +78,15 @@
                                     id="purchase{{ $session_ss->id }}" role="tabpanel"
                                     aria-labelledby="purchase{{ $session_ss->id }}-tab">
                                     <ul class=" tabs owl-carousel owl-theme owl-product  border-0 ">
-                                        @foreach ($catProductsession as $keydata => $Productsessions)
-                                            @if ($Productsessions->session_id == $session_ss->id)
+                                        @foreach ($cat_Productsession as $keydata => $cat_Productsessions)
+                                            @if ($cat_Productsessions['session_id'] == $session_ss->id)
                                                 <li class="@if ($keydata == 0) active @endif  category_type "
-                                                    id="fruits{{ $Productsessions->category_id }}" data-cat_id="{{ $Productsessions->category_id }}" data-session_id="{{ $session_ss->id }}">
+                                                    id="fruits{{ $cat_Productsessions['category_id'] }}" data-cat_id="{{ $cat_Productsessions['category_id'] }}" data-session_id="{{ $session_ss->id }}">
                                                     <div class="product-details ">
                                                         <img src="{{ asset('assets/backend/img/product/product63.png') }}"
                                                             alt="img">
-                                                        <h6>{{ $Productsessions->category_name }}</h6>
-                                                        <input type="hidden" name="product_catid" id="product_catid" value="{{ $Productsessions->category_id }}" />
+                                                        <h6>{{ $cat_Productsessions['category_name'] }}</h6>
+                                                        <input type="hidden" name="product_catid" id="product_catid" value="{{ $cat_Productsessions['category_id'] }}" />
                                                     </div>
                                                 </li>
                                             @endif
@@ -103,45 +103,45 @@
                                     data-tab="fruits{{ $categories->id }}">
                                     
                                     <div class="row prodcttsdiv" >
-                                    @foreach ($Productsession as $key => $Product_sessions)
-                                                @if ($Product_sessions->category_id == $categories->id)
+                                    @foreach ($produc_session_arr as $key => $produc_session_array)
+                                                @if ($produc_session_array['category_id'] == $categories->id)
 
                                                 
                                                     <div class="col-lg-3 col-sm-6 d-flex  ">
                                                         <div class="productset flex-fill" style="border: 1px solid #afbcc6;">
                                                             <div class="productsetimg" style="height:110px;">
-                                                                <img src="{{ asset('assets/product/' . $Product_sessions->productimage) }}"
+                                                                <img src="{{ asset('assets/product/' . $produc_session_array['productimage']) }}"
                                                                     alt="img">
                                                             </div>
 
                                                             <div class="productsetcontent">
-                                                                <h4>{{ $Product_sessions->productname }}</h4>
+                                                                <h4>{{ $produc_session_array['productname'] }}</h4>
                                                                 <div style="display: flex">
-                                                                    <h6 class="pos-price">₹ {{ $Product_sessions->productprice }}.00</h6>
+                                                                    <h6 class="pos-price">₹ {{ $produc_session_array['productprice'] }}.00</h6>
                                                                     <div class="increment-decrement"
                                                                         style="margin-left:31%;margin-bottom:10px;" hidden>
                                                                         <div class="input-groups">
                                                                             <input type="button" value="-"
                                                                                 class="button-minus dec button">
                                                                             <input type="text"
-                                                                                name="child{{ $Product_sessions->product_id }}" value="1"
-                                                                                class="quantity-field child{{ $Product_sessions->product_id }}">
+                                                                                name="child{{ $produc_session_array['product_id'] }}" value="1"
+                                                                                class="quantity-field child{{ $produc_session_array['product_id'] }}">
                                                                             <input type="button" value="+"
                                                                                 class="button-plus inc button ">
                                                                         </div>
                                                                     </div>
 
                                                                     <h6><input type="button" name="add_to_cart"
-                                                                            class="btn btn-scanner-set selectproduct addedproduct{{ $Product_sessions->id }}"
-                                                                            data-product_id="{{ $Product_sessions->product_id }}"
-                                                                            data-productsession_id="{{ $Product_sessions->id }}"
-                                                                            data-session_id="{{ $Product_sessions->session_id }}"
-                                                                            data-product_price="{{ $Product_sessions->productprice }}"
-                                                                            id="addedproduct{{ $Product_sessions->id }}"
+                                                                            class="btn btn-scanner-set selectproduct addedproduct{{ $produc_session_array['id'] }}"
+                                                                            data-product_id="{{ $produc_session_array['product_id'] }}"
+                                                                            data-productsession_id="{{ $produc_session_array['id'] }}"
+                                                                            data-session_id="{{ $produc_session_array['session_id'] }}"
+                                                                            data-product_price="{{ $produc_session_array['productprice'] }}"
+                                                                            id="addedproduct{{ $produc_session_array['id'] }}"
                                                                             style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"
                                                                             value="Add to cart" />
-                                                                            <input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity{{ $Product_sessions->id }}  rise_quantity" onClick="increment_quantity({{ $Product_sessions->id }})"> </h6>
-                                                                    <input type="hidden" name="singlequantity" id="singlequantity{{ $Product_sessions->product_id }}" class="form-control" value="1" />
+                                                                            <input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity{{ $produc_session_array['id'] }}  rise_quantity" onClick="increment_quantity({{ $produc_session_array['id'] }})"> </h6>
+                                                                    <input type="hidden" name="singlequantity" id="singlequantity{{ $produc_session_array['product_id'] }}" class="form-control" value="1" />
                                                                 </div>
                                                             </div>
 
