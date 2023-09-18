@@ -333,7 +333,7 @@ class SaleController extends Controller
                 'productimage' => $product_orderid->image,
                 'productprice' => $product_orderid->price,
                 'id' => $Productsession_arr->id,
-                'session_id' => 1,
+                'session_id' => $Productsession_arr->session_id
             );
         }
 

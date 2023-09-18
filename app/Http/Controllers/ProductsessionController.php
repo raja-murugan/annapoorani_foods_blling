@@ -49,6 +49,9 @@ class ProductsessionController extends Controller
         if($request->get('session_id') != ""){
             foreach ($request->get('session_id') as $key => $session_id) {
 
+                $olddata = Productsession::where('session_id', '=', $session_id)->where('product_id', '=', $request->get('product_id'))->first();
+
+                if($olddata == ""){
                     $session = Session::findOrFail($session_id);
                     $product = Product::findOrFail($request->get('product_id'));
                     $category = Category::findOrFail($product->category_id);
@@ -63,34 +66,50 @@ class ProductsessionController extends Controller
                     $Productsession->productimage = $product->image;
                     $Productsession->productprice = $product->price;
                     $Productsession->save();
+
+                    return redirect()->route('productsession.index')->with('message', 'Added !');
+
+                }else {
+                    return redirect()->route('productsession.index')->with('warning', 'Already Existed !');
+                }
+
+                    
     
             }
         }
         
 
-        return redirect()->route('productsession.index')->with('message', 'Added !');
+       
     }
 
 
     public function edit(Request $request, $id)
     {
-        $ProductData = Productsession::findOrFail($id);
 
-        $session = Session::findOrFail($request->get('session_id'));
-        $product = Product::findOrFail($request->get('product_id'));
-        $category = Category::findOrFail($product->category_id);
+        $olddata = Productsession::where('session_id', '=', $request->get('session_id'))->where('product_id', '=', $request->get('product_id'))->first();
+        if($olddata == ""){
+            $ProductData = Productsession::findOrFail($id);
 
-        $ProductData->product_id = $request->get('product_id');
-        $ProductData->session_id = $request->get('session_id');
-        $ProductData->sessionname = $session->name;
-        $ProductData->category_id = $product->category_id;
-        $ProductData->category_name = $category->name;
-        $ProductData->productname = $product->name;
-        $ProductData->productimage = $product->image;
-        $ProductData->productprice = $product->price;
-        $ProductData->update();
+            $session = Session::findOrFail($request->get('session_id'));
+            $product = Product::findOrFail($request->get('product_id'));
+            $category = Category::findOrFail($product->category_id);
+    
+            $ProductData->product_id = $request->get('product_id');
+            $ProductData->session_id = $request->get('session_id');
+            $ProductData->sessionname = $session->name;
+            $ProductData->category_id = $product->category_id;
+            $ProductData->category_name = $category->name;
+            $ProductData->productname = $product->name;
+            $ProductData->productimage = $product->image;
+            $ProductData->productprice = $product->price;
+            $ProductData->update();
+    
+            return redirect()->route('productsession.index')->with('info', 'Updated !');
+        }else {
+            return redirect()->route('productsession.index')->with('warning', 'Already Existed !');
+        }
 
-        return redirect()->route('productsession.index')->with('info', 'Updated !');
+        
     }
 
 

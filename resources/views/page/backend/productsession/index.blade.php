@@ -41,7 +41,7 @@
                                                     data-bs-target=".productsessedit-modal-xl{{ $Productdatas['id'] }}"
                                                     class="badges bg-lightgrey" style="color: white">Edit</a>
                                             </li>
-                                            <li>
+                                            <li hidden>
                                                 <a href="#delete{{ $Productdatas['id'] }}" data-bs-toggle="modal"
                                                     data-id="{{ $Productdatas['id'] }}"
                                                     data-bs-target=".productsessedelete-modal-xl{{ $Productdatas['id'] }}"
