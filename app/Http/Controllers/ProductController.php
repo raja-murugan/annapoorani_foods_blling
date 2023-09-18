@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Session;
 use App\Models\Category;
+use App\Models\Productsession;
 
 
 use Illuminate\Http\Request;
@@ -155,15 +156,19 @@ class ProductController extends Controller
     public function getselectedcat_products()
     {
         $catogry_id = request()->get('catogry_id');
+        $sessionid = request()->get('sessionid');
         $output = [];
 
-            $CategoryProducts = Product::where('category_id', '=', $catogry_id)->get();
+            $CategoryProducts = Productsession::where('category_id', '=', $catogry_id)->where('session_id', '=', $sessionid)->get();
             foreach ($CategoryProducts as $key => $CategoryProducts_arr) {
                 $output[] = [
-                    'productname' => $CategoryProducts_arr->name,
+                    'productname' => $CategoryProducts_arr->productname,
                     'product_image' => asset('assets/product/'.$CategoryProducts_arr->image),
-                    'productprice' => $CategoryProducts_arr->price,
+                    'productprice' => $CategoryProducts_arr->productprice,
+                    'product_id' => $CategoryProducts_arr->product_id,
                     'id' => $CategoryProducts_arr->id,
+                    'sessionid' => $CategoryProducts_arr->session_id,
+                    
                 ];
             }
         

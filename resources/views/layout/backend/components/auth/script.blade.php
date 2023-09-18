@@ -312,7 +312,7 @@
 
 
                                 $(".select2PS").append($('<option>', {
-                                    value: response[i].product_id,
+                                    value: response[i].id,
                                     text:  response[i].product_name + ' - ₹ ' + response[i].product_price,
                                 }));
                             }
@@ -346,10 +346,13 @@
 
 
     function sessiontype(sessionid) {
+        //console.log(sessionid);
         $('#purchase' + sessionid).each(function(){
             $(this).find('.category_type').removeClass('active');
             $(this).find('.category_type').first().addClass('active');
             var catogry_id = $(this).find('.category_type').first().data('cat_id');
+            var sessionid = $(this).find('.category_type').first().data('session_id');
+            console.log(sessionid);
 
                             $.ajax({
                                 url: '/getselectedcat_products/',
@@ -357,6 +360,7 @@
                                 data: {
                                     _token: "{{ csrf_token() }}",
                                     catogry_id: catogry_id,
+                                    sessionid: sessionid
                                 },
                                 dataType: 'json',
                                 success: function(response) {
@@ -374,7 +378,7 @@
                                                                         '<h4>'+ response[i].productname +'</h4>' +
                                                                         '<div style="display: flex">' +
                                                                             '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
-                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct'+ response[i].id +'" data-product_id="'+ response[i].id +'" data-product_price="'+ response[i].productprice +'"id="addedproduct'+ response[i].id +'" style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"value="Add to cart" />' +
+                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct'+ response[i].id +'" data-product_id="'+ response[i].product_id +'" data-productsession_id="'+ response[i].id +'"  data-session_id="'+ response[i].sessionid +'"  data-product_price="'+ response[i].productprice +'"id="addedproduct'+ response[i].id +'" style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"value="Add to cart" />' +
                                                                             '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity'+ response[i].id +'  rise_quantity" onClick="increment_quantity('+ response[i].id +')"> </h6>' +
                                                                         '</div>' +
                                                                     '</div>' +
@@ -388,7 +392,8 @@
 
                 $(document).on('click', '.category_type', function() {
 				    var catogry_id = $(this).data('cat_id');
-
+                    var sessionid = $(this).data('session_id');
+                    console.log(sessionid);
 
                             $.ajax({
                                 url: '/getselectedcat_products/',
@@ -396,6 +401,7 @@
                                 data: {
                                     _token: "{{ csrf_token() }}",
                                     catogry_id: catogry_id,
+                                    sessionid: sessionid
                                 },
                                 dataType: 'json',
                                 success: function(response) {
@@ -413,7 +419,7 @@
                                                                         '<h4>'+ response[i].productname +'</h4>' +
                                                                         '<div style="display: flex">' +
                                                                             '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
-                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct' + response[i].id + '" id="addedproduct' + response[i].id + '"  data-product_id="' + response[i].id + '" data-product_price="'+ response[i].productprice +'" value="Add to cart" />' +
+                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct' + response[i].id + '" id="addedproduct' + response[i].id + '"  data-product_id="' + response[i].product_id + '" data-productsession_id="'+ response[i].id +'"  data-session_id="'+ response[i].sessionid +'"  data-product_price="'+ response[i].productprice +'" value="Add to cart" />' +
                                                                             '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity' + response[i].id + '  rise_quantity" onClick="increment_quantity(' + response[i].id + ')"> </h6>' +
                                                                         '</div>' +
                                                                     '</div>' +
@@ -456,7 +462,7 @@
 
 
                                     $(".select2PS").append($('<option>', {
-                                        value: response[i].product_id,
+                                        value: response[i].id,
                                         text:  response[i].product_name + ' - ₹ ' + response[i].product_price,
                                     }));
                                 }
@@ -474,11 +480,13 @@
                 
 
     var product_id = $(this).data('product_id');
+    var productsession_id = $(this).data('productsession_id');
 
     //console.log(product_id);
-    $('.addedproduct' + product_id).attr('style', 'display:none');
-    $('.clickquantity' + product_id).attr('style', 'display:block');
+    $('.addedproduct' + productsession_id).attr('style', 'display:none');
+    $('.clickquantity' + productsession_id).attr('style', 'display:block');
     var selectproductid = $(this).data('product_id');
+    var session_id = $(this).data('session_id');
 
 
 
@@ -488,6 +496,7 @@
         data: {
             _token: "{{ csrf_token() }}",
             selectproductid: selectproductid,
+            session_id: session_id
         },
         dataType: 'json',
         success: function(response) {
@@ -503,15 +512,16 @@
                 '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' +
                 '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
                 '<div class="input-groups">' +
-                '<input type="hidden" class="li_productid" id="li_productid" name="product_id[]"  value="' + response[i].product_id + '"/>' +
-                '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].product_id +')">' +
-                '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id + '">' +
-                '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].product_id +')">' +
+                '<input type="hidden"  name="product_id[]"  value="' + response[i].product_id + '"/>' +
+                '<input type="hidden" class="li_productid" id="li_productid"  value="' + response[i].id + '"/>' +
+                '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].id +')">' +
+                '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].id + '">' +
+                '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].id +')">' +
                 '</div>' +
-                '<input type="hidden" name="product_price[]" id="product_price' + response[i].product_id +  '"  value="' + response[i].product_price + '"/>' +
+                '<input type="hidden" name="product_price[]" id="product_price' + response[i].id +  '"  value="' + response[i].product_price + '"/>' +
                 '</div></div></div>' +
-                '</li><li><div class="input-groups"><span class="totalprice' + response[i].product_id +  '">' + response[i].product_price +  '</span>' +
-                '<input type="hidden" name="total_price[]" class="total_price' + response[i].product_id +  '" value="' + response[i].product_price +  '"/></div></li>' +
+                '</li><li><div class="input-groups"><span class="totalprice' + response[i].id +  '">' + response[i].product_price +  '</span>' +
+                '<input type="hidden" name="total_price[]" class="total_price' + response[i].id +  '" value="' + response[i].product_price +  '"/></div></li>' +
                 '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
 
                 $('.product-table').prepend(e);
@@ -519,10 +529,10 @@
                 $('#product_quantity' + response[i].product_id).val(product_div);
 
 
-                var product_price = $('#product_price' + response[i].product_id).val();
+                var product_price = $('#product_price' + response[i].id).val();
                     var totalprice = product_price * product_div;
-                    $('.totalprice' + response[i].product_id).text(totalprice);
-                    $('.total_price' + response[i].product_id).val(totalprice);
+                    $('.totalprice' + response[i].id).text(totalprice);
+                    $('.total_price' + response[i].id).val(totalprice);
 
 
 
@@ -564,18 +574,18 @@
 });
 
 
-function increment_quantity(productid) {
+function increment_quantity(productsessionid) {
 
-        var inputQuantityElement = $('#product_quantity' + productid);
+        var inputQuantityElement = $('#product_quantity' + productsessionid);
         //console.log(inputQuantityElement);
         var newQuantity = parseInt($(inputQuantityElement).val())+1;
-        var QuantityElement = $('#product_quantity' + productid);
+        var QuantityElement = $('#product_quantity' + productsessionid);
         $(inputQuantityElement).val(newQuantity);
 
-        var product_price = $('#product_price' + productid).val();
+        var product_price = $('#product_price' + productsessionid).val();
         var totalprice = product_price * newQuantity;
-        $('.totalprice' + productid).text(totalprice);
-        $('.total_price' + productid).val(totalprice);
+        $('.totalprice' + productsessionid).text(totalprice);
+        $('.total_price' + productsessionid).val(totalprice);
 
 
 
@@ -597,17 +607,17 @@ function increment_quantity(productid) {
 }
 
 
-                            function decrement_quantity(productid) {
-                                var inputQuantityElement = $('#product_quantity' + productid);
+                            function decrement_quantity(productsessionid) {
+                                var inputQuantityElement = $('#product_quantity' + productsessionid);
                                 if($(inputQuantityElement).val() > 1)
                                 {
                                 var newQuantity = parseInt($(inputQuantityElement).val()) - 1;
                                 $(inputQuantityElement).val(newQuantity);
 
-                                var product_price = $('#product_price' + productid).val();
+                                var product_price = $('#product_price' + productsessionid).val();
                                 var totalprice = product_price * newQuantity;
-                                $('.totalprice' + productid).text(totalprice);
-                                $('.total_price' + productid).val(totalprice);
+                                $('.totalprice' + productsessionid).text(totalprice);
+                                $('.total_price' + productsessionid).val(totalprice);
 
                                 var tot_expense_amount = 0;
                                 $("input[name='total_price[]']").each(
@@ -754,8 +764,8 @@ $('#sales_store').submit(function(e){
                         var last_salesid = response.last_id;
                         
                     
-                        //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                        window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
+                        window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                        //window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
 
 
                     document.getElementById("sales_store").reset();
@@ -808,28 +818,22 @@ function printDiv(divName) {
         $('.select2PS').on('change', function () {
                // $('.productlist').fadeOut();
                
-                var productid = $(this).find('option').filter(':selected').val()
-                console.log(productid);
+                var productsessionid = $(this).find('option').filter(':selected').val()
+                console.log(productsessionid);
                 $('option:selected', this).remove();
 
-                $('.addedproduct' + productid).hide();
-                        
-                        var selectproductid = productid;
-
-
+                $('.addedproduct' + productsessionid).hide();
+                var product_sessonid = productsessionid;
                         $.ajax({
-                            url: '/getselectedproducts/',
+                            url: '/getselectedboxproducts/',
                             type: 'get',
                             data: {
                                 _token: "{{ csrf_token() }}",
-                                selectproductid: selectproductid,
+                                product_sessonid: product_sessonid
                             },
                             dataType: 'json',
                             success: function(response) {
-
-                                //console.log(response);
-                                //$(this).find('option').filter(':selected').val('');
-                                
+                                console.log(response);
                                 var len = response.length;
                                 occurs = {};
 
@@ -842,27 +846,27 @@ function printDiv(divName) {
                                     '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' +
                                     '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
                                     '<div class="input-groups">' +
-                                    '<input type="hidden" class="li_productid" id="li_productid" name="product_id[]"  value="' + response[i].product_id + '"/>' +
-                                    '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].product_id +')">' +
-                                    '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].product_id + '">' +
-                                    '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].product_id +')">' +
+                                    '<input type="hidden"  name="product_id[]"  value="' + response[i].product_id + '"/>' +
+                                    '<input type="hidden" class="li_productid" id="li_productid"   value="' + response[i].id + '"/>' +
+                                    '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].id +')">' +
+                                    '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].id + '">' +
+                                    '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].id +')">' +
                                     '</div>' +
-                                    '<input type="hidden" name="product_price[]" id="product_price' + response[i].product_id +  '"  value="' + response[i].product_price + '"/>' +
+                                    '<input type="hidden" name="product_price[]" id="product_price' + response[i].id +  '"  value="' + response[i].product_price + '"/>' +
                                     '</div></div></div>' +
-                                    '</li><li><div class="input-groups"><span class="totalprice' + response[i].product_id +  '">' + response[i].product_price +  '</span>' +
-                                    '<input type="hidden" name="total_price[]" class="total_price' + response[i].product_id +  '" value="' + response[i].product_price +  '"/></div></li>' +
+                                    '</li><li><div class="input-groups"><span class="totalprice' + response[i].id +  '">' + response[i].product_price +  '</span>' +
+                                    '<input type="hidden" name="total_price[]" class="total_price' + response[i].id +  '" value="' + response[i].product_price +  '"/></div></li>' +
                                     '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
 
                                     $('.product-table').prepend(e);
-                                    //var product_div = $('.child' + response[i].product_id).val();
                                     var product_div = '1';
-                                    $('#product_quantity' + response[i].product_id).val(product_div);
+                                    $('#product_quantity' + response[i].id).val(product_div);
 
 
-                                    var product_price = $('#product_price' + response[i].product_id).val();
+                                    var product_price = $('#product_price' + response[i].id).val();
                                         var totalprice = product_price * product_div;
-                                        $('.totalprice' + response[i].product_id).text(totalprice);
-                                        $('.total_price' + response[i].product_id).val(totalprice);
+                                        $('.totalprice' + response[i].id).text(totalprice);
+                                        $('.total_price' + response[i].id).val(totalprice);
 
 
 
@@ -875,8 +879,12 @@ function printDiv(divName) {
                                                     $('.subtotalamount').text('₹ ' + tot_expense_amount);
                                                     $('#subtotal').val(tot_expense_amount);
                                                     $('#totalamount').val(tot_expense_amount);
-                                                     $('.grand_total').text('₹ ' + tot_expense_amount);
-                                                    $('.grandtotal').val(tot_expense_amount);
+
+
+                                                    var sale_discount = $('#sale_discount').val();
+                                                    var payment = Number(tot_expense_amount) - Number(sale_discount);
+                                                    $('.grand_total').text(payment.toFixed(2));
+                                                    $('.grandtotal').val(payment.toFixed(2));
                                             });
                                 }
 

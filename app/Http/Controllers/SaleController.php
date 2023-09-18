@@ -305,7 +305,7 @@ class SaleController extends Controller
         $timenow = Carbon::now()->format('H:i');
         $customer_rray = Customer::where('soft_delete', '!=', 1)->get();
         $catProductsession = Productsession::select('session_id','category_id','category_name')->distinct('category_id')->where('soft_delete', '!=', 1)->get();
-        $Productsession = Productsession::select('category_id','productname','productimage', 'productprice', 'product_id')->distinct('product_id')->where('soft_delete', '!=', 1)->get();
+        $Productsession = Productsession::select('category_id','productname','productimage', 'productprice', 'product_id', 'id', 'session_id')->distinct('product_id')->where('session_id', '=', 1)->where('soft_delete', '!=', 1)->get();
 
         $Latest_Sale = Sale::where('soft_delete', '!=', 1)->latest('id')->first();
         if($Latest_Sale != ''){
@@ -361,18 +361,41 @@ class SaleController extends Controller
     public function getselectedproducts()
     {
         $product_id = request()->get('selectproductid');
+        $sessionid = request()->get('session_id');
         $output = [];
-        
-            $Getproducts = Product::findOrFail($product_id);
 
-            $Category = Category::findOrFail($Getproducts->category_id);
+
+            $Productsessions = Productsession::where('product_id', '=', $product_id)->where('session_id', '=', $sessionid)->first();
                 $output[] = [
                     "quantity" => 1,
-                    'product_id' => $Getproducts->id,
-                    'product_name' => $Getproducts->name,
-                    'product_price' => $Getproducts->price,
-                    'product_image' => asset('assets/product/'.$Getproducts->image),
-                    'Category' => $Category->name,
+                    'product_id' => $Productsessions->product_id,
+                    'product_name' => $Productsessions->productname,
+                    'product_price' => $Productsessions->productprice,
+                    'product_image' => asset('assets/product/'.$Productsessions->productimage),
+                    'Category' => $Productsessions->category_name,
+                    'id' => $Productsessions->id,
+                ];
+            
+        
+            echo json_encode($output);
+    }
+
+
+    public function getselectedboxproducts()
+    {
+        $product_sessonid = request()->get('product_sessonid');
+        $output = [];
+
+
+            $Productsessions = Productsession::findOrFail($product_sessonid);
+                $output[] = [
+                    "quantity" => 1,
+                    'product_id' => $Productsessions->product_id,
+                    'product_name' => $Productsessions->productname,
+                    'product_price' => $Productsessions->productprice,
+                    'product_image' => asset('assets/product/'.$Productsessions->productimage),
+                    'Category' => $Productsessions->category_name,
+                    'id' => $Productsessions->id,
                 ];
             
         
@@ -591,6 +614,8 @@ class SaleController extends Controller
                     'product_price' => $Getproducts_arr->productprice,
                     'product_image' => asset('assets/product/'.$Getproducts_arr->productimage),
                     'Category' => $Getproducts_arr->category_name,
+                    'session_id' => $Getproducts_arr->session_id,
+                    'id' => $Getproducts_arr->id,
                 ];
             
             }

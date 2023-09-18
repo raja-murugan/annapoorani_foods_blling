@@ -81,7 +81,7 @@
                                         @foreach ($catProductsession as $keydata => $Productsessions)
                                             @if ($Productsessions->session_id == $session_ss->id)
                                                 <li class="@if ($keydata == 0) active @endif  category_type "
-                                                    id="fruits{{ $Productsessions->category_id }}" data-cat_id="{{ $Productsessions->category_id }}">
+                                                    id="fruits{{ $Productsessions->category_id }}" data-cat_id="{{ $Productsessions->category_id }}" data-session_id="{{ $session_ss->id }}">
                                                     <div class="product-details ">
                                                         <img src="{{ asset('assets/backend/img/product/product63.png') }}"
                                                             alt="img">
@@ -103,8 +103,9 @@
                                     data-tab="fruits{{ $categories->id }}">
                                     
                                     <div class="row prodcttsdiv" >
-                                    @foreach ($Productsession as $Product_sessions)
+                                    @foreach ($Productsession as $key => $Product_sessions)
                                                 @if ($Product_sessions->category_id == $categories->id)
+
                                                 
                                                     <div class="col-lg-3 col-sm-6 d-flex  ">
                                                         <div class="productset flex-fill" style="border: 1px solid #afbcc6;">
@@ -129,20 +130,25 @@
                                                                                 class="button-plus inc button ">
                                                                         </div>
                                                                     </div>
+
                                                                     <h6><input type="button" name="add_to_cart"
-                                                                            class="btn btn-scanner-set selectproduct addedproduct{{ $Product_sessions->product_id }}"
+                                                                            class="btn btn-scanner-set selectproduct addedproduct{{ $Product_sessions->id }}"
                                                                             data-product_id="{{ $Product_sessions->product_id }}"
+                                                                            data-productsession_id="{{ $Product_sessions->id }}"
+                                                                            data-session_id="{{ $Product_sessions->session_id }}"
                                                                             data-product_price="{{ $Product_sessions->productprice }}"
-                                                                            id="addedproduct{{ $Product_sessions->product_id }}"
+                                                                            id="addedproduct{{ $Product_sessions->id }}"
                                                                             style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"
                                                                             value="Add to cart" />
-                                                                            <input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity{{ $Product_sessions->product_id }}  rise_quantity" onClick="increment_quantity({{ $Product_sessions->product_id }})"> </h6>
+                                                                            <input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity{{ $Product_sessions->id }}  rise_quantity" onClick="increment_quantity({{ $Product_sessions->id }})"> </h6>
                                                                     <input type="hidden" name="singlequantity" id="singlequantity{{ $Product_sessions->product_id }}" class="form-control" value="1" />
                                                                 </div>
                                                             </div>
 
                                                         </div>
                                                     </div>
+
+
                                                 @endif
                                             @endforeach
                                         </div>
