@@ -30,6 +30,7 @@ class SaleController extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $data = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->orderBy('id', 'DESC')->get();
         $sale_data = [];
+        $terms = [];
         foreach ($data as $key => $datas) {
             
             if($datas->customer_id != ""){
@@ -38,6 +39,22 @@ class SaleController extends Controller
             }else {
                 $customername = '';
             }
+
+
+            $SaleProducts = SaleProduct::where('sales_id', '=', $datas->id)->get();
+            foreach ($SaleProducts as $key => $SaleProducts_arr) {
+
+                $productid = Product::findOrFail($SaleProducts_arr->product_id);
+                $terms[] = array(
+                    'product_name' => $productid->name,
+                    'quantity' => $SaleProducts_arr->quantity,
+                    'price' => $SaleProducts_arr->price,
+                    'total_price' => $SaleProducts_arr->total_price,
+                    'sales_id' => $SaleProducts_arr->sales_id,
+                );
+            }
+
+
 
             $sale_data[] = array(
                 'date' => date('d-m-Y', strtotime($datas->date)),
@@ -54,6 +71,7 @@ class SaleController extends Controller
                 'payment_method' => $datas->payment_method,
                 'id' => $datas->id,
                 'unique_key' => $datas->unique_key,
+                'terms' => $terms,
             );
         }
         

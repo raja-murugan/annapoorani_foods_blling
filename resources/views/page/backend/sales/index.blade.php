@@ -62,14 +62,31 @@
 
                                     <ul class="list-unstyled hstack gap-1 mb-0">
                                             <li>
+                                                <a href="#salesview{{ $datas['unique_key'] }}"
+                                                    data-bs-toggle="modal" data-id="{{ $datas['id'] }}"
+                                                    data-bs-target=".salesview-modal-xl{{ $datas['unique_key'] }}"
+                                                    class="badges bg-lightred salesview" style="color: white">View</a>
+
+                                            </li>
+                                            <li>
+                                            <a href="/zworktechnology/sales/print/{{ $datas['id'] }}" class="badges btn btn-success" >Print</a>
+                                            </li>
+                                            <li>
                                                 <a href="#delete{{ $datas['unique_key'] }}" data-bs-toggle="modal"
                                                     data-id="{{ $datas['unique_key'] }}"
                                                     data-bs-target=".salesedelete-modal-xl{{ $datas['unique_key'] }}"
                                                     class="badges bg-lightyellow" style="color: white">Delete</a>
                                             </li>
+
                                         </ul>
                                     </td>
                                 </tr>
+                                <div class="modal fade salesview-modal-xl{{ $datas['unique_key'] }}"
+                                    tabindex="-1" role="dialog" data-bs-backdrop="static"
+                                    aria-labelledby="purchaseviewLargeModalLabel{{ $datas['unique_key'] }}"
+                                    aria-hidden="true">
+                                    @include('page.backend.sales.view')
+                                </div>
                                 <div class="modal fade salesedelete-modal-xl{{ $datas['unique_key'] }}"
                                     tabindex="-1" role="dialog"data-bs-backdrop="static"
                                     aria-labelledby="deleteLargeModalLabel{{ $datas['unique_key'] }}"
