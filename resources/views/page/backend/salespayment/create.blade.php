@@ -54,8 +54,8 @@
                       <div class="col-lg-12 col-md-12 col-sm-12">
                          <div class="form-group">
                             <label>Delivery Plan <span style="color: red;">*</span></label>
-                              <select class="form-control  select js-example-basic-single deliveryplanid" name="deliveryplanid" id="deliveryplanid">
-                                    <option value="" disabled selected hiddden>Select Customer</option>
+                              <select class="form-control  select js-example-basic-single deliveryplan_id" name="deliveryplan_id" id="deliveryplanid">
+                                    <option value="" disabled selected hiddden>Select Delivery Plan</option>
                                     @foreach ($deliveryplan as $deliveryplans)
                                         <option value="{{ $deliveryplans->id }}">{{ $deliveryplans->name }}</option>
                                     @endforeach 

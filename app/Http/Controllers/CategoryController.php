@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Session;
+use App\Models\Productsession;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -13,9 +15,31 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $data = Category::where('soft_delete', '!=', 1)->get();
+        $data = Category::where('soft_delete', '!=', 1)->orderBy('id', 'DESC')->get();
+        $catdata = [];
+        $productterms = [];
+        foreach ($data as $key => $datas) {
+
+
+            $product_arr = Product::where('category_id', '=', $datas->id)->get();
+            foreach ($product_arr as $key => $product_array) {
+
+                $productterms[] = array(
+                    'product_name' => $product_array->name,
+                    'category_id' => $product_array->category_id,
+                );
+            }
+            
+
+            $catdata[] = array(
+                'id' => $datas->id,
+                'unique_key' => $datas->unique_key,
+                'name' => $datas->name,
+                'productterms' => $productterms,
+            );
+        }
         $session = Session::where('soft_delete', '!=', 1)->get();
-        return view('page.backend.category.index', compact('data', 'session'));
+        return view('page.backend.category.index', compact('catdata', 'session'));
     }
 
     public function store(Request $request)

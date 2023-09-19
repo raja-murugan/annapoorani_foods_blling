@@ -22,6 +22,7 @@
                                     <th>Customer</th>
                                     <th>Date</th>
                                     <th>Paid Amount</th>
+                                    <th>Delivery Plan</th>
                                     <th>Action</th>
                                  </tr>
                               </thead>
@@ -32,17 +33,36 @@
                                           <td>{{ $salepayment_datas['customer'] }}</td>
                                           <td>{{ $salepayment_datas['date'] }}</td>
                                           <td>{{ $salepayment_datas['paid_amount']  }}.00</td>
+                                          <td>{{ $salepayment_datas['deliveryplan'] }}</td>
                                           <td>
-                                             <ul class="list-unstyled hstack gap-1 mb-0">
-                                                <li>
-                                                      
-                                                </li>
-                                                <li>
-                                                      
-                                                </li>
-                                             </ul>
+                                                <ul class="list-unstyled hstack gap-1 mb-0">
+                                                   <li>
+                                                         <a href="#edit{{ $salepayment_datas['unique_key'] }}" data-bs-toggle="modal"
+                                                            data-id="{{ $salepayment_datas['unique_key'] }}"
+                                                            data-bs-target=".salepaymentedit-modal-xl{{ $salepayment_datas['unique_key'] }}"
+                                                            class="badges bg-lightgrey" style="color: white">Edit</a>
+                                                   </li>
+                                                   <li>
+                                                         <a href="#delete{{ $salepayment_datas['unique_key'] }}" data-bs-toggle="modal"
+                                                            data-id="{{ $salepayment_datas['unique_key'] }}"
+                                                            data-bs-target=".salepaymentdelete-modal-xl{{ $salepayment_datas['unique_key'] }}"
+                                                            class="badges bg-lightyellow" style="color: white">Delete</a>
+                                                   </li>
+                                                </ul>
                                           </td>
                                     </tr>
+                                          <div class="modal fade salepaymentedit-modal-xl{{ $salepayment_datas['unique_key'] }}"
+                                                tabindex="-1" role="dialog" data-bs-backdrop="static"
+                                                aria-labelledby="editLargeModalLabel{{ $salepayment_datas['unique_key'] }}"
+                                                aria-hidden="true">
+                                                @include('page.backend.salespayment.edit')
+                                          </div>
+                                          <div class="modal fade salepaymentdelete-modal-xl{{ $salepayment_datas['unique_key'] }}"
+                                                tabindex="-1" role="dialog"data-bs-backdrop="static"
+                                                aria-labelledby="deleteLargeModalLabel{{ $salepayment_datas['unique_key'] }}"
+                                                aria-hidden="true">
+                                                @include('page.backend.salespayment.delete')
+                                          </div>
 
                                     
                                  @endforeach

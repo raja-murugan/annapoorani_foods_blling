@@ -21,7 +21,7 @@ class ProductsessionController extends Controller
 {
     public function index()
     {
-        $data = Productsession::where('soft_delete', '!=', 1)->get();
+        $data = Productsession::where('soft_delete', '!=', 1)->orderBy('id', 'DESC')->get();
         $Productdata = [];
         foreach ($data as $key => $datas) {
 
@@ -46,19 +46,21 @@ class ProductsessionController extends Controller
     public function store(Request $request)
     {
 
-        if($request->get('session_id') != ""){
-            foreach ($request->get('session_id') as $key => $session_id) {
+        if($request->get('session_ids') != ""){
 
-                $olddata = Productsession::where('session_id', '=', $session_id)->where('product_id', '=', $request->get('product_id'))->first();
-
+            foreach ($request->get('session_ids') as $key => $session_ids) {
+                
+                $olddata = Productsession::where('session_id', '=', $session_ids)->where('product_id', '=', $request->get('product_id'))->first();
                 if($olddata == ""){
-                    $session = Session::findOrFail($session_id);
+
+                    $session = Session::findOrFail($session_ids);
                     $product = Product::findOrFail($request->get('product_id'));
                     $category = Category::findOrFail($product->category_id);
-                    
+
+
                     $Productsession = new Productsession;
                     $Productsession->product_id = $request->get('product_id');
-                    $Productsession->session_id = $session_id;
+                    $Productsession->session_id = $session_ids;
                     $Productsession->sessionname = $session->name;
                     $Productsession->category_id = $product->category_id;
                     $Productsession->category_name = $category->name;
@@ -66,16 +68,13 @@ class ProductsessionController extends Controller
                     $Productsession->productimage = $product->image;
                     $Productsession->productprice = $product->price;
                     $Productsession->save();
-
-                    return redirect()->route('productsession.index')->with('message', 'Added !');
-
-                }else {
-                    return redirect()->route('productsession.index')->with('warning', 'Already Existed !');
                 }
-
-                    
+    
     
             }
+
+            return redirect()->route('productsession.index')->with('info', 'Updated !');
+
         }
         
 

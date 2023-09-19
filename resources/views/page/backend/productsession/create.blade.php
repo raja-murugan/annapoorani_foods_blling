@@ -27,7 +27,7 @@
                                     @foreach ($session as $sessions)
                                         <div class="input-group" style="margin-right: 5px;">
                                             <div class="input-group-text">
-                                                <input class="form-check-input" type="checkbox" value="{{ $sessions->id }}" id="session_id"  name="session_id[]"   aria-label="Checkbox for following text input">
+                                                <input class="form-check-input" type="checkbox" value="{{ $sessions->id }}" id="session_id"  name="session_ids[]"   aria-label="Checkbox for following text input">
                                             </div>
                                             <input type="text" class="form-control" value="{{ $sessions->name }}" readonly style="background: white;" aria-label="Text input with checkbox">
 

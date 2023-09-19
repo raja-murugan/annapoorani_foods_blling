@@ -21,7 +21,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $data = Product::where('soft_delete', '!=', 1)->get();
+        $data = Product::where('soft_delete', '!=', 1)->orderBy('id', 'DESC')->get();
         $Productdata = [];
         foreach ($data as $key => $datas) {
             $Categoryid = Category::findOrFail($datas->category_id);
@@ -76,6 +76,25 @@ class ProductController extends Controller
     {
         $ProductData = Product::where('unique_key', '=', $unique_key)->first();
 
+
+        $productid = $ProductData->id;
+        $catid = $request->get('category_id');
+
+        $cat_orderid = Category::findOrFail($catid);
+
+        $olddata = Productsession::where('category_id', '=', $catid)->where('product_id', '=', $productid)->get();
+        if($olddata != ""){
+
+            foreach ($olddata as $key => $olddatas) {
+                DB::table('productsessions')->where('id', $olddatas->id)->update([
+                    'category_id' => $catid, 'category_name' => $cat_orderid->name
+                ]);
+            }
+            
+        }
+
+        
+
         $random_no =  rand(100,999);
 
         $ProductData->name = $request->get('name');
@@ -95,6 +114,23 @@ class ProductController extends Controller
         }
 
         $ProductData->update();
+
+
+
+        $olddataid = Productsession::where('category_id', '=', $catid)->where('product_id', '=', $productid)->get();
+        if($olddataid != ""){
+
+            foreach ($olddataid as $key => $olddataids) {
+                
+                DB::table('productsessions')->where('id', $olddataids->id)->update([
+                    'productname' => $ProductData->name, 'productimage' => $ProductData->image,  'productprice' => $ProductData->price
+                ]);
+            }
+
+            
+        }
+        
+        
 
         return redirect()->route('product.index')->with('info', 'Updated !');
     }
@@ -163,7 +199,7 @@ class ProductController extends Controller
             foreach ($CategoryProducts as $key => $CategoryProducts_arr) {
                 $output[] = [
                     'productname' => $CategoryProducts_arr->productname,
-                    'product_image' => asset('assets/product/'.$CategoryProducts_arr->image),
+                    'product_image' => asset('assets/product/'.$CategoryProducts_arr->productimage),
                     'productprice' => $CategoryProducts_arr->productprice,
                     'product_id' => $CategoryProducts_arr->product_id,
                     'id' => $CategoryProducts_arr->id,

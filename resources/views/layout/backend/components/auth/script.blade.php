@@ -343,7 +343,86 @@
                 //            return $state;
                 //}
 
+                $('.category_type').first().addClass('active');
+                var cat_id = $('.category_type').first().data('cat_id');
+                var sessionid = $('.category_type').first().data('session_id');
 
+                            $.ajax({
+                                url: '/getselectedcat_products/',
+                                type: 'get',
+                                data: {
+                                    _token: "{{ csrf_token() }}",
+                                    catogry_id: cat_id,
+                                    sessionid: sessionid
+                                },
+                                dataType: 'json',
+                                success: function(response) {
+                                    //console.log(response);
+                                    $('.prodcttsdiv').html('');
+                                    
+                                    var len = response.length;
+                                    for (var i = 0; i < len; i++) {
+                                        var productsdiv = $('<div class="col-lg-3 col-sm-6 d-flex  ">' + 
+                                                                '<div class="productset flex-fill" style="border: 1px solid #afbcc6;">' +
+                                                                    '<div class="productsetimg" style="height:110px;">' +
+                                                                        '<img src="'+ response[i].product_image +'" alt="img">' +
+                                                                    '</div>' +
+                                                                    '<div class="productsetcontent">' +
+                                                                        '<h4>'+ response[i].productname +'</h4>' +
+                                                                        '<div style="display: flex">' +
+                                                                            '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
+                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct'+ response[i].id +'" data-product_id="'+ response[i].product_id +'" data-productsession_id="'+ response[i].id +'"  data-session_id="'+ response[i].sessionid +'"  data-product_price="'+ response[i].productprice +'"id="addedproduct'+ response[i].id +'" style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"value="Add to cart" />' +
+                                                                            '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity'+ response[i].id +'  rise_quantity" onClick="increment_quantity('+ response[i].id +')"> </h6>' +
+                                                                        '</div>' +
+                                                                    '</div>' +
+                                                                '</div>' +
+                                                            '</div>');
+                                        $('.prodcttsdiv').append(productsdiv);
+                                    }
+                                }
+                            });
+
+
+                            $(document).on('click', '.category_type', function() {
+                                var catogry_id = $(this).data('cat_id');
+                                var sessionid = $(this).data('session_id');
+                                console.log(sessionid);
+
+                                        $.ajax({
+                                            url: '/getselectedcat_products/',
+                                            type: 'get',
+                                            data: {
+                                                _token: "{{ csrf_token() }}",
+                                                catogry_id: catogry_id,
+                                                sessionid: sessionid
+                                            },
+                                            dataType: 'json',
+                                            success: function(response) {
+                                            // console.log(response);
+                                                $('.prodcttsdiv').html('');
+                                                
+                                                var len = response.length;
+                                                for (var i = 0; i < len; i++) {
+                                                    var productsdiv = $('<div class="col-lg-3 col-sm-6 d-flex  ">' + 
+                                                                            '<div class="productset flex-fill" style="border: 1px solid #afbcc6;">' +
+                                                                                '<div class="productsetimg" style="height:110px;">' +
+                                                                                    '<img src="'+ response[i].product_image +'" alt="img">' +
+                                                                                '</div>' +
+                                                                                '<div class="productsetcontent">' +
+                                                                                    '<h4>'+ response[i].productname +'</h4>' +
+                                                                                    '<div style="display: flex">' +
+                                                                                        '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
+                                                                                        '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct' + response[i].id + '" id="addedproduct' + response[i].id + '"  data-product_id="' + response[i].product_id + '" data-productsession_id="'+ response[i].id +'"  data-session_id="'+ response[i].sessionid +'"  data-product_price="'+ response[i].productprice +'" value="Add to cart" />' +
+                                                                                        '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity' + response[i].id + '  rise_quantity" onClick="increment_quantity(' + response[i].id + ')"> </h6>' +
+                                                                                    '</div>' +
+                                                                                '</div>' +
+                                                                            '</div>' +
+                                                                        '</div>');
+                                                    $('.prodcttsdiv').append(productsdiv);
+                                                }
+                                            }
+                                        });
+                                });
 
     function sessiontype(sessionid) {
         //console.log(sessionid);
@@ -1440,7 +1519,7 @@ function purchasesubmitForm(btn) {
                             var len = response.length;
                             for (var i = 0; i < len; i++) {
                                 $(".saleoldbalance").val(response[i].payment_pending);
-                                var salepaymentpaidamt = $(".salepaymentpaidamt").val();
+                                var salepaymentpaidamt = 0;
                                 var balance_amount = Number(response[i].payment_pending) - Number(salepaymentpaidamt);
                                 $('.salepaymentbal').val(balance_amount.toFixed(2));
                             }

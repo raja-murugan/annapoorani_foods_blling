@@ -37,11 +37,11 @@ class SalespaymentController extends Controller
                 }else {
                     $delivery_plan = '';
                 }
-                
 
             $salepayment_data[] = array(
                 'customer' => $customer->name,
                 'customer_id' => $datas->customer_id,
+                'saledate' => $datas->date,
                 'date' => date('d-m-Y', strtotime($datas->date)),
                 'time' => $datas->time,
                 'paid_amount' => $datas->paid_amount,
@@ -131,13 +131,41 @@ class SalespaymentController extends Controller
     public function edit(Request $request, $unique_key)
     {
         $Salespayment = Salespayment::where('unique_key', '=', $unique_key)->first();
+        $db_paid_data = $Salespayment->paid_amount;
+
+        $customerid = $request->get('customer_id');
+        $saleamountData = Payment::where('customer_id', '=', $customerid)->first();
+        if($saleamountData != ""){
+
+            $paidamount = $request->get('paid_amount');
+
+            $old_grossamount = $saleamountData->saleamount;
+            $old_paid = $saleamountData->salepaid;
+
+
+            $db_update_paid = $old_paid - $db_paid_data;
+
+
+            $new_grossamount = $old_grossamount;
+            $new_paid = $db_update_paid + $paidamount;
+            $new_balance = $new_grossamount - $new_paid;
+
+            DB::table('payments')->where('customer_id', $customerid)->update([
+                'saleamount' => $new_grossamount,  'salepaid' => $new_paid, 'salebalance' => $new_balance
+            ]);
+
+        }
+
 
         $Salespayment->customer_id = $request->get('customer_id');
         $Salespayment->date = $request->get('date');
-        $Salespayment->time = $request->get('time');
         $Salespayment->paid_amount = $request->get('paid_amount');
         $Salespayment->deliveryplan_id = $request->get('deliveryplan_id');
         $Salespayment->update();
+
+        
+
+
 
         return redirect()->route('salespayment.index')->with('info', 'Updated !');
     }
@@ -147,9 +175,34 @@ class SalespaymentController extends Controller
     {
         $data = Salespayment::where('unique_key', '=', $unique_key)->first();
 
-        $data->soft_delete = 1;
+        $db_paid_data = $data->paid_amount;
+        $db_paid_customerid = $data->customer_id;
 
-        $data->update();
+
+        $saleamountData = Payment::where('customer_id', '=', $db_paid_customerid)->first();
+        if($saleamountData != ""){
+
+
+            $old_grossamount = $saleamountData->saleamount;
+            $old_paid = $saleamountData->salepaid;
+
+
+            $db_update_paid = $old_paid - $db_paid_data;
+
+
+            $new_grossamount = $old_grossamount;
+            $new_paid = $db_update_paid;
+            $new_balance = $new_grossamount - $new_paid;
+
+            DB::table('payments')->where('customer_id', $db_paid_customerid)->update([
+                'saleamount' => $new_grossamount,  'salepaid' => $new_paid, 'salebalance' => $new_balance
+            ]);
+
+        }
+
+
+
+        $data->delete();
 
         return redirect()->route('salespayment.index')->with('warning', 'Deleted !');
     }

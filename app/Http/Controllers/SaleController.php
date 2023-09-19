@@ -28,7 +28,7 @@ class SaleController extends Controller
     {
         
         $today = Carbon::now()->format('Y-m-d');
-        $data = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+        $data = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->orderBy('id', 'DESC')->get();
         $sale_data = [];
         foreach ($data as $key => $datas) {
             

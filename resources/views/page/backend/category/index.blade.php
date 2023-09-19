@@ -20,41 +20,52 @@
                             <tr>
                                 <th>Sl. No</th>
                                 <th>Name</th>
+                                <th>Products</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $keydata => $category_data)
+                            @foreach ($catdata as $keydata => $category_data)
                                 <tr>
                                     <td>{{ ++$keydata }}</td>
-                                    <td>{{ $category_data->name }}</td>
+                                    <td>{{ $category_data['name'] }}</td>
+                                    
+                                    <td>     
+                                        @if ($category_data['productterms'] != "")   
+                                         @foreach ($category_data['productterms'] as $index => $terms_array)
+                                                    @if ($terms_array['category_id'] == $category_data['id'])
+                                                    {{ $terms_array['product_name'] }},<br/>
+                                                    @endif
+                                                    @endforeach
+                                        
+                                        @endif</td>
                                     <td>
                                         <ul class="list-unstyled hstack gap-1 mb-0">
                                             <li>
-                                                <a href="#edit{{ $category_data->unique_key }}" data-bs-toggle="modal"
-                                                    data-id="{{ $category_data->unique_key }}"
-                                                    data-bs-target=".categoryeedit-modal-xl{{ $category_data->unique_key }}"
+                                                <a href="#edit{{ $category_data['unique_key'] }}" data-bs-toggle="modal"
+                                                    data-id="{{ $category_data['unique_key'] }}"
+                                                    data-bs-target=".categoryeedit-modal-xl{{ $category_data['unique_key'] }}"
                                                     class="badges bg-lightgrey" style="color: white">Edit</a>
                                             </li>
                                             <li hidden>
-                                                <a href="#delete{{ $category_data->unique_key }}" data-bs-toggle="modal"
-                                                    data-id="{{ $category_data->unique_key }}"
-                                                    data-bs-target=".categorydelete-modal-xl{{ $category_data->unique_key }}"
+                                                <a href="#delete{{ $category_data['unique_key'] }}" data-bs-toggle="modal"
+                                                    data-id="{{ $category_data['unique_key'] }}"
+                                                    data-bs-target=".categorydelete-modal-xl{{ $category_data['unique_key'] }}"
                                                     class="badges bg-lightyellow" style="color: white">Delete</a>
                                             </li>
                                         </ul>
                                     </td>
                                 </tr>
 
-                                <div class="modal fade categoryeedit-modal-xl{{ $category_data->unique_key }}"
+                                <div class="modal fade categoryeedit-modal-xl{{ $category_data['unique_key'] }}"
                                     tabindex="-1" role="dialog" data-bs-backdrop="static"
-                                    aria-labelledby="editLargeModalLabel{{ $category_data->unique_key }}"
+                                    aria-labelledby="editLargeModalLabel{{ $category_data['unique_key'] }}"
                                     aria-hidden="true">
                                     @include('page.backend.category.edit')
                                 </div>
-                                <div class="modal fade categorydelete-modal-xl{{ $category_data->unique_key }}"
+                                <div class="modal fade categorydelete-modal-xl{{ $category_data['unique_key'] }}"
                                     tabindex="-1" role="dialog"data-bs-backdrop="static"
-                                    aria-labelledby="deleteLargeModalLabel{{ $category_data->unique_key }}"
+                                    aria-labelledby="deleteLargeModalLabel{{ $category_data['unique_key'] }}"
                                     aria-hidden="true">
                                     @include('page.backend.category.delete')
                                 </div>
