@@ -460,4 +460,34 @@ class PurchaseController extends Controller
         $userData['data'] = $GetProduct;
         echo json_encode($userData);
     }
+
+
+    public function getbalanceforpurchasePayment()
+    {
+
+        $supplierid = request()->get('supplierid');
+
+
+
+        $last_idrow = Payment::where('supplier_id', '=', $supplierid)->first();
+        if($last_idrow != ""){
+
+            if($last_idrow->purchase_balance != NULL){
+
+                $output[] = array(
+                    'payment_pending' => $last_idrow->purchase_balance,
+                );
+            }else {
+                $output[] = array(
+                    'payment_pending' => 0,
+                );
+
+            }
+        }else {
+            $output[] = array(
+                'payment_pending' => 0,
+            );
+        }
+        echo json_encode($output);
+    }
 }

@@ -16,6 +16,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SalespaymentController;
 use App\Http\Controllers\ProductsessionController;
+use App\Http\Controllers\PurchasepaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -252,6 +253,21 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
 
+    // PURCHASEPAYMENT CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/purchasepayment', [PurchasepaymentController::class, 'index'])->name('purchasepayment.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/purchasepayment/store', [PurchasepaymentController::class, 'store'])->name('purchasepayment.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/purchasepayment/edit/{unique_key}', [PurchasepaymentController::class, 'edit'])->name('purchasepayment.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchasepayment/delete/{unique_key}', [PurchasepaymentController::class, 'delete'])->name('purchasepayment.delete');
+        // CHECK DUPLICATE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/purchasepayment/datefilter', [PurchasepaymentController::class, 'datefilter'])->name('purchasepayment.datefilter');
+    });
+
+
     //Route::get('/zworktechnology/sales/print/{sales_id}', function () {return view('page/backend/sales/print');});
 });
 
@@ -268,3 +284,4 @@ Route::get('getsalelatest/', [SaleController::class, 'getsalelatest']);
 Route::get('/getselectedsessioncat', [SaleController::class, 'getselectedsessioncat']);
 
 Route::get('/getoldbalanceforPayment', [SaleController::class, 'getoldbalanceforPayment']);
+Route::get('/getbalanceforpurchasePayment', [PurchaseController::class, 'getbalanceforpurchasePayment']);

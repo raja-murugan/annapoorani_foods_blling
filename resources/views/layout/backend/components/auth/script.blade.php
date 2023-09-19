@@ -1535,5 +1535,43 @@ function purchasesubmitForm(btn) {
         var balance_amount = Number(saleoldbalance) - Number(salepaymentpaidamt);
         $('.salepaymentbal').val(balance_amount.toFixed(2));
     });
+
+
+
+
+    $(document).ready(function() {
+            $('.purchasepaymentsupplier').on('change', function() {
+                var supplierid = this.value;
+                //alert(branch_id);
+                $('.purchaseoldbalance').val('');
+                    $.ajax({
+                        url: '/getbalanceforpurchasePayment/',
+                        type: 'get',
+                        data: {
+                            supplierid: supplierid
+                            },
+                        dataType: 'json',
+                        success: function(response) {
+                            //
+                            console.log(response);
+                            var len = response.length;
+                            for (var i = 0; i < len; i++) {
+                                $(".purchaseoldbalance").val(response[i].payment_pending);
+                                var purchasepaidamount = 0;
+                                var balance_amount = Number(response[i].payment_pending) - Number(purchasepaidamount);
+                                $('.purchasebal').val(balance_amount.toFixed(2));
+                            }
+                        }
+                    });
+            });
+    });
+
+    $(document).on("keyup", '.purchasepaidamount', function() {
+        var purchasepaidamount = $(this).val();
+        var purchaseoldbalance = $(".purchaseoldbalance").val();
+        //alert(bill_paid_amount);
+        var balance_amount = Number(purchaseoldbalance) - Number(purchasepaidamount);
+        $('.purchasebal').val(balance_amount.toFixed(2));
+    });
             
 </script>

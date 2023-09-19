@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('sessionname')->nullable();
 
             $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->string('category_name')->nullable();
             $table->string('productname')->nullable();

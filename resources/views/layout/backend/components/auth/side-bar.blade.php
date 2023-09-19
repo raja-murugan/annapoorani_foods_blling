@@ -45,6 +45,9 @@
                         <li class="{{ Route::is('purchase.index', 'purchase.store', 'purchase.edit', 'purchase.datefilter') ? 'active' : '' }}">
                             <a href="{{ route('purchase.index') }}"><i data-feather="credit-card"></i><span>Purchase</span></a>
                         </li>
+                        <li class="{{ Route::is('purchasepayment.index') ? 'active' : '' }}">
+                            <a href="{{ route('purchasepayment.index') }}"><i data-feather="shopping-cart"></i><span>Purchase Payment</span></a>
+                        </li>
                     </ul>
                 </li>
                 <li class="submenu-open">
