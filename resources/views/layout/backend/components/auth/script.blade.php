@@ -1573,5 +1573,13 @@ function purchasesubmitForm(btn) {
         var balance_amount = Number(purchaseoldbalance) - Number(purchasepaidamount);
         $('.purchasebal').val(balance_amount.toFixed(2));
     });
+
+
+    function empattendsubmitForm(btn) {
+        // disable the button
+        btn.disabled = true;
+        // submit the form
+        btn.form.submit();
+    }
             
 </script>

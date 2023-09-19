@@ -17,6 +17,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SalespaymentController;
 use App\Http\Controllers\ProductsessionController;
 use App\Http\Controllers\PurchasepaymentController;
+use App\Http\Controllers\EmployeeAttendanceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -265,6 +266,24 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchasepayment/delete/{unique_key}', [PurchasepaymentController::class, 'delete'])->name('purchasepayment.delete');
         // CHECK DUPLICATE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/purchasepayment/datefilter', [PurchasepaymentController::class, 'datefilter'])->name('purchasepayment.datefilter');
+    });
+
+
+
+    // EMPLOYEE ATTENDANCE CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance', [EmployeeAttendanceController::class, 'index'])->name('emp_attendance.index');
+        // CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance/create', [EmployeeAttendanceController::class, 'create'])->name('emp_attendance.create');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/emp_attendance/store', [EmployeeAttendanceController::class, 'store'])->name('emp_attendance.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance/edit/{unique_key}', [EmployeeAttendanceController::class, 'edit'])->name('emp_attendance.edit');
+        // UPDATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/emp_attendance/update/{unique_key}', [EmployeeAttendanceController::class, 'update'])->name('emp_attendance.update');
+        // DATAE FILTER
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/emp_attendance/datefilter', [EmployeeAttendanceController::class, 'datefilter'])->name('emp_attendance.datefilter');
     });
 
 

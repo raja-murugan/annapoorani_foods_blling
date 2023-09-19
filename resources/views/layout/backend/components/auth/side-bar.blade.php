@@ -51,6 +51,14 @@
                     </ul>
                 </li>
                 <li class="submenu-open">
+                    <h6 class="submenu-hdr">Attendance</h6>
+                    <ul>
+                        <li class="{{ Route::is('emp_attendance.index', 'emp_attendance.store') ? 'active' : '' }}">
+                            <a href="{{ route('emp_attendance.index') }}"><i data-feather="credit-card"></i><span>Employee Attendance</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="submenu-open">
                     <h6 class="submenu-hdr">General</h6>
                     <ul>
                         <li class="{{ Route::is('bank.index', 'bank.store') ? 'active' : '' }}">
