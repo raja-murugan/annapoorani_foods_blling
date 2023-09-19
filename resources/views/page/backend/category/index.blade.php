@@ -20,7 +20,6 @@
                             <tr>
                                 <th>Sl. No</th>
                                 <th>Name</th>
-                                <th>Products</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -29,16 +28,6 @@
                                 <tr>
                                     <td>{{ ++$keydata }}</td>
                                     <td>{{ $category_data['name'] }}</td>
-                                    
-                                    <td>     
-                                        @if ($category_data['productterms'] != "")   
-                                         @foreach ($category_data['productterms'] as $index => $terms_array)
-                                                    @if ($terms_array['category_id'] == $category_data['id'])
-                                                    {{ $terms_array['product_name'] }},<br/>
-                                                    @endif
-                                                    @endforeach
-                                        
-                                        @endif</td>
                                     <td>
                                         <ul class="list-unstyled hstack gap-1 mb-0">
                                             <li>
