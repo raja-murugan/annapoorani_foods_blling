@@ -53,8 +53,11 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Attendance</h6>
                     <ul>
-                        <li class="{{ Route::is('emp_attendance.index', 'emp_attendance.store') ? 'active' : '' }}">
+                        <li class="{{ Route::is('emp_attendance.index', 'emp_attendance.store', 'emp_attendance.datefilter', 'emp_attendance.create') ? 'active' : '' }}">
                             <a href="{{ route('emp_attendance.index') }}"><i data-feather="credit-card"></i><span>Employee Attendance</span></a>
+                        </li>
+                        <li class="{{ Route::is('delivery_attendance.index', 'delivery_attendance.store', 'delivery_attendance.datefilter', 'delivery_attendance.create') ? 'active' : '' }}">
+                            <a href="{{ route('delivery_attendance.index') }}"><i data-feather="credit-card"></i><span>Delivery Attendance</span></a>
                         </li>
                     </ul>
                 </li>

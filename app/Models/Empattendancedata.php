@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmployeeAttendance extends Model
+class Empattendancedata extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'unique_key',
-        'soft_delete',
+        'employeeattendance_id',
         'employee_id',
-        'date',
-        'time',
-        'attendance'
+        'attendance',
+        'employee_name'
     ];
 }

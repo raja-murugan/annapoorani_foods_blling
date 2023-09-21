@@ -53,7 +53,7 @@
                                         <td>
                                                
                                                    <input type="hidden" id="employee_id" name="employee_id[]" value="{{$employees->id}}"/>
-                                                   <input type="text"id="employee_name"name="employee_name[]" value="{{$employees->name}}" class="form-control"/>
+                                                   <input type="text"id="employee_name"name="employee_name[]" value="{{$employees->name}}" readonly class="form-control"/>
                                                
                                         </td>
                                         <td>

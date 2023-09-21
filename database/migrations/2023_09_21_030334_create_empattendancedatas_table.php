@@ -13,18 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employeeattendance_data', function (Blueprint $table) {
+        Schema::create('empattendancedatas', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('employeeattendance_id')->nullable();
-            $table->foreign('employeeattendance_id')->references('id')->on('employees_attendances')->onDelete('cascade');
+            $table->foreign('employeeattendance_id')->references('id')->on('empattendances')->onDelete('cascade');
 
             $table->unsignedBigInteger('employee_id')->nullable();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
 
             $table->string('employee_name')->nullable();
             $table->string('attendance')->nullable();
-            
             $table->timestamps();
         });
     }
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employeeattendance_data');
+        Schema::dropIfExists('empattendancedatas');
     }
 };

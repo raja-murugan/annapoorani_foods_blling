@@ -13,17 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employee_attendances', function (Blueprint $table) {
+        Schema::create('deliveryattendances', function (Blueprint $table) {
             $table->id();
             $table->string('unique_key')->unique();
             $table->boolean('soft_delete')->default(0);
-
-            $table->unsignedBigInteger('employee_id')->nullable();
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
-
             $table->string('date')->nullable();
             $table->string('time')->nullable();
-            $table->string('attendance')->nullable();
+            $table->string('month')->nullable();
+            $table->string('year')->nullable();
+            $table->string('dateno')->nullable();
+
+            $table->unsignedBigInteger('deliveryboy_id')->nullable();
+            
             $table->timestamps();
         });
     }
@@ -35,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_attendances');
+        Schema::dropIfExists('deliveryattendances');
     }
 };
