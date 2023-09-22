@@ -100,6 +100,22 @@ class SaleController extends Controller
                         $customername = '';
                     }
 
+                    $SaleProducts = SaleProduct::where('sales_id', '=', $datas->id)->get();
+                    foreach ($SaleProducts as $key => $SaleProducts_arr) {
+        
+                        $productid = Product::findOrFail($SaleProducts_arr->product_id);
+                        $terms[] = array(
+                            'product_name' => $productid->name,
+                            'quantity' => $SaleProducts_arr->quantity,
+                            'price' => $SaleProducts_arr->price,
+                            'total_price' => $SaleProducts_arr->total_price,
+                            'sales_id' => $SaleProducts_arr->sales_id,
+                        );
+                    }
+
+                    
+
+
                     $sale_data[] = array(
                         'date' => date('d-m-Y', strtotime($datas->date)),
                         'bill_no' => $datas->bill_no,
@@ -115,6 +131,7 @@ class SaleController extends Controller
                         'payment_method' => $datas->payment_method,
                         'id' => $datas->id,
                         'unique_key' => $datas->unique_key,
+                        'terms' => $terms,
                     );
                 }
             }
@@ -132,6 +149,23 @@ class SaleController extends Controller
                         }else {
                             $customername = '';
                         }
+
+
+                        $SaleProducts = SaleProduct::where('sales_id', '=', $datas->id)->get();
+                        foreach ($SaleProducts as $key => $SaleProducts_arr) {
+            
+                            $productid = Product::findOrFail($SaleProducts_arr->product_id);
+                            $terms[] = array(
+                                'product_name' => $productid->name,
+                                'quantity' => $SaleProducts_arr->quantity,
+                                'price' => $SaleProducts_arr->price,
+                                'total_price' => $SaleProducts_arr->total_price,
+                                'sales_id' => $SaleProducts_arr->sales_id,
+                            );
+                        }
+
+                        
+
     
                         $sale_data[] = array(
                             'date' => date('d-m-Y', strtotime($datas->date)),
@@ -148,6 +182,7 @@ class SaleController extends Controller
                             'payment_method' => $datas->payment_method,
                             'id' => $datas->id,
                             'unique_key' => $datas->unique_key,
+                            'terms' => $terms,
                         );
                     }
                 }else if($sales_type == 'Take Away'){
@@ -161,6 +196,23 @@ class SaleController extends Controller
                         }else {
                             $customername = '';
                         }
+
+
+                        $SaleProducts = SaleProduct::where('sales_id', '=', $datas->id)->get();
+                        foreach ($SaleProducts as $key => $SaleProducts_arr) {
+            
+                            $productid = Product::findOrFail($SaleProducts_arr->product_id);
+                            $terms[] = array(
+                                'product_name' => $productid->name,
+                                'quantity' => $SaleProducts_arr->quantity,
+                                'price' => $SaleProducts_arr->price,
+                                'total_price' => $SaleProducts_arr->total_price,
+                                'sales_id' => $SaleProducts_arr->sales_id,
+                            );
+                        }
+
+                        
+
     
                         $sale_data[] = array(
                             'date' => date('d-m-Y', strtotime($datas->date)),
@@ -177,6 +229,7 @@ class SaleController extends Controller
                             'payment_method' => $datas->payment_method,
                             'id' => $datas->id,
                             'unique_key' => $datas->unique_key,
+                            'terms' => $terms,
                         );
                     }
                 }else if($sales_type == 'Delivery'){
@@ -190,6 +243,23 @@ class SaleController extends Controller
                         }else {
                             $customername = '';
                         }
+
+
+                        $SaleProducts = SaleProduct::where('sales_id', '=', $datas->id)->get();
+                        foreach ($SaleProducts as $key => $SaleProducts_arr) {
+            
+                            $productid = Product::findOrFail($SaleProducts_arr->product_id);
+                            $terms[] = array(
+                                'product_name' => $productid->name,
+                                'quantity' => $SaleProducts_arr->quantity,
+                                'price' => $SaleProducts_arr->price,
+                                'total_price' => $SaleProducts_arr->total_price,
+                                'sales_id' => $SaleProducts_arr->sales_id,
+                            );
+                        }
+
+                        
+
     
                         $sale_data[] = array(
                             'date' => date('d-m-Y', strtotime($datas->date)),
@@ -206,6 +276,7 @@ class SaleController extends Controller
                             'payment_method' => $datas->payment_method,
                             'id' => $datas->id,
                             'unique_key' => $datas->unique_key,
+                            'terms' => $terms,
                         );
                     }
                 }
@@ -225,6 +296,23 @@ class SaleController extends Controller
                         }else {
                             $customername = '';
                         }
+
+
+                        $SaleProducts = SaleProduct::where('sales_id', '=', $datas->id)->get();
+                        foreach ($SaleProducts as $key => $SaleProducts_arr) {
+            
+                            $productid = Product::findOrFail($SaleProducts_arr->product_id);
+                            $terms[] = array(
+                                'product_name' => $productid->name,
+                                'quantity' => $SaleProducts_arr->quantity,
+                                'price' => $SaleProducts_arr->price,
+                                'total_price' => $SaleProducts_arr->total_price,
+                                'sales_id' => $SaleProducts_arr->sales_id,
+                            );
+                        }
+
+                        
+
     
                         $sale_data[] = array(
                             'date' => date('d-m-Y', strtotime($datas->date)),
@@ -241,6 +329,7 @@ class SaleController extends Controller
                             'payment_method' => $datas->payment_method,
                             'id' => $datas->id,
                             'unique_key' => $datas->unique_key,
+                            'terms' => $terms,
                         );
                     }
                 }else if($sales_type == 'Take Away'){
@@ -254,6 +343,23 @@ class SaleController extends Controller
                         }else {
                             $customername = '';
                         }
+
+
+                        $SaleProducts = SaleProduct::where('sales_id', '=', $datas->id)->get();
+                        foreach ($SaleProducts as $key => $SaleProducts_arr) {
+            
+                            $productid = Product::findOrFail($SaleProducts_arr->product_id);
+                            $terms[] = array(
+                                'product_name' => $productid->name,
+                                'quantity' => $SaleProducts_arr->quantity,
+                                'price' => $SaleProducts_arr->price,
+                                'total_price' => $SaleProducts_arr->total_price,
+                                'sales_id' => $SaleProducts_arr->sales_id,
+                            );
+                        }
+
+                        
+
     
                         $sale_data[] = array(
                             'date' => date('d-m-Y', strtotime($datas->date)),
@@ -270,6 +376,7 @@ class SaleController extends Controller
                             'payment_method' => $datas->payment_method,
                             'id' => $datas->id,
                             'unique_key' => $datas->unique_key,
+                            'terms' => $terms,
                         );
                     }
                 }else if($sales_type == 'Delivery'){
@@ -283,6 +390,23 @@ class SaleController extends Controller
                         }else {
                             $customername = '';
                         }
+
+
+                        $SaleProducts = SaleProduct::where('sales_id', '=', $datas->id)->get();
+                        foreach ($SaleProducts as $key => $SaleProducts_arr) {
+            
+                            $productid = Product::findOrFail($SaleProducts_arr->product_id);
+                            $terms[] = array(
+                                'product_name' => $productid->name,
+                                'quantity' => $SaleProducts_arr->quantity,
+                                'price' => $SaleProducts_arr->price,
+                                'total_price' => $SaleProducts_arr->total_price,
+                                'sales_id' => $SaleProducts_arr->sales_id,
+                            );
+                        }
+
+                        
+
     
                         $sale_data[] = array(
                             'date' => date('d-m-Y', strtotime($datas->date)),
@@ -299,6 +423,7 @@ class SaleController extends Controller
                             'payment_method' => $datas->payment_method,
                             'id' => $datas->id,
                             'unique_key' => $datas->unique_key,
+                            'terms' => $terms,
                         );
                     }
                 }

@@ -66,6 +66,7 @@
                                        </div>
                            </div>
                            <div class="row ">
+                              @if ($datas['terms'])
                                  @foreach ($datas['terms'] as $index => $term_arr)
                                     @if ($term_arr['sales_id'] == $datas['id'])
                                        <div class="col-lg-3 col-sm-3 col-12 border">
@@ -82,6 +83,7 @@
                                        </div>
                                     @endif
                                  @endforeach
+                                 @endif
                            </div>
                         </div>
                         <div class="col-lg-1 col-1 col-sm-12"></div>

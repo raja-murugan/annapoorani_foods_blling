@@ -73,7 +73,7 @@ class ProductsessionController extends Controller
     
             }
 
-            return redirect()->route('productsession.index')->with('info', 'Added !');
+            return redirect()->route('productsession.index')->with('message', 'Added !');
 
         }
         
