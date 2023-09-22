@@ -18,7 +18,7 @@ use App\Http\Controllers\SalespaymentController;
 use App\Http\Controllers\ProductsessionController;
 use App\Http\Controllers\PurchasepaymentController;
 use App\Http\Controllers\EmpattendanceController;
-use App\Http\Controllers\DeliveryAttendanceController;
+use App\Http\Controllers\DeliveryattendanceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -291,17 +291,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // DELIVERY ATTENDANCE CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance', [DeliveryAttendanceController::class, 'index'])->name('delivery_attendance.index');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance', [DeliveryattendanceController::class, 'index'])->name('delivery_attendance.index');
         // CREATE
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/create', [DeliveryAttendanceController::class, 'create'])->name('delivery_attendance.create');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/create', [DeliveryattendanceController::class, 'create'])->name('delivery_attendance.create');
         // STORE
-        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/delivery_attendance/store', [DeliveryAttendanceController::class, 'store'])->name('delivery_attendance.store');
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/delivery_attendance/store', [DeliveryattendanceController::class, 'store'])->name('delivery_attendance.store');
         // EDIT
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/edit/{unique_key}', [DeliveryAttendanceController::class, 'edit'])->name('delivery_attendance.edit');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/edit/{unique_key}', [DeliveryattendanceController::class, 'edit'])->name('delivery_attendance.edit');
         // UPDATE
-        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery_attendance/update/{unique_key}', [DeliveryAttendanceController::class, 'update'])->name('delivery_attendance.update');
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery_attendance/update/{unique_key}', [DeliveryattendanceController::class, 'update'])->name('delivery_attendance.update');
         // DATAE FILTER
-        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery_attendance/datefilter', [DeliveryAttendanceController::class, 'datefilter'])->name('delivery_attendance.datefilter');
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery_attendance/datefilter', [DeliveryattendanceController::class, 'datefilter'])->name('delivery_attendance.datefilter');
     });
 
 
