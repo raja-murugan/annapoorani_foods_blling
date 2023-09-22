@@ -69,7 +69,7 @@
 
                                             </li>
                                             <li>
-                                            <a href="/zworktechnology/sales/print/{{ $datas['id'] }}" class="badges btn btn-success" >Print</a>
+                                            <a href="https://allhighcare.com/zworktechnology/sales/print/{{ $datas['id'] }}" class="badges btn btn-success" >Print</a>
                                             </li>
                                             <li>
                                                 <a href="#delete{{ $datas['unique_key'] }}" data-bs-toggle="modal"
