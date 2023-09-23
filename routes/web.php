@@ -19,6 +19,8 @@ use App\Http\Controllers\ProductsessionController;
 use App\Http\Controllers\PurchasepaymentController;
 use App\Http\Controllers\EmpattendanceController;
 use App\Http\Controllers\DeliveryattendanceController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\OutdoorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -302,6 +304,49 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery_attendance/update/{unique_key}', [DeliveryattendanceController::class, 'update'])->name('delivery_attendance.update');
         // DATAE FILTER
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery_attendance/datefilter', [DeliveryattendanceController::class, 'datefilter'])->name('delivery_attendance.datefilter');
+    });
+
+
+
+    // EXPENSE CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/expense', [ExpenseController::class, 'index'])->name('expense.index');
+        // CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/expense/create', [ExpenseController::class, 'create'])->name('expense.create');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/expense/store', [ExpenseController::class, 'store'])->name('expense.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/expense/edit/{unique_key}', [ExpenseController::class, 'edit'])->name('expense.edit');
+        // UPDATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/expense/update/{unique_key}', [ExpenseController::class, 'update'])->name('expense.update');
+        // DATAE FILTER
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/expense/datefilter', [ExpenseController::class, 'datefilter'])->name('expense.datefilter');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/expense/delete/{unique_key}', [ExpenseController::class, 'delete'])->name('expense.delete');
+        
+    });
+
+
+    // OUTDOOR CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/outdoor', [OutdoorController::class, 'index'])->name('outdoor.index');
+        // CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/outdoor/create', [OutdoorController::class, 'create'])->name('outdoor.create');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/outdoor/store', [OutdoorController::class, 'store'])->name('outdoor.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/outdoor/edit/{unique_key}', [OutdoorController::class, 'edit'])->name('outdoor.edit');
+        // UPDATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/outdoor/update/{unique_key}', [OutdoorController::class, 'update'])->name('outdoor.update');
+        // DATAE FILTER
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/outdoor/datefilter', [OutdoorController::class, 'datefilter'])->name('outdoor.datefilter');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/outdoor/delete/{unique_key}', [OutdoorController::class, 'delete'])->name('outdoor.delete');
+        // PAY BALACE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/outdoor/pay_balance/{unique_key}', [OutdoorController::class, 'pay_balance'])->name('outdoor.pay_balance');
+        
     });
 
 

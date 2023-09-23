@@ -28,7 +28,7 @@ class SaleController extends Controller
     {
         
         $today = Carbon::now()->format('Y-m-d');
-        $data = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->orderBy('id', 'DESC')->get();
+        $data = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->orderBy('id', 'desc')->get();
         $sale_data = [];
         $terms = [];
         foreach ($data as $key => $datas) {
@@ -89,7 +89,7 @@ class SaleController extends Controller
 
         
             if($today){
-                $data = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+                $data = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->orderBy('id', 'desc')->get();
                 $sale_data = [];
                 foreach ($data as $key => $datas) {
                     
@@ -139,7 +139,7 @@ class SaleController extends Controller
 
             if($sales_type){
                 if($sales_type == 'Dine In'){
-                    $data = Sale::where('sales_type', '=', 'Dine In')->where('soft_delete', '!=', 1)->get();
+                    $data = Sale::where('sales_type', '=', 'Dine In')->where('soft_delete', '!=', 1)->orderBy('id', 'desc')->get();
                     $sale_data = [];
                     foreach ($data as $key => $datas) {
                         
@@ -186,7 +186,7 @@ class SaleController extends Controller
                         );
                     }
                 }else if($sales_type == 'Take Away'){
-                    $data = Sale::where('sales_type', '=', 'Take Away')->where('soft_delete', '!=', 1)->get();
+                    $data = Sale::where('sales_type', '=', 'Take Away')->where('soft_delete', '!=', 1)->orderBy('id', 'desc')->get();
                     $sale_data = [];
                     foreach ($data as $key => $datas) {
                         
@@ -233,7 +233,7 @@ class SaleController extends Controller
                         );
                     }
                 }else if($sales_type == 'Delivery'){
-                    $data = Sale::where('sales_type', '=', 'Delivery')->where('soft_delete', '!=', 1)->get();
+                    $data = Sale::where('sales_type', '=', 'Delivery')->where('soft_delete', '!=', 1)->orderBy('id', 'desc')->get();
                     $sale_data = [];
                     foreach ($data as $key => $datas) {
                         
@@ -286,7 +286,7 @@ class SaleController extends Controller
 
             if($today && $sales_type){
                 if($sales_type == 'Dine In'){
-                    $data = Sale::where('sales_type', '=', 'Dine In')->where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+                    $data = Sale::where('sales_type', '=', 'Dine In')->where('date', '=', $today)->where('soft_delete', '!=', 1)->orderBy('id', 'desc')->get();
                     $sale_data = [];
                     foreach ($data as $key => $datas) {
                         
@@ -333,7 +333,7 @@ class SaleController extends Controller
                         );
                     }
                 }else if($sales_type == 'Take Away'){
-                    $data = Sale::where('sales_type', '=', 'Take Away')->where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+                    $data = Sale::where('sales_type', '=', 'Take Away')->where('date', '=', $today)->where('soft_delete', '!=', 1)->orderBy('id', 'desc')->get();
                     $sale_data = [];
                     foreach ($data as $key => $datas) {
                         
@@ -380,7 +380,7 @@ class SaleController extends Controller
                         );
                     }
                 }else if($sales_type == 'Delivery'){
-                    $data = Sale::where('sales_type', '=', 'Delivery')->where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
+                    $data = Sale::where('sales_type', '=', 'Delivery')->where('date', '=', $today)->where('soft_delete', '!=', 1)->orderBy('id', 'desc')->get();
                     $sale_data = [];
                     foreach ($data as $key => $datas) {
                         

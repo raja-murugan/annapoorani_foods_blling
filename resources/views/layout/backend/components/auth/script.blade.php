@@ -1589,5 +1589,209 @@ function purchasesubmitForm(btn) {
         // submit the form
         btn.form.submit();
     }
-            
+
+
+    function expensesubmitForm(btn) {
+        // disable the button
+        btn.disabled = true;
+        // submit the form
+        btn.form.submit();
+    }
+
+
+    function outdoorsubmitForm(btn) {
+        // disable the button
+        btn.disabled = true;
+        // submit the form
+        btn.form.submit();
+    }
+
+
+
+$(document).ready(function() {
+
+    $(document).on('click', '.addexpensefields', function() {
+     ++i;
+            $(".expense_fields").append(
+                '<tr>' +
+                '<td><input type="hidden"id="expenes_detail_id"name="expenes_detail_id[]" value=""/><input type="text" class="form-control note" id="note" name="note[]"placeholder="note" value="" required />' +
+                '</td>' +
+                '<td><input type="text" class="form-control expenseprice" id="expenseprice" name="expenseprice[]" placeholder="Price" value="" required /></td>' +
+                '<td style="background: #eee;"><button style="width: 35px;margin-right:5px;"class="py-1 text-white font-medium rounded-lg text-sm  text-center btn btn-primary addexpensefields"type="button" id="" value="Add">+</button>' +
+                '<button style="width: 35px;" class="text-white py-1 font-medium rounded-lg text-sm  text-center btn btn-danger remove-expensetr" type="button" >-</button></td>' +
+                '</tr>'
+            );
+        
+    });
+
+});
+
+$(document).on('click', '.remove-expensetr', function() {
+    $(this).parents('tr').remove();
+
+    var tota_expense = 0;
+        $("input[name='expenseprice[]']").each(
+                                    function() {
+                                        //alert($(this).val());
+                                        tota_expense = Number(tota_expense) +
+                                            Number($(this).val());
+                                        $('.expensetotal_price').val(tota_expense.toFixed(2));
+                                    });
+});
+           
+ 
+
+$(document).on("keyup", "input[name*=expenseprice]", function() {
+        var tota_expense = 0;
+        $("input[name='expenseprice[]']").each(
+                                    function() {
+                                        //alert($(this).val());
+                                        tota_expense = Number(tota_expense) +
+                                            Number($(this).val());
+                                        $('.expensetotal_price').val(tota_expense.toFixed(2));
+                                    });
+    });
+
+
+
+
+$(document).ready(function() {
+
+    $(document).on('click', '.addoutdoorfields', function() {
+    ++i;
+            $(".outdoor_fields").append(
+                '<tr>' +
+                '<td><input type="hidden"id="outdoor_detail_id"name="outdoor_detail_id[]" value=""/><input type="text" class="form-control product" id="product" name="product[]"placeholder="product" value="" required />' +
+                '</td>' +
+                '<td><input type="text" class="form-control outdoorquantity" id="outdoorquantity" name="outdoorquantity[]" placeholder="quantity" value="" required /></td>' +
+                '<td><input type="text" class="form-control outdoorpriceperquantity" id="outdoorpriceperquantity" name="outdoorpriceperquantity[]" placeholder="note" value="" required /></td>' +
+                '<td><input type="text" class="form-control outdoorprice" id="outdoorprice" name="outdoorprice[]" placeholder="Price" value="" required /></td>' +
+                '<td style="background: #eee;"><button style="width: 35px;margin-right:5px;"class="py-1 text-white font-medium rounded-lg text-sm  text-center btn btn-primary addoutdoorfields"type="button" id="" value="Add">+</button>' +
+                '<button style="width: 35px;" class="text-white py-1 font-medium rounded-lg text-sm  text-center btn btn-danger remove-outdoortr" type="button" >-</button></td>' +
+                '</tr>'
+            );
+        
+    });
+
+});
+
+$(document).on('click', '.remove-outdoortr', function() {
+    $(this).parents('tr').remove();
+
+        var sum = 0;
+        $(".outdoorprice").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".outdoorsub_total").val(sum);
+        $('.outdoorsubtotal').text('₹ ' + sum);
+
+        $('.outdoor_grandtotal').val(sum);
+        $('.outdoorgrandtotal').text('₹ ' + sum);
+
+
+
+        var tax = $( "#outdoortax option:selected" ).val();
+        if(tax != '0'){
+            var outdoorsub_total = $(".outdoorsub_total").val();
+            var tax_amount = (tax / 100) * outdoorsub_total;
+            $('.outdoortax_amount').val(tax_amount.toFixed(2));
+            $('.outdoortaxamount').text('₹ ' + tax_amount.toFixed(2));
+
+            var totsl = Number(outdoorsub_total) + Number(tax_amount);
+            $('.outdoor_grandtotal').val(totsl.toFixed(2));
+            $('.outdoorgrandtotal').text('₹ ' + totsl.toFixed(2));
+        }
+});
+
+
+
+
+    $(document).on("blur", "input[name*=outdoorquantity]", function() {
+        var quantity = $(this).val();
+        var price = $(this).parents('tr').find('.outdoorpriceperquantity').val();
+        var total = quantity * price;
+        $(this).parents('tr').find('.outdoorprice').val(total);
+
+        var sum = 0;
+        $(".outdoorprice").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".outdoorsub_total").val(sum);
+        $('.outdoorsubtotal').text('₹ ' + sum);
+
+        $('.outdoor_grandtotal').val(sum);
+        $('.outdoorgrandtotal').text('₹ ' + sum);
+
+
+
+        var tax = $( "#outdoortax option:selected" ).val();
+        if(tax != '0'){
+            var outdoorsub_total = $(".outdoorsub_total").val();
+            var tax_amount = (tax / 100) * outdoorsub_total;
+            $('.outdoortax_amount').val(tax_amount.toFixed(2));
+            $('.outdoortaxamount').text('₹ ' + tax_amount.toFixed(2));
+
+            var totsl = Number(outdoorsub_total) + Number(tax_amount);
+            $('.outdoor_grandtotal').val(totsl.toFixed(2));
+            $('.outdoorgrandtotal').text('₹ ' + totsl.toFixed(2));
+        }
+
+    });
+
+
+
+    $(document).on("blur", "input[name*=outdoorpriceperquantity]", function() {
+        var outdoorpriceperquantity = $(this).val();
+        var outdoorquantity = $(this).parents('tr').find('.outdoorquantity').val();
+        var total = outdoorpriceperquantity * outdoorquantity;
+        $(this).parents('tr').find('.outdoorprice').val(total);
+
+        var sum = 0;
+        $(".outdoorprice").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".outdoorsub_total").val(sum);
+        $('.outdoorsubtotal').text('₹ ' + sum);
+
+        $('.outdoor_grandtotal').val(sum);
+        $('.outdoorgrandtotal').text('₹ ' + sum);
+
+
+
+        var tax = $( "#outdoortax option:selected" ).val();
+        if(tax != '0'){
+            var outdoorsub_total = $(".outdoorsub_total").val();
+            var tax_amount = (tax / 100) * outdoorsub_total;
+            $('.outdoortax_amount').val(tax_amount.toFixed(2));
+            $('.outdoortaxamount').text('₹ ' + tax_amount.toFixed(2));
+
+            var totsl = Number(outdoorsub_total) + Number(tax_amount);
+            $('.outdoor_grandtotal').val(totsl.toFixed(2));
+            $('.outdoorgrandtotal').text('₹ ' + totsl.toFixed(2));
+        }
+
+    });
+
+
+    $("#outdoortax").on('change', function() {
+        var tax = $(this).val();
+        var sub_total = $(".outdoorsub_total").val();
+        var tax_amount = (tax / 100) * sub_total;
+        $('.outdoortax_amount').val(tax_amount.toFixed(2));
+        $('.outdoortaxamount').text('₹ ' + tax_amount.toFixed(2));
+
+        var totsl = Number(sub_total) + Number(tax_amount);
+        $('.outdoor_grandtotal').val(totsl.toFixed(2));
+        $('.outdoorgrandtotal').text('₹ ' + totsl.toFixed(2));
+       
+    });
+
+
+    
+       
+
+
 </script>

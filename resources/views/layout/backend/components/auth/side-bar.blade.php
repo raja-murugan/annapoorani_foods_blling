@@ -11,6 +11,14 @@
                     </ul>
                 </li>
                 <li class="submenu-open">
+                    <h6 class="submenu-hdr">OutDoor</h6>
+                    <ul>
+                        <li class="{{ Route::is('outdoor.index', 'outdoor.store', 'outdoor.datefilter', 'outdoor.create') ? 'active' : '' }}">
+                            <a href="{{ route('outdoor.index') }}"><i data-feather="credit-card"></i><span>OutDoor</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="submenu-open">
                     <h6 class="submenu-hdr">Sales</h6>
                     <ul>
                         <li class="{{ Route::is('session.index', 'session.store') ? 'active' : '' }}">
@@ -58,6 +66,14 @@
                         </li>
                         <li class="{{ Route::is('delivery_attendance.index', 'delivery_attendance.store', 'delivery_attendance.datefilter', 'delivery_attendance.create') ? 'active' : '' }}">
                             <a href="{{ route('delivery_attendance.index') }}"><i data-feather="credit-card"></i><span>Delivery Attendance</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Expense</h6>
+                    <ul>
+                        <li class="{{ Route::is('expense.index', 'expense.store', 'expense.datefilter', 'expense.create') ? 'active' : '' }}">
+                            <a href="{{ route('expense.index') }}"><i data-feather="credit-card"></i><span>Expense</span></a>
                         </li>
                     </ul>
                 </li>
