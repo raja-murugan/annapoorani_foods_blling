@@ -253,7 +253,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/salespayment/delete/{unique_key}', [SalespaymentController::class, 'delete'])->name('salespayment.delete');
         // CHECK DUPLICATE
-        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/salespayment/datefilter', [SalespaymentController::class, 'datefilter'])->name('salespayment.datefilter');
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/salespayment/datefilter', [SalespaymentController::class, 'datefilter'])->name('salespayment.datefilter');
     });
 
 
@@ -268,7 +268,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchasepayment/delete/{unique_key}', [PurchasepaymentController::class, 'delete'])->name('purchasepayment.delete');
         // CHECK DUPLICATE
-        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/purchasepayment/datefilter', [PurchasepaymentController::class, 'datefilter'])->name('purchasepayment.datefilter');
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/purchasepayment/datefilter', [PurchasepaymentController::class, 'datefilter'])->name('purchasepayment.datefilter');
     });
 
 

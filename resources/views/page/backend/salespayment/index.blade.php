@@ -6,6 +6,22 @@
             <div class="page-title">
                 <h4>Sales Payment</h4>
             </div>
+            <div class="page-btn">
+
+                <div style="display: flex;">
+                        <form autocomplete="off" method="POST" action="{{ route('salespayment.datefilter') }}">
+                            @method('PUT')
+                            @csrf
+                            <div style="display: flex">
+                                 <div style="margin-right: 10px;"><input type="date" name="from_date"
+                                        class="form-control from_date" value="{{ $today }}"></div>
+                                <div style="margin-right: 10px;"><input type="submit" class="btn btn-success"
+                                        value="Search" /></div>
+                            </div>
+                        </form>
+                </div>  
+                    
+            </div>
         </div>
 
         <div class="row">
