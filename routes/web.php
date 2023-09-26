@@ -21,6 +21,8 @@ use App\Http\Controllers\EmpattendanceController;
 use App\Http\Controllers\DeliveryattendanceController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\OutdoorController;
+use App\Http\Controllers\OpenaccountController;
+use App\Http\Controllers\DenominationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -348,6 +350,37 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/outdoor/pay_balance/{unique_key}', [OutdoorController::class, 'pay_balance'])->name('outdoor.pay_balance');
         
     });
+
+
+
+    // OPEN ACCOUNT CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/openaccount', [OpenaccountController::class, 'index'])->name('openaccount.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/openaccount/store', [OpenaccountController::class, 'store'])->name('openaccount.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/openaccount/edit/{unique_key}', [OpenaccountController::class, 'edit'])->name('openaccount.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/openaccount/delete/{unique_key}', [OpenaccountController::class, 'delete'])->name('openaccount.delete');
+        // CHECK DUPLICATE
+        //Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/openaccount/datefilter', [OpenaccountController::class, 'datefilter'])->name('openaccount.datefilter');
+    });
+
+    // OPEN ACCOUNT CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/dinomination', [DenominationController::class, 'index'])->name('dinomination.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/dinomination/store', [DenominationController::class, 'store'])->name('dinomination.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/dinomination/edit/{unique_key}', [DenominationController::class, 'edit'])->name('dinomination.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/dinomination/delete/{unique_key}', [DenominationController::class, 'delete'])->name('dinomination.delete');
+        // CHECK DUPLICATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/dinomination/datefilter', [DenominationController::class, 'datefilter'])->name('dinomination.datefilter');
+    });
+
 
 
     //Route::get('/zworktechnology/sales/print/{sales_id}', function () {return view('page/backend/sales/print');});

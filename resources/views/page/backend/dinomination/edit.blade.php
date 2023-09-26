@@ -29,24 +29,36 @@
                       </div>
                    </div>
                    <div class="row">
-
-                   @foreach ($datas['terms'] as $index => $term_arr)
-                     @if ($term_arr['determination_id'] == $datas['id'])
-                      <div class="col-lg-4 col-md-4 col-sm-4">
+                     <div class="col-lg-4 col-md-4 col-sm-4">
                          <div class="form-group">
                             <label>Rupee</label>
-                            <input type="text" class="rupee" name="rupee[]" id="rupee{{$term_arr['determination_id']}}{{$term_arr['id']}}" value="{{$term_arr['rupee']}}" readonly style="background: bisque;">
                          </div>
                       </div>
                       <div class="col-lg-3 col-md-3 col-sm-3">
                          <div class="form-group">
                             <label>Count</label>
-                            <input type="text" class="count" name="count[]" id="count{{$term_arr['determination_id']}}{{$term_arr['id']}}" value="{{$term_arr['count']}}">
                          </div>
                       </div>
                       <div class="col-lg-5 col-md-5 col-sm-5">
                          <div class="form-group">
                             <label>Amount</label>
+                         </div>
+                      </div>
+
+                   @foreach ($datas['terms'] as $index => $term_arr)
+                     @if ($term_arr['determination_id'] == $datas['id'])
+                      <div class="col-lg-4 col-md-4 col-sm-4">
+                         <div class="form-group">
+                            <input type="text" class="rupee" name="rupee[]" id="rupee{{$term_arr['determination_id']}}{{$term_arr['id']}}" value="{{$term_arr['rupee']}}" readonly style="background: bisque;">
+                         </div>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                         <div class="form-group">
+                            <input type="text" class="count" name="count[]" id="count{{$term_arr['determination_id']}}{{$term_arr['id']}}" value="{{$term_arr['count']}}">
+                         </div>
+                      </div>
+                      <div class="col-lg-5 col-md-5 col-sm-5">
+                         <div class="form-group">
                             <input type="text" class="determinationamount{{$term_arr['determination_id']}}" name="amount[]" id="amount{{$term_arr['determination_id']}}{{$term_arr['id']}}" value="{{$term_arr['amount']}}" readonly style="background: #97a2d236;">
                          </div>
                       </div>

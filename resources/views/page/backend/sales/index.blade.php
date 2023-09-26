@@ -34,6 +34,42 @@
             </div>
         </div>
 
+
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash1" style="background: #ad2a31;">
+                    <div class="dash-widgetcontent">
+                        <h5 style="color:white">₹ <span class="counters"  data-count="{{ $totsaleAmount }}"></span></h5>
+                        <h6 style="color:white">Total Sales Value</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash1" style="background: #6ed1a3;">
+                    <div class="dash-widgetcontent">
+                        <h5>₹ <span class="counters" data-count="{{ $total_dine_in }}"></span></h5>
+                        <h6>Total Dine In</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash1" style="background: #f2ff7f;">
+                    <div class="dash-widgetcontent">
+                        <h5>₹ <span class="counters" data-count="{{ $total_take_away }}"></span></h5>
+                        <h6>Total WalkAway</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash1" style="background: #ffb17f;">
+                    <div class="dash-widgetcontent">
+                        <h5>₹ <span class="counters" data-count="{{ $totaldelivery }}"></span></h5>
+                        <h6>Total Delivery</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">

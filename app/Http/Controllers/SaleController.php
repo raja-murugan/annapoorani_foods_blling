@@ -79,7 +79,39 @@ class SaleController extends Controller
         $category = Category::where('soft_delete', '!=', 1)->get();
 
         $todaydate = Carbon::now()->format('d-m-Y');
-        return view('page.backend.sales.index', compact('sale_data', 'session', 'category', 'today', 'todaydate'));
+
+
+        $total_sale_amount = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_sale_amount != ""){
+                $totsaleAmount = $total_sale_amount;
+            }else {
+                $totsaleAmount = '0';
+            }
+
+        $total_dinein = Sale::where('date', '=', $today)->where('sales_type', '=', 'Dine In')->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_dinein != ""){
+                $total_dine_in = $total_dinein;
+            }else {
+                $total_dine_in = '0';
+            }
+
+
+        $total_takeaway = Sale::where('date', '=', $today)->where('sales_type', '=', 'Take Away')->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_takeaway != ""){
+                $total_take_away = $total_takeaway;
+            }else {
+                $total_take_away = '0';
+            }
+
+
+        $total_delivery = Sale::where('date', '=', $today)->where('sales_type', '=', 'Delivery')->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_delivery != ""){
+                $totaldelivery = $total_delivery;
+            }else {
+                $totaldelivery = '0';
+            }
+
+        return view('page.backend.sales.index', compact('sale_data', 'session', 'category', 'today', 'todaydate', 'totsaleAmount', 'total_dine_in', 'total_take_away', 'totaldelivery'));
     }
 
 
@@ -428,13 +460,45 @@ class SaleController extends Controller
                     }
                 }
             }
+
+
+            $total_sale_amount = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_sale_amount != ""){
+                $totsaleAmount = $total_sale_amount;
+            }else {
+                $totsaleAmount = '0';
+            }
+
+            $total_dinein = Sale::where('date', '=', $today)->where('sales_type', '=', 'Dine In')->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_dinein != ""){
+                $total_dine_in = $total_dinein;
+            }else {
+                $total_dine_in = '0';
+            }
+
+
+            $total_takeaway = Sale::where('date', '=', $today)->where('sales_type', '=', 'Take Away')->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_takeaway != ""){
+                $total_take_away = $total_takeaway;
+            }else {
+                $total_take_away = '0';
+            }
+
+
+            $total_delivery = Sale::where('date', '=', $today)->where('sales_type', '=', 'Delivery')->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_delivery != ""){
+                $totaldelivery = $total_delivery;
+            }else {
+                $totaldelivery = '0';
+            }
+
         
 
         
         $session = Session::where('soft_delete', '!=', 1)->get();
         $category = Category::where('soft_delete', '!=', 1)->get();
         $todaydate = Carbon::now()->format('d-m-Y');
-        return view('page.backend.sales.index', compact('sale_data', 'session', 'category', 'today', 'todaydate'));
+        return view('page.backend.sales.index', compact('sale_data', 'session', 'category', 'today', 'todaydate', 'totsaleAmount', 'total_dine_in', 'total_take_away', 'totaldelivery'));
     }
 
 
