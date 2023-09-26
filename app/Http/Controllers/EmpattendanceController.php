@@ -38,6 +38,7 @@ class EmpattendanceController extends Controller
                 $list[] = date('d', $times);
                 $monthdates[] = date('Y-m-d', $times);
         }
+        $attendence_Data = [];
 
 
 
