@@ -113,6 +113,17 @@
                         </li>
                     </ul>
                 </li>
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Accounts</h6>
+                    <ul>
+                        <li class="{{ Route::is('openaccount.index', 'openaccount.store') ? 'active' : '' }}">
+                            <a href="{{ route('openaccount.index') }}"><i data-feather="credit-card"></i><span>Open Account</span></a>
+                        </li>
+                        <li class="{{ Route::is('dinomination.index', 'dinomination.store', 'dinomination.datefilter') ? 'active' : '' }}">
+                            <a href="{{ route('dinomination.index') }}"><i data-feather="credit-card"></i><span>Determination</span></a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

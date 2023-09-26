@@ -1790,6 +1790,166 @@ $(document).on('click', '.remove-outdoortr', function() {
     });
 
 
+
+    $(document).on("keyup", '#count1', function() {
+        var count1 = $(this).val();
+        var rupee1 = $("#rupee1").val();
+        //alert(bill_paid_amount);
+        var total1 = count1 * rupee1;
+        $('#amount1').val(total1);
+
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+    $(document).on("keyup", '#count2', function() {
+        var count2 = $(this).val();
+        var rupee2 = $("#rupee2").val();
+        //alert(bill_paid_amount);
+        var total2 = count2 * rupee2;
+        $('#amount2').val(total2);
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+
+    $(document).on("keyup", '#count3', function() {
+        var count3 = $(this).val();
+        var rupee3 = $("#rupee3").val();
+        //alert(bill_paid_amount);
+        var total3 = count3 * rupee3;
+        $('#amount3').val(total3);
+
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+
+    $(document).on("keyup", '#count4', function() {
+        var count4 = $(this).val();
+        var rupee4 = $("#rupee4").val();
+        //alert(bill_paid_amount);
+        var total4 = count4 * rupee4;
+        $('#amount4').val(total4);
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+
+    $(document).on("keyup", '#count5', function() {
+        var count5 = $(this).val();
+        var rupee5 = $("#rupee5").val();
+        //alert(bill_paid_amount);
+        var total5 = count5 * rupee5;
+        $('#amount5').val(total5);
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+
+    $(document).on("keyup", '#count6', function() {
+        var count6 = $(this).val();
+        var rupee6 = $("#rupee6").val();
+        //alert(bill_paid_amount);
+        var total6 = count6 * rupee6;
+        $('#amount6').val(total6);
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+
+    $(document).on("keyup", '#count7', function() {
+        var count7 = $(this).val();
+        var rupee7 = $("#rupee7").val();
+        //alert(bill_paid_amount);
+        var total7 = count7 * rupee7;
+        $('#amount7').val(total7);
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+    $(document).on("keyup", '#count8', function() {
+        var count8 = $(this).val();
+        var rupee8 = $("#rupee8").val();
+        //alert(bill_paid_amount);
+        var total8 = count8 * rupee8;
+        $('#amount8').val(total8);
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+
+    $(document).on("keyup", '#count9', function() {
+        var count9 = $(this).val();
+        var rupee9 = $("#rupee9").val();
+        //alert(bill_paid_amount);
+        var total9 = count9 * rupee9;
+        $('#amount9').val(total9);
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+    $(document).on("keyup", '#count10', function() {
+        var count10 = $(this).val();
+        var rupee10 = $("#rupee10").val();
+        //alert(bill_paid_amount);
+        var total10 = count10 * rupee10;
+        $('#amount10').val(total10);
+
+        var sum = 0;
+        $(".determinationamount").each(function(){
+            sum += +$(this).val();
+        });
+
+        $(".determinationtotal_amount").val(sum);
+    });
+
+
     
        
 
