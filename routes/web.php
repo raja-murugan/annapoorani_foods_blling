@@ -284,7 +284,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // STORE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/emp_attendance/store', [EmpattendanceController::class, 'store'])->name('emp_attendance.store');
         // EDIT
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance/edit/{unique_key}', [EmpattendanceController::class, 'edit'])->name('emp_attendance.edit');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance/edit/{date}', [EmpattendanceController::class, 'edit'])->name('emp_attendance.edit');
         // UPDATE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/emp_attendance/update/{unique_key}', [EmpattendanceController::class, 'update'])->name('emp_attendance.update');
         // DATAE FILTER

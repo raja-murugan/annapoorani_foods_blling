@@ -23,6 +23,7 @@ return new class extends Migration
 
             $table->string('employee_name')->nullable();
             $table->string('attendance')->nullable();
+            $table->string('date')->nullable();
             $table->timestamps();
         });
     }

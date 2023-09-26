@@ -23,6 +23,11 @@ return new class extends Migration
             $table->string('month')->nullable();
             $table->string('year')->nullable();
             $table->string('dateno')->nullable();
+
+            $table->unsignedBigInteger('employee_id')->nullable();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            
+            $table->string('attendance')->nullable();
             $table->timestamps();
         });
     }

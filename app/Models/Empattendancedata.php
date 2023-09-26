@@ -13,6 +13,7 @@ class Empattendancedata extends Model
         'employeeattendance_id',
         'employee_id',
         'attendance',
-        'employee_name'
+        'employee_name',
+        'date'
     ];
 }

@@ -4,7 +4,7 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Employee Attendance - <span style="color:red">{{$Current_month}} {{$current_year}}</span></h4>
+                <h4>Employee Attendance</h4>
             </div>
             <div class="page-btn">
 
@@ -26,58 +26,58 @@
         </div>
 
         <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table  datanew">
+            <div class="card-body" style="overflow: auto;background: #c7eda4;">
+
+
+                <div class="row">
+                    <table class="table">
+                        <thead><h5 style="text-transform: uppercase;text-align:center;color:black;padding-bottom:10px">{{ $curent_month}}-{{$year}}</h5></thead>
                         <thead>
-                            <tr>
-                                <th>S.No</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Count</th>
-                                <th>Action</th>
+                            <tr style="background: #dfe585;">
+                                <th class="" style="border-color: #33333357;">Name</th>
+                                 @foreach ($list as $lists)
+                                    <th class="" style="border-color: #33333357;">{{ $lists }}</th>
+                                  @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($attendance_data as $keydata => $datas)
-                                <tr>
-                                 <td>{{ ++$keydata }}</td>
-                                    <td> {{ date('d-m-Y', strtotime($datas['date']))  }}</td>
-                                    <td> {{ $datas['time']  }}</td>
-                                    <td>
-                                        <span> Present - {{ $datas['present_count']  }}</span><br/>
-                                        <span> Absent - {{ $datas['absent_count']  }}</span><br/>
-                                        <span> Leave - {{ $datas['leave_count']  }}</span><br/>
-                                        <span> Sick Leave - {{ $datas['sickleave_count']  }}</span>
-                                    </td> 
-                                    <td>
+                            <tr>
+                                <td style="background: #dfe585;border-color: #33333357;"></td>
+                                @foreach ($monthdates as $monthdate_arr)
+                                     <td style="background: #edf0bb;border-color: #33333357;"><a href="{{ route('emp_attendance.edit', ['date' => $monthdate_arr]) }}" class="btn btn-sm btn-soft-info">
+                                     <i class="fa fa-edit" data-bs-toggle="tooltip" title="fa fa-edit"></i></a></td>
+                                @endforeach
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            @foreach ($data as $employee)
+                            <tr class="">
+                                <td class="" style="background: #dfe585;color:black;border-color: #33333357;">{{$employee->name}}</td>
 
-                                    <ul class="list-unstyled hstack gap-1 mb-0">
-                                            <li>
-                                                <a href="#empattendview{{ $datas['unique_key'] }}"
-                                                    data-bs-toggle="modal" data-id="{{ $datas['id'] }}"
-                                                    data-bs-target=".empattendview-modal-xl{{ $datas['unique_key'] }}"
-                                                    class="badges bg-lightred empattendview" style="color: white">View</a>
+                                @foreach ($attendence_Data as $attendence_Data_arr)
+                                    @if ($employee->id == $attendence_Data_arr['empid'])
 
-                                            </li>
-                                             <li>
-                                                    <a href="{{ route('emp_attendance.edit', ['unique_key' => $datas['unique_key']]) }}"
-                                                        class="badges bg-lightgrey" style="color: white">Edit</a>
-                                             </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <div class="modal fade empattendview-modal-xl{{ $datas['unique_key'] }}"
-                                    tabindex="-1" role="dialog" data-bs-backdrop="static"
-                                    aria-labelledby="purchaseviewLargeModalLabel{{ $datas['unique_key'] }}"
-                                    aria-hidden="true">
-                                    @include('page.backend.emp_attendance.view')
-                                </div>
-                                
+                                        @if ($attendence_Data_arr['attendence_status'] == 'P')
+                                            <td class="" style="color:white;background-color:green;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                        @elseif ($attendence_Data_arr['attendence_status'] == 'A')
+                                            <td class="" style="color:white;background-color:red;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                        @elseif ($attendence_Data_arr['attendence_status'] == 'L')
+                                            <td class="" style="color:white;background-color:blue;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                        @elseif ($attendence_Data_arr['attendence_status'] == 'SL')
+                                            <td class="" style="color:white;background-color:orange;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                            @else
+                                             <td class="" style="background: azure;border-color: #33333357;"></td>
+                                        @endif
+
+                                    @endif
+                                @endforeach
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+
+            
             </div>
         </div>
     </div>

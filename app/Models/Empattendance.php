@@ -16,6 +16,8 @@ class Empattendance extends Model
         'month',
         'year',
         'dateno',
-        'time'
+        'time',
+        'employee_id',
+        'attendance'
     ];
 }
