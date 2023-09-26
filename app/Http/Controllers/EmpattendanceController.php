@@ -105,7 +105,7 @@ class EmpattendanceController extends Controller
                 $monthdates[] = date('Y-m-d', $times);
         }
 
-
+        $attendence_Data = [];
 
         foreach (($monthdates) as $key => $monthdate_arr) {
             $employees = Employee::where('soft_delete', '!=', 1)->get();
