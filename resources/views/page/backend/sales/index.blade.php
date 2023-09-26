@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6 col-12">
-                <div class="dash-widget dash1" style="background: #f2ff7f;">
+                <div class="dash-widget dash1" style="background: #d5eb15;">
                     <div class="dash-widgetcontent">
                         <h5>₹ <span class="counters" data-count="{{ $total_take_away }}"></span></h5>
                         <h6>Total WalkAway</h6>
