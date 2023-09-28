@@ -6151,7 +6151,7 @@ span.select2-container.select2-container--default.select2-container--open {
 .sidebar .sidebar-menu>ul>li.submenu-open ul li a {
     font-weight: 500;
     font-size: 16px;
-    color: #67748e;
+    color: #4a545c;
     position: relative;
     display: flex;
     align-items: center;
@@ -6177,9 +6177,9 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .sidebar .sidebar-menu>ul>li.submenu-open ul>li.active a {
-    background: #f6d2d2;
+    background: #ad2a31;
     border-radius: 5px;
-    color: #751818
+    color: #fff
 }
 
 .sidebar .sidebar-menu>ul>li.submenu-open .submenu-hdr {
@@ -6205,7 +6205,7 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .sidebar .sidebar-menu>ul li.active svg {
-    color: #751818
+    color: #fff
 }
 
 .sidebar .sidebar-menu>ul li .submenu>a.active {
@@ -6920,7 +6920,7 @@ span.select2-container.select2-container--default.select2-container--open {
 
 .table tbody tr td {
     padding: 10px;
-    color: #637381;
+    color: #4a545c;
     font-weight: 500;
     border-bottom: 1px solid #e9ecef;
     vertical-align: middle;
