@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('year')->nullable();
             $table->string('dateno')->nullable();
 
-            $table->unsignedBigInteger('deliveryboy_id')->nullable();
+            $table->unsignedBigInteger('session_id')->nullable();
             
             $table->timestamps();
         });

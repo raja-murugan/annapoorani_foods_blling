@@ -303,11 +303,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // STORE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/delivery_attendance/store', [DeliveryattendanceController::class, 'store'])->name('delivery_attendance.store');
         // EDIT
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/edit/{unique_key}', [DeliveryattendanceController::class, 'edit'])->name('delivery_attendance.edit');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/edit/{date}/{session_id}', [DeliveryattendanceController::class, 'edit'])->name('delivery_attendance.edit');
         // UPDATE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery_attendance/update/{unique_key}', [DeliveryattendanceController::class, 'update'])->name('delivery_attendance.update');
         // DATAE FILTER
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/delivery_attendance/datefilter', [DeliveryattendanceController::class, 'datefilter'])->name('delivery_attendance.datefilter');
+        // BREAKFAST CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/breakfastcreate', [DeliveryattendanceController::class, 'breakfastcreate'])->name('delivery_attendance.breakfastcreate');
+        // LUNCH CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/lunchcreate', [DeliveryattendanceController::class, 'lunchcreate'])->name('delivery_attendance.lunchcreate');
+        // DINNER CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/dinnercreate', [DeliveryattendanceController::class, 'dinnercreate'])->name('delivery_attendance.dinnercreate');
     });
 
 

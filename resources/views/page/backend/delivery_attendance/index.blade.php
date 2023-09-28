@@ -4,7 +4,7 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Delivery Attendance - <span style="color:red">{{ date('d-m-Y', strtotime($today))  }}</span></h4>
+                <h4>Delivery Attendance</h4>
             </div>
             <div class="page-btn">
 
@@ -19,66 +19,71 @@
                                         value="Search" /></div>
                             </div>
                         </form>
-                        <a href="{{ route('delivery_attendance.create') }}" class="btn btn-added" style="margin-right: 10px;">Add New</a>
+                        <a href="{{ route('delivery_attendance.breakfastcreate') }}" class="btn btn-added" style="margin-right: 10px;">BreakFast</a>
+                        <a href="{{ route('delivery_attendance.lunchcreate') }}" class="btn btn-added" style="margin-right: 10px;background: #ab8a1c;">Lunch</a>
+                        <a href="{{ route('delivery_attendance.dinnercreate') }}" class="btn btn-added" style="margin-right: 10px;background: #dc3545;">Dinner</a>
                 </div>  
                     
             </div>
         </div>
 
         <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table  datanew">
-                        <thead>
-                            <tr>
-                                <th>S.No</th>
-                                <th>Date</th>
-                                <th>Delivery Boy</th>
-                                <th>Count</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($attendance_data as $keydata => $datas)
-                                <tr>
-                                 <td>{{ ++$keydata }}</td>
-                                    <td> {{ date('d-m-Y', strtotime($datas['date']))  }}</td>
-                                    <td> {{ $datas['deliveryboy']  }}</td>
-                                    <td>
-                                            @foreach ($datas['terms'] as $index => $terms_array)
-                                                    @if ($terms_array['deliveryattendance_id'] == $datas['id'])
-                                                    {{ $terms_array['session'] }} - {{ $terms_array['attendance'] }},<br/>
-                                                    @endif
-                                                    @endforeach
-                                    </td> 
-                                    <td>
-
-                                    <ul class="list-unstyled hstack gap-1 mb-0">
-                                            <li>
-                                                <a href="#deliveryattendview{{ $datas['unique_key'] }}"
-                                                    data-bs-toggle="modal" data-id="{{ $datas['id'] }}"
-                                                    data-bs-target=".deliveryattendview-modal-xl{{ $datas['unique_key'] }}"
-                                                    class="badges bg-lightred deliveryattendview" style="color: white">View</a>
-
-                                            </li>
-                                             <li>
-                                                    <a href="{{ route('delivery_attendance.edit', ['unique_key' => $datas['unique_key']]) }}"
-                                                        class="badges bg-lightgrey" style="color: white">Edit</a>
-                                             </li>
-                                        </ul>
-                                    </td>
+            <div class="card-body" style="overflow: auto;background: #c7eda4;">
+                
+                    <div class="row">
+                        <table class="table">
+                            <thead><h5 style="text-transform: uppercase;text-align:center;color:black;padding-bottom:10px">{{ $curent_month}}-{{$year}}</h5></thead>
+                            <thead>
+                                <tr style="background: #dfe585;">
+                                    <th class="border" style="border: 1px solid #8ea0af!important;">Name</th>
+                                    @foreach ($list as $lists)
+                                        <th colspan="3" class="border" style="text-align:center;border: 1px solid #8ea0af!important;">{{ $lists }}</th>
+                                    @endforeach
                                 </tr>
-                                <div class="modal fade deliveryattendview-modal-xl{{ $datas['unique_key'] }}"
-                                    tabindex="-1" role="dialog" data-bs-backdrop="static"
-                                    aria-labelledby="purchaseviewLargeModalLabel{{ $datas['unique_key'] }}"
-                                    aria-hidden="true">
-                                    @include('page.backend.delivery_attendance.view')
-                                </div>
-                                
+                                <tr>
+                                    <th style="border: 1px solid #8ea0af!important;"></th>
+                                    @foreach ($list as $lists)
+                                    @foreach ($session_terms as $session_termsarr)
+                                    <th class="border" style="text-align:center;border: 1px solid #8ea0af!important;">{{$session_termsarr['session']}}</th>
+                                    @endforeach
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style="background: #dfe585;border-color: #33333357;"></td>
+                                @foreach ($list as $lists)
+                               @foreach ($session_terms as $session_termsarr)
+                                     <td style="background: #edf0bb;border-color: #33333357;"><a href="{{ route('delivery_attendance.edit', ['date' => $year.'-'.$month. '-'.$lists, 'session_id' => $session_termsarr['id']]) }}" class="btn btn-sm btn-soft-info">
+                                     <i class="fa fa-edit" data-bs-toggle="tooltip" title="fa fa-edit"></i></a></td>
+                                @endforeach
+                                @endforeach
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            @foreach ($Deliveryboy as $Deliveryboyarr)
+                            <tr class="">
+                                <td class="" style="background: #dfe585;color:black;border-color: #33333357;">{{$Deliveryboyarr->name}}</td>
+
+                                @foreach ($attendence_Data as $attendence_Data_arr)
+                                    @if ($Deliveryboyarr->id == $attendence_Data_arr['deliveryboyid'])
+
+                                        @if ($attendence_Data_arr['attendence_status'] == 'P')
+                                            <td class="" style="color:white;background-color:green;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                        @elseif ($attendence_Data_arr['attendence_status'] == 'A')
+                                            <td class="" style="color:white;background-color:red;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                        
+                                            @else
+                                             <td class="" style="background: azure;border-color: #33333357;"></td>
+                                        @endif
+
+                                    @endif
+                                @endforeach
+                            </tr>
                             @endforeach
                         </tbody>
-                    </table>
-                </div>
+                        </table>
+                    </div>
             </div>
         </div>
     </div>

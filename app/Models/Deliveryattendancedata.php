@@ -15,6 +15,7 @@ class Deliveryattendancedata extends Model
         'attendance',
         'session_id',
         'sessionname',
-        'deliveryboy'
+        'deliveryboy',
+        'date'
     ];
 }

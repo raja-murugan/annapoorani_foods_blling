@@ -21,7 +21,7 @@
                                  </div>
                                  <div class="col-md-6">
                                     <p class="text-start invoice-details" style="color:white;margin-left: 10px;">
-                                   <strong style="color:white;">{{ $datas['deliveryboy']  }}</strong>
+                                   <strong style="color:white;"></strong>
                                     </p>
                                  </div>
                               </div>
@@ -48,7 +48,7 @@
                                  @foreach ($datas['terms'] as $index => $term_arr)
                                     @if ($term_arr['deliveryattendance_id'] == $datas['id'])
                                        <div class="col-lg-6 col-sm-6 col-12 border">
-                                          <span class=""style="vertical-align: inherit;vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;line-height: 35px; ">{{ $term_arr['session'] }}</span>
+                                          <span class=""style="vertical-align: inherit;vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;line-height: 35px; "></span>
                                        </div>
                                        <div class="col-lg-6 col-sm-6 col-12 border">
                                           <span class=""style="vertical-align: inherit;vertical-align: inherit;font-size: 14px;color:#000;font-weight: 400;line-height: 35px; ">{{ $term_arr['attendance'] }}</span>

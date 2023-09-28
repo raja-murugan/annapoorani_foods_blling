@@ -17,6 +17,6 @@ class Deliveryattendance extends Model
         'year',
         'dateno',
         'time',
-        'deliveryboy_id'
+        'session_id'
     ];
 }
