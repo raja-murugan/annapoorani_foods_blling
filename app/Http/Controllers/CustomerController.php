@@ -27,6 +27,9 @@ class CustomerController extends Controller
                     $pending_amount = $PaymentsData->saleamount - $PaymentsData->salepaid;
                     $account_balance = '';
                 }
+            }else {
+                $pending_amount = '';
+                $account_balance = '';
             }
 
             $customerdata[] = array(
