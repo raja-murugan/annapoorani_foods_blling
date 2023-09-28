@@ -98,11 +98,11 @@
                                             </select>
                                         </td>
                                         <td style="background: #eee;">
-                                            <input type="text" class="form-control quantity" id="quantity" name="quantity[]"
+                                            <input type="text" class="form-control purchase_quantity" id="quantity" name="purchase_quantity[]"
                                                 placeholder="Quantity" value="{{ $PurchaseProductdatas->quantity }}" required />
                                         </td>
                                         <td style="background: #eee;">
-                                            <input type="text" class="form-control price" id="price" name="price[]"
+                                            <input type="text" class="form-control purchase_price" id="price" name="purchase_price[]"
                                                 placeholder="Price" value="{{ $PurchaseProductdatas->price }}" required />
                                         </td>
                                         <td style="background: #eee;">

@@ -219,8 +219,8 @@ class PurchaseController extends Controller
                 $PurchaseProductdata->unique_key = $pprandomkey;
                 $PurchaseProductdata->purchase_id = $insertedId;
                 $PurchaseProductdata->purchaseproduct_id = $purchaseproduct_id;
-                $PurchaseProductdata->quantity = $request->quantity[$key];
-                $PurchaseProductdata->price = $request->price[$key];
+                $PurchaseProductdata->quantity = $request->purchase_quantity[$key];
+                $PurchaseProductdata->price = $request->purchase_price[$key];
                 $PurchaseProductdata->total_price = $request->total_price[$key];
                 $PurchaseProductdata->save();
 
@@ -371,8 +371,8 @@ class PurchaseController extends Controller
                 $ids = $purchase_detail_id;
                 $purchaseID = $PurchaseId;
                 $purchaseproduct_id = $request->purchaseproduct_id[$key];
-                $quantity = $request->quantity[$key];
-                $price = $request->price[$key];
+                $quantity = $request->purchase_quantity[$key];
+                $price = $request->purchase_price[$key];
                 $total_price = $request->total_price[$key];
 
                 DB::table('purchase_productdatas')->where('id', $ids)->update([
@@ -388,8 +388,8 @@ class PurchaseController extends Controller
                     $PurchaseProductdata->unique_key = $prandomkey;
                     $PurchaseProductdata->purchase_id = $purchaseID;
                     $PurchaseProductdata->purchaseproduct_id = $request->purchaseproduct_id[$key];
-                    $PurchaseProductdata->quantity = $request->quantity[$key];
-                    $PurchaseProductdata->price = $request->price[$key];
+                    $PurchaseProductdata->quantity = $request->purchase_quantity[$key];
+                    $PurchaseProductdata->price = $request->purchase_price[$key];
                     $PurchaseProductdata->total_price = $request->total_price[$key];
                     $PurchaseProductdata->save();
                 }

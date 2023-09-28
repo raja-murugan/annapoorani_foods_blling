@@ -48,7 +48,7 @@
                                         <th style="font-size:15px; width:70%;">Attendance</th>
                                     </tr>
                                 </thead>
-                                <tbody class="product_fields">
+                                <tbody class="">
                                 @foreach ($EmployeeattendanceData as $EmployeeattendanceDatas)
                                     <tr>
                                         <td>

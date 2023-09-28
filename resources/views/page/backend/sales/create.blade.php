@@ -359,7 +359,6 @@
                                     <table class="table datanew">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
                                                 <th>Bill No</th>
                                                 <th>Customer</th>
                                                 <th>Amount </th>
@@ -368,7 +367,6 @@
                                         <tbody>
                                             @foreach ($DineInoutput as $DineInoutputs)
                                             <tr>
-                                                <td>{{ $DineInoutputs['date'] }}</td>
                                                 <td># {{ $DineInoutputs['bill_no'] }}</td>
                                                 <td>Walk-in Customer</td>
                                                 <td>₹ {{ $DineInoutputs['grandtotal'] }}</td>
@@ -393,7 +391,6 @@
                                     <table class="table datanew">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
                                                 <th>Bill No</th>
                                                 <th>Customer</th>
                                                 <th>Amount </th>
@@ -402,7 +399,6 @@
                                         <tbody>
                                             @foreach ($TakeAwayInoutput as $TakeAwayInoutputs)
                                             <tr>
-                                                <td>{{ $TakeAwayInoutputs['date'] }}</td>
                                                 <td># {{ $TakeAwayInoutputs['bill_no'] }}</td>
                                                 <td>Walk-out Customer</td>
                                                 <td>₹ {{ $TakeAwayInoutputs['grandtotal'] }}</td>
@@ -426,7 +422,6 @@
                                     <table class="table datanew">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
                                                 <th>Bill No</th>
                                                 <th>Customer</th>
                                                 <th>Amount </th>
@@ -435,7 +430,6 @@
                                         <tbody>
                                             @foreach ($DeliveryInoutput as $DeliveryInoutputs)
                                             <tr>
-                                                <td>{{ $DeliveryInoutputs['date'] }}</td>
                                                 <td># {{ $DeliveryInoutputs['bill_no'] }}</td>
                                                 <td>{{ $DeliveryInoutputs['customer'] }}</td>
                                                 <td>₹ {{ $DeliveryInoutputs['grandtotal'] }}</td>

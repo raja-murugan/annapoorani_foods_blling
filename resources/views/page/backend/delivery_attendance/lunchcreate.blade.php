@@ -63,7 +63,7 @@
                                         <th></th><th></th>
                                     </tr>
                                 </thead>
-                                <tbody class="product_fields">
+                                <tbody class="">
                                 @foreach ($deliveryboy as $deliveryboys)
                                     <tr>
                                                 

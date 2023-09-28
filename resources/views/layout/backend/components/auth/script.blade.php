@@ -1058,13 +1058,14 @@ $(document).ready(function() {
                     '<select class="form-control js-example-basic-single purchaseproduct_id select"name="purchaseproduct_id[]" id="purchaseproduct_id' + i + '"required>' +
                     '<option value="" selected hidden class="text-muted">Select Product</option></select>' +
                     '</td>' +
-                    '<td style="background: #eee;"><input type="text" class="form-control quantity" id="quantity" name="quantity[]"placeholder="Quantity" value="" required /></td>' +
-                    '<td style="background: #eee;"><input type="text" class="form-control price" id="price" name="price[]"placeholder="Price" value="" required /></td>' +
-                    '<td style="background: #eee;"><input type="text" class="form-control total_price" id="total_price" name="total_price[]"placeholder="" value="" readonly /></td>' +
+                    '<td style="background: #eee;"><input type="text" class="form-control purchase_quantity" id="quantity" name="purchase_quantity[]" placeholder="Quantity" value="" required /></td>' +
+                    '<td style="background: #eee;"><input type="text" class="form-control purchase_price" id="price" name="purchase_price[]" placeholder="Price" value="" required /></td>' +
+                    '<td style="background: #eee;"><input type="text" class="form-control total_price" id="total_price" name="total_price[]" placeholder="" value="" readonly /></td>' +
                     '<td style="background: #eee;"><button style="width: 35px;margin-right:5px;"class="py-1 text-white font-medium rounded-lg text-sm  text-center btn btn-primary addproductfields"type="button" id="" value="Add">+</button>' +
                     '<button style="width: 35px;" class="text-white py-1 font-medium rounded-lg text-sm  text-center btn btn-danger remove-purchasetr" type="button" >-</button></td>' +
                     '</tr>'
                 );
+
 
                 $.ajax({
                     url: '/getProducts/',
@@ -1189,11 +1190,11 @@ $(document).on('click', '.remove-purchasetr', function() {
 
 
 
-$(document).on("blur", "input[name*=quantity]", function() {
-    var quantity = $(this).val();
-    var price = $(this).parents('tr').find('.price').val();
-    var total = quantity * price;
-    $(this).parents('tr').find('.total_price').val(total);
+    $(document).on("blur", "input[name*=purchase_quantity]", function() {
+        var quantity = $(this).val();
+        var price = $(this).parents('tr').find('.purchase_price').val();
+        var total = quantity * price;
+        $(this).parents('tr').find('.total_price').val(total);
 
         var sum = 0;
         $(".total_price").each(function(){
@@ -1277,9 +1278,9 @@ $(document).on("blur", "input[name*=quantity]", function() {
 
 
 
-$(document).on("blur", "input[name*=price]", function() {
+$(document).on("blur", "input[name*=purchase_price]", function() {
     var price = $(this).val();
-    var quantity = $(this).parents('tr').find('.quantity').val();
+    var quantity = $(this).parents('tr').find('.purchase_quantity').val();
     var total = quantity * price;
     $(this).parents('tr').find('.total_price').val(total);
 

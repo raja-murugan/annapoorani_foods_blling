@@ -26,25 +26,25 @@
         </div>
 
         <div class="card">
-            <div class="card-body" style="overflow: auto;background: #c7eda4;">
+            <div class="card-body" style="overflow: auto;">
 
 
                 <div class="row">
                     <table class="table">
                         <thead><h5 style="text-transform: uppercase;text-align:center;color:black;padding-bottom:10px">{{ $curent_month}}-{{$year}}</h5></thead>
                         <thead>
-                            <tr style="background: #dfe585;">
-                                <th class="" style="border-color: #33333357;">Name</th>
+                            <tr>
+                                <th class="">Name</th>
                                  @foreach ($list as $lists)
-                                    <th class="" style="border-color: #33333357;">{{ $lists }}</th>
+                                    <th class="" >{{ $lists }}</th>
                                   @endforeach
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="background: #dfe585;border-color: #33333357;"></td>
+                                <td ></td>
                                 @foreach ($monthdates as $monthdate_arr)
-                                     <td style="background: #edf0bb;border-color: #33333357;"><a href="{{ route('emp_attendance.edit', ['date' => $monthdate_arr]) }}" class="btn btn-sm btn-soft-info">
+                                     <td class="border"  style=""><a href="{{ route('emp_attendance.edit', ['date' => $monthdate_arr]) }}" class="btn btn-sm btn-soft-info">
                                      <i class="fa fa-edit" data-bs-toggle="tooltip" title="fa fa-edit"></i></a></td>
                                 @endforeach
                             </tr>
@@ -52,21 +52,21 @@
                         <tbody>
                             @foreach ($data as $employee)
                             <tr class="">
-                                <td class="" style="background: #dfe585;color:black;border-color: #33333357;">{{$employee->name}}</td>
+                                <td class="" style="color:black;">{{$employee->name}}</td>
 
                                 @foreach ($attendence_Data as $attendence_Data_arr)
                                     @if ($employee->id == $attendence_Data_arr['empid'])
 
                                         @if ($attendence_Data_arr['attendence_status'] == 'P')
-                                            <td class="" style="color:white;background-color:green;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                            <td class="border" style="color:green;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
                                         @elseif ($attendence_Data_arr['attendence_status'] == 'A')
-                                            <td class="" style="color:white;background-color:red;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                            <td class="border" style="color:red;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
                                         @elseif ($attendence_Data_arr['attendence_status'] == 'L')
-                                            <td class="" style="color:white;background-color:blue;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                            <td class="border" style="color:blue;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
                                         @elseif ($attendence_Data_arr['attendence_status'] == 'SL')
-                                            <td class="" style="color:white;background-color:orange;border-color: #33333357;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
+                                            <td class="border" style="color:orange;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
                                             @else
-                                             <td class="" style="background: azure;border-color: #33333357;"></td>
+                                             <td class="border" style=""></td>
                                         @endif
 
                                     @endif
