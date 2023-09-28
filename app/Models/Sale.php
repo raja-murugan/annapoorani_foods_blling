@@ -25,7 +25,8 @@ class Sale extends Model
         'total',
         'sale_discount',
         'grandtotal',
-        'payment_method'
+        'payment_method',
+        'deliveryboy_id'
     ];
 
 

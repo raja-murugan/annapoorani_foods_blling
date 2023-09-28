@@ -37,6 +37,7 @@ return new class extends Migration
 
             $table->string('payment_method')->nullable();
 
+            $table->unsignedBigInteger('deliveryboy_id')->nullable();
             
             $table->timestamps();
         });

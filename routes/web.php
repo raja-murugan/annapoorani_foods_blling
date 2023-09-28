@@ -192,6 +192,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/sales/datefilter', [SaleController::class, 'datefilter'])->name('sales.datefilter');
         // AUTO COMPLETE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/sales/autocomplete', [SaleController::class, 'autocomplete'])->name('sales.autocomplete');
+        // DELIVERY UPDATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/sales/deliveryupdate/{unique_key}', [SaleController::class, 'deliveryupdate'])->name('sales.deliveryupdate');
     });
 
 

@@ -122,6 +122,19 @@ class SalespaymentController extends Controller
             DB::table('payments')->where('customer_id', $customerid)->update([
                 'saleamount' => $new_grossamount,  'salepaid' => $new_paid, 'salebalance' => $new_balance
             ]);
+        }else {
+
+                $new_grossamount = 0;
+                $paidamount = $request->get('paid_amount');
+                $new_balance = $new_grossamount - $paidamount;
+
+                $Paymentata = new Payment();
+
+                $Paymentata->customer_id = $customerid;
+                $Paymentata->saleamount = 0;
+                $Paymentata->salepaid = $paidamount;
+                $Paymentata->salebalance = $new_balance;
+                $Paymentata->save();
         }
 
         return redirect()->route('salespayment.index')->with('message', 'Added !');

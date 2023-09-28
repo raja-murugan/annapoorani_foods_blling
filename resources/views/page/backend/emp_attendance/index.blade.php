@@ -40,6 +40,7 @@
                                   @endforeach
                             </tr>
                         </thead>
+                        
                         <tbody>
                             <tr>
                                 <td style="background: #dfe585;border-color: #33333357;"></td>

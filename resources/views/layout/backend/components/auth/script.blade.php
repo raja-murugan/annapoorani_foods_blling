@@ -1526,6 +1526,33 @@ function purchasesubmitForm(btn) {
                         }
                     });
             });
+
+
+
+            $('.salepaymentpaid_customerid').on('change', function() {
+                var customerid = this.value;
+                //alert(branch_id);
+                $('.salepayment_paidamt').val('');
+                    $.ajax({
+                        url: '/getoldbalanceforPayment/',
+                        type: 'get',
+                        data: {
+                                customerid: customerid
+                            },
+                        dataType: 'json',
+                        success: function(response) {
+                            //
+                            console.log(response);
+                            var len = response.length;
+                            $('.alreadypaidamount').show();
+                            for (var i = 0; i < len; i++) {
+                                $(".salepayment_paidamt").val(response[i].payment_pending);
+
+                                var sales_totamount = $('.sales_totamount').val();
+                            }
+                        }
+                    });
+            });
     });
 
     $(document).on("keyup", '.salepaymentpaidamt', function() {
@@ -1951,7 +1978,8 @@ $(document).on('click', '.remove-outdoortr', function() {
 
 
     
-       
-
+    $(document).on('click', '.remove-produtseesiondiv', function() {
+        $(this).parents('div.produtseesiondiv').remove();
+    });
 
 </script>

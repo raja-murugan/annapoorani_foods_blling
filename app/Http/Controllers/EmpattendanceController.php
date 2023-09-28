@@ -208,12 +208,24 @@ class EmpattendanceController extends Controller
     public function edit($date)
     {
         $EmployeeAttendance = Empattendance::where('date', '=', $date)->first();
-        $employee = Employee::where('soft_delete', '!=', 1)->get();
-        $today = Carbon::now()->format('Y-m-d');
-        $timenow = Carbon::now()->format('H:i');
-        $EmployeeattendanceData = Empattendancedata::where('employeeattendance_id', '=', $EmployeeAttendance->id)->get();
 
-        return view('page.backend.emp_attendance.edit', compact('EmployeeAttendance', 'employee', 'today', 'timenow', 'EmployeeattendanceData'));
+        if($EmployeeAttendance != ""){
+            $EmployeeattendanceData = Empattendancedata::where('employeeattendance_id', '=', $EmployeeAttendance->id)->get();
+
+            $employee = Employee::where('soft_delete', '!=', 1)->get();
+            $today = Carbon::now()->format('Y-m-d');
+            $timenow = Carbon::now()->format('H:i');
+        
+
+            return view('page.backend.emp_attendance.edit', compact('EmployeeAttendance', 'employee', 'today', 'timenow', 'EmployeeattendanceData'));
+        }else {
+            $employee = Employee::where('soft_delete', '!=', 1)->get();
+            $today = $date;
+            $timenow = Carbon::now()->format('H:i');
+
+            return view('page.backend.emp_attendance.create', compact('employee', 'today', 'timenow'));
+        }
+        
     }
 
 

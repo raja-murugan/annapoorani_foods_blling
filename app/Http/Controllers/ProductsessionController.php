@@ -21,25 +21,54 @@ class ProductsessionController extends Controller
 {
     public function index()
     {
-        $data = Productsession::where('soft_delete', '!=', 1)->orderBy('id', 'DESC')->get();
+        $data = Product::where('soft_delete', '!=', 1)->orderBy('id', 'DESC')->get();
         $Productdata = [];
+        $terms = [];
         foreach ($data as $key => $datas) {
+
+            $productsessiondata = Productsession::where('product_id', '=', $datas->id)->where('soft_delete', '!=', 1)->get();
+            foreach ($productsessiondata as $key => $productsessiondatas) {
+
+                $terms[] = array(
+                    'sessionname' => $productsessiondatas->sessionname,
+                    'product_id' => $productsessiondatas->product_id,
+                    'session_id' => $productsessiondatas->session_id,
+                    'id' => $productsessiondatas->id,
+                );
+            }
+            $category_id = Category::findOrFail($datas->category_id);
+
+          
 
             $Productdata[] = array(
                 'id' => $datas->id,
-                'product_id' => $datas->product_id,
-                'session_id' => $datas->session_id,
-                'sessionname' => $datas->sessionname,
-                'category_id' => $datas->category_id,
-                'category_name' => $datas->category_name,
-                'productname' => $datas->productname,
-                'productimage' => $datas->productimage,
-                'productprice' => $datas->productprice,
+                'product_id' => $datas->id,
+                'productname' => $datas->name,
+                'productimage' => $datas->image,
+                'productprice' => $datas->price,
+                'category_name' => $category_id->name,
+                'terms' => $terms,
             );
         }
         $session = Session::where('soft_delete', '!=', 1)->get();
+
+
         $Product = Product::where('soft_delete', '!=', 1)->get();
-        return view('page.backend.productsession.index', compact('Productdata', 'session', 'Product'));
+        $product_Arr = [];
+        foreach ($Product as $key => $Product_arr) {
+
+            $productsession_data = Productsession::where('product_id', '=', $Product_arr->id)->where('soft_delete', '!=', 1)->first();
+
+            if($productsession_data == ''){
+
+                $product_Arr[] = array(
+                    'id' => $Product_arr->id,
+                    'name' => $Product_arr->name,
+                );
+            }
+        }
+
+        return view('page.backend.productsession.index', compact('Productdata', 'session', 'product_Arr', 'Product'));
     }
 
 
@@ -85,28 +114,65 @@ class ProductsessionController extends Controller
     public function edit(Request $request, $id)
     {
 
-        $olddata = Productsession::where('session_id', '=', $request->get('session_id'))->where('product_id', '=', $request->get('product_id'))->first();
-        if($olddata == ""){
-            $ProductData = Productsession::findOrFail($id);
-
-            $session = Session::findOrFail($request->get('session_id'));
-            $product = Product::findOrFail($request->get('product_id'));
-            $category = Category::findOrFail($product->category_id);
-    
-            $ProductData->product_id = $request->get('product_id');
-            $ProductData->session_id = $request->get('session_id');
-            $ProductData->sessionname = $session->name;
-            $ProductData->category_id = $product->category_id;
-            $ProductData->category_name = $category->name;
-            $ProductData->productname = $product->name;
-            $ProductData->productimage = $product->image;
-            $ProductData->productprice = $product->price;
-            $ProductData->update();
-    
-            return redirect()->route('productsession.index')->with('info', 'Updated !');
-        }else {
-            return redirect()->route('productsession.index')->with('warning', 'Already Existed !');
+        $getinsertedP_Products = Productsession::where('product_id', '=', $id)->get();
+        $Purchaseproducts = array();
+        foreach ($getinsertedP_Products as $key => $getinserted_P_Products) {
+            $Purchaseproducts[] = $getinserted_P_Products->id;
         }
+
+        $updatedpurchaseproduct_id = $request->productsession_id;
+        $updated_PurchaseProduct_id = array_filter($updatedpurchaseproduct_id);
+        $different_ids = array_merge(array_diff($Purchaseproducts, $updated_PurchaseProduct_id), array_diff($updated_PurchaseProduct_id, $Purchaseproducts));
+
+        if (!empty($different_ids)) {
+            foreach ($different_ids as $key => $different_id) {
+                Productsession::where('id', $different_id)->delete();
+            }
+        }
+
+        error_reporting(0);
+        foreach ($request->get('productsession_id') as $key => $productsession_id) {
+            if ($productsession_id > 0) {
+
+                if ($request->session_id[$key] > 0) {
+
+                    $ids = $productsession_id;
+                    $product_id = $id;
+                    $session_id = $request->session_id[$key];
+
+                    DB::table('productsessions')->where('id', $ids)->update([
+                        'session_id' => $session_id
+                    ]);
+                }
+
+            } else if ($productsession_id == '') {
+                if ($request->session_id[$key] > 0) {
+
+
+                    $olddata = Productsession::where('session_id', '=', $request->session_id[$key])->where('product_id', '=', $id)->first();
+                    if($olddata == ""){
+
+                        $session = Session::findOrFail($request->session_id[$key]);
+                        $product = Product::findOrFail($id);
+                        $category = Category::findOrFail($product->category_id);
+
+                        $Productsession = new Productsession;
+                        $Productsession->product_id = $id;
+                        $Productsession->session_id = $request->session_id[$key];
+                        $Productsession->sessionname = $session->name;
+                        $Productsession->category_id = $product->category_id;
+                        $Productsession->category_name = $category->name;
+                        $Productsession->productname = $product->name;
+                        $Productsession->productimage = $product->image;
+                        $Productsession->productprice = $product->price;
+                        $Productsession->save();
+                    }
+                }
+            }
+        }
+
+        return redirect()->route('productsession.index')->with('info', 'Updated !');
+
 
         
     }

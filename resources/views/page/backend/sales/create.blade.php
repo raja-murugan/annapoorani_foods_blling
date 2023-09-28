@@ -221,7 +221,7 @@
                                                 </select>
                                             </div>
                                             <div class="select-group w-100 cutomer_arr" style="display:none">
-                                                <select class="form-control js-example-basic-single select" name="customer_id" id="customer_id">
+                                                <select class="form-control js-example-basic-single select salepaymentpaid_customerid" name="customer_id" id="customer_id">
                                                     <option value="" disabled selected hiddden>Select Customer</option>
                                                     @foreach ($customer_rray as $customers)
                                                         <option value="{{ $customers->id }}">{{ $customers->name }}</option>
@@ -259,7 +259,7 @@
                                         <li class="total-value">
                                             <h5>Total </h5>
                                             <h6 class="subtotalamount"></h6>
-                                            <input type="hidden" name="totalamount" id="totalamount" value="" />
+                                            <input type="hidden" name="totalamount" id="totalamount" class="sales_totamount" value="" />
                                         </li>
                                     </ul>
                                 </div>
@@ -288,6 +288,9 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="text" placeholder="Enter Discount" class="sale_discount" name="sale_discount" id="sale_discount"/>
+                                </div>
+                                <div class="form-group alreadypaidamount" style="display:none">
+                                    <input type="text" placeholder="Sale Payment Paid" class="salepayment_paidamt" readonly style="background: #32bb7c;color:white" name="salepayment_paid" id="salepayment_paid"/>
                                 </div>
                                 <div class="btn-totallabel">
                                     <button type="submit" class="btn btn-sm " id="submit"

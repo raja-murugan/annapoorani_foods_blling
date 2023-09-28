@@ -32,7 +32,13 @@
                                     <td>{{ ++$keydata }}</td>
                                     <td>{{ $Productdatas['productname'] }}</td>
                                     <td>{{ $Productdatas['category_name'] }}</td>
-                                    <td>{{ $Productdatas['sessionname'] }}</td>
+                                    <td>
+                                    @foreach ($Productdatas['terms'] as $index => $terms_array)
+                                                    @if ($terms_array['product_id'] == $Productdatas['id'])
+                                                    {{ $terms_array['sessionname'] }},<br/>
+                                                    @endif
+                                                    @endforeach
+                                    </td>
                                     <td>
                                         <ul class="list-unstyled hstack gap-1 mb-0">
                                             <li>

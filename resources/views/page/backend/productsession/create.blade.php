@@ -12,8 +12,8 @@
                             <label>Product <span style="color: red;">*</span></label>
                             <select class="form-control  select product_id" name="product_id" id="product_id" >
                                  <option value="" disabled selected hiddden>Select Product</option>
-                                 @foreach ($Product as $Products)
-                                    <option value="{{ $Products->id }}">{{ $Products->name }}</option>
+                                 @foreach ($product_Arr as $product_Arrs)
+                                    <option value="{{ $product_Arrs['id'] }}">{{ $product_Arrs['name'] }}</option>
                                  @endforeach
                            </select>
                         </div>

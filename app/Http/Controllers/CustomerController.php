@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Customer;
+use App\Models\Payment;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -13,7 +14,33 @@ class CustomerController extends Controller
     public function index()
     {
         $data = Customer::where('soft_delete', '!=', 1)->get();
-        return view('page.backend.customer.index', compact('data'));
+
+        $customerdata = [];
+        foreach ($data as $key => $datas) {
+
+            $PaymentsData = Payment::where('customer_id', '=', $datas->id)->first();
+            if($PaymentsData != ""){
+                if($PaymentsData->salepaid > $PaymentsData->saleamount){
+                    $account_balance = $PaymentsData->salepaid - $PaymentsData->saleamount;
+                    $pending_amount = '';
+                }else if($PaymentsData->saleamount > $PaymentsData->salepaid){
+                    $pending_amount = $PaymentsData->saleamount - $PaymentsData->salepaid;
+                    $account_balance = '';
+                }
+            }
+
+            $customerdata[] = array(
+                'id' => $datas->id,
+                'unique_key' => $datas->unique_key,
+                'name' => $datas->name,
+                'phone_number' => $datas->phone_number,
+                'address' => $datas->address,
+                'account_balance' => $account_balance,
+                'pending_amount' => $pending_amount,
+            );
+        }
+
+        return view('page.backend.customer.index', compact('customerdata'));
     }
 
 
