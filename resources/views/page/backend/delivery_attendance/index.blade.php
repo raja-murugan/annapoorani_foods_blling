@@ -1,4 +1,4 @@
-@extends('layout.backend.auth')
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @extends('layout.backend.auth')
 
 @section('content')
     <div class="content">
@@ -22,26 +22,26 @@
                         <a href="{{ route('delivery_attendance.breakfastcreate') }}" class="btn btn-added" style="margin-right: 10px;background: black;">BreakFast</a>
                         <a href="{{ route('delivery_attendance.lunchcreate') }}" class="btn btn-added" style="margin-right: 10px;background: black;">Lunch</a>
                         <a href="{{ route('delivery_attendance.dinnercreate') }}" class="btn btn-added" style="margin-right: 10px;background: black;">Dinner</a>
-                </div>  
-                    
+                </div>
+
             </div>
         </div>
 
         <div class="card">
             <div class="card-body" style="overflow: auto;">
-                
+
                     <div class="row">
                         <table class="table">
                             <thead><h5 style="text-transform: uppercase;text-align:center;color:black;padding-bottom:10px">{{ $curent_month}}-{{$year}}</h5></thead>
                             <thead>
                                 <tr>
-                                    <th class="border">Name</th>
+                                    <th class="border">Date</th>
                                     @foreach ($list as $lists)
                                         <th colspan="3" class="border" style="text-align:center;">{{ $lists }}</th>
                                     @endforeach
                                 </tr>
                                 <tr>
-                                    <th class="border"></th>
+                                    <th class="border">Session</th>
                                     @foreach ($list as $lists)
                                     @foreach ($session_terms as $session_termsarr)
                                     <th class="border" style="text-align:center;">{{$session_termsarr['session']}}</th>
@@ -51,7 +51,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="border"></td>
+                                <td class="border">Add / Edit</td>
                                 @foreach ($list as $lists)
                                @foreach ($session_terms as $session_termsarr)
                                      <td class="border"><a href="{{ route('delivery_attendance.edit', ['date' => $year.'-'.$month. '-'.$lists, 'session_id' => $session_termsarr['id']]) }}" class="btn btn-sm btn-soft-info">
@@ -72,7 +72,7 @@
                                             <td class="border" style="color:green;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
                                         @elseif ($attendence_Data_arr['attendence_status'] == 'A')
                                             <td class="border" style="color:red;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
-                                        
+
                                             @else
                                              <td class="border"></td>
                                         @endif

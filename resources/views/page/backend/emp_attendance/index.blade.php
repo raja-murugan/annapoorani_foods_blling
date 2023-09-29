@@ -20,8 +20,8 @@
                             </div>
                         </form>
                         <a href="{{ route('emp_attendance.create') }}" class="btn btn-added" style="margin-right: 10px;">Add New</a>
-                </div>  
-                    
+                </div>
+
             </div>
         </div>
 
@@ -31,21 +31,24 @@
 
                 <div class="row">
                     <table class="table">
-                        <thead><h5 style="text-transform: uppercase;text-align:center;color:black;padding-bottom:10px">{{ $curent_month}}-{{$year}}</h5></thead>
+                        <thead><h5 style="text-transform: uppercase;text-align:center;color:black;padding-bottom:10px">{{ $curent_month}} - {{$year}}</h5></thead>
                         <thead>
                             <tr>
-                                <th class="">Name</th>
+                                <th class="border">Date</th>
                                  @foreach ($list as $lists)
-                                    <th class="" >{{ $lists }}</th>
+                                    <th class="border">{{ $lists }}</th>
                                   @endforeach
+                            </tr>
+                            <tr>
+                                <th class="border">Day</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td ></td>
+                                <td class="border">Add / Edit</td>
                                 @foreach ($monthdates as $monthdate_arr)
                                      <td class="border"  style=""><a href="{{ route('emp_attendance.edit', ['date' => $monthdate_arr]) }}" class="btn btn-sm btn-soft-info">
-                                     <i class="fa fa-edit" data-bs-toggle="tooltip" title="fa fa-edit"></i></a></td>
+                                        <img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}" alt="img"></a></td>
                                 @endforeach
                             </tr>
                         </tbody>
@@ -77,7 +80,7 @@
                     </table>
                 </div>
 
-            
+
             </div>
         </div>
     </div>
