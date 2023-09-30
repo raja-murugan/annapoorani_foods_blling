@@ -6,7 +6,7 @@
             <div class="page-title">
                 <h4>Sales</h4>
             </div>
-            
+
             <div class="page-btn">
                 <div style="display: flex;">
                         <form autocomplete="off" method="POST" action="{{ route('sales.datefilter') }}">
@@ -28,9 +28,9 @@
                             </div>
                         </form>
                         <a href="{{ route('sales.create') }}" class="btn btn-added" style="margin-right: 10px;">Add New</a>
-                </div>   
-            
-                    
+                </div>
+
+
             </div>
         </div>
 
@@ -80,7 +80,7 @@
 
                     <div class="card">
                         <div class="card-body">
-                        
+
                             <div class="table-responsive">
                                 <table class="table  datanew">
                                     <thead>
@@ -102,7 +102,7 @@
                                                 <td> {{ $datas['sales_type']  }}</td>
                                                 <td>{{ $datas['customer']}}</td>
                                                 <td>{{ $datas['payment_method']   }}</td>
-                                                <td>₹ {{ $datas['grandtotal']   }}</td> 
+                                                <td>₹ {{ $datas['grandtotal']   }}</td>
                                                 <td>
 
                                                 <ul class="list-unstyled hstack gap-1 mb-0">
@@ -114,7 +114,7 @@
 
                                                         </li>
                                                         <li>
-                                                        <a href="https://allhighcare.com/zworktechnology/sales/print/{{ $datas['id'] }}" class="badges btn btn-success" style="color:white">Print</a>
+                                                        <a href="https://annapooranifoods.com/zworktechnology/sales/print/{{ $datas['id'] }}" class="badges btn btn-success" style="color:white">Print</a>
                                                         </li>
                                                         <li>
                                                             <a href="#delete{{ $datas['unique_key'] }}" data-bs-toggle="modal"
@@ -138,7 +138,7 @@
                                                 aria-hidden="true">
                                                 @include('page.backend.sales.delete')
                                             </div>
-                                            
+
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -151,7 +151,7 @@
 
                     <div class="card">
                             <div class="card-body">
-                            
+
                                 <div class="table-responsive">
                                     <table class="table  datanew">
                                         <thead>
@@ -173,7 +173,7 @@
                                                     <td> {{ $datas['sales_type']  }}</td>
                                                     <td>{{ $datas['customer']}}</td>
                                                     <td>{{ $datas['payment_method']   }}</td>
-                                                    <td>₹ {{ $datas['grandtotal']   }}</td> 
+                                                    <td>₹ {{ $datas['grandtotal']   }}</td>
                                                     <td>
 
                                                     <ul class="list-unstyled hstack gap-1 mb-0">
@@ -185,7 +185,7 @@
 
                                                             </li>
                                                             <li>
-                                                            <a href="https://allhighcare.com/zworktechnology/sales/print/{{ $datas['id'] }}" class="badges btn btn-success" style="color:white">Print</a>
+                                                            <a href="https://annapooranifoods.com/zworktechnology/sales/print/{{ $datas['id'] }}" class="badges btn btn-success" style="color:white">Print</a>
                                                             </li>
                                                             <li>
                                                                 <a href="#delete{{ $datas['unique_key'] }}" data-bs-toggle="modal"
@@ -209,7 +209,7 @@
                                                     aria-hidden="true">
                                                     @include('page.backend.sales.delete')
                                                 </div>
-                                                
+
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -221,7 +221,7 @@
                 <div class="tab-pane" id="solid-tab3">
                     <div class="card">
                                 <div class="card-body">
-                                
+
                                     <div class="table-responsive">
                                         <table class="table  datanew">
                                             <thead>
@@ -258,7 +258,7 @@
                                                             @endif
                                                         </td>
                                                         <td style="color: #dc3545;"><i class="fa fa-user-circle" data-bs-toggle="tooltip" title="fa fa-user-circle"></i> {{$datas['Delivery_boyname']}}</td>
-                                                        <td>₹ {{ $datas['grandtotal']   }}</td> 
+                                                        <td>₹ {{ $datas['grandtotal']   }}</td>
                                                         <td>
 
                                                         <ul class="list-unstyled hstack gap-1 mb-0">
@@ -270,7 +270,7 @@
 
                                                                 </li>
                                                                 <li>
-                                                                <a href="https://allhighcare.com/zworktechnology/sales/print/{{ $datas['id'] }}" class="badges btn btn-success" style="color:white">Print</a>
+                                                                <a href="https://annapooranifoods.com/zworktechnology/sales/print/{{ $datas['id'] }}" class="badges btn btn-success" style="color:white">Print</a>
                                                                 </li>
                                                                 <li>
                                                                     <a href="#delete{{ $datas['unique_key'] }}" data-bs-toggle="modal"
@@ -300,7 +300,7 @@
                                                         aria-hidden="true">
                                                         @include('page.backend.sales.delete')
                                                     </div>
-                                                    
+
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -311,6 +311,6 @@
                         </div>
                     </div>
             </div>
-                
+
     </div>
 @endsection
