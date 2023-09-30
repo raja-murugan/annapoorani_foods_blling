@@ -97,7 +97,7 @@
                                     <tbody>
                                         @foreach ($saledinein_data as $keydata => $datas)
                                             <tr>
-                                                <td>#{{ $datas['bill_no'] }}</td>
+                                                <td>{{ $datas['bill_no'] }}</td>
                                                 <td> {{ $datas['date']  }}</td>
                                                 <td> {{ $datas['sales_type']  }}</td>
                                                 <td>{{ $datas['customer']}}</td>
@@ -168,7 +168,7 @@
                                         <tbody>
                                             @foreach ($saletakeway_data as $keydata => $datas)
                                                 <tr>
-                                                    <td>#{{ $datas['bill_no'] }}</td>
+                                                    <td>{{ $datas['bill_no'] }}</td>
                                                     <td> {{ $datas['date']  }}</td>
                                                     <td> {{ $datas['sales_type']  }}</td>
                                                     <td>{{ $datas['customer']}}</td>
