@@ -33,7 +33,7 @@
                             @php
                             $lastword = Request::url();
                             $current_url = "http://127.0.0.1:8000/zworktechnology/sales/create";
-                            $live_url = "https://allhighcare.com/zworktechnology/sales/create";
+                            $live_url = "https://annapooranifoods.com/zworktechnology/sales/create";
 
                             @endphp
 
@@ -47,13 +47,13 @@
                                 .avatar .ui-icon {
                                 background-position: left top;
                                 }
-                            </style>      
-                            
-                            
-                          <select class="select2PS js-example-basic-single select form-control" id="select2PS" style="width : 200%" data-placeholder="Select a Product" >                             
+                            </style>
+
+
+                          <select class="select2PS js-example-basic-single select form-control" id="select2PS" style="width : 200%" data-placeholder="Select a Product" >
                             <option>Select Product...</option>
                         </select>
-                        
+
 
                     </div>
                     @endif
