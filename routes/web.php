@@ -23,6 +23,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\OutdoorController;
 use App\Http\Controllers\OpenaccountController;
 use App\Http\Controllers\DenominationController;
+use App\Http\Controllers\OutdoorproductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -390,6 +391,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
 
+     // OUTDOOR PRODUCT CONTROLLER
+     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/outdoor_product', [OutdoorproductController::class, 'index'])->name('outdoor_product.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/outdoor_product/store', [OutdoorproductController::class, 'store'])->name('outdoor_product.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/outdoor_product/edit/{unique_key}', [OutdoorproductController::class, 'edit'])->name('outdoor_product.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/outdoor_product/delete/{unique_key}', [OutdoorproductController::class, 'delete'])->name('outdoor_product.delete');
+    });
+
 
     //Route::get('/zworktechnology/sales/print/{sales_id}', function () {return view('page/backend/sales/print');});
 });
@@ -408,3 +421,4 @@ Route::get('/getselectedsessioncat', [SaleController::class, 'getselectedsession
 
 Route::get('/getoldbalanceforPayment', [SaleController::class, 'getoldbalanceforPayment']);
 Route::get('/getbalanceforpurchasePayment', [PurchaseController::class, 'getbalanceforpurchasePayment']);
+Route::get('getoutdoorProducts/', [OutdoorproductController::class, 'getoutdoorProducts']);

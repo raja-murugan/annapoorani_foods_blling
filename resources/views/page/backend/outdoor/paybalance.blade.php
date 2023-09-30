@@ -33,19 +33,19 @@
                         <div class="col-lg-4 col-sm-4 col-12">
                             <div class="form-group">
                                 <label>Total Amount</label>
-                                <input type="text" name="outdoortotal_amt" class="outdoortotal_amt" readonly value="{{ $datas['total']  }}" style="background: #d2d53e;color: #c32a2a;" >
+                                <input type="text" name="outdoortotal_amt" class="outdoortotal_amt" readonly value="{{ $datas['total']  }}" style="background: #f8f9fa;color: #2ac368;" >
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-4 col-12">
                             <div class="form-group">
                                 <label>Total Paid</label>
-                                <input type="text" name="outdoortotal_paid" class="outdoortotal_paid{{ $datas['id'] }}" readonly value="{{ $datas['payment_amount']  }}" style="background: #73dc72;color: #c32a2a;" >
+                                <input type="text" name="outdoortotal_paid" class="outdoortotal_paid{{ $datas['id'] }}" readonly value="{{ $datas['payment_amount']  }}" style="background: #f8f9fa;color: #8f7320;" >
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-4 col-12">
                             <div class="form-group">
                                 <label>Balace Amount</label>
-                                <input type="text" name="outdoortotal_bal" class="outdoortotal_bal{{ $datas['id'] }}" readonly value="{{ $datas['balanceamount']  }}" style="background: #ffc107;color: #c32a2a;" >
+                                <input type="text" name="outdoortotal_bal" class="outdoortotal_bal{{ $datas['id'] }}" readonly value="{{ $datas['balanceamount']  }}" style="background: #f8f9fa;color: #c32a2a;" >
                             </div>
                         </div>
                     </div>
@@ -134,6 +134,16 @@
                            <input type="text" class="outdoorpayment_amount{{ $datas['id'] }}" id="outdoorpayment_amount{{ $datas['id'] }}" name="payment_amount"  placeholder="Enter Payable Amount"  >
                         </div>
                      </div>
+                     <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <select class="select bank_id" name="bank_id" id="bank_id" required>
+                                    @foreach ($Bank as $banks)
+                                       <option value="{{ $banks->id }}">{{ $banks->name }}</option>
+                                    @endforeach
+                                 </select>
+                        </div>
+                    </div>
                 </div>
                      <hr>
                     <div class="col-lg-12 button-align">

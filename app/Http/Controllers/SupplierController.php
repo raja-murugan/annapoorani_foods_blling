@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Supplier;
+use App\Models\Payment;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -13,7 +14,35 @@ class SupplierController extends Controller
     public function index()
     {
         $data = Supplier::where('soft_delete', '!=', 1)->get();
-        return view('page.backend.supplier.index', compact('data'));
+
+        $supplierdata = [];
+        foreach ($data as $key => $datas) {
+
+            $PaymentsData = Payment::where('supplier_id', '=', $datas->id)->first();
+            if($PaymentsData != ""){
+                if($PaymentsData->purchase_paid > $PaymentsData->purchase_amount){
+                    $account_balance = $PaymentsData->purchase_paid - $PaymentsData->purchase_amount;
+                    $pending_amount = '';
+                }else if($PaymentsData->purchase_amount > $PaymentsData->purchase_paid){
+                    $pending_amount = $PaymentsData->purchase_amount - $PaymentsData->purchase_paid;
+                    $account_balance = '';
+                }
+            }else {
+                $pending_amount = '';
+                $account_balance = '';
+            }
+
+            $supplierdata[] = array(
+                'id' => $datas->id,
+                'unique_key' => $datas->unique_key,
+                'name' => $datas->name,
+                'phone_number' => $datas->phone_number,
+                'address' => $datas->address,
+                'account_balance' => $account_balance,
+                'pending_amount' => $pending_amount,
+            );
+        }
+        return view('page.backend.supplier.index', compact('supplierdata'));
     }
 
 
@@ -30,6 +59,21 @@ class SupplierController extends Controller
         $data->old_balance = $request->get('old_balance');
 
         $data->save();
+
+
+        $supplierid = $data->id;
+        $PaymentBalanceDAta = Payment::where('supplier_id', '=', $supplierid)->first();
+        if($PaymentBalanceDAta == ""){
+            $balance_amount = $request->get('old_balance');
+            $paymentbalacedata = new Payment();
+
+            $paymentbalacedata->supplier_id = $supplierid;
+            $paymentbalacedata->purchase_amount = $balance_amount;
+            $paymentbalacedata->purchase_paid = 0;
+            $paymentbalacedata->purchase_balance = $balance_amount;
+            $paymentbalacedata->save();
+        }
+
 
 
         return redirect()->route('supplier.index')->with('message', 'Added !');

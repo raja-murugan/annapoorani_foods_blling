@@ -7,6 +7,7 @@ use App\Models\Outdoor;
 use App\Models\Outdoordata;
 use App\Models\Outdoorpayment;
 use App\Models\Bank;
+use App\Models\Outdoorproduct;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -86,7 +87,8 @@ class OutdoorController extends Controller
         }
 
         $currentdate = Carbon::now()->format('Y-m-d');
-        return view('page.backend.outdoor.index', compact('outdoor_data', 'today', 'currentdate'));
+        $Bank = Bank::where('soft_delete', '!=', 1)->get();
+        return view('page.backend.outdoor.index', compact('outdoor_data', 'today', 'currentdate', 'Bank'));
     }
 
 
@@ -152,13 +154,15 @@ class OutdoorController extends Controller
         }
 
         $currentdate = Carbon::now()->format('Y-m-d');
-        return view('page.backend.outdoor.index', compact('outdoor_data', 'today', 'currentdate'));
+        $Bank = Bank::where('soft_delete', '!=', 1)->get();
+        return view('page.backend.outdoor.index', compact('outdoor_data', 'today', 'currentdate', 'Bank'));
     }
 
 
     public function create()
     {
         $Bank = Bank::where('soft_delete', '!=', 1)->get();
+        $outdoorproduct = Outdoorproduct::where('soft_delete', '!=', 1)->get();
         $today = Carbon::now()->format('Y-m-d');
         $timenow = Carbon::now()->format('H:i');
 
@@ -169,7 +173,7 @@ class OutdoorController extends Controller
             $billno = 1;
         }
 
-        return view('page.backend.outdoor.create', compact('today', 'timenow', 'Bank', 'billno'));
+        return view('page.backend.outdoor.create', compact('today', 'timenow', 'Bank', 'billno', 'outdoorproduct'));
     }
 
 
@@ -192,26 +196,51 @@ class OutdoorController extends Controller
             $data->outdoortax = $request->get('outdoortax');
             $data->outdoortax_amount = $request->get('outdoortax_amount');
             $data->total = $request->get('outdoor_grandtotal');
-            $data->payment_amount = 0;
-            $data->balanceamount = $request->get('outdoor_grandtotal');
+
+            if($request->get('payment_amount') != ""){
+                $data->payment_amount = $request->get('payment_amount');
+                $balanceamt = $request->get('outdoor_grandtotal') - $request->get('payment_amount');
+                $data->balanceamount = $balanceamt;
+                if($balanceamt == 0){
+                    $data->delivery_status = 1;
+                }else {
+                    $data->delivery_status = 0;
+                }
+            }else {
+                $data->payment_amount = 0;
+                $data->balanceamount = $request->get('outdoor_grandtotal');
+                $data->delivery_status = 0;
+            }
+            
+           
+            
             $data->bank_id = $request->get('bank_id');
-            $data->delivery_status = 0;
             $data->save();
     
             $insertedId = $data->id;
     
     
-            foreach ($request->get('product') as $key => $product) {
+            foreach ($request->get('outdoorproduct_id') as $key => $outdoorproduct_id) {
     
                     $Outdoordata = new Outdoordata;
                     $Outdoordata->outdoor_id = $insertedId;
-                    $Outdoordata->product = $product;
+                    $Outdoordata->product = $outdoorproduct_id;
                     $Outdoordata->quantity = $request->outdoorquantity[$key];
                     $Outdoordata->price_per_quantity = $request->outdoorpriceperquantity[$key];
                     $Outdoordata->price = $request->outdoorprice[$key];
+                    $Outdoordata->outdoornote = $request->outdoornote[$key];
                     $Outdoordata->save();
     
             }
+
+
+            $Outdoorpayment = new Outdoorpayment;
+            $Outdoorpayment->outdoor_id = $insertedId;
+            $Outdoorpayment->payment_term = $request->get('payment_term');
+            $Outdoorpayment->payment_amount = $request->get('payment_amount');
+            $Outdoorpayment->payment_date = $request->get('booking_date');
+            $Outdoorpayment->payment_method = $request->get('bank_id');
+            $Outdoorpayment->save();
     
     
             return redirect()->route('outdoor.index')->with('message', 'outdoor Data added successfully!');
@@ -224,9 +253,11 @@ class OutdoorController extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $timenow = Carbon::now()->format('H:i');
         $Outdoordata = Outdoordata::where('outdoor_id', '=', $Outdoor->id)->get();
+        $OutdoorPayments = Outdoorpayment::where('outdoor_id', '=', $Outdoor->id)->get();
         $Bank = Bank::where('soft_delete', '!=', 1)->get();
+        $outdoorproduct = Outdoorproduct::where('soft_delete', '!=', 1)->get();
 
-        return view('page.backend.outdoor.edit', compact('Outdoor', 'today', 'timenow', 'Outdoordata', 'Bank'));
+        return view('page.backend.outdoor.edit', compact('Outdoor', 'today', 'timenow', 'Outdoordata', 'Bank', 'OutdoorPayments', 'outdoorproduct'));
     }
 
 
@@ -248,7 +279,8 @@ class OutdoorController extends Controller
         $Outdoor->outdoortax = $request->get('outdoortax');
         $Outdoor->outdoortax_amount = $request->get('outdoortax_amount');
         $Outdoor->total = $request->get('outdoor_grandtotal');
-        $Outdoor->bank_id = $request->get('bank_id');
+        $Outdoor->payment_amount = $request->get('outdoor_totalpaid');
+
 
         $outdoor_grandtotal = $request->get('outdoor_grandtotal');
         $payment_amount = $Outdoor->payment_amount;
@@ -261,6 +293,28 @@ class OutdoorController extends Controller
         $Outdoor->update();
 
         $Outdoor_id = $Outdoor->id;
+
+
+
+        foreach ($request->get('outdoor_payment_id') as $key => $outdoor_payment_id) {
+
+            if ($outdoor_payment_id > 0) {
+
+
+                $ids = $outdoor_payment_id;
+                $payment_term = $request->payment_term[$key];
+                $payment_amount = $request->outdooreditpayment_amount[$key];
+                $payment_method = $request->bank_id[$key];
+                $payment_date = $request->payment_date[$key];
+
+                DB::table('outdoorpayments')->where('id', $ids)->update([
+                    'outdoor_id' => $Outdoor_id,  'payment_term' => $payment_term,  'payment_amount' => $payment_amount,  'payment_date' => $payment_date,  'payment_method' => $payment_method
+                ]);
+
+            }
+        }
+
+
 
         $getinsertedP_Products = Outdoordata::where('outdoor_id', '=', $Outdoor_id)->get();
         $Purchaseproducts = array();
@@ -286,13 +340,14 @@ class OutdoorController extends Controller
 
                 $ids = $outdoor_detail_id;
                 $Outdoorid = $Outdoor_id;
-                $product = $request->product[$key];
+                $product = $request->outdoorproduct_id[$key];
                 $quantity = $request->outdoorquantity[$key];
                 $price_per_quantity = $request->outdoorpriceperquantity[$key];
                 $price = $request->outdoorprice[$key];
+                $outdoornote = $request->outdoornote[$key];
 
                 DB::table('outdoordatas')->where('id', $ids)->update([
-                    'outdoor_id' => $Outdoorid,  'product' => $product,  'quantity' => $quantity,  'price_per_quantity' => $price_per_quantity,  'price' => $price
+                    'outdoor_id' => $Outdoorid,  'product' => $product,  'quantity' => $quantity,  'price_per_quantity' => $price_per_quantity,  'price' => $price,  'outdoornote' => $outdoornote
                 ]);
 
             } else if ($outdoor_detail_id == '') {
@@ -300,10 +355,11 @@ class OutdoorController extends Controller
 
                     $Outdoordata = new Outdoordata;
                     $Outdoordata->outdoor_id = $Outdoor_id;
-                    $Outdoordata->product = $request->product[$key];
+                    $Outdoordata->product = $request->outdoorproduct_id[$key];
                     $Outdoordata->quantity = $request->outdoorquantity[$key];
                     $Outdoordata->price_per_quantity = $request->outdoorpriceperquantity[$key];
                     $Outdoordata->price = $request->outdoorprice[$key];
+                    $Outdoordata->outdoornote = $request->outdoornote[$key];
                     $Outdoordata->save();
                 }
             }
@@ -343,6 +399,7 @@ class OutdoorController extends Controller
         $Outdoorpayment->payment_term = $request->get('payment_term');
         $Outdoorpayment->payment_amount = $request->get('payment_amount');
         $Outdoorpayment->payment_date = $request->get('payment_date');
+        $Outdoorpayment->payment_method = $request->get('bank_id');
         $Outdoorpayment->save();
 
         $payableAmount = $request->get('payment_amount');

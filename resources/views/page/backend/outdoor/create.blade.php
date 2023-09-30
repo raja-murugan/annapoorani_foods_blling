@@ -99,9 +99,10 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th style="font-size:15px; width:30%;">Product</th>
-                                        <th style="font-size:15px; width:20%;">Quantity</th>
-                                        <th style="font-size:15px; width:20%;">Price / Qty</th>
+                                        <th style="font-size:15px; width:20%;">Product</th>
+                                        <th style="font-size:15px; width:25%;">Note</th>
+                                        <th style="font-size:15px; width:10%;">Quantity</th>
+                                        <th style="font-size:15px; width:15%;">Price / Qty</th>
                                         <th style="font-size:15px; width:20%;">Total</th>
                                         <th style="font-size:15px; width:10%;">Action </th>
                                     </tr>
@@ -109,8 +110,17 @@
                                 <tbody class="outdoor_fields">
                                     <tr>
                                        <td><input type="hidden"id="outdoor_detail_id"name="outdoor_detail_id[]" value=""/>
-                                          <input type="text" class="form-control product" id="product" name="product[]"placeholder="product" value="" required />
+                                          <select class="form-control js-example-basic-single outdoorproduct_id select" name="outdoorproduct_id[]"
+                                                id="outdoorproduct_id1"required>
+                                                <option value="" selected hidden class="text-muted">Select Product
+                                                </option>
+                                                @foreach ($outdoorproduct as $outdoorproducts)
+                                                    <option value="{{ $outdoorproducts->id }}">{{ $outdoorproducts->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                        </td>
+                                       <td><textarea type="text" name="outdoornote[]" class="form-control" placeholder="Enter note" ></textarea></td>
                                        <td><input type="text" class="form-control outdoorquantity" id="outdoorquantity" name="outdoorquantity[]" placeholder="quantity" value="" required /></td>
                                         <td>
                                             <input type="text" class="form-control outdoorpriceperquantity" id="outdoorpriceperquantity" name="outdoorpriceperquantity[]" placeholder="note" value="" required />
@@ -188,7 +198,7 @@
                      <br /><br />
 
 
-                     <div class="row" hidden>
+                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Payment Term<span
@@ -205,14 +215,14 @@
                             <div class="form-group">
                                 <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Payable Amount<span
                                         style="color: red;">*</span></label>
-                                <input type="text" name="payment_amount" class="payment_amount" placeholder="Enter Payable Amount"  style="background: #d1e9d0;">
+                                <input type="text" name="payment_amount" class="outdoor_payment_amount" placeholder="Enter Payable Amount"  style="background: #d1e9d0;">
                             </div>
                         </div>
                         <div class="col-lg-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Balance Amount<span
                                         style="color: red;">*</span></label>
-                                <input type="text" name="balanceamount" class="balanceamount" placeholder=" Balance" readonly style="background: #e79fa6de;">
+                                <input type="text" name="balanceamount" class="outdoorbalanceamount" placeholder=" Balance" readonly style="background: #e79fa6de;">
                             </div>
                         </div>
                      </div>

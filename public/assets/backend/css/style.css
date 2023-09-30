@@ -6177,7 +6177,7 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .sidebar .sidebar-menu>ul>li.submenu-open ul>li.active a {
-    background: black;
+    background: #751818;
     border-radius: 5px;
     color: #fff
 }

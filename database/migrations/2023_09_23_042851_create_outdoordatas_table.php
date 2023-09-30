@@ -19,10 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('outdoor_id')->nullable();
             $table->foreign('outdoor_id')->references('id')->on('outdoors')->onDelete('cascade');
 
-            $table->string('product')->nullable();
+            $table->unsignedBigInteger('product')->nullable();
             $table->string('quantity')->nullable();
             $table->string('price_per_quantity')->nullable();
             $table->string('price')->nullable();
+            $table->string('outdoornote')->nullable();
             $table->timestamps();
         });
     }

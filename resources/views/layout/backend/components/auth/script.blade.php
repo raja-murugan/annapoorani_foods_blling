@@ -1682,15 +1682,19 @@ $(document).on("keyup", "input[name*=expenseprice]", function() {
 
 
 
-
+var o = 1;
+var p = 1;
 $(document).ready(function() {
 
     $(document).on('click', '.addoutdoorfields', function() {
-    ++i;
+    ++o;
             $(".outdoor_fields").append(
                 '<tr>' +
-                '<td><input type="hidden"id="outdoor_detail_id"name="outdoor_detail_id[]" value=""/><input type="text" class="form-control product" id="product" name="product[]"placeholder="product" value="" required />' +
-                '</td>' +
+                '<td><input type="hidden"id="outdoor_detail_id"name="outdoor_detail_id[]" value=""/>' +
+                    '<select class="form-control js-example-basic-single outdoorproduct_id select"name="outdoorproduct_id[]" id="outdoorproduct_id' + o + '"required>' +
+                    '<option value="" selected hidden class="text-muted">Select Product</option></select>' +
+                    '</td>' +
+                '<td><textarea type="text" name="outdoornote[]" class="form-control" placeholder="Enter note" ></textarea></td>' +
                 '<td><input type="text" class="form-control outdoorquantity" id="outdoorquantity" name="outdoorquantity[]" placeholder="quantity" value="" required /></td>' +
                 '<td><input type="text" class="form-control outdoorpriceperquantity" id="outdoorpriceperquantity" name="outdoorpriceperquantity[]" placeholder="note" value="" required /></td>' +
                 '<td><input type="text" class="form-control outdoorprice" id="outdoorprice" name="outdoorprice[]" placeholder="Price" value="" required /></td>' +
@@ -1698,6 +1702,32 @@ $(document).ready(function() {
                 '<button style="width: 35px;" class="text-white py-1 font-medium rounded-lg text-sm  text-center btn btn-danger remove-outdoortr" type="button" >-</button></td>' +
                 '</tr>'
             );
+
+            $.ajax({
+                    url: '/getoutdoorProducts/',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response) {
+                        //console.log(response['data']);
+                        var len = response['data'].length;
+
+                        var selectedValues = new Array();
+
+                        if (len > 0) {
+                            for (var i = 0; i < len; i++) {
+
+                                    var id = response['data'][i].id;
+                                    var name = response['data'][i].name;
+                                    var option = "<option value='" + id + "'>" + name +
+                                        "</option>";
+                                    selectedValues.push(option);
+                            }
+                        }
+                        ++p;
+                        $('#outdoorproduct_id' + p).append(selectedValues);
+                        //add_count.push(Object.keys(selectedValues).length);
+                    }
+                });
         
     });
 
@@ -1981,6 +2011,26 @@ $(document).on('click', '.remove-outdoortr', function() {
     
     $(document).on('click', '.remove-produtseesiondiv', function() {
         $(this).parents('div.produtseesiondiv').remove();
+    });
+
+    $(document).on("keyup", '.outdoor_payment_amount', function() {
+        var outdoor_payment_amount = $(this).val();
+        var outdoor_grandtotal = $(".outdoor_grandtotal").val();
+        //alert(bill_paid_amount);
+        var balance_amount = Number(outdoor_grandtotal) - Number(outdoor_payment_amount);
+        $('.outdoorbalanceamount').val(balance_amount.toFixed(2));
+    });
+
+
+
+    $(document).on("keyup", 'input.outdoor_payment_amount', function() {
+            var payable_amount = $(this).val();
+            var grand_total = $(".outdoor_grandtotal").val();
+
+            if (Number(payable_amount) > Number(grand_total)) {
+                alert('!Paid Amount is More than of Total!');
+                $(".outdoor_payment_amount").val('');
+            }
     });
 
 </script>

@@ -14,6 +14,7 @@ class Outdoordata extends Model
         'product',
         'quantity',
         'price_per_quantity',
-        'price'
+        'price',
+        'outdoornote'
     ];
 }

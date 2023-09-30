@@ -13,6 +13,10 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">OutDoor</h6>
                     <ul>
+                        
+                        <li class="{{ Route::is('outdoor_product.index', 'outdoor_product.store') ? 'active' : '' }}">
+                            <a href="{{ route('outdoor_product.index') }}"><i data-feather="box"></i><span>Product</span></a>
+                        </li>
                         <li class="{{ Route::is('outdoor.index', 'outdoor.store', 'outdoor.datefilter', 'outdoor.create') ? 'active' : '' }}">
                             <a href="{{ route('outdoor.index') }}"><i data-feather="credit-card"></i><span>OutDoor</span></a>
                         </li>

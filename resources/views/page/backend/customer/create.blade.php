@@ -25,7 +25,7 @@
                             <input type="text" name="address" placeholder="Enter Address">
                         </div>
                     </div>
-                    <div class="col-lg-12 col-sm-6 col-12" hidden>
+                    <div class="col-lg-12 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Old Balance<span style="color: red;">*</span></label>
                             <input type="text" name="old_balance" placeholder="Enter Old Balance Amount">

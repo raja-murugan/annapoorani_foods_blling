@@ -111,8 +111,17 @@
                                 @foreach ($Outdoordata as $index => $Outdoordatas)
                                     <tr>
                                        <td><input type="hidden"id="outdoor_detail_id"name="outdoor_detail_id[]" value="{{ $Outdoordatas->id }}"/>
-                                          <input type="text" class="form-control product" id="product" name="product[]"placeholder="product" value="{{ $Outdoordatas->product }}" required />
+                                       <select class="form-control js-example-basic-single outdoorproduct_id select" name="outdoorproduct_id[]"
+                                                id="outdoorproduct_id1"required>
+                                                <option value="" selected hidden class="text-muted">Select Product
+                                                </option>
+                                                @foreach ($outdoorproduct as $outdoorproducts)
+                                                    <option value="{{ $outdoorproducts->id }}"@if ($outdoorproducts->id === $Outdoordatas->product) selected='selected' @endif>{{ $outdoorproducts->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                        </td>
+                                       <td><textarea type="text" name="outdoornote[]" class="form-control" placeholder="Enter note" >{{ $Outdoordatas->outdoornote }}</textarea></td>
                                        <td><input type="text" class="form-control outdoorquantity" id="outdoorquantity" name="outdoorquantity[]" placeholder="quantity" value="{{ $Outdoordatas->quantity }}" required /></td>
                                         <td>
                                             <input type="text" class="form-control outdoorpriceperquantity" id="outdoorpriceperquantity" name="outdoorpriceperquantity[]" placeholder="note" value="{{ $Outdoordatas->price_per_quantity }}" required />
@@ -149,17 +158,6 @@
                                        </select>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-3 col-12">
-                            <div class="form-group">
-                                <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Payment Method<span
-                                        style="color: red;">*</span></label>
-                                 <select class="select bank_id" name="bank_id" id="bank_id" required>
-                                    @foreach ($Bank as $banks)
-                                       <option value="{{ $banks->id }}"@if ($banks->id === $Outdoor->bank_id) selected='selected' @endif>{{ $banks->name }}</option>
-                                    @endforeach
-                                 </select>
-                            </div>
-                        </div>
                   </div>
 
                   <br /><br />
@@ -182,7 +180,7 @@
                                  <li class="total">
                                     <h4>Grand Total</h4>
                                     <h5><span class="outdoorgrandtotal"> ₹  {{ $Outdoor->total }} </span></h5>
-                                    <input type="hidden" class="form-control outdoor_grandtotal" name="outdoor_grandtotal" id="outdoor_grandtotal" value="{{ $Outdoor->total }}">
+                                    <input type="hidden" class="form-control outdoor_grandtotal" name="outdoor_grandtotal" id="outdooredit_grandtotal" value="{{ $Outdoor->total }}">
                                  </li>
                               </ul>
                            </div>
@@ -191,38 +189,95 @@
                      <br /><br />
 
 
-                     <div class="row" hidden>
-                        <div class="col-lg-12 col-sm-12 col-12">
-                            <div class="form-group">
-                                <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Payment Term<span
-                                        style="color: red;">*</span></label>
-                                        <select class="select payment_term" name="payment_term" id="payment_term" >
-                                             <option value="">Select</option>
-                                             <option value="I">I</option>
-                                             <option value="II">II</option>
-                                             <option value="III">III</option>
-                                       </select>
+
+                     <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input"
+                                                            class="col-sm-3 col-form-label">
+                                                            Paid Amounts </label>
+                                                        <div class="col-sm-9">
+                                                            <table class="table-fixed col-12 " id="">
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Terms</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Payment Mehod</th>
+                                                                </tr>
+                                                                @foreach ($OutdoorPayments as $index => $OutdoorPayments_arr)
+                                                                    <script>
+                                                                        $(document).on("keyup", '.outdooreditpayment_amount' + {{ $OutdoorPayments_arr->id }}, function() {
+                                                                            var payableamount = $(this).val();
+                                                                            var totalAmount = 0;
+                                                                            $("input[name='outdooreditpayment_amount[]']").each(function() {
+                                                                                //alert($(this).val());
+                                                                                totalAmount = Number(totalAmount) + Number($(this).val());
+                                                                                $('.outdoor_totalpaid').val(totalAmount);
+
+                                                                                var outdooredit_grandtotal = $("#outdooredit_grandtotal").val();
+                                                                                var balance_amount = Number(outdooredit_grandtotal) - Number(totalAmount);
+                                                                                $('.outdoorbalaeamount').val(balance_amount.toFixed(2));
+
+                                                                                if (Number(totalAmount) > Number(outdooredit_grandtotal)) {
+                                                                                    alert('!Paid Amount is More than of Total!');
+                                                                                    $('.outdooreditpayment_amount' + {{ $OutdoorPayments_arr->id }}).val('');
+                                                                                }
+                                                                            });
+                                                                        });
+
+
+                                                                       
+                                                                    </script>
+
+                                                                    <tr>
+                                                                        <td class="col-sm-3"><input type="date" name="payment_date[]" class="form-control" placeholder="" value="{{ $OutdoorPayments_arr->payment_date }}"></td>
+                                                                        <td class="col-sm-3">
+                                                                            <select class="form-control" name="payment_term[]">
+                                                                                <option value="" selected class="text-muted">Terms</option>
+                                                                                <option value="I"{{ $OutdoorPayments_arr->payment_term == 'I' ? 'selected' : '' }} class="text-muted">Term I</option>
+                                                                                <option value="II"{{ $OutdoorPayments_arr->payment_term == 'II' ? 'selected' : '' }}  class="text-muted">Term II</option>
+                                                                                <option  value="III"{{ $OutdoorPayments_arr->payment_term == 'III' ? 'selected' : '' }} class="text-muted">Term III</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td class="col-sm-3">
+
+                                                                            <input type="text" class="form-control outdooreditpayment_amount{{ $OutdoorPayments_arr->id }}"
+                                                                                id="outdooreditpayment_amount" value="{{ $OutdoorPayments_arr->payment_amount }}"
+                                                                                name="outdooreditpayment_amount[]" placeholder="Enter here ">
+
+                                                                            <input type="hidden" class="form-control outdoor_payment_id" value="{{ $OutdoorPayments_arr->id }}"
+                                                                                name="outdoor_payment_id[]" placeholder="Enter here ">
+                                                                        </td>
+                                                                        <td class="col-sm-3">
+                                                                        <select class=" form-control bank_id" name="bank_id[]" id="bank_id" required>
+                                                                            @foreach ($Bank as $banks)
+                                                                            <option value="{{ $banks->id }}"@if ($banks->id === $OutdoorPayments_arr->payment_method) selected='selected' @endif>{{ $banks->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </table>
+                                                        </div>
+
+
+                                                    </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Total Paid<span
+                                            style="color: red;">*</span></label>
+                                    <input type="text" name="outdoor_totalpaid" class="outdoor_totalpaid" readonly value="{{ $Outdoor->payment_amount }}" placeholder=" Total Paid">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-12 col-sm-12 col-12">
-                            <div class="form-group">
-                                <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Payable Amount<span
-                                        style="color: red;">*</span></label>
-                                <input type="text" name="payment_amount" class="payment_amount" placeholder="Enter Payable Amount"  style="background: #d1e9d0;">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Balance Amount<span
+                                            style="color: red;">*</span></label>
+                                    <input type="text" name="outdoorbalaeamount" class="outdoorbalaeamount" value="{{ $Outdoor->balanceamount }}" placeholder=" Balance" readonly>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-12 col-sm-12 col-12">
-                            <div class="form-group">
-                                <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Balance Amount<span
-                                        style="color: red;">*</span></label>
-                                <input type="text" name="balanceamount" class="balanceamount" placeholder=" Balance" readonly style="background: #e79fa6de;">
-                            </div>
-                        </div>
                      </div>
-
-               
-
-
                    
 
 
