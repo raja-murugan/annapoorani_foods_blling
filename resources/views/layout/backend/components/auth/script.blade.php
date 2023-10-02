@@ -844,7 +844,7 @@ $('#sales_store').submit(function(e){
                         
                     
                         //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                        window.location= "https://allhighcare.com/zworktechnology/sales/print/" + last_salesid;
+                        window.location= "https://annapooranifoods.com/zworktechnology/sales/print/" + last_salesid;
 
 
                     document.getElementById("sales_store").reset();
