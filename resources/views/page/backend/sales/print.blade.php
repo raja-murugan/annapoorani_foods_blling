@@ -217,7 +217,7 @@
     <div class="tm_pos_invoice_wrap">
         <div class="tm_pos_invoice_top">
             <div class="tm_pos_company_logo">
-                <img src="{{ asset('assets/backend/img/logo.png') }}" alt="" width="150" height="150">            
+                <img src="{{ asset('assets/backend/img/bill_logo.png') }}" alt="" width="150" height="150">
             </div>
             <div class="tm_pos_company_address" style="font-weight:500;color:black;">39 3rd cross west, Puthur, Bharthi Nagar, Tiruchirappalli, Tamil Nadu 620017</div>
             <div class="tm_pos_company_mobile"></div>
@@ -261,19 +261,18 @@
                 </tbody>
             </table>
             <div class="tm_bill_list">
-                
+
                 <div class="tm_bill_list_in">
                     <div class="tm_bill_title tm_bill_focus">Total payable:</div>
                     <div class="tm_bill_value tm_bill_focus">{{ $total }}</div>
                 </div>
             </div>
-            <div class="tm_pos_sample_text" style="font-weight:500;color:black;">Note: Here we can write a additional notes for the client to get a better
-                            understanding of this invoice.</div>
+            <div class="tm_pos_sample_text" style="font-weight:500;color:black;">...Thank You | Visit Again...</div>
         </div>
     </div>
     <script>
         //setTimeout(window.close, 7000);
-        window.onload=function(){self.print();} 
+        window.onload=function(){self.print();}
         window.onafterprint = function() {
             history.go(-1);
         };
