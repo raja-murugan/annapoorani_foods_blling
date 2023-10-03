@@ -40,38 +40,42 @@ class EmpattendanceController extends Controller
         }
         $attendence_Data = [];
 
+        $shift_arr = array(1,2);
+
 
         foreach (($monthdates) as $key => $monthdate_arr) {
-            $employees = Employee::where('soft_delete', '!=', 1)->get();
-            foreach ($employees as $key => $employees_arr) {
+                foreach (($shift_arr) as $key => $shift_arrays) {
+                $employees = Employee::where('soft_delete', '!=', 1)->get();
+                foreach ($employees as $key => $employees_arr) {
 
-                $status = '';
-                $attendencedata = Empattendancedata::where('employee_id', '=', $employees_arr->id)->where('date', '=', $monthdate_arr)->first();
-                if($attendencedata != ""){
-                    if($attendencedata->attendance == 'Present'){
-                        $status = 'P';
-                    }else if($attendencedata->attendance == 'Absent'){
-                        $status = 'A';
-                    }else if($attendencedata->attendance == 'Leave'){
-                        $status = 'L';
-                    }else if($attendencedata->attendance == 'Sick Leave'){
-                        $status = 'SL';
+                    $status = '';
+                    $attendencedata = Empattendancedata::where('employee_id', '=', $employees_arr->id)->where('date', '=', $monthdate_arr)->where('shift', '=', $shift_arrays)->first();
+                    if($attendencedata != ""){
+                        if($attendencedata->attendance == 'Present'){
+                            $status = 'P';
+                        }else if($attendencedata->attendance == 'Absent'){
+                            $status = 'A';
+                        }else if($attendencedata->attendance == 'Leave'){
+                            $status = 'L';
+                        }else if($attendencedata->attendance == 'Sick Leave'){
+                            $status = 'SL';
+                        }
+                        $attendence_id = $attendencedata->id;
+                    }else {
+                        $attendence_id = 0;
                     }
-                    $attendence_id = $attendencedata->id;
-                }else {
-                    $attendence_id = 0;
+
+
+
+                    $attendence_Data[] = array(
+                        'employee' => $employees_arr->name,
+                        'empid' => $employees_arr->id,
+                        'empname' => $employees_arr->name,
+                        'attendence_status' => $status,
+                        'date' => date("d",strtotime($monthdate_arr)),
+                        'attendence_id' => $attendence_id
+                    );
                 }
-
-
-
-                $attendence_Data[] = array(
-                    'employee' => $employees_arr->name,
-                    'empid' => $employees_arr->id,
-                    'empname' => $employees_arr->name,
-                    'attendence_status' => $status,
-                    'date' => date("d",strtotime($monthdate_arr)),
-                    'attendence_id' => $attendence_id
-                );
             }
         }
 
@@ -80,7 +84,7 @@ class EmpattendanceController extends Controller
         $Employee = Employee::where('soft_delete', '!=', 1)->get();
         $timenow = Carbon::now()->format('H:i');
 
-        return view('page.backend.emp_attendance.index', compact('attendence_Data', 'today', 'timenow', 'Employee', 'curent_month', 'list', 'monthdates', 'data', 'year'));
+        return view('page.backend.emp_attendance.index', compact('attendence_Data', 'today', 'timenow', 'Employee', 'curent_month', 'list', 'monthdates', 'data', 'year', 'shift_arr'));
     }
 
 
@@ -150,13 +154,23 @@ class EmpattendanceController extends Controller
     }
 
 
-    public function create()
+    public function shiftonecreate()
     {
         $employee = Employee::where('soft_delete', '!=', 1)->get();
         $today = Carbon::now()->format('Y-m-d');
         $timenow = Carbon::now()->format('H:i');
 
-        return view('page.backend.emp_attendance.create', compact('employee', 'today', 'timenow'));
+        return view('page.backend.emp_attendance.shiftonecreate', compact('employee', 'today', 'timenow'));
+    }
+
+
+    public function shifttwocreate()
+    {
+        $employee = Employee::where('soft_delete', '!=', 1)->get();
+        $today = Carbon::now()->format('Y-m-d');
+        $timenow = Carbon::now()->format('H:i');
+
+        return view('page.backend.emp_attendance.shifttwocreate', compact('employee', 'today', 'timenow'));
     }
 
 
@@ -164,7 +178,8 @@ class EmpattendanceController extends Controller
     public function store(Request $request)
     {
         $date = $request->get('date');
-        $dateatend = Empattendance::where('date', '=', $date)->first();
+        $shift = $request->get('shift');
+        $dateatend = Empattendance::where('date', '=', $date)->where('shift', '=', $shift)->first();
 
         if($dateatend == ""){
             $randomkey = Str::random(5);
@@ -176,6 +191,7 @@ class EmpattendanceController extends Controller
             $data->month = date('m', strtotime($request->get('date')));
             $data->year = date('Y', strtotime($request->get('date')));
             $data->dateno = date('d', strtotime($request->get('date')));
+            $data->shift = $request->get('shift');
             $data->save();
     
             $insertedId = $data->id;
@@ -190,6 +206,7 @@ class EmpattendanceController extends Controller
                     $EmployeeattendanceData->employee_name = $request->employee_name[$key];
                     $EmployeeattendanceData->attendance = $request->attendance[$employee_id];
                     $EmployeeattendanceData->date = $request->get('date');
+                    $EmployeeattendanceData->shift = $request->get('shift');
                     $EmployeeattendanceData->save();
     
             }
@@ -204,25 +221,37 @@ class EmpattendanceController extends Controller
     }
 
 
-    public function edit($date)
+    public function edit($date, $shift)
     {
-        $EmployeeAttendance = Empattendance::where('date', '=', $date)->first();
+        $EmployeeAttendance = Empattendance::where('date', '=', $date)->where('shift', '=', $shift)->first();
 
         if($EmployeeAttendance != ""){
             $EmployeeattendanceData = Empattendancedata::where('employeeattendance_id', '=', $EmployeeAttendance->id)->get();
 
             $employee = Employee::where('soft_delete', '!=', 1)->get();
-            $today = Carbon::now()->format('Y-m-d');
+            $today = $date;
             $timenow = Carbon::now()->format('H:i');
         
 
-            return view('page.backend.emp_attendance.edit', compact('EmployeeAttendance', 'employee', 'today', 'timenow', 'EmployeeattendanceData'));
+            return view('page.backend.emp_attendance.edit', compact('EmployeeAttendance', 'employee', 'today', 'timenow', 'EmployeeattendanceData', 'shift'));
         }else {
-            $employee = Employee::where('soft_delete', '!=', 1)->get();
-            $today = $date;
-            $timenow = Carbon::now()->format('H:i');
+            if($shift == 1){
 
-            return view('page.backend.emp_attendance.create', compact('employee', 'today', 'timenow'));
+                $employee = Employee::where('soft_delete', '!=', 1)->get();
+                $today = $date;
+                $timenow = Carbon::now()->format('H:i');
+
+                return view('page.backend.emp_attendance.shiftonecreate', compact('employee', 'today', 'timenow'));
+
+            }else if($shift == 2){
+
+                $employee = Employee::where('soft_delete', '!=', 1)->get();
+                $today = $date;
+                $timenow = Carbon::now()->format('H:i');
+
+                return view('page.backend.emp_attendance.shifttwocreate', compact('employee', 'today', 'timenow'));
+
+            }
         }
         
     }

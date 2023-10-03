@@ -18,6 +18,7 @@ class Empattendance extends Model
         'dateno',
         'time',
         'employee_id',
-        'attendance'
+        'attendance',
+        'shift'
     ];
 }

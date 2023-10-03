@@ -283,11 +283,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
         Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance', [EmpattendanceController::class, 'index'])->name('emp_attendance.index');
         // CREATE
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance/create', [EmpattendanceController::class, 'create'])->name('emp_attendance.create');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance/shiftonecreate', [EmpattendanceController::class, 'shiftonecreate'])->name('emp_attendance.shiftonecreate');
+        // CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance/shifttwocreate', [EmpattendanceController::class, 'shifttwocreate'])->name('emp_attendance.shifttwocreate');
         // STORE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/emp_attendance/store', [EmpattendanceController::class, 'store'])->name('emp_attendance.store');
         // EDIT
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance/edit/{date}', [EmpattendanceController::class, 'edit'])->name('emp_attendance.edit');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/emp_attendance/edit/{date}/{shift}', [EmpattendanceController::class, 'edit'])->name('emp_attendance.edit');
         // UPDATE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/emp_attendance/update/{unique_key}', [EmpattendanceController::class, 'update'])->name('emp_attendance.update');
         // DATAE FILTER

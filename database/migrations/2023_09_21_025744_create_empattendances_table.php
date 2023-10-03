@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             
             $table->string('attendance')->nullable();
+            $table->string('shift')->nullable();
             $table->timestamps();
         });
     }
