@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Empattendance extends Model
+class Payoff extends Model
 {
     use HasFactory;
 
@@ -15,10 +15,10 @@ class Empattendance extends Model
         'date',
         'month',
         'year',
-        'dateno',
-        'time',
         'employee_id',
-        'attendance',
-        'shift'
+        'total_days',
+        'present_days',
+        'total_salaryamount',
+        'paid_salary'
     ];
 }

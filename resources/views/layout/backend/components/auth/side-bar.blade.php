@@ -82,6 +82,15 @@
                     </ul>
                 </li>
                 <li class="submenu-open">
+                    <h6 class="submenu-hdr">Pay Off</h6>
+                    <ul>
+                        
+                        <li class="{{ Route::is('payoff.index', 'payoff.store') ? 'active' : '' }}">
+                            <a href="{{ route('payoff.index') }}"><i data-feather="box"></i><span>Salary Management</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="submenu-open">
                     <h6 class="submenu-hdr">General</h6>
                     <ul>
                         <li class="{{ Route::is('bank.index', 'bank.store') ? 'active' : '' }}">

@@ -22,6 +22,7 @@
                                 <th>Name</th>
                                 <th>Phone No</th>
                                 <th>Address</th>
+                                <th>Per Day Salary</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -32,6 +33,7 @@
                                     <td>{{ $employee_data->name }}</td>
                                     <td>{{ $employee_data->phone_number  }}</td>
                                     <td>{{ $employee_data->address  }}</td>
+                                    <td>₹ {{ $employee_data->perdaysalary  }}.00</td>
                                     <td>
                                         <ul class="list-unstyled hstack gap-1 mb-0">
                                             <li>

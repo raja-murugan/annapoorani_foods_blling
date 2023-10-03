@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone_number');
             $table->string('address')->nullable();
+            $table->string('perdaysalary')->nullable();
             $table->timestamps();
         });
     }

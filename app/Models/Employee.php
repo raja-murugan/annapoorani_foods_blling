@@ -14,6 +14,7 @@ class Employee extends Model
         'soft_delete',
         'name',
         'phone_number',
-        'address'
+        'address', 
+        'perdaysalary'
     ];
 }

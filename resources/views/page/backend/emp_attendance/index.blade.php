@@ -19,7 +19,8 @@
                                         value="Search" /></div>
                             </div>
                         </form>
-                        <a href="{{ route('emp_attendance.create') }}" class="btn btn-added" style="margin-right: 10px;">Add New</a>
+                        <a href="{{ route('emp_attendance.shiftonecreate') }}" class="btn btn-added" style="margin-right: 10px;">shift 1</a>
+                        <a href="{{ route('emp_attendance.shifttwocreate') }}" class="btn btn-added" style="margin-right: 10px;">Shift 2</a>
                 </div>
 
             </div>
@@ -36,26 +37,36 @@
                             <tr>
                                 <th class="border">Date</th>
                                  @foreach ($list as $lists)
-                                    <th class="border">{{ $lists }}</th>
+                                    <th class="border" style="text-align:center;" colspan="2">{{ $lists }}</th>
                                   @endforeach
                             </tr>
                             <tr>
                                 <th class="border">Day</th>
+                                @foreach ($list as $lists_ass)
+                                <th class="border" colspan="2" style="text-align:center;"></th>
+                                @endforeach
                             </tr>
-                        </thead>
-                        <tbody>
+                            <tr>
+                                <th class="border">Shift 1 / Shift 2</th>
+                                @foreach ($list as $listsarr)
+                                <th class="border" style="color:#d38625;font-weight: 800;">S1</th>
+                                <th class="border" style="color:#7367f0;font-weight: 800;">S2</th>
+                                @endforeach
+                            </tr>
                             <tr>
                                 <td class="border">Add / Edit</td>
                                 @foreach ($monthdates as $monthdate_arr)
-                                     <td class="border"  style=""><a href="{{ route('emp_attendance.edit', ['date' => $monthdate_arr]) }}" class="btn btn-sm btn-soft-info">
-                                        <img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}" alt="img"></a></td>
+                                @foreach ($shift_arr as $shift_array)
+                                     <td class="border"  style=""><a style="color: #6d91cc;" href="{{ route('emp_attendance.edit', ['date' => $monthdate_arr, 'shift' => $shift_array]) }}" class="btn btn-sm btn-soft-info">
+                                     <i class="fa fa-edit" data-bs-toggle="tooltip" title="fa fa-edit"></i></a></td>
+                                @endforeach
                                 @endforeach
                             </tr>
-                        </tbody>
+                        </thead>
                         <tbody>
                             @foreach ($data as $employee)
                             <tr class="">
-                                <td class="" style="color:black;">{{$employee->name}}</td>
+                                <td class="border" style="color:black;">{{$employee->name}}</td>
 
                                 @foreach ($attendence_Data as $attendence_Data_arr)
                                     @if ($employee->id == $attendence_Data_arr['empid'])

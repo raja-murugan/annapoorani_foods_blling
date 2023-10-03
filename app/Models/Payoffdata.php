@@ -5,20 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Empattendance extends Model
+class Payoffdata extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'unique_key',
         'soft_delete',
+        'employee_id',
         'date',
         'month',
         'year',
-        'dateno',
-        'time',
-        'employee_id',
-        'attendance',
-        'shift'
+        'salaryamount',
+        'total_given'
     ];
 }

@@ -5,7 +5,7 @@
    <div class="content">
       <div class="page-header">
          <div class="page-title">
-            <h4>Add Employee Attendance</h4>
+            <h4>Add Employee Shift 2 - Attendance</h4>
          </div>
       </div>
 
@@ -18,7 +18,7 @@
 
 
                   <div class="row">
-                        
+                     <input type="hidden" name="shift" value="2">
                         <div class="col-lg-3 col-sm-3 col-12">
                             <div class="form-group">
                                 <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Date<span
@@ -61,7 +61,7 @@
                                                     <div class="input-group" style="margin-right: 5px;">
                                                         <div class="input-group-text">
                                                             <input class="form-check-input" type="radio" value="Present" id="attendance{{$employees->id}}" name="attendance[{{$employees->id}}]"
-                                                                aria-label="Radio button for following text input" checked>
+                                                                aria-label="Radio button for following text input">
                                                         </div>
                                                         <input type="text" class="form-control" value="Present" disabled
                                                             aria-label="Text input with radio button">
