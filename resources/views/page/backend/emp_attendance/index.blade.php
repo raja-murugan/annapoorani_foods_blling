@@ -42,6 +42,12 @@
                             </tr>
                             <tr>
                                 <th class="border">Day</th>
+                                @foreach ($list as $lists_ass)
+                                <th class="border" colspan="2" style="text-align:center;"></th>
+                                @endforeach
+                            </tr>
+                            <tr>
+                                <th class="border">Shift 1 / Shift 2</th>
                                 @foreach ($list as $listsarr)
                                 <th class="border" style="color:#d38625;font-weight: 800;">S1</th>
                                 <th class="border" style="color:#7367f0;font-weight: 800;">S2</th>

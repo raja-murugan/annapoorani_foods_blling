@@ -25,6 +25,12 @@
                             <input type="text" name="address" placeholder="Enter Address">
                         </div>
                     </div>
+                    <div class="col-lg-12 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>One Day Salary<span style="color: red;">*</span></label>
+                            <input type="text" name="perdaysalary" placeholder="Per Day salary">
+                        </div>
+                    </div>
                     <hr>
                     <div class="col-lg-12 button-align">
                         <button type="submit" class="btn btn-submit me-2">Save</button>

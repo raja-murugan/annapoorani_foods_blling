@@ -5,16 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class Payoff extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'unique_key',
         'soft_delete',
-        'name',
-        'phone_number',
-        'address', 
-        'perdaysalary'
+        'date',
+        'month',
+        'year',
+        'employee_id',
+        'total_days',
+        'present_days',
+        'total_salaryamount',
+        'paid_salary'
     ];
 }

@@ -24,6 +24,7 @@ use App\Http\Controllers\OutdoorController;
 use App\Http\Controllers\OpenaccountController;
 use App\Http\Controllers\DenominationController;
 use App\Http\Controllers\OutdoorproductController;
+use App\Http\Controllers\Payoffcontroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -403,6 +404,27 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/outdoor_product/edit/{unique_key}', [OutdoorproductController::class, 'edit'])->name('outdoor_product.edit');
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/outdoor_product/delete/{unique_key}', [OutdoorproductController::class, 'delete'])->name('outdoor_product.delete');
+    });
+
+
+
+    // PAYOFF CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/payoff', [Payoffcontroller::class, 'index'])->name('payoff.index');
+        // CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/payoff/create', [Payoffcontroller::class, 'create'])->name('payoff.create');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/payoff/store', [Payoffcontroller::class, 'store'])->name('payoff.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/payoff/edit/{unique_key}', [Payoffcontroller::class, 'edit'])->name('payoff.edit');
+        // UPDATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/payoff/update/{unique_key}', [Payoffcontroller::class, 'update'])->name('payoff.update');
+        // DATAE FILTER
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/payoff/datefilter', [Payoffcontroller::class, 'datefilter'])->name('payoff.datefilter');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/payoff/delete/{unique_key}', [Payoffcontroller::class, 'delete'])->name('payoff.delete');
+        
     });
 
 

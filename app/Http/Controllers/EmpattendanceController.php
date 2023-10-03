@@ -196,18 +196,27 @@ class EmpattendanceController extends Controller
     
             $insertedId = $data->id;
     
-    
+            error_reporting(0);
             foreach ($request->get('employee_id') as $key => $employee_id) {
-                $pprandomkey = Str::random(5);
-    
-                    $EmployeeattendanceData = new Empattendancedata;
-                    $EmployeeattendanceData->employeeattendance_id = $insertedId;
-                    $EmployeeattendanceData->employee_id = $employee_id;
-                    $EmployeeattendanceData->employee_name = $request->employee_name[$key];
-                    $EmployeeattendanceData->attendance = $request->attendance[$employee_id];
-                    $EmployeeattendanceData->date = $request->get('date');
-                    $EmployeeattendanceData->shift = $request->get('shift');
-                    $EmployeeattendanceData->save();
+
+                $shiftatend = Empattendancedata::where('date', '=', $date)->where('employee_id', '=', $employee_id)->first();
+                if($shiftatend == ""){
+                    if($request->attendance[$employee_id] != ""){
+                        $pprandomkey = Str::random(5);
+        
+                        $EmployeeattendanceData = new Empattendancedata;
+                        $EmployeeattendanceData->employeeattendance_id = $insertedId;
+                        $EmployeeattendanceData->employee_id = $employee_id;
+                        $EmployeeattendanceData->employee_name = $request->employee_name[$key];
+                        $EmployeeattendanceData->attendance = $request->attendance[$employee_id];
+                        $EmployeeattendanceData->date = $request->get('date');
+                        $EmployeeattendanceData->shift = $request->get('shift');
+                        $EmployeeattendanceData->save();
+                    }
+                }
+                
+                
+               
     
             }
     

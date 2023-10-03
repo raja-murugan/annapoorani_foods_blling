@@ -13,14 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('payoffs', function (Blueprint $table) {
             $table->id();
             $table->string('unique_key')->unique();
             $table->boolean('soft_delete')->default(0);
-            $table->string('name');
-            $table->string('phone_number');
-            $table->string('address')->nullable();
-            $table->string('perdaysalary')->nullable();
+
+            $table->string('date')->nullable();
+            $table->string('month')->nullable();
+            $table->string('year')->nullable();
+            $table->unsignedBigInteger('employee_id')->nullable();
+            $table->string('total_days')->nullable();
+            $table->string('present_days')->nullable();
+            $table->string('total_salaryamount')->nullable();
+            $table->string('paid_salary')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('payoffs');
     }
 };

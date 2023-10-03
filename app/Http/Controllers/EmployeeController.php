@@ -27,6 +27,7 @@ class EmployeeController extends Controller
         $data->name = $request->get('name');
         $data->phone_number = $request->get('phone_number');
         $data->address = $request->get('address');
+        $data->perdaysalary = $request->get('perdaysalary');
 
         $data->save();
 
@@ -42,6 +43,7 @@ class EmployeeController extends Controller
         $EmployeeData->name = $request->get('name');
         $EmployeeData->phone_number = $request->get('phone_number');
         $EmployeeData->address = $request->get('address');
+        $EmployeeData->perdaysalary = $request->get('perdaysalary');
 
         $EmployeeData->update();
 
