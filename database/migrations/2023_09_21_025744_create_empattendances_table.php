@@ -29,6 +29,9 @@ return new class extends Migration
             
             $table->string('attendance')->nullable();
             $table->string('shift')->nullable();
+            $table->string('month')->nullable();
+            $table->string('year')->nullable();
+            $table->string('checkleave')->default(0);
             $table->timestamps();
         });
     }

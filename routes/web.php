@@ -295,6 +295,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/emp_attendance/update/{unique_key}', [EmpattendanceController::class, 'update'])->name('emp_attendance.update');
         // DATAE FILTER
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/emp_attendance/datefilter', [EmpattendanceController::class, 'datefilter'])->name('emp_attendance.datefilter');
+        // LEAVE EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/emp_attendance/dayedit/{date}', [EmpattendanceController::class, 'dayedit'])->name('emp_attendance.dayedit');
     });
 
 
@@ -446,3 +448,4 @@ Route::get('/getselectedsessioncat', [SaleController::class, 'getselectedsession
 Route::get('/getoldbalanceforPayment', [SaleController::class, 'getoldbalanceforPayment']);
 Route::get('/getbalanceforpurchasePayment', [PurchaseController::class, 'getbalanceforpurchasePayment']);
 Route::get('getoutdoorProducts/', [OutdoorproductController::class, 'getoutdoorProducts']);
+Route::get('/gettotpresentdays', [EmpattendanceController::class, 'gettotpresentdays']);

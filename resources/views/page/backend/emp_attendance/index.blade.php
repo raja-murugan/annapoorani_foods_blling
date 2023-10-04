@@ -43,7 +43,22 @@
                             <tr>
                                 <th class="border">Day</th>
                                 @foreach ($list as $lists_ass)
-                                <th class="border" colspan="2" style="text-align:center;"></th>
+                                @php 
+                                
+                                $timestamp = strtotime($year .'-'. $month .'-'. $lists_ass); 
+                                $day = date('l', $timestamp);
+                                $date = $year .'-'. $month .'-'. $lists_ass;
+                                @endphp
+                                <th class="border" colspan="2" style="text-align:center;">
+                                <a href="#dayedit{{ $date }}" data-bs-toggle="modal" data-bs-target=".dayedit-modal-xl{{ $date }}"
+                                                    class="badges bg-lightyellow" style="color: white">{{$day}}</a>
+                                </th>
+                                <div class="modal fade dayedit-modal-xl{{ $date }}"
+                                    tabindex="-1" role="dialog"data-bs-backdrop="static"
+                                    aria-labelledby="deleteLargeModalLabel{{ $date }}"
+                                    aria-hidden="true">
+                                    @include('page.backend.emp_attendance.dayedit')
+                                </div>
                                 @endforeach
                             </tr>
                             <tr>
@@ -79,7 +94,9 @@
                                             <td class="border" style="color:blue;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
                                         @elseif ($attendence_Data_arr['attendence_status'] == 'SL')
                                             <td class="border" style="color:orange;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
-                                            @else
+                                        @elseif($attendence_Data_arr['attendence_status'] == 'NULL')
+                                             <td class="border" style="color:#dcc01c;font-weight: 800;">HOLIDAY</td>
+                                             @else
                                              <td class="border" style=""></td>
                                         @endif
 

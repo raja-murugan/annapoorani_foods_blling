@@ -15,6 +15,9 @@ class Empattendancedata extends Model
         'attendance',
         'employee_name',
         'date',
-        'shift'
+        'shift',
+        'month',
+        'year',
+        'checkleave'
     ];
 }

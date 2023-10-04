@@ -62,8 +62,18 @@ class EmpattendanceController extends Controller
                         }
                         $attendence_id = $attendencedata->id;
                     }else {
-                        $attendence_id = 0;
+                        $attendenced = Empattendancedata::where('employee_id', '=', $employees_arr->id)->where('date', '=', $monthdate_arr)->where('checkleave', '=', 1)->first();
+                        if($attendenced != ""){
+                            if($attendenced->attendance == ''){
+                                $status = 'NULL';
+                            }
+                            
+                        }else {
+                            $status = '';
+                        }
                     }
+
+                    
 
 
 
@@ -73,7 +83,7 @@ class EmpattendanceController extends Controller
                         'empname' => $employees_arr->name,
                         'attendence_status' => $status,
                         'date' => date("d",strtotime($monthdate_arr)),
-                        'attendence_id' => $attendence_id
+                        'attendence_id' => $attendence_id,
                     );
                 }
             }
@@ -84,7 +94,7 @@ class EmpattendanceController extends Controller
         $Employee = Employee::where('soft_delete', '!=', 1)->get();
         $timenow = Carbon::now()->format('H:i');
 
-        return view('page.backend.emp_attendance.index', compact('attendence_Data', 'today', 'timenow', 'Employee', 'curent_month', 'list', 'monthdates', 'data', 'year', 'shift_arr'));
+        return view('page.backend.emp_attendance.index', compact('attendence_Data', 'today', 'timenow', 'Employee', 'curent_month', 'list', 'monthdates', 'data', 'year', 'shift_arr', 'month'));
     }
 
 
@@ -111,37 +121,44 @@ class EmpattendanceController extends Controller
 
         $attendence_Data = [];
 
+        $shift_arr = array(1,2);
+
+
         foreach (($monthdates) as $key => $monthdate_arr) {
-            $employees = Employee::where('soft_delete', '!=', 1)->get();
-            foreach ($employees as $key => $employees_arr) {
+                foreach (($shift_arr) as $key => $shift_arrays) {
+                $employees = Employee::where('soft_delete', '!=', 1)->get();
+                foreach ($employees as $key => $employees_arr) {
 
-                $status = '';
-                $attendencedata = Empattendancedata::where('employee_id', '=', $employees_arr->id)->where('date', '=', $monthdate_arr)->first();
-                if($attendencedata != ""){
-                    if($attendencedata->attendance == 'Present'){
-                        $status = 'P';
-                    }else if($attendencedata->attendance == 'Absent'){
-                        $status = 'A';
-                    }else if($attendencedata->attendance == 'Leave'){
-                        $status = 'L';
-                    }else if($attendencedata->attendance == 'Sick Leave'){
-                        $status = 'SL';
+                    $status = '';
+                    $attendencedata = Empattendancedata::where('employee_id', '=', $employees_arr->id)->where('date', '=', $monthdate_arr)->where('shift', '=', $shift_arrays)->first();
+                    if($attendencedata != ""){
+                        if($attendencedata->attendance == 'Present'){
+                            $status = 'P';
+                        }else if($attendencedata->attendance == 'Absent'){
+                            $status = 'A';
+                        }else if($attendencedata->attendance == 'Leave'){
+                            $status = 'L';
+                        }else if($attendencedata->attendance == 'Sick Leave'){
+                            $status = 'SL';
+                        }else if($attendencedata->attendance == ''){
+                            $status = 'NULL';
+                        }
+                        $attendence_id = $attendencedata->id;
+                    }else {
+                        $attendence_id = 0;
                     }
-                    $attendence_id = $attendencedata->id;
-                }else {
-                    $attendence_id = 0;
+
+
+
+                    $attendence_Data[] = array(
+                        'employee' => $employees_arr->name,
+                        'empid' => $employees_arr->id,
+                        'empname' => $employees_arr->name,
+                        'attendence_status' => $status,
+                        'date' => date("d",strtotime($monthdate_arr)),
+                        'attendence_id' => $attendence_id
+                    );
                 }
-
-
-
-                $attendence_Data[] = array(
-                    'employee' => $employees_arr->name,
-                    'empid' => $employees_arr->id,
-                    'empname' => $employees_arr->name,
-                    'attendence_status' => $status,
-                    'date' => date("d",strtotime($monthdate_arr)),
-                    'attendence_id' => $attendence_id
-                );
             }
         }
 
@@ -150,7 +167,7 @@ class EmpattendanceController extends Controller
         $Employee = Employee::where('soft_delete', '!=', 1)->get();
         $timenow = Carbon::now()->format('H:i');
 
-        return view('page.backend.emp_attendance.index', compact('attendence_Data', 'today', 'timenow', 'Employee', 'curent_month', 'list', 'monthdates', 'data', 'year'));
+        return view('page.backend.emp_attendance.index', compact('attendence_Data', 'today', 'timenow', 'Employee', 'curent_month', 'list', 'monthdates', 'data', 'year', 'shift_arr', 'month'));
     }
 
 
@@ -211,6 +228,8 @@ class EmpattendanceController extends Controller
                         $EmployeeattendanceData->attendance = $request->attendance[$employee_id];
                         $EmployeeattendanceData->date = $request->get('date');
                         $EmployeeattendanceData->shift = $request->get('shift');
+                        $EmployeeattendanceData->month = date('m', strtotime($request->get('date')));
+                        $EmployeeattendanceData->year = date('Y', strtotime($request->get('date')));
                         $EmployeeattendanceData->save();
                     }
                 }
@@ -244,25 +263,98 @@ class EmpattendanceController extends Controller
 
             return view('page.backend.emp_attendance.edit', compact('EmployeeAttendance', 'employee', 'today', 'timenow', 'EmployeeattendanceData', 'shift'));
         }else {
-            if($shift == 1){
+            
+                if($shift == 1){
 
-                $employee = Employee::where('soft_delete', '!=', 1)->get();
-                $today = $date;
-                $timenow = Carbon::now()->format('H:i');
+                    $employee = Employee::where('soft_delete', '!=', 1)->get();
+                    $today = $date;
+                    $timenow = Carbon::now()->format('H:i');
+    
+                    return view('page.backend.emp_attendance.shiftonecreate', compact('employee', 'today', 'timenow'));
+    
+                }else if($shift == 2){
+    
+                    $employee = Employee::where('soft_delete', '!=', 1)->get();
+                    $today = $date;
+                    $timenow = Carbon::now()->format('H:i');
+    
+                    return view('page.backend.emp_attendance.shifttwocreate', compact('employee', 'today', 'timenow'));
+    
+                }
+            
 
-                return view('page.backend.emp_attendance.shiftonecreate', compact('employee', 'today', 'timenow'));
-
-            }else if($shift == 2){
-
-                $employee = Employee::where('soft_delete', '!=', 1)->get();
-                $today = $date;
-                $timenow = Carbon::now()->format('H:i');
-
-                return view('page.backend.emp_attendance.shifttwocreate', compact('employee', 'today', 'timenow'));
-
-            }
+            
         }
         
+    }
+
+
+    public function dayedit(Request $request, $date)
+    {
+        $Employeettendance = Empattendance::where('date', '=', $date)->first();
+        if($Employeettendance != ""){
+
+            $Employeettendance->date = $date;
+            $Employeettendance->month = date('m', strtotime($date));
+            $Employeettendance->year = date('Y', strtotime($date));
+            $Employeettendance->dateno = date('d', strtotime($date));
+            $Employeettendance->attendance = '';
+            $Employeettendance->shift = '';
+            $Employeettendance->update();
+
+
+            $Employeeattendanceata = Empattendancedata::where('employeeattendance_id', '=', $Employeettendance->id)->get();
+            foreach ($Employeeattendanceata as $key => $Employeeattendanceatas) {
+
+                if($Employeeattendanceatas->checkleave == 1){
+                    $score = Empattendancedata::findOrFail($Employeeattendanceatas->id); 
+                    $score->checkleave = 0; 
+                    $score->save(); 
+                }else {
+                    $score = Empattendancedata::findOrFail($Employeeattendanceatas->id); 
+                    $score->checkleave = 1; 
+                    $score->save(); 
+                }
+
+                
+
+            }
+            return redirect()->route('emp_attendance.index')->with('info', 'Leave Updated !');
+        }else {
+            $randomkey = Str::random(5);
+
+            $data = new Empattendance();
+            $data->unique_key = $randomkey;
+            $data->date = $date;
+            $data->month = date('m', strtotime($date));
+            $data->year = date('Y', strtotime($date));
+            $data->dateno = date('d', strtotime($date));
+            $data->attendance = 0;
+            $data->save();
+    
+            $insertedId = $data->id;
+
+
+            $employee = Employee::where('soft_delete', '!=', 1)->get();
+            foreach ($employee as $key => $employees) {
+
+                $pprandomkey = Str::random(5);
+            
+                $Empattendancedata = new Empattendancedata;
+                $Empattendancedata->employeeattendance_id = $insertedId;
+                $Empattendancedata->employee_id = $employees->id;
+                $Empattendancedata->employee_name = $employees->name;
+                $Empattendancedata->date = $date;
+                $Empattendancedata->month = date('m', strtotime($date));
+                $Empattendancedata->year = date('Y', strtotime($date));
+                $Empattendancedata->checkleave = 1;
+                $Empattendancedata->save();
+            }
+        }
+
+            
+
+        return redirect()->route('emp_attendance.index')->with('info', 'Leave Updated !');
     }
 
 
@@ -296,6 +388,42 @@ class EmpattendanceController extends Controller
         return redirect()->route('emp_attendance.index')->with('info', 'Updated !');
 
 
+    }
+
+
+
+    public function gettotpresentdays()
+    {
+        $salary_month = request()->get('salary_month');
+
+        $today = Carbon::now()->format('Y-m-d');
+        $year = date("Y",strtotime($today));
+
+        $atendance_output = [];
+        
+            $Employee = Employee::where('soft_delete', '!=', 1)->get();
+            foreach ($Employee as $key => $Employees_arr) {
+
+                $presentdays = Empattendancedata::where('employee_id', '=', $Employees_arr->id)->where('month', '=', $salary_month)->where('year', '=', $year)->where('attendance', '=', 'Present')->get();
+                $count = collect($presentdays)->count();
+
+                $perday_Salary = $Employees_arr->perdaysalary;
+                $total_salary = $perday_Salary * $count;
+               
+                $days = cal_days_in_month( 0, $salary_month, $year);
+                $atendance_output[] = array(
+                    'total_days' => $days,
+                    'total_presentdays' => $count,
+                    'total_salary' => $total_salary,
+                    'perdaysalary' => $Employees_arr->perdaysalary,
+                    'Employee' => $Employees_arr->name,
+                    'id' => $Employees_arr->id,
+                );
+            
+            }
+
+            
+            echo json_encode($atendance_output);
     }
 
 

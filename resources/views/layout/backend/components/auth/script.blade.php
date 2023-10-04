@@ -1594,6 +1594,8 @@ function purchasesubmitForm(btn) {
             });
     });
 
+    
+
     $(document).on("keyup", '.purchasepaidamount', function() {
         var purchasepaidamount = $(this).val();
         var purchaseoldbalance = $(".purchaseoldbalance").val();
