@@ -137,7 +137,7 @@
                      <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Payment Method</label>
-                            <select class="select bank_id" name="bank_id" id="bank_id" required>
+                            <select class="select bank_id form-control" name="bank_id" id="bank_id" required>
                                     @foreach ($Bank as $banks)
                                        <option value="{{ $banks->id }}">{{ $banks->name }}</option>
                                     @endforeach

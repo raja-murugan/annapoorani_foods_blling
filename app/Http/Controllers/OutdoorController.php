@@ -37,9 +37,9 @@ class OutdoorController extends Controller
 
             $Outdoordata = Outdoordata::where('outdoor_id', '=', $datas->id)->get();
             foreach ($Outdoordata as $key => $Outdoordata_arr) {
-
+                $Outdoorproduct = Outdoorproduct::findOrFail($Outdoordata_arr->product);
                 $terms[] = array(
-                    'product' => $Outdoordata_arr->product,
+                    'product' => $Outdoorproduct->name,
                     'quantity' => $Outdoordata_arr->quantity,
                     'price_per_quantity' => $Outdoordata_arr->price_per_quantity,
                     'price' => $Outdoordata_arr->price,
@@ -105,9 +105,9 @@ class OutdoorController extends Controller
 
             $Outdoordata = Outdoordata::where('outdoor_id', '=', $datas->id)->get();
             foreach ($Outdoordata as $key => $Outdoordata_arr) {
-
+                $Outdoorproduct = Outdoorproduct::findOrFail($Outdoordata_arr->product);
                 $terms[] = array(
-                    'product' => $Outdoordata_arr->product,
+                    'product' => $Outdoorproduct->name,
                     'quantity' => $Outdoordata_arr->quantity,
                     'price_per_quantity' => $Outdoordata_arr->price_per_quantity,
                     'price' => $Outdoordata_arr->price,
