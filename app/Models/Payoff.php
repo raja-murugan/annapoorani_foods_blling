@@ -18,7 +18,10 @@ class Payoff extends Model
         'employee_id',
         'total_days',
         'present_days',
+        'perdaysalary',
         'total_salaryamount',
-        'paid_salary'
+        'paid_salary',
+        'amountgiven',
+        'status'
     ];
 }

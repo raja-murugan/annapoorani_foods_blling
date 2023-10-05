@@ -24,8 +24,11 @@ return new class extends Migration
             $table->unsignedBigInteger('employee_id')->nullable();
             $table->string('total_days')->nullable();
             $table->string('present_days')->nullable();
+            $table->string('perdaysalary')->nullable();
             $table->string('total_salaryamount')->nullable();
             $table->string('paid_salary')->nullable();
+            $table->string('amountgiven')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

@@ -63,12 +63,13 @@
                             <table class="table">
                                 <thead id="headsalary_detailrow" style="display:none">
                                     <tr style="background: #f8f9fa;">
-                                        <th style="font-size:15px; width:30%;">Employee</th>
+                                        <th style="font-size:15px; width:25%;">Employee</th>
                                         <th style="font-size:15px; width:10%;">Total Days</th>
                                         <th style="font-size:15px; width:10%;">Present Days</th>
                                         <th style="font-size:15px; width:10%;">Per Day Salary</th>
-                                        <th style="font-size:15px; width:20%;">TotalSalary</th>
-                                        <th style="font-size:15px; width:20%;">Paid Salary</th>
+                                        <th style="font-size:15px; width:15%;">Total Salary</th>
+                                        <th style="font-size:15px; width:10%;">Paid</th>
+                                        <th style="font-size:15px; width:20%;">Salary</th>
                                     </tr>
                                 </thead>
                                 <tbody id="salary_detailrow">
@@ -97,26 +98,29 @@ $(document).ready(function() {
 
                         var column_0 = $('<td/>', {
                             html: '<input type="hidden" id="employee_id" name="employee_id[]" value="' + response[i].id + '"/>' +
-                                '<input type="text" id="employee_name"name="employee_name[]" value="' + response[i].Employee + '" readonly class="form-control"/>',
+                                '<input type="text" id="employee_name" name="employee_name[]" style="background: white;" value="' + response[i].Employee + '" readonly class="form-control"/>',
                         });
                         var column_1 = $('<td/>', {
-                            html: '<input type="text" id="totaldays"name="totaldays[]"  readonly value="' + response[i].total_days + '" class="form-control"/>',
+                            html: '<input type="text" id="totaldays" name="totaldays[]"  readonly style="background: white;" value="' + response[i].total_days + '" class="form-control"/>',
                         });
                         var column_2 = $('<td/>', {
-                            html: '<input type="text" id="total_presentdays"name="total_presentdays[]" value="' + response[i].total_presentdays + '" readonly class="form-control"/>',
+                            html: '<input type="text" id="total_presentdays" name="total_presentdays[]" style="background: white;" value="' + response[i].total_presentdays + '" readonly class="form-control"/>',
                         });
                         var column_3 = $('<td/>', {
-                            html: '<input type="text" id="perdaysalary"name="perdaysalary[]" value="' + response[i].perdaysalary + '" readonly class="form-control"/>',
+                            html: '<input type="text" id="perdaysalary" name="perdaysalary[]" style="background: white;" value="' + response[i].perdaysalary + '" readonly class="form-control"/>',
                         });
                         var column_4 = $('<td/>', {
-                            html: '<input type="text" id="total_salaryamount"name="total_salaryamount[]" value="' + response[i].total_salary + '" readonly class="form-control"/>',
+                            html: '<input type="text" id="total_salaryamount" name="total_salaryamount[]" style="background: white;" value="' + response[i].total_salary + '" readonly class="form-control"/>',
                         });
                         var column_5 = $('<td/>', {
-                            html: '<input type="text" class="form-control" id="amountgiven" name="amountgiven[]" value="" />',
+                            html: '<input type="text" id="paid_salaryamount" name="paid_salaryamount[]" style="background: white;" value="' + response[i].paid_salary + '" readonly class="form-control"/>',
+                        });
+                        var column_6 = $('<td/>', {
+                            html: '<input type="text" class="form-control" id="amountgiven" name="amountgiven[]" style="background: #f8f9fa;" value="" />',
                         });
 
                         var row = $('<tr id=salrydetailrow/>', {}).append(column_0, column_1, column_2,
-                            column_3, column_4, column_5);
+                            column_3, column_4, column_5, column_6);
 
                         $('#salary_detailrow').append(row);
                         $('#headsalary_detailrow').show();

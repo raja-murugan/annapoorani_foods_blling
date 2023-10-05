@@ -17,6 +17,7 @@ class Payoffdata extends Model
         'month',
         'year',
         'salaryamount',
-        'total_given'
+        'total_given',
+        'payable_amount'
     ];
 }

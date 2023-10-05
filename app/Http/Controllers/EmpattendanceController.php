@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Employee;
 use App\Models\Empattendance;
 use App\Models\Empattendancedata;
+use App\Models\Payoff;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -64,12 +65,13 @@ class EmpattendanceController extends Controller
                     }else {
                         $attendenced = Empattendancedata::where('employee_id', '=', $employees_arr->id)->where('date', '=', $monthdate_arr)->where('checkleave', '=', 1)->first();
                         if($attendenced != ""){
-                            if($attendenced->attendance == ''){
+                            if($attendenced->attendance == 'Present'){
                                 $status = 'NULL';
                             }
-                            
+                            $attendence_id = $attendenced->id;
                         }else {
                             $status = '';
+                            $attendence_id = '';
                         }
                     }
 
@@ -89,6 +91,8 @@ class EmpattendanceController extends Controller
             }
         }
 
+
+      
 
         $data = Employee::where('soft_delete', '!=', 1)->get();
         $Employee = Employee::where('soft_delete', '!=', 1)->get();
@@ -140,14 +144,20 @@ class EmpattendanceController extends Controller
                             $status = 'L';
                         }else if($attendencedata->attendance == 'Sick Leave'){
                             $status = 'SL';
-                        }else if($attendencedata->attendance == ''){
-                            $status = 'NULL';
                         }
                         $attendence_id = $attendencedata->id;
                     }else {
-                        $attendence_id = 0;
+                        $attendenced = Empattendancedata::where('employee_id', '=', $employees_arr->id)->where('date', '=', $monthdate_arr)->where('checkleave', '=', 1)->first();
+                        if($attendenced != ""){
+                            if($attendenced->attendance == 'Present'){
+                                $status = 'NULL';
+                            }
+                            $attendence_id = $attendenced->id;
+                        }else {
+                            $status = '';
+                            $attendence_id = '';
+                        }
                     }
-
 
 
                     $attendence_Data[] = array(
@@ -162,6 +172,8 @@ class EmpattendanceController extends Controller
             }
         }
 
+
+     
 
         $data = Employee::where('soft_delete', '!=', 1)->get();
         $Employee = Employee::where('soft_delete', '!=', 1)->get();
@@ -292,35 +304,8 @@ class EmpattendanceController extends Controller
     public function dayedit(Request $request, $date)
     {
         $Employeettendance = Empattendance::where('date', '=', $date)->first();
-        if($Employeettendance != ""){
+        if($Employeettendance == ""){
 
-            $Employeettendance->date = $date;
-            $Employeettendance->month = date('m', strtotime($date));
-            $Employeettendance->year = date('Y', strtotime($date));
-            $Employeettendance->dateno = date('d', strtotime($date));
-            $Employeettendance->attendance = '';
-            $Employeettendance->shift = '';
-            $Employeettendance->update();
-
-
-            $Employeeattendanceata = Empattendancedata::where('employeeattendance_id', '=', $Employeettendance->id)->get();
-            foreach ($Employeeattendanceata as $key => $Employeeattendanceatas) {
-
-                if($Employeeattendanceatas->checkleave == 1){
-                    $score = Empattendancedata::findOrFail($Employeeattendanceatas->id); 
-                    $score->checkleave = 0; 
-                    $score->save(); 
-                }else {
-                    $score = Empattendancedata::findOrFail($Employeeattendanceatas->id); 
-                    $score->checkleave = 1; 
-                    $score->save(); 
-                }
-
-                
-
-            }
-            return redirect()->route('emp_attendance.index')->with('info', 'Leave Updated !');
-        }else {
             $randomkey = Str::random(5);
 
             $data = new Empattendance();
@@ -347,14 +332,19 @@ class EmpattendanceController extends Controller
                 $Empattendancedata->date = $date;
                 $Empattendancedata->month = date('m', strtotime($date));
                 $Empattendancedata->year = date('Y', strtotime($date));
+                $Empattendancedata->attendance = 'Present';
                 $Empattendancedata->checkleave = 1;
                 $Empattendancedata->save();
             }
+
+            return redirect()->route('emp_attendance.index')->with('info', 'Leave Updated !');
+        }else {
+            return redirect()->route('emp_attendance.index')->with('warning', 'Attendance Added for this date. so you cannot change !');
         }
 
             
 
-        return redirect()->route('emp_attendance.index')->with('info', 'Leave Updated !');
+        
     }
 
 
@@ -409,6 +399,19 @@ class EmpattendanceController extends Controller
 
                 $perday_Salary = $Employees_arr->perdaysalary;
                 $total_salary = $perday_Salary * $count;
+
+                $paidsalary = Payoff::where('employee_id', '=', $Employees_arr->id)->where('month', '=', $salary_month)->where('year', '=', $year)->first();
+                if($paidsalary != ""){
+
+                    if($paidsalary->paid_salary > 0){
+                        $paid_salary = $paidsalary->paid_salary;
+                    }else {
+                        $paid_salary = 0;
+                    }
+                }else {
+                    $paid_salary = 0;
+                }
+
                
                 $days = cal_days_in_month( 0, $salary_month, $year);
                 $atendance_output[] = array(
@@ -418,6 +421,7 @@ class EmpattendanceController extends Controller
                     'perdaysalary' => $Employees_arr->perdaysalary,
                     'Employee' => $Employees_arr->name,
                     'id' => $Employees_arr->id,
+                    'paid_salary' => $paid_salary,
                 );
             
             }
