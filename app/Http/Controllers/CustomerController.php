@@ -62,19 +62,22 @@ class CustomerController extends Controller
         $data->save();
 
 
-
-        $customerid = $data->id;
-        $PaymentBalanceDAta = Payment::where('customer_id', '=', $customerid)->first();
-        if($PaymentBalanceDAta == ""){
-            $balance_amount = $request->get('old_balance');
-            $paymentbalacedata = new Payment();
-
-            $paymentbalacedata->customer_id = $customerid;
-            $paymentbalacedata->saleamount = $balance_amount;
-            $paymentbalacedata->salepaid = 0;
-            $paymentbalacedata->salebalance = $balance_amount;
-            $paymentbalacedata->save();
+        if($request->get('old_balance') != ""){
+            
+            $customerid = $data->id;
+            $PaymentBalanceDAta = Payment::where('customer_id', '=', $customerid)->first();
+            if($PaymentBalanceDAta == ""){
+                $balance_amount = $request->get('old_balance');
+                $paymentbalacedata = new Payment();
+    
+                $paymentbalacedata->customer_id = $customerid;
+                $paymentbalacedata->saleamount = $balance_amount;
+                $paymentbalacedata->salepaid = 0;
+                $paymentbalacedata->salebalance = $balance_amount;
+                $paymentbalacedata->save();
+            }
         }
+
 
 
         return redirect()->route('customer.index')->with('message', 'Added !');

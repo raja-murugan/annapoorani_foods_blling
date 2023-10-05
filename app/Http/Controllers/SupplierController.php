@@ -61,18 +61,23 @@ class SupplierController extends Controller
         $data->save();
 
 
-        $supplierid = $data->id;
-        $PaymentBalanceDAta = Payment::where('supplier_id', '=', $supplierid)->first();
-        if($PaymentBalanceDAta == ""){
-            $balance_amount = $request->get('old_balance');
-            $paymentbalacedata = new Payment();
-
-            $paymentbalacedata->supplier_id = $supplierid;
-            $paymentbalacedata->purchase_amount = $balance_amount;
-            $paymentbalacedata->purchase_paid = 0;
-            $paymentbalacedata->purchase_balance = $balance_amount;
-            $paymentbalacedata->save();
+        if($request->get('old_balance') != ""){
+            
+            $supplierid = $data->id;
+            $PaymentBalanceDAta = Payment::where('supplier_id', '=', $supplierid)->first();
+            if($PaymentBalanceDAta == ""){
+                $balance_amount = $request->get('old_balance');
+                $paymentbalacedata = new Payment();
+    
+                $paymentbalacedata->supplier_id = $supplierid;
+                $paymentbalacedata->purchase_amount = $balance_amount;
+                $paymentbalacedata->purchase_paid = 0;
+                $paymentbalacedata->purchase_balance = $balance_amount;
+                $paymentbalacedata->save();
+            }
         }
+
+        
 
 
 
