@@ -12,8 +12,8 @@ class Empattendancedata extends Model
     protected $fillable = [
         'employeeattendance_id',
         'employee_id',
-        'attendance',
         'employee_name',
+        'attendance',
         'date',
         'shift',
         'month',

@@ -13,10 +13,10 @@ class Empattendance extends Model
         'unique_key',
         'soft_delete',
         'date',
+        'time',
         'month',
         'year',
         'dateno',
-        'time',
         'employee_id',
         'attendance',
         'shift'
