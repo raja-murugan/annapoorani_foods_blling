@@ -135,7 +135,7 @@ $(document).ready(function() {
         var balanceSalary = Number(total_salaryamount) - Number(paid_salaryamount);
         if (Number(amountgiven) > Number(balanceSalary)) {
             alert('!Paid Amount is More than of Total!');
-            $(this).parents('tr').find('.amountgiven').val('');
+            //$(this).parents('tr').find('.amountgiven').val('');
         }
     });
 });
