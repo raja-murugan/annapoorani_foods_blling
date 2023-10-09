@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Month<span
                                         style="color: red;">*</span></label>
-                                 <select class="form-control js-example-basic-single salary_month select" name="salary_month[]" id="salary_month"required>
+                                 <select class="form-control js-example-basic-single salary_month select" name="salary_month" id="salary_month"required>
                                     <option value="" selected hidden class="text-muted">Select Month </option>
                                     <option value="01">January</option>
                                     <option value="02">February</option>
@@ -55,7 +55,6 @@
                   </div>
 
 
-
                     <br />
 
                     <div class="row">
@@ -63,13 +62,13 @@
                             <table class="table">
                                 <thead id="headsalary_detailrow" style="display:none">
                                     <tr style="background: #f8f9fa;">
-                                        <th style="font-size:15px; width:25%;">Employee</th>
-                                        <th style="font-size:15px; width:10%;">Total Days</th>
-                                        <th style="font-size:15px; width:10%;">Present Days</th>
-                                        <th style="font-size:15px; width:10%;">Per Day Salary</th>
-                                        <th style="font-size:15px; width:15%;">Total Salary</th>
+                                        <th style="font-size:15px; width:24%;">Employee</th>
+                                        <th style="font-size:15px; width:8%;">Days</th>
+                                        <th style="font-size:15px; width:9%;">D / S</th>
+                                        <th style="font-size:15px; width:13%;">Total Salary</th>
                                         <th style="font-size:15px; width:10%;">Paid</th>
-                                        <th style="font-size:15px; width:20%;">Salary</th>
+                                        <th style="font-size:15px; width:11%;">Balance</th>
+                                        <th style="font-size:15px; width:25%;">Salary</th>
                                     </tr>
                                 </thead>
                                 <tbody id="salary_detailrow">
@@ -101,22 +100,22 @@ $(document).ready(function() {
                                 '<input type="text" id="employee_name" name="employee_name[]" style="background: white;" value="' + response[i].Employee + '" readonly class="form-control"/>',
                         });
                         var column_1 = $('<td/>', {
-                            html: '<input type="text" id="totaldays" name="totaldays[]"  readonly style="background: white;" value="' + response[i].total_days + '" class="form-control"/>',
+                            html: '<input type="text" id="total_presentdays" name="total_presentdays[]" style="background: white;" value="' + response[i].total_presentdays + '" readonly class="form-control"/><input type="hidden" id="totaldays" name="totaldays[]"  readonly style="background: white;" value="' + response[i].total_days + '" class="form-control"/>',
                         });
                         var column_2 = $('<td/>', {
-                            html: '<input type="text" id="total_presentdays" name="total_presentdays[]" style="background: white;" value="' + response[i].total_presentdays + '" readonly class="form-control"/>',
-                        });
-                        var column_3 = $('<td/>', {
                             html: '<input type="text" id="perdaysalary" name="perdaysalary[]" style="background: white;" value="' + response[i].perdaysalary + '" readonly class="form-control"/>',
                         });
+                        var column_3 = $('<td/>', {
+                            html: '<input type="text" id="total_salaryamount" name="total_salaryamount[]" style="background: white;color: #198754;font-weight:800;" value="' + response[i].total_salary + '" readonly class="form-control total_salaryamount"/>',
+                        });
                         var column_4 = $('<td/>', {
-                            html: '<input type="text" id="total_salaryamount" name="total_salaryamount[]" style="background: white;" value="' + response[i].total_salary + '" readonly class="form-control"/>',
+                            html: '<input type="text" id="paid_salaryamount" name="paid_salaryamount[]" style="background: white;color: red;font-weight:800;" value="' + response[i].paid_salary + '" readonly class="form-control paid_salaryamount"/>',
                         });
                         var column_5 = $('<td/>', {
-                            html: '<input type="text" id="paid_salaryamount" name="paid_salaryamount[]" style="background: white;" value="' + response[i].paid_salary + '" readonly class="form-control"/>',
+                            html: '<input type="text" id="balncesalary" name="balncesalary[]" style="background: #bbee9a;" value="' + response[i].balanceAmount + '" readonly class="form-control paid_salaryamount"/>',
                         });
                         var column_6 = $('<td/>', {
-                            html: '<input type="text" class="form-control" id="amountgiven" name="amountgiven[]" style="background: #f8f9fa;" value="" />',
+                            html: '<input type="text" class="form-control amountgiven" id="amountgiven" name="amountgiven[]" ' + response[i].readonly + '  style="background: #f8f9fa;" placeholder="' + response[i].placeholder + '"/>',
                         });
 
                         var row = $('<tr id=salrydetailrow/>', {}).append(column_0, column_1, column_2,
@@ -128,7 +127,21 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(document).on("keyup", "input[name*=amountgiven]", function() {
+        var amountgiven = $(this).val();
+        var total_salaryamount = $(this).parents('tr').find('.total_salaryamount').val();
+        var paid_salaryamount = $(this).parents('tr').find('.paid_salaryamount').val();
+        var balanceSalary = Number(total_salaryamount) - Number(paid_salaryamount);
+        if (Number(amountgiven) > Number(balanceSalary)) {
+            alert('!Paid Amount is More than of Total!');
+            $(this).parents('tr').find('.amountgiven').val('');
+        }
+    });
 });
+
+
+
 </script>
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-primary" />

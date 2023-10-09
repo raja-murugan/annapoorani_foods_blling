@@ -411,6 +411,15 @@ class EmpattendanceController extends Controller
                 }else {
                     $paid_salary = 0;
                 }
+                $balanceAmount = $total_salary - $paid_salary;
+
+                if($balanceAmount == 0){
+                    $readonly = 'readonly';
+                    $placeholder = '';
+                }else {
+                    $readonly = '';
+                    $placeholder = 'Enter Payable Amount';
+                }
 
                
                 $days = cal_days_in_month( 0, $salary_month, $year);
@@ -422,6 +431,9 @@ class EmpattendanceController extends Controller
                     'Employee' => $Employees_arr->name,
                     'id' => $Employees_arr->id,
                     'paid_salary' => $paid_salary,
+                    'balanceAmount' => $balanceAmount,
+                    'readonly' => $readonly,
+                    'placeholder' => $placeholder,
                 );
             
             }
