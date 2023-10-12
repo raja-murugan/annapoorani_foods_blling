@@ -5,20 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Deliveryattendancedata extends Model
+class Deliveryboypayoffdata extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'deliveryattendance_id',
+        'unique_key',
+        'soft_delete',
         'deliveryboy_id',
-        'attendance',
-        'session_id',
-        'sessionname',
-        'deliveryboy',
         'date',
         'month',
         'year',
-        'checkleave'
+        'payable_amount',
+        'payoffnotes'
     ];
 }

@@ -4,12 +4,12 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Employee - Payoff</h4>
+                <h4>Delivery Boy - Payoff</h4>
             </div>
             <div class="page-btn">
 
                 <div style="display: flex;">
-                        <form autocomplete="off" method="POST" action="{{ route('payoff.datefilter') }}">
+                        <form autocomplete="off" method="POST" action="{{ route('deliveryboyspayoff.datefilter') }}">
                             @method('PUT')
                             @csrf
                             <div style="display: flex">
@@ -19,7 +19,7 @@
                                         value="Search" /></div>
                             </div>
                         </form>
-                        <a href="{{ route('payoff.create') }}" class="btn btn-added" style="margin-right: 10px;">Add New</a>
+                        <a href="{{ route('deliveryboyspayoff.create') }}" class="btn btn-added" style="margin-right: 10px;">Add New</a>
                 </div>  
                     
             </div>
@@ -32,7 +32,7 @@
                         <thead>
                             <tr>
                                 <th>Month - Year</th>
-                                <th>Employee</th>
+                                <th>Delivery Boy</th>
                                 <th>Salary Amount</th>
                                 <th>Paid Salary</th>
                                 <th>Action</th>
@@ -42,7 +42,7 @@
                             @foreach ($payoffdata as $keydata => $datas)
                                 <tr>
                                     <td> {{ $datas['month'] }} - {{ $datas['year']  }}</td>
-                                    <td>{{ $datas['employee']  }}</td>
+                                    <td>{{ $datas['deliveryboy']  }}</td>
                                     <td> {{ $datas['total_salaryamount']  }}</td>
                                     <td> {{ $datas['paid_salary']  }}</td>
                                     <td>
@@ -50,7 +50,7 @@
                                     <ul class="list-unstyled hstack gap-1 mb-0">
                                             
                                              <li>
-                                                    <a href="{{ route('payoff.edit', ['empid' => $datas['employee_id'], 'month' => $datas['month'], 'year' => $datas['year']]) }}"
+                                                    <a href="{{ route('deliveryboyspayoff.edit', ['deliveryboyid' => $datas['deliveryboy_id'], 'month' => $datas['month'], 'year' => $datas['year']]) }}"
                                                         class="badges bg-lightgrey" style="color: white">Edit</a>
                                              </li>
                                         </ul>

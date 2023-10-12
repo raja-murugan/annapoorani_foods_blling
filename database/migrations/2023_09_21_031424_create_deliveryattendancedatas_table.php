@@ -27,7 +27,11 @@ return new class extends Migration
             $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
             $table->string('sessionname')->nullable();
             $table->string('attendance')->nullable();
+            $table->string('checkleave')->default(0);
             $table->string('date')->nullable();
+            
+            $table->string('month')->nullable();
+            $table->string('year')->nullable();
             $table->timestamps();
         });
     }

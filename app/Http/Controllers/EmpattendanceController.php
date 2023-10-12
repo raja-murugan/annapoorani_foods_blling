@@ -387,7 +387,7 @@ class EmpattendanceController extends Controller
         $salary_month = request()->get('salary_month');
 
         $today = Carbon::now()->format('Y-m-d');
-        $year = date("Y",strtotime($today));
+        $year = request()->get('salary_year');
 
         $atendance_output = [];
         
@@ -414,15 +414,19 @@ class EmpattendanceController extends Controller
                 $balanceAmount = $total_salary - $paid_salary;
 
                 if($total_salary == 0){
-                    $placeholder = 'Enter Payable Amount';
+                    $placeholder = 'Enter Amount';
                     $readonly = '';
+                    $noteplaceholder = 'Enter Note';
                 }else {
                     if($balanceAmount == 0){
                         $readonly = 'readonly';
                         $placeholder = '';
+                        $noteplaceholder = '';
                     }else {
                         $readonly = '';
-                        $placeholder = 'Enter Payable Amount';
+                        $placeholder = 'Enter Amount';
+                        $noteplaceholder = 'Enter Note';
+                        
                     }
                 }
                 
@@ -440,6 +444,7 @@ class EmpattendanceController extends Controller
                     'balanceAmount' => $balanceAmount,
                     'readonly' => $readonly,
                     'placeholder' => $placeholder,
+                    'noteplaceholder' => $noteplaceholder,
                 );
             
             }

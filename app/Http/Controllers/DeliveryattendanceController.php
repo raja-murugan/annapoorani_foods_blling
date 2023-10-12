@@ -7,6 +7,7 @@ use App\Models\Deliveryboy;
 use App\Models\Deliveryattendance;
 use App\Models\Deliveryattendancedata;
 use App\Models\Session;
+use App\Models\Deliveryboypayoff;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -53,12 +54,23 @@ class DeliveryattendanceController extends Controller
                     $status = '';
                     $attendencedata = Deliveryattendancedata::where('deliveryboy_id', '=', $deliveryboy_arr->id)->where('date', '=', $monthdate_arr)->where('session_id', '=', $sesionarry->id)->first();
                     if($attendencedata != ""){
-                        if($attendencedata->attendance == 'Present'){
-                            $status = 'P';
-                        }else if($attendencedata->attendance == 'Absent'){
-                            $status = 'A';
+
+                        if($attendencedata->checkleave == 1){
+                            if($attendencedata->attendance == 'Present'){
+                                $status = 'NULL';
+                            }
+                            $attendence_id = $attendencedata->id;
+
+                        }else if($attendencedata->checkleave == 0){
+
+                            if($attendencedata->attendance == 'Present'){
+                                $status = 'P';
+                            }else if($attendencedata->attendance == 'Absent'){
+                                $status = 'A';
+                            }
+                            $attendence_id = $attendencedata->id;
                         }
-                        $attendence_id = $attendencedata->id;
+                        
                     }else {
                         $attendence_id = 0;
                     }
@@ -111,49 +123,101 @@ class DeliveryattendanceController extends Controller
     public function datefilter(Request $request) {
         $today = $request->get('from_date');
 
-        $current_month = date('m', strtotime($today));
-        $current_year = date('Y', strtotime($today));
-
-        $Current_month = date('M', strtotime($today));
+        $time = strtotime($today);
+        $curent_month = date("F",$time);
 
 
-        $data = Deliveryattendance::where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
-        $attendance_data = [];
-        $terms = [];
-        foreach ($data as $key => $datas) {
+        $month = date("m",strtotime($today));
+        $year = date("Y",strtotime($today));
 
-            $Deliveryattendancedata = Deliveryattendancedata::where('deliveryattendance_id', '=', $datas->id)->get();
-            foreach ($Deliveryattendancedata as $key => $DeliveryattendancedataS) {
+        $list=array();
+        $monthdates = [];
+        for($d=1; $d<=31; $d++)
+        {
+            $times = mktime(12, 0, 0, $month, $d, $year);
+            if (date('m', $times) == $month)
+                $list[] = date('d', $times);
+                $monthdates[] = date('Y-m-d', $times);
+        }
+        $attendence_Data = [];
+
+
+
+        foreach (($monthdates) as $key => $monthdate_arr) {
+
+            $deliveryboy = Deliveryboy::where('soft_delete', '!=', 1)->get();
+
+            foreach ($deliveryboy as $key => $deliveryboy_arr) {
+
+                $sesionarr = Session::where('soft_delete', '!=', 1)->get();
+                foreach ($sesionarr as $key => $sesionarry) {
+
+                    $status = '';
+                    $attendencedata = Deliveryattendancedata::where('deliveryboy_id', '=', $deliveryboy_arr->id)->where('date', '=', $monthdate_arr)->where('session_id', '=', $sesionarry->id)->first();
+                    if($attendencedata != ""){
+
+                        if($attendencedata->checkleave == 1){
+                            if($attendencedata->attendance == 'Present'){
+                                $status = 'NULL';
+                            }
+                            $attendence_id = $attendencedata->id;
+                            
+                        }else if($attendencedata->checkleave == 0){
+
+                            if($attendencedata->attendance == 'Present'){
+                                $status = 'P';
+                            }else if($attendencedata->attendance == 'Absent'){
+                                $status = 'A';
+                            }
+                            $attendence_id = $attendencedata->id;
+                        }
+                        
+                    }else {
+                        $attendence_id = 0;
+                    }
+    
+    
+                    $attendence_Data[] = array(
+                        'deliveryboy' => $deliveryboy_arr->name,
+                        'deliveryboyid' => $deliveryboy_arr->id,
+                        'attendence_status' => $status,
+                        'date' => date("d",strtotime($monthdate_arr)),
+                        'attendence_id' => $attendence_id
+                    );
+                }
                 
+                
+            }
+        }
+        
 
-                $deliveryboy_ = Deliveryboy::findOrFail($DeliveryattendancedataS->deliveryboy_id);
+        
 
-                $terms[] = array(
-                    'deliveryboy' => $deliveryboy_->name,
-                    'attendance' => $DeliveryattendancedataS->attendance,
-                    'deliveryattendance_id' => $DeliveryattendancedataS->deliveryattendance_id,
-                    'id' => $DeliveryattendancedataS->id,
-                );
+
+
+
+        $session = Session::where('soft_delete', '!=', 1)->get();
+        $session_terms = [];
+        foreach ($session as $key => $session_arr) {
+
+            if($session_arr->id == 1){
+                $session = 'BF';
+            }else if($session_arr->id == 2){
+                $session = 'L';
+            }else if($session_arr->id == 3){
+                $session = 'D';
             }
 
-            
-
-            $session_id = Session::findOrFail($datas->session_id);
-            $attendance_data[] = array(
-                'unique_key' => $datas->unique_key,
-                'date' => $datas->date,
-                'time' => $datas->time,
-                'id' => $datas->id,
-                'session_id' => $datas->session_id,
-                'session' => $session_id->name,
-                'terms' => $terms,
+            $session_terms[] = array(
+                'id' => $session_arr->id,
+                'session' => $session
             );
         }
-
-
         $Deliveryboy = Deliveryboy::where('soft_delete', '!=', 1)->get();
         $timenow = Carbon::now()->format('H:i');
-        return view('page.backend.delivery_attendance.index', compact('attendance_data', 'today', 'timenow', 'Deliveryboy', 'Current_month', 'current_year'));
+
+        
+        return view('page.backend.delivery_attendance.index', compact('attendence_Data', 'today', 'timenow', 'Deliveryboy', 'curent_month', 'year', 'list', 'session_terms', 'monthdates', 'month'));
     }
 
 
@@ -236,6 +300,8 @@ class DeliveryattendanceController extends Controller
                     $Deliveryattendancedata->attendance = $request->attendance[$deliveryboy_id];
                     $Deliveryattendancedata->date = $request->get('date');
                     $Deliveryattendancedata->session_id = $request->get('session_id');
+                    $Deliveryattendancedata->month = date('m', strtotime($request->get('date')));
+                    $Deliveryattendancedata->year = date('Y', strtotime($request->get('date')));
                     $Deliveryattendancedata->save();
     
             }
@@ -331,6 +397,132 @@ class DeliveryattendanceController extends Controller
         return redirect()->route('delivery_attendance.index')->with('info', 'Updated !');
 
 
+    }
+
+
+
+
+    public function dayedit(Request $request, $date)
+    {
+        $Deliveryattendance = Deliveryattendance::where('date', '=', $date)->first();
+        if($Deliveryattendance == ""){
+
+            $session = Session::where('soft_delete', '!=', 1)->get();
+            foreach ($session as $key => $sessions_arr) {
+
+                $data = new Deliveryattendance();
+                $data->date = $date;
+                $data->month = date('m', strtotime($date));
+                $data->year = date('Y', strtotime($date));
+                $data->dateno = date('d', strtotime($date));
+                $data->session_id = $sessions_arr->id;
+                $data->save();
+
+
+                $insertedId = $data->id;
+
+
+                $Deliveryboy = Deliveryboy::where('soft_delete', '!=', 1)->get();
+                foreach ($Deliveryboy as $key => $Deliveryboy_arr) {
+
+                    $Deliveryattendancedata = new Deliveryattendancedata;
+                    $Deliveryattendancedata->deliveryattendance_id = $insertedId;
+                    $Deliveryattendancedata->deliveryboy_id = $Deliveryboy_arr->id;
+                    $Deliveryattendancedata->deliveryboy = $Deliveryboy_arr->name;
+                    $Deliveryattendancedata->date = $date;
+                    $Deliveryattendancedata->month = date('m', strtotime($date));
+                    $Deliveryattendancedata->year = date('Y', strtotime($date));
+                    $Deliveryattendancedata->attendance = 'Present';
+                    $Deliveryattendancedata->session_id = $sessions_arr->id;
+                    $Deliveryattendancedata->checkleave = 1;
+                    $Deliveryattendancedata->save();
+                }
+            }
+
+           
+    
+            
+
+            return redirect()->route('delivery_attendance.index')->with('info', 'Leave Updated !');
+        }else {
+            return redirect()->route('delivery_attendance.index')->with('warning', 'Attendance Added for this date. so you cannot change !');
+        }
+
+            
+
+        
+    }
+
+
+    public function getdeliveryboy_totpresentdays()
+    {
+        $salary_month = request()->get('salary_month');
+
+        $today = Carbon::now()->format('Y-m-d');
+        $year = request()->get('salary_year');
+
+        $atendance_output = [];
+        
+            $Deliveryboy = Deliveryboy::where('soft_delete', '!=', 1)->get();
+            foreach ($Deliveryboy as $key => $Deliveryboy_arr) {
+
+                $presentdays = Deliveryattendancedata::where('deliveryboy_id', '=', $Deliveryboy_arr->id)->where('month', '=', $salary_month)->where('year', '=', $year)->where('attendance', '=', 'Present')->get();
+                $count = collect($presentdays)->count();
+
+                $pershiftsalary = $Deliveryboy_arr->pershiftsalary;
+                $total_salary = $pershiftsalary * $count;
+
+                $paidsalary = Deliveryboypayoff::where('deliveryboy_id', '=', $Deliveryboy_arr->id)->where('month', '=', $salary_month)->where('year', '=', $year)->first();
+                if($paidsalary != ""){
+
+                    if($paidsalary->paid_salary > 0){
+                        $paid_salary = $paidsalary->paid_salary;
+                    }else {
+                        $paid_salary = 0;
+                    }
+                }else {
+                    $paid_salary = 0;
+                }
+                $balanceAmount = $total_salary - $paid_salary;
+
+                if($total_salary == 0){
+                    $placeholder = 'Enter Amount';
+                    $readonly = '';
+                    $noteplaceholder = 'Enter Note';
+                }else {
+                    if($balanceAmount == 0){
+                        $readonly = 'readonly';
+                        $placeholder = '';
+                        $noteplaceholder = '';
+                    }else {
+                        $readonly = '';
+                        $placeholder = 'Enter Amount';
+                        $noteplaceholder = 'Enter Note';
+                        
+                    }
+                }
+                
+
+               
+                $days = cal_days_in_month( 0, $salary_month, $year);
+                $atendance_output[] = array(
+                    'total_days' => $days,
+                    'total_presentdays' => $count,
+                    'total_salary' => $total_salary,
+                    'pershiftsalary' => $Deliveryboy_arr->pershiftsalary,
+                    'deliveryboy' => $Deliveryboy_arr->name,
+                    'id' => $Deliveryboy_arr->id,
+                    'paid_salary' => $paid_salary,
+                    'balanceAmount' => $balanceAmount,
+                    'readonly' => $readonly,
+                    'placeholder' => $placeholder,
+                    'noteplaceholder' => $noteplaceholder,
+                );
+            
+            }
+
+            
+            echo json_encode($atendance_output);
     }
 
 

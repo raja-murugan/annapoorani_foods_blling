@@ -65,10 +65,10 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Attendance</h6>
                     <ul>
-                        <li class="{{ Route::is('emp_attendance.index', 'emp_attendance.store', 'emp_attendance.datefilter', 'emp_attendance.create') ? 'active' : '' }}">
+                        <li class="{{ Route::is('emp_attendance.index', 'emp_attendance.store', 'emp_attendance.datefilter', 'emp_attendance.create', 'emp_attendance.datefilter') ? 'active' : '' }}">
                             <a href="{{ route('emp_attendance.index') }}"><i data-feather="credit-card"></i><span>Employee Attendance</span></a>
                         </li>
-                        <li class="{{ Route::is('delivery_attendance.index', 'delivery_attendance.store', 'delivery_attendance.datefilter', 'delivery_attendance.create') ? 'active' : '' }}">
+                        <li class="{{ Route::is('delivery_attendance.index', 'delivery_attendance.store', 'delivery_attendance.datefilter', 'delivery_attendance.create', 'delivery_attendance.datefilter') ? 'active' : '' }}">
                             <a href="{{ route('delivery_attendance.index') }}"><i data-feather="credit-card"></i><span>Delivery Attendance</span></a>
                         </li>
                     </ul>
@@ -85,8 +85,11 @@
                     <h6 class="submenu-hdr">Pay Off</h6>
                     <ul>
                         
-                        <li class="{{ Route::is('payoff.index', 'payoff.store') ? 'active' : '' }}">
-                            <a href="{{ route('payoff.index') }}"><i data-feather="box"></i><span>Salary Management</span></a>
+                        <li class="{{ Route::is('payoff.index', 'payoff.store', 'payoff.create', 'payoff.edit', 'payoff.datefilter') ? 'active' : '' }}">
+                            <a href="{{ route('payoff.index') }}"><i data-feather="box"></i><span>Employee Payoff</span></a>
+                        </li>
+                        <li class="{{ Route::is('deliveryboyspayoff.index', 'deliveryboyspayoff.store', 'deliveryboyspayoff.create', 'deliveryboyspayoff.edit', 'deliveryboyspayoff.datefilter') ? 'active' : '' }}">
+                            <a href="{{ route('deliveryboyspayoff.index') }}"><i data-feather="box"></i><span>Deliveryboys Payoff</span></a>
                         </li>
                     </ul>
                 </li>

@@ -48,6 +48,37 @@ class Payoffcontroller extends Controller
     }
 
 
+
+    public function datefilter(Request $request) {
+        $today = $request->get('from_date');
+        $data = Payoff::where('month', '=', date('m', strtotime($today)))->where('year', '=', date('Y', strtotime($today)))->where('soft_delete', '!=', 1)->get();
+        $payoffdata = [];
+        foreach ($data as $key => $datas) {
+
+            $employee = Employee::findOrFail($datas->employee_id);
+
+            $payoffdata[] = array(
+                'date' => $datas->date,
+                'month' => $datas->month,
+                'year' => $datas->year,
+                'employee_id' => $datas->employee_id,
+                'employee' => $employee->name,
+                'total_days' => $datas->total_days,
+                'present_days' => $datas->present_days,
+                'perdaysalary' => $datas->perdaysalary,
+                'total_salaryamount' => $datas->total_salaryamount,
+                'paid_salary' => $datas->paid_salary,
+                'amountgiven' => $datas->amountgiven,
+                'status' => $datas->status,
+                'id' => $datas->id,
+                'unique_key' => $datas->unique_key
+            );
+        }
+        $employee = Employee::where('soft_delete', '!=', 1)->get();
+        $timenow = Carbon::now()->format('H:i');
+        return view('page.backend.payoff.index', compact('payoffdata', 'employee', 'today', 'timenow'));
+    }
+
     public function create()
     {
         
@@ -56,9 +87,14 @@ class Payoffcontroller extends Controller
         $timenow = Carbon::now()->format('H:i');
 
         $maxDays=date('t');
+
+        $years = date('Y', strtotime($today)) - 1;
+        $years_arr = array($years, $years+1, $years+2);
         //$shiftatend = Empattendancedata::where('employee_id', '=', $employee_id)->first();
+
+        $current_year = Carbon::now()->format('Y');
        
-        return view('page.backend.payoff.create', compact('employee', 'today', 'timenow', 'maxDays'));
+        return view('page.backend.payoff.create', compact('employee', 'today', 'timenow', 'maxDays', 'years_arr', 'current_year'));
     }
 
 
@@ -66,6 +102,9 @@ class Payoffcontroller extends Controller
     public function store(Request $request)
     {
         $date = $request->get('date');
+        $salrymonth = $request->get('salary_month');
+
+
 
         foreach ($request->get('amountgiven') as $key => $amount_given) {
             if($request->amountgiven[$key] != ""){
@@ -75,9 +114,10 @@ class Payoffcontroller extends Controller
                 $Payoffdata->unique_key = $pdrandomkey;
                 $Payoffdata->date = $request->get('date');
                 $Payoffdata->month = $request->get('salary_month');
-                $Payoffdata->year = date('Y', strtotime($request->get('date')));
+                $Payoffdata->year = $request->get('salary_year');
                 $Payoffdata->employee_id = $request->employee_id[$key];
                 $Payoffdata->payable_amount = $request->amountgiven[$key];
+                $Payoffdata->payoffnotes = $request->payoffnotes[$key];
                 $Payoffdata->save();
 
             }
@@ -90,7 +130,7 @@ class Payoffcontroller extends Controller
 
             $employee_id = $request->employee_id[$key];
             $month = $request->get('salary_month');
-            $year = date('Y', strtotime($request->get('date')));
+            $year = $request->get('salary_year');
 
             $GetEmloyeeSalaryRow = Payoff::where('employee_id', '=', $employee_id)->where('month', '=', $month)->where('year', '=', $year)->first();
             if($GetEmloyeeSalaryRow != ""){
@@ -129,7 +169,7 @@ class Payoffcontroller extends Controller
                 $Payoff->unique_key = $randomkey;
                 $Payoff->date = $request->get('date');
                 $Payoff->month = $request->get('salary_month');
-                $Payoff->year = date('Y', strtotime($request->get('date')));
+                $Payoff->year = $request->get('salary_year');
                 $Payoff->employee_id = $request->employee_id[$key];
                 $Payoff->total_days = $request->totaldays[$key];
                 $Payoff->present_days = $request->total_presentdays[$key];
@@ -162,4 +202,94 @@ class Payoffcontroller extends Controller
         return redirect()->route('payoff.index')->with('message', 'Data added successfully!');
             
     }
+
+
+    public function edit($empid, $month, $year)
+    {
+        $GetPayoffArray = Payoffdata::where('employee_id', '=', $empid)->where('month', '=', $month)->where('year', '=', $year)->get();
+        $payoffdatas = [];
+        foreach ($GetPayoffArray as $key => $GetPayoffArrays) {
+
+            $employee = Employee::findOrFail($GetPayoffArrays->employee_id);
+
+            $GetEmloyeeSalaryRow = Payoff::where('employee_id', '=', $GetPayoffArrays->employee_id)->where('month', '=', $GetPayoffArrays->month)->where('year', '=', $GetPayoffArrays->year)->first();
+
+            $payoffdatas[] = array(
+                'unique_key' => $GetPayoffArrays->unique_key,
+                'employee_id' => $GetPayoffArrays->employee_id,
+                'employee' => $employee->name,
+                'date' => $GetPayoffArrays->date,
+                'month' => $GetPayoffArrays->month,
+                'year' => $GetPayoffArrays->year,
+                'payable_amount' => $GetPayoffArrays->payable_amount,
+                'payoffnotes' => $GetPayoffArrays->payoffnotes,
+                'id' => $GetPayoffArrays->id,
+                'present_days' => $GetEmloyeeSalaryRow->present_days,
+                'total_days' => $GetEmloyeeSalaryRow->total_days,
+                'perdaysalary' => $GetEmloyeeSalaryRow->perdaysalary,
+                'total_salaryamount' => $GetEmloyeeSalaryRow->total_salaryamount,
+            );
+        }
+
+
+        $employee = Employee::where('soft_delete', '!=', 1)->get();
+        $today = Carbon::now()->format('Y-m-d');
+        $timenow = Carbon::now()->format('H:i');
+
+        $maxDays=date('t');
+
+        $years = date('Y', strtotime($today)) - 1;
+        $years_arr = array($years, $years+1, $years+2);
+
+        $current_year = Carbon::now()->format('Y');
+
+        $employeename = Employee::findOrFail($empid);
+       
+        return view('page.backend.payoff.edit', compact('employee', 'today', 'timenow', 'maxDays', 'years_arr', 'current_year', 'payoffdatas', 'year', 'month', 'empid', 'employeename'));
+    }
+
+
+
+    public function update(Request $request, $empid, $month, $year)
+    {
+       $getinsertedP_Products = Payoffdata::where('employee_id', '=', $empid)->where('month', '=', $month)->where('year', '=', $year)->get();
+        $Purchaseproducts = array();
+        foreach ($getinsertedP_Products as $key => $getinserted_P_Products) {
+            $Purchaseproducts[] = $getinserted_P_Products->id;
+        }
+
+        $updatedpurchaseproduct_id = $request->payoffdata_id;
+        $updated_PurchaseProduct_id = array_filter($updatedpurchaseproduct_id);
+        $different_ids = array_merge(array_diff($Purchaseproducts, $updated_PurchaseProduct_id), array_diff($updated_PurchaseProduct_id, $Purchaseproducts));
+
+        if (!empty($different_ids)) {
+            foreach ($different_ids as $key => $different_id) {
+                Payoffdata::where('id', $different_id)->delete();
+            }
+        }
+
+
+        
+        foreach ($request->get('payoffdata_id') as $key => $payoffdata_id) {
+
+            $payable_amount = $request->amountgiven[$key];
+            $payoffnotes = $request->payoffnotes[$key];
+            $date = $request->date[$key];
+
+            DB::table('payoffdatas')->where('id', $payoffdata_id)->update([
+                'date' => $date,  'payable_amount' => $payable_amount,  'payoffnotes' => $payoffnotes
+            ]);
+        }
+
+        $total_salary = Payoffdata::where('employee_id', '=', $empid)->where('month', '=', $month)->where('year', '=', $year)->sum('payable_amount');
+
+        DB::table('payoffs')->where('employee_id', $empid)->where('month', $month)->where('year', $year)->update([
+            'paid_salary' => $total_salary
+        ]);
+
+
+
+        return redirect()->route('payoff.index')->with('info', 'Updated !');
+    }
+    
 }

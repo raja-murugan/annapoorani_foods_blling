@@ -25,6 +25,7 @@ use App\Http\Controllers\OpenaccountController;
 use App\Http\Controllers\DenominationController;
 use App\Http\Controllers\OutdoorproductController;
 use App\Http\Controllers\Payoffcontroller;
+use App\Http\Controllers\DeliverypayoffController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -320,6 +321,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/lunchcreate', [DeliveryattendanceController::class, 'lunchcreate'])->name('delivery_attendance.lunchcreate');
         // DINNER CREATE
         Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/delivery_attendance/dinnercreate', [DeliveryattendanceController::class, 'dinnercreate'])->name('delivery_attendance.dinnercreate');
+        // LEAVE EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/delivery_attendance/dayedit/{date}', [DeliveryattendanceController::class, 'dayedit'])->name('delivery_attendance.dayedit');
     });
 
 
@@ -419,16 +422,32 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // STORE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/payoff/store', [Payoffcontroller::class, 'store'])->name('payoff.store');
         // EDIT
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/payoff/edit/{unique_key}', [Payoffcontroller::class, 'edit'])->name('payoff.edit');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/payoff/edit/{empid}/{month}/{year}', [Payoffcontroller::class, 'edit'])->name('payoff.edit');
         // UPDATE
-        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/payoff/update/{unique_key}', [Payoffcontroller::class, 'update'])->name('payoff.update');
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/payoff/update/{empid}/{month}/{year}', [Payoffcontroller::class, 'update'])->name('payoff.update');
         // DATAE FILTER
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/payoff/datefilter', [Payoffcontroller::class, 'datefilter'])->name('payoff.datefilter');
-        // DELETE
-        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/payoff/delete/{unique_key}', [Payoffcontroller::class, 'delete'])->name('payoff.delete');
         
     });
 
+
+
+    // DELIVERY BOYS PAYOFF CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/deliveryboyspayoff', [DeliverypayoffController::class, 'index'])->name('deliveryboyspayoff.index');
+        // CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/deliveryboyspayoff/create', [DeliverypayoffController::class, 'create'])->name('deliveryboyspayoff.create');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/deliveryboyspayoff/store', [DeliverypayoffController::class, 'store'])->name('deliveryboyspayoff.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/deliveryboyspayoff/edit/{deliveryboyid}/{month}/{year}', [DeliverypayoffController::class, 'edit'])->name('deliveryboyspayoff.edit');
+        // UPDATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/deliveryboyspayoff/update/{deliveryboyid}/{month}/{year}', [DeliverypayoffController::class, 'update'])->name('deliveryboyspayoff.update');
+        // DATAE FILTER
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/deliveryboyspayoff/datefilter', [DeliverypayoffController::class, 'datefilter'])->name('deliveryboyspayoff.datefilter');
+        
+    });
 
     //Route::get('/zworktechnology/sales/print/{sales_id}', function () {return view('page/backend/sales/print');});
 });
@@ -449,3 +468,4 @@ Route::get('/getoldbalanceforPayment', [SaleController::class, 'getoldbalancefor
 Route::get('/getbalanceforpurchasePayment', [PurchaseController::class, 'getbalanceforpurchasePayment']);
 Route::get('getoutdoorProducts/', [OutdoorproductController::class, 'getoutdoorProducts']);
 Route::get('/gettotpresentdays', [EmpattendanceController::class, 'gettotpresentdays']);
+Route::get('/getdeliveryboy_totpresentdays', [DeliveryattendanceController::class, 'getdeliveryboy_totpresentdays']);

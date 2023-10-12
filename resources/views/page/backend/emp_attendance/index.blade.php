@@ -99,7 +99,7 @@
                                         @elseif ($attendence_Data_arr['attendence_status'] == 'SL')
                                             <td class="border" style="color:orange;" >{{ $attendence_Data_arr['attendence_status'] }}</td>
                                         @elseif($attendence_Data_arr['attendence_status'] == 'NULL')
-                                             <td class="border" style="color:#dcc01c;font-weight: 800;">HOLIDAY</td>
+                                             <td class="border" style="color:#76691b;font-weight: 800;">H</td>
                                              @else
                                              <td class="border" style=""></td>
                                         @endif
