@@ -26,6 +26,7 @@ use App\Http\Controllers\DenominationController;
 use App\Http\Controllers\OutdoorproductController;
 use App\Http\Controllers\Payoffcontroller;
 use App\Http\Controllers\DeliverypayoffController;
+use App\Http\Controllers\CloseaccountController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -197,6 +198,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/sales/autocomplete', [SaleController::class, 'autocomplete'])->name('sales.autocomplete');
         // DELIVERY UPDATE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/sales/deliveryupdate/{unique_key}', [SaleController::class, 'deliveryupdate'])->name('sales.deliveryupdate');
+        
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/sales/edit/{unique_key}', [SaleController::class, 'edit'])->name('sales.edit');
     });
 
 
@@ -449,6 +453,22 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         
     });
 
+
+
+    // CLOSE ACCOUNT CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/closeaccount', [CloseaccountController::class, 'index'])->name('closeaccount.index');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/closeaccount/store', [CloseaccountController::class, 'store'])->name('closeaccount.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/closeaccount/edit/{unique_key}', [CloseaccountController::class, 'edit'])->name('closeaccount.edit');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/closeaccount/delete/{unique_key}', [CloseaccountController::class, 'delete'])->name('closeaccount.delete');
+        // CHECK DUPLICATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/closeaccount/datefilter', [CloseaccountController::class, 'datefilter'])->name('closeaccount.datefilter');
+    });
+
     //Route::get('/zworktechnology/sales/print/{sales_id}', function () {return view('page/backend/sales/print');});
 });
 
@@ -457,6 +477,7 @@ Route::get('/getcategories', [ProductController::class, 'getcategories']);
 Route::get('/getselectedproducts', [SaleController::class, 'getselectedproducts']);
 Route::get('/getselectedboxproducts', [SaleController::class, 'getselectedboxproducts']);
 Route::post('/zworktechnology/sales/storeSalesData', [SaleController::class, 'storeSalesData'])->name('sales.store.salesdata');
+Route::post('/zworktechnology/sales/updateSaleData', [SaleController::class, 'updateSaleData'])->name('sales.update.salesdata');
 Route::get('/getproduct_Id_by_name/{productid}', [SaleController::class, 'getproduct_Id_by_name']);
 Route::get('/getselectedcat_products', [ProductController::class, 'getselectedcat_products']);
 Route::get('/GetAutosearchProducts', [SaleController::class, 'GetAutosearchProducts']);

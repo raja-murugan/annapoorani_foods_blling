@@ -7,6 +7,8 @@ use App\Models\Product;
 use App\Models\Session;
 use App\Models\Category;
 use App\Models\Productsession;
+use App\Models\Sale;
+use App\Models\SaleProduct;
 
 
 use Illuminate\Http\Request;
@@ -193,10 +195,47 @@ class ProductController extends Controller
     {
         $catogry_id = request()->get('catogry_id');
         $sessionid = request()->get('sessionid');
+        $last_part = request()->get('last_part');
         $output = [];
 
             $CategoryProducts = Productsession::where('soft_delete', '!=', 1)->where('category_id', '=', $catogry_id)->where('session_id', '=', $sessionid)->get();
+            
+            
+
             foreach ($CategoryProducts as $key => $CategoryProducts_arr) {
+
+                if($last_part != ""){
+                    $saledata = Sale::where('unique_key', '=', $last_part)->first();
+
+                    $SaleProducts_productsession = SaleProduct::where('product_session_id', '=', $CategoryProducts_arr->id)->where('sales_id', '=', $saledata->id)->first();
+                    if($SaleProducts_productsession != ""){
+                        $prodctsessionid = $SaleProducts_productsession->product_session_id;
+
+                        $checkbutton = '<input type="button" value="Add to cart"
+                                        class="btn btn-scanner-set clickquantity'. $CategoryProducts_arr->id .'  rise_quantity" onClick="increment_quantity('. $CategoryProducts_arr->id .')">';
+
+
+                        
+                    }else {
+                        $prodctsessionid = '';
+                        $checkbutton  = '<input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct' . $CategoryProducts_arr->id .'" data-product_id="' . $CategoryProducts_arr->product_id .'"
+                                    data-productsession_id="' . $CategoryProducts_arr->id .'"  data-session_id="' . $CategoryProducts_arr->session_id . '"  data-product_price="' . $CategoryProducts_arr->productprice .'" id="addedproduct' . $CategoryProducts_arr->id .'"
+                                    style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"value="Add to cart" />
+                                    <input type="button" value="Add to cart" style="display:none;"
+                                    class="btn btn-scanner-set clickquantity'. $CategoryProducts_arr->id .'  rise_quantity" onClick="increment_quantity('. $CategoryProducts_arr->id .')">';
+                    }
+                }else {
+                    $prodctsessionid = '';
+                    $checkbutton  = '<input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct' . $CategoryProducts_arr->id .'" data-product_id="' . $CategoryProducts_arr->product_id .'"
+                                    data-productsession_id="' . $CategoryProducts_arr->id .'"  data-session_id="' . $CategoryProducts_arr->session_id . '"  data-product_price="' . $CategoryProducts_arr->productprice .'" id="addedproduct' . $CategoryProducts_arr->id .'"
+                                    style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"value="Add to cart" />
+                                    <input type="button" value="Add to cart" style="display:none;"
+                                    class="btn btn-scanner-set clickquantity'. $CategoryProducts_arr->id .'  rise_quantity" onClick="increment_quantity('. $CategoryProducts_arr->id .')">';
+                }
+
+                
+
+
                 $output[] = [
                     'productname' => $CategoryProducts_arr->productname,
                     'product_image' => asset('assets/product/'.$CategoryProducts_arr->productimage),
@@ -204,6 +243,7 @@ class ProductController extends Controller
                     'product_id' => $CategoryProducts_arr->product_id,
                     'id' => $CategoryProducts_arr->id,
                     'sessionid' => $CategoryProducts_arr->session_id,
+                    'checkbutton' => $checkbutton,
                     
                 ];
             }

@@ -3,8 +3,9 @@
 @section('content')
     <div class="page-wrapper ms-0">
         <div class="content">
-            <form name="sales_store" id="sales_store" method="post" action="javascript:void(0)">
-                @csrf
+            <form name="sales_update" id="sales_update" method="post" action="javascript:void(0)">
+            @method('PUT')
+               @csrf
                 <div class="row">
 
 
@@ -164,15 +165,15 @@
                     <div class="col-lg-4 col-sm-12 ">
                         <div class="order-list">
                             <div class="orderid">
-                                <h4>Order List</h4>
-                                <h5>Date : <span class="current_date"></span></h5>
+                                <h4>Order List  #{{$latestbillno}}</h4> 
+                                <h5>Date : {{$SaleData->date}}</h5>
                             </div>
                             <div class="orderid">
                                 <h5>
-                                    <p class="current_time"></p>
+                                    <p class="">{{$SaleData->time}}</p>
                                 </h5>
-                                <input type="hidden" name="date" id="date" class="currentdate" value="{{ $today }}" />
-                                <input type="hidden" name="time" id="time" class="currenttime" value="" />
+                                <input type="hidden" name="date" id="date" class="" value="{{$SaleData->date}}" />
+                                <input type="hidden" name="time" id="time" class="" value="{{$SaleData->time}}" />
                             </div>
                         </div>
                         <div class="card card-order">
@@ -185,7 +186,7 @@
                                                     <div class="input-group" style="margin-right: 5px;">
                                                         <div class="input-group-text">
                                                             <input class="form-check-input" type="radio" value="Dine In" id ="sales_type" name="sales_type"
-                                                                aria-label="Radio button for following text input" checked>
+                                                                aria-label="Radio button for following text input" {{ $SaleData->sales_type == 'Dine In' ? 'checked' : '' }}>
                                                         </div>
                                                         <input type="text" class="form-control" value="Dine In" disabled
                                                             aria-label="Text input with radio button">
@@ -193,7 +194,7 @@
                                                     <div class="input-group" style="margin-right: 5px;">
                                                         <div class="input-group-text">
                                                             <input class="form-check-input" type="radio" value="Take Away" id ="sales_type" name="sales_type"
-                                                                aria-label="Radio button for following text input">
+                                                                aria-label="Radio button for following text input" {{ $SaleData->sales_type == 'Take Away' ? 'checked' : '' }}>
                                                         </div>
                                                         <input type="text" class="form-control" value="Take Away" disabled
                                                             aria-label="Text input with radio button">
@@ -208,8 +209,8 @@
                                         <div class="select-split ">
                                             <div class="select-group w-100 customertyp">
                                                 <select class="select" name="customer_type" id="customer_type">
-                                                    <option value="walkincustomer">Walk-in Customer</option>
-                                                    <option value="walkoutcustomer">Walk-out Customer</option>
+                                                    <option value="walkincustomer" @if ('walkincustomer' === $SaleData->customer_type) selected='selected' @endif>Walk-in Customer</option>
+                                                    <option value="walkoutcustomer"@if ('walkoutcustomer' === $SaleData->customer_type) selected='selected' @endif>Walk-out Customer</option>
                                                 </select>
                                             </div>
                                             <div class="select-group w-100 cutomer_arr" style="display:none">
@@ -230,7 +231,42 @@
                                     <a class="remove-ultr" hidden>Clear all</a>
                                 </div>
                                 <div class="product-table">
-                                
+                                @foreach ($SaleProducts_arrdata as $keydata => $SaleProducts_data)
+                                    <ul class="product-lists" id="productlist">
+                                       <li>
+                                          <div class="productimg">
+                                             <div class="productimgs">
+                                                <img src="{{ asset('assets/product/' .$SaleProducts_data['image']) }}" alt="img">
+                                             </div>
+                                             <div class="productcontet">
+                                                <h4>{{$SaleProducts_data['product']}}
+                                                </h4>
+                                                <div class="productlinkset">
+                                                   <h5>{{$SaleProducts_data['category']}}
+                                                   <input type="hidden"  name="product_id[]"  value="{{$SaleProducts_data['product_id']}}"/>
+                                                   <input type="hidden" class="li_productid" id="li_productid"  value="{{$SaleProducts_data['product_session_id']}}"/>
+                                                   <input type="hidden" class="product_session_id" id="product_session_id"  value="{{$SaleProducts_data['product_session_id']}}"/>
+                                                   <input type="hidden" name="saleproductsid[]" class="saleproductsid" id="saleproductsid" value="{{$SaleProducts_data['id']}}"/>
+                                                   </h5>
+                                                </div>
+                                                <div class="increment-decrement">
+                                                   <div class="input-groups">
+                                                      <input type="button" value="-" class="  button" onClick="decrement_quantity({{$SaleProducts_data['product_session_id']}})">
+                                                      <input type="text" name="product_quantity[]" value="{{$SaleProducts_data['quantity']}}" class="quantity-field product_quanitity" id="product_quantity{{$SaleProducts_data['product_session_id']}}">
+                                                      <input type="button" value="+" class="  button " onClick="increment_quantity({{$SaleProducts_data['product_session_id']}})">
+                                                      <input type="hidden" name="product_price[]" class="product_price" id="product_price{{$SaleProducts_data['product_session_id']}}"  value="{{$SaleProducts_data['price']}}"/>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </li>
+                                       
+                                       <input type="hidden" name="total_price[]" class="total_price{{$SaleProducts_data['product_session_id']}}" value="{{$SaleProducts_data['total_price']}}"/>
+                                       <input type="hidden" name="product_session_id[]" class="product_session_id" value="{{$SaleProducts_data['product_session_id']}}"/>
+                                       <li><span class="totalprice{{$SaleProducts_data['product_session_id']}}">{{$SaleProducts_data['total_price']}}</span></li>
+                                       <li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li>
+                                    </ul>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="split-card">
@@ -240,8 +276,8 @@
                                     <ul>
                                         <li>
                                             <h5>Subtotal </h5>
-                                            <h6 class="subtotalamount"></h6>
-                                            <input type="hidden" name="subtotal" id="subtotal" value="" />
+                                            <h6 class="subtotalamount">{{$SaleData->sub_total}}</h6>
+                                            <input type="hidden" name="subtotal" id="subtotal" value="{{$SaleData->sub_total}}" />
                                         </li>
                                         <li>
                                             <h5>Tax </h5>
@@ -250,8 +286,8 @@
                                         </li>
                                         <li class="total-value">
                                             <h5>Total </h5>
-                                            <h6 class="subtotalamount"></h6>
-                                            <input type="hidden" name="totalamount" id="totalamount" class="sales_totamount" value="" />
+                                            <h6 class="subtotalamount">{{$SaleData->total}}</h6>
+                                            <input type="hidden" name="totalamount" id="totalamount" class="sales_totamount" value="{{$SaleData->total}}" />
                                         </li>
                                     </ul>
                                 </div>
@@ -266,7 +302,7 @@
                                                         <div class="input-group" style="margin-right: 5px;">
                                                             <div class="input-group-text">
                                                                 <input class="form-check-input" type="radio" value="{{ $Banks->name }}" id ="paymentmethod" name="paymentmethod"
-                                                                    aria-label="Radio button for following text input" required>
+                                                                    aria-label="Radio button for following text input" required @if ($Banks->name === $SaleData->payment_method) checked='checked' @endif>
                                                             </div>
                                                             <input type="text" class="form-control" value="{{ $Banks->name }}" disabled
                                                                 aria-label="Text input with radio button">
@@ -279,16 +315,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" placeholder="Enter Discount" class="sale_discount" name="sale_discount" id="sale_discount"/>
+                                    <input type="text" placeholder="Enter Discount" class="sale_discount" name="sale_discount" id="sale_discount" value="{{$SaleData->sale_discount}}"/>
                                 </div>
-                                <div class="form-group alreadypaidamount" style="display:none">
-                                    <input type="text" placeholder="Sale Payment Paid" class="salepayment_paidamt" readonly style="background: #32bb7c;color:white" name="salepayment_paid" id="salepayment_paid"/>
-                                </div>
+
+
                                 <div class="btn-totallabel">
                                     <button type="submit" class="btn btn-sm " id="submit"
                                         style="color:white; font-size:15px; display:contents;">Save<span class="grand_total"></span></button>
                                         <input type="hidden" name="grandtotal" class="grandtotal" id="grandtotal"/>
-                                        <input type="hidden" name="saleid" class="saleid" id="saleid" value=""/>
+                                        <input type="hidden" name="saleid" class="saleid" id="saleid" value="{{$SaleData->id}}"/>
                                 </div>
                                 <div class="btn-pos">
                                     <ul>

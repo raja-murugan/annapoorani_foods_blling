@@ -136,7 +136,10 @@
                             <a href="{{ route('openaccount.index') }}"><i data-feather="credit-card"></i><span>Open Account</span></a>
                         </li>
                         <li class="{{ Route::is('dinomination.index', 'dinomination.store', 'dinomination.datefilter') ? 'active' : '' }}">
-                            <a href="{{ route('dinomination.index') }}"><i data-feather="credit-card"></i><span>Determination</span></a>
+                            <a href="{{ route('dinomination.index') }}"><i data-feather="credit-card"></i><span>Denomination</span></a>
+                        </li>
+                        <li class="{{ Route::is('closeaccount.index', 'closeaccount.store') ? 'active' : '' }}">
+                            <a href="{{ route('closeaccount.index') }}"><i data-feather="credit-card"></i><span>Close Acccount</span></a>
                         </li>
                     </ul>
                 </li>

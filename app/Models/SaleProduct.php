@@ -15,6 +15,7 @@ class SaleProduct extends Model
         'product_id',
         'quantity',
         'price',
-        'total_price'
+        'total_price',
+        'product_session_id'
     ];
 }

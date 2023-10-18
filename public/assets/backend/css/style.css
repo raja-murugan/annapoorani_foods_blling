@@ -9456,7 +9456,8 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .product-table {
-    height: 34vh;
+    /* height: 34vh; */
+    height: 50vh;
     overflow: auto
 }
 

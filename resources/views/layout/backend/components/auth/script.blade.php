@@ -347,17 +347,43 @@
                 var cat_id = $('.category_type').first().data('cat_id');
                 var sessionid = $('.category_type').first().data('session_id');
 
+                
+                // if (window.location.href.indexOf("http://127.0.0.1:8000/zworktechnology/sales/edit") > -1) {
+                //     var url = $(location).attr('href');
+                //     var parts = url.split("/");
+                //     var last_part = parts[parts.length-1];
+
+                    
+                // }else if (window.location.href.indexOf("http://127.0.0.1:8000/zworktechnology/sales/create") > -1) {
+                //     var last_part = '';
+                // }
+                
+
+                if (window.location.href.indexOf("https://annapooranifoods.com/zworktechnology/sales/edit") > -1) {
+                    var url = $(location).attr('href');
+                    var parts = url.split("/");
+                    var last_part = parts[parts.length-1];
+
+                    
+                }else if (window.location.href.indexOf("https://annapooranifoods.com/zworktechnology/sales/create") > -1) {
+                    var last_part = '';
+                }
+
+              
+                
+
                             $.ajax({
                                 url: '/getselectedcat_products/',
                                 type: 'get',
                                 data: {
                                     _token: "{{ csrf_token() }}",
                                     catogry_id: cat_id,
-                                    sessionid: sessionid
+                                    sessionid: sessionid,
+                                    last_part: last_part
                                 },
                                 dataType: 'json',
                                 success: function(response) {
-                                    //console.log(response);
+                                    console.log(response);
                                     $('.prodcttsdiv').html('');
                                     
                                     var len = response.length;
@@ -371,8 +397,7 @@
                                                                         '<h4>'+ response[i].productname +'</h4>' +
                                                                         '<div style="display: flex">' +
                                                                             '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
-                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct'+ response[i].id +'" data-product_id="'+ response[i].product_id +'" data-productsession_id="'+ response[i].id +'"  data-session_id="'+ response[i].sessionid +'"  data-product_price="'+ response[i].productprice +'"id="addedproduct'+ response[i].id +'" style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"value="Add to cart" />' +
-                                                                            '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity'+ response[i].id +'  rise_quantity" onClick="increment_quantity('+ response[i].id +')"> </h6>' +
+                                                                            '<h6>'+ response[i].checkbutton +'</h6>' +
                                                                         '</div>' +
                                                                     '</div>' +
                                                                 '</div>' +
@@ -394,11 +419,12 @@
                                             data: {
                                                 _token: "{{ csrf_token() }}",
                                                 catogry_id: catogry_id,
-                                                sessionid: sessionid
+                                                sessionid: sessionid,
+                                                last_part: last_part
                                             },
                                             dataType: 'json',
                                             success: function(response) {
-                                            // console.log(response);
+                                             console.log(response);
                                                 $('.prodcttsdiv').html('');
                                                 
                                                 var len = response.length;
@@ -412,8 +438,7 @@
                                                                                     '<h4>'+ response[i].productname +'</h4>' +
                                                                                     '<div style="display: flex">' +
                                                                                         '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
-                                                                                        '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct' + response[i].id + '" id="addedproduct' + response[i].id + '"  data-product_id="' + response[i].product_id + '" data-productsession_id="'+ response[i].id +'"  data-session_id="'+ response[i].sessionid +'"  data-product_price="'+ response[i].productprice +'" value="Add to cart" />' +
-                                                                                        '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity' + response[i].id + '  rise_quantity" onClick="increment_quantity(' + response[i].id + ')"> </h6>' +
+                                                                                        '<h6>'+ response[i].checkbutton +'</h6>' +
                                                                                     '</div>' +
                                                                                 '</div>' +
                                                                             '</div>' +
@@ -439,7 +464,8 @@
                                 data: {
                                     _token: "{{ csrf_token() }}",
                                     catogry_id: catogry_id,
-                                    sessionid: sessionid
+                                    sessionid: sessionid,
+                                    last_part: last_part
                                 },
                                 dataType: 'json',
                                 success: function(response) {
@@ -457,8 +483,7 @@
                                                                         '<h4>'+ response[i].productname +'</h4>' +
                                                                         '<div style="display: flex">' +
                                                                             '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
-                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct'+ response[i].id +'" data-product_id="'+ response[i].product_id +'" data-productsession_id="'+ response[i].id +'"  data-session_id="'+ response[i].sessionid +'"  data-product_price="'+ response[i].productprice +'"id="addedproduct'+ response[i].id +'" style="background: #7367f0;font-size: 14px;font-weight: 700;color: #fff;"value="Add to cart" />' +
-                                                                            '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity'+ response[i].id +'  rise_quantity" onClick="increment_quantity('+ response[i].id +')"> </h6>' +
+                                                                            '<h6>'+ response[i].checkbutton +'</h6>' +
                                                                         '</div>' +
                                                                     '</div>' +
                                                                 '</div>' +
@@ -480,7 +505,8 @@
                                 data: {
                                     _token: "{{ csrf_token() }}",
                                     catogry_id: catogry_id,
-                                    sessionid: sessionid
+                                    sessionid: sessionid,
+                                    last_part: last_part
                                 },
                                 dataType: 'json',
                                 success: function(response) {
@@ -498,8 +524,7 @@
                                                                         '<h4>'+ response[i].productname +'</h4>' +
                                                                         '<div style="display: flex">' +
                                                                             '<h6 class="pos-price">₹ '+ response[i].productprice +'.00</h6>' +
-                                                                            '<h6><input type="button" name="add_to_cart" class="btn btn-scanner-set selectproduct addedproduct' + response[i].id + '" id="addedproduct' + response[i].id + '"  data-product_id="' + response[i].product_id + '" data-productsession_id="'+ response[i].id +'"  data-session_id="'+ response[i].sessionid +'"  data-product_price="'+ response[i].productprice +'" value="Add to cart" />' +
-                                                                            '<input type="button" value="Add to cart" style="display:none;" class="btn btn-scanner-set clickquantity' + response[i].id + '  rise_quantity" onClick="increment_quantity(' + response[i].id + ')"> </h6>' +
+                                                                            '<h6>'+ response[i].checkbutton +'</h6>' +
                                                                         '</div>' +
                                                                     '</div>' +
                                                                 '</div>' +
@@ -519,6 +544,7 @@
                             data: {
                                     _token: "{{ csrf_token() }}",
                                     sessionid: sessionid,
+                                    last_part: last_part
                                 },
                             dataType: 'json',
                             success: function (response) {
@@ -547,6 +573,7 @@
                                 }
                             }
                         });
+
                     }); 
 
 
@@ -561,83 +588,87 @@
     var product_id = $(this).data('product_id');
     var productsession_id = $(this).data('productsession_id');
 
-    //console.log(product_id);
-    $('.addedproduct' + productsession_id).attr('style', 'display:none');
-    $('.clickquantity' + productsession_id).attr('style', 'display:block');
-    var selectproductid = $(this).data('product_id');
-    var session_id = $(this).data('session_id');
+
+                $('.addedproduct' + productsession_id).attr('style', 'display:none');
+                $('.clickquantity' + productsession_id).attr('style', 'display:block');
+                var selectproductid = $(this).data('product_id');
+                var session_id = $(this).data('session_id');
+
+               
+
+                $.ajax({
+                    url: '/getselectedproducts/',
+                    type: 'get',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        selectproductid: selectproductid,
+                        session_id: session_id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        
+                        var len = response.length;
+                        occurs = {};
+
+                        for (var i = 0; i < len; i++) {
+
+                            var e = $('<ul class="product-lists" id="productlist">'+
+                            '<li>' +
+                            '<div class="productimg">' +
+                            '<div class="productimgs"><img src=" ' + response[i].product_image +  ' "alt="img"></div>' +
+                            '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' +
+                            '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
+                            '<div class="input-groups">' +
+                            '<input type="hidden"  name="product_id[]"  value="' + response[i].product_id + '"/>' +
+                            '<input type="hidden" class="li_productid" id="li_productid"  value="' + response[i].id + '"/>' +
+                            '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].id +')">' +
+                            '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].id + '">' +
+                            '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].id +')">' +
+                            '</div>' +
+                            '<input type="hidden" class="product_price" name="product_price[]" id="product_price' + response[i].id +  '"  value="' + response[i].product_price + '"/>' +
+                            '</div></div></div>' +
+                            '</li><li><div class="input-groups"><span class="totalprice' + response[i].id +  '">' + response[i].product_price +  '</span>' +
+                            '<input type="hidden" name="total_price[]" class="total_price' + response[i].id +  '" value="' + response[i].product_price +  '"/>' +
+                            '<input type="hidden" name="product_session_id[]" class="product_session_id" value="' + response[i].id +  '"/>' +
+                            '<input type="hidden" name="saleproductsid[]" class="saleproductsid" id="saleproductsid" value=""/></div></li>' +
+                            '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
+
+                            $('.product-table').prepend(e);
+                            var product_div = '1';
+                            $('#product_quantity' + response[i].product_id).val(product_div);
+
+
+                            var product_price = $('#product_price' + response[i].id).val();
+                                var totalprice = product_price * product_div;
+                                $('.totalprice' + response[i].id).text(totalprice);
+                                $('.total_price' + response[i].id).val(totalprice);
 
 
 
-    $.ajax({
-        url: '/getselectedproducts/',
-        type: 'get',
-        data: {
-            _token: "{{ csrf_token() }}",
-            selectproductid: selectproductid,
-            session_id: session_id
-        },
-        dataType: 'json',
-        success: function(response) {
-            var len = response.length;
-            occurs = {};
-
-            for (var i = 0; i < len; i++) {
-
-                var e = $('<ul class="product-lists" id="productlist">'+
-                '<li>' +
-                '<div class="productimg">' +
-                '<div class="productimgs"><img src=" ' + response[i].product_image +  ' "alt="img"></div>' +
-                '<div class="productcontet"><h4> ' + response[i].product_name +  ' <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"data-bs-target="#edit"><img src="{{ asset('assets/backend/img/icons/edit-5.svg') }}"alt="img"></a></h4>' +
-                '<div class="productlinkset"><h5>'+ response[i].Category +'</h5></div><div class="increment-decrement">' +
-                '<div class="input-groups">' +
-                '<input type="hidden"  name="product_id[]"  value="' + response[i].product_id + '"/>' +
-                '<input type="hidden" class="li_productid" id="li_productid"  value="' + response[i].id + '"/>' +
-                '<input type="button" value="-" class="button-minus dec button"  onClick="decrement_quantity('+ response[i].id +')">' +
-                '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].id + '">' +
-                '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].id +')">' +
-                '</div>' +
-                '<input type="hidden" name="product_price[]" id="product_price' + response[i].id +  '"  value="' + response[i].product_price + '"/>' +
-                '</div></div></div>' +
-                '</li><li><div class="input-groups"><span class="totalprice' + response[i].id +  '">' + response[i].product_price +  '</span>' +
-                '<input type="hidden" name="total_price[]" class="total_price' + response[i].id +  '" value="' + response[i].product_price +  '"/></div></li>' +
-                '<li><a class="confirm-text" href="javascript:void(0);"><a class="confirm-text remove-tr"><img src="{{ asset('assets/backend/img/icons/delete-2.svg') }}"alt="img"></a></li></ul>');
-
-                $('.product-table').prepend(e);
-                var product_div = '1';
-                $('#product_quantity' + response[i].product_id).val(product_div);
+                                var tot_expense_amount = 0;
+                                $("input[name='total_price[]']").each(
+                                    function() {
+                                        //alert($(this).val());
+                                        tot_expense_amount = Number(tot_expense_amount) +
+                                            Number($(this).val());
+                                            $('.subtotalamount').text('₹ ' + tot_expense_amount);
+                                            $('#subtotal').val(tot_expense_amount);
+                                            $('#totalamount').val(tot_expense_amount);
 
 
-                var product_price = $('#product_price' + response[i].id).val();
-                    var totalprice = product_price * product_div;
-                    $('.totalprice' + response[i].id).text(totalprice);
-                    $('.total_price' + response[i].id).val(totalprice);
+                                            var sale_discount = $('#sale_discount').val();
+                                            var payment = Number(tot_expense_amount) - Number(sale_discount);
+                                            $('.grand_total').text(payment.toFixed(2));
+                                            $('.grandtotal').val(payment.toFixed(2));
+                                    });
+                        }
 
+                        $(".total_count").text($('.product-table').children('.product-lists').length);
 
+                    }
+                });
 
-                    var tot_expense_amount = 0;
-                    $("input[name='total_price[]']").each(
-                        function() {
-                            //alert($(this).val());
-                            tot_expense_amount = Number(tot_expense_amount) +
-                                Number($(this).val());
-                                $('.subtotalamount').text('₹ ' + tot_expense_amount);
-                                $('#subtotal').val(tot_expense_amount);
-                                $('#totalamount').val(tot_expense_amount);
-
-
-                                var sale_discount = $('#sale_discount').val();
-                                var payment = Number(tot_expense_amount) - Number(sale_discount);
-                                $('.grand_total').text(payment.toFixed(2));
-                                $('.grandtotal').val(payment.toFixed(2));
-                        });
-            }
-
-            $(".total_count").text($('.product-table').children('.product-lists').length);
-
-        }
-    });
-    var tot_expense_amount = 0;
+                var tot_expense_amount = 0;
                     $("input[name='total_price[]']").each(
                         function() {
                             //alert($(this).val());
@@ -649,6 +680,11 @@
                                 $('.grand_total').text('₹ ' + tot_expense_amount);
                                 $('.grandtotal').val(tot_expense_amount);
                         });
+       
+   
+
+    //console.log(product_id);
+       
 
 });
 
@@ -784,6 +820,7 @@ $('#sales_store').submit(function(e){
     var totalamount = $('#totalamount').val();
     var sale_discount = $('#sale_discount').val();
     var grandtotal = $('#grandtotal').val();
+    var saleid = $('#saleid').val();
 
     var product_ids = $("input[name='product_id[]']")
             .map(function () {
@@ -806,7 +843,16 @@ $('#sales_store').submit(function(e){
                 return $(this).val();
             }).get();
 
-    //console.log(subtotal);
+    var product_session_id = $("input[name='product_session_id[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
+
+    var saleproductsid = $("input[name='saleproductsid[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
+    console.log(saleproductsid);
 
 
             $.ajax({
@@ -829,13 +875,18 @@ $('#sales_store').submit(function(e){
                     total_price: total_price,
                     sale_discount: sale_discount,
                     grandtotal: grandtotal,
+                    product_session_id: product_session_id,
+                    saleid: saleid,
+                    saleproductsid: saleproductsid,
                 },
                 dataType: 'json',
                 success: function(response) {
                     console.log(response.data);
-                    //alert('Bill Added').attr('style', 'background-color:yellow;');
 
-                                $('.alert-success').fadeIn().html(response.msg);
+                    if(response.alert){
+                        alert('Please Enter the Data');
+                    }else {
+                        $('.alert-success').fadeIn().html(response.msg);
                         setTimeout(function() {
                             $('.alert-success').fadeOut("slow");
                         }, 2000 );
@@ -843,31 +894,163 @@ $('#sales_store').submit(function(e){
                         var last_salesid = response.last_id;
                         
                     
-                        //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                       // window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
                         window.location= "https://annapooranifoods.com/zworktechnology/sales/print/" + last_salesid;
 
 
-                    document.getElementById("sales_store").reset();
-                    $('.product-table').empty('');
-                    $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
-                    $('.rise_quantity').attr('style', 'display:none');
-                    $('.total_count').text('');
-                    $('.subtotalamount').text('');
-                    $('#subtotal').val('');
-                    $('#customer_type').val('walkincustomer');
-                    $('#customer_type').select2().trigger('change');
-                    $('#customer_id').val('');
-                    $('#taxamount').val('');
-                    $('input[name=paymentmethod]:checked').val('');
-                    $('#totalamount').val('');
-                    $('#sale_discount').val('');
-                    $('.grand_total').text('');
-                    $('.grandtotal').val('');
-                    $('.cutomer_arr').hide();
-                    $('.customertyp').show();
-                    $('.selectproduct').show();
-                    $('.setvaluecash').show();
+                        document.getElementById("sales_store").reset();
+                        $('.product-table').empty('');
+                        $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
+                        $('.rise_quantity').attr('style', 'display:none');
+                        $('.total_count').text('');
+                        $('.subtotalamount').text('');
+                        $('#subtotal').val('');
+                        $('#customer_type').val('walkincustomer');
+                        $('#customer_type').select2().trigger('change');
+                        $('#customer_id').val('');
+                        $('#taxamount').val('');
+                        $('input[name=paymentmethod]:checked').val('');
+                        $('#totalamount').val('');
+                        $('#sale_discount').val('');
+                        $('.grand_total').text('');
+                        $('.grandtotal').val('');
+                        $('.cutomer_arr').hide();
+                        $('.customertyp').show();
+                        $('.selectproduct').show();
+                        $('.setvaluecash').show();
 
+                    }
+                    //alert('Bill Added').attr('style', 'background-color:yellow;');
+
+                       
+
+                   
+                }
+            });
+});
+
+
+$('#sales_update').submit(function(e){
+    e.preventDefault();
+
+    //console.log($(this).serialize());
+
+    //var billno = $('#bill_no').val();
+    var date = $('#date').val();
+    var time = $('#time').val();
+    var sales_type = $('input[name=sales_type]:checked').val();
+    var customer_type = $('#customer_type').val();
+    var customer_id = $('#customer_id').val();
+    var subtotal = $('#subtotal').val();
+    var taxamount = $('#taxamount').val();
+    var paymentmethod = $('input[name=paymentmethod]:checked').val();
+    var totalamount = $('#totalamount').val();
+    var sale_discount = $('#sale_discount').val();
+    var grandtotal = $('#grandtotal').val();
+    var saleid = $('#saleid').val();
+
+    var product_ids = $("input[name='product_id[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
+
+    var product_quantity = $("input[name='product_quantity[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
+
+
+    var product_price = $("input[name='product_price[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
+
+    var total_price = $("input[name='total_price[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
+
+    var product_session_id = $("input[name='product_session_id[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
+
+    var saleproductsid = $("input[name='saleproductsid[]']")
+            .map(function () {
+                return $(this).val();
+            }).get();
+    console.log(saleproductsid);
+
+
+            $.ajax({
+                url: "{{ route('sales.update.salesdata') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    date: date,
+                    time: time,
+                    sales_type: sales_type,
+                    customer_type: customer_type,
+                    customer_id: customer_id,
+                    subtotal: subtotal,
+                    taxamount: taxamount,
+                    paymentmethod: paymentmethod,
+                    totalamount: totalamount,
+                    product_ids: product_ids,
+                    product_quantity: product_quantity,
+                    product_price: product_price,
+                    total_price: total_price,
+                    sale_discount: sale_discount,
+                    grandtotal: grandtotal,
+                    product_session_id: product_session_id,
+                    saleid: saleid,
+                    saleproductsid: saleproductsid,
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response.msg);
+
+                    if(response.alert){
+                        alert('Please Enter the Data');
+                    }else {
+                        $('.alert-success').fadeIn().html(response.msg);
+                        setTimeout(function() {
+                            $('.alert-success').fadeOut("slow");
+                        }, 2000 );
+
+                        var last_salesid = response.last_id;
+                        
+                    
+                       // window.location= "http://127.0.0.1:8000/zworktechnology/sales/";
+                        window.location= "https://annapooranifoods.com/zworktechnology/sales";
+
+
+                        document.getElementById("sales_update").reset();
+                        $('.product-table').empty('');
+                        $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
+                        $('.rise_quantity').attr('style', 'display:none');
+                        $('.total_count').text('');
+                        $('.subtotalamount').text('');
+                        $('#subtotal').val('');
+                        $('#saleid').val('');
+                        $('#customer_type').val('walkincustomer');
+                        $('#customer_type').select2().trigger('change');
+                        $('#customer_id').val('');
+                        $('#taxamount').val('');
+                        $('input[name=paymentmethod]:checked').val('');
+                        $('#totalamount').val('');
+                        $('#sale_discount').val('');
+                        $('.grand_total').text('');
+                        $('.grandtotal').val('');
+                        $('.cutomer_arr').hide();
+                        $('.customertyp').show();
+                        $('.selectproduct').show();
+                        $('.setvaluecash').show();
+
+                    }
+                    //alert('Bill Added').attr('style', 'background-color:yellow;');
+
+                       
 
                    
                 }
@@ -931,7 +1114,8 @@ function printDiv(divName) {
                                     '<input type="text" name="product_quantity[]" value="1"class="quantity-field product_quanitity" id="product_quantity' + response[i].id + '">' +
                                     '<input type="button" value="+" class="button-plus inc button " onClick="increment_quantity('+ response[i].id +')">' +
                                     '</div>' +
-                                    '<input type="hidden" name="product_price[]" id="product_price' + response[i].id +  '"  value="' + response[i].product_price + '"/>' +
+                                    '<input type="hidden" class="product_price" name="product_price[]" id="product_price' + response[i].id +  '"  value="' + response[i].product_price + '"/>' +
+                                    '<input type="hidden" name="product_session_id[]" id="product_session_id"  value="' + response[i].id + '"/><input type="hidden" name="saleproductsid[]" class="saleproductsid" id="saleproductsid" value=""/>' +
                                     '</div></div></div>' +
                                     '</li><li><div class="input-groups"><span class="totalprice' + response[i].id +  '">' + response[i].product_price +  '</span>' +
                                     '<input type="hidden" name="total_price[]" class="total_price' + response[i].id +  '" value="' + response[i].product_price +  '"/></div></li>' +

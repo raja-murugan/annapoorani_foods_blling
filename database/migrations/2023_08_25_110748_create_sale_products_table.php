@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('quantity');
             $table->string('price');
             $table->string('total_price');
+            $table->unsignedBigInteger('product_session_id')->nullable();
             $table->timestamps();
         });
     }

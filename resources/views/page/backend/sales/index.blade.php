@@ -73,7 +73,7 @@
         <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
                 <li class="nav-item"><a class="nav-link active" href="#solid-tab1" data-bs-toggle="tab">Dine In</a></li>
                 <li class="nav-item"><a class="nav-link" href="#solid-tab2" data-bs-toggle="tab">Take Away</a></li>
-                <li class="nav-item"><a class="nav-link" href="#solid-tab3" data-bs-toggle="tab">Delivery</a></li>
+                <li class="nav-item" hidden><a class="nav-link" href="#solid-tab3" data-bs-toggle="tab">Delivery</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane show active" id="solid-tab1">
@@ -88,7 +88,6 @@
                                             <th>Bill No</th>
                                             <th>Date</th>
                                             <th>Sales Type</th>
-                                            <th>Customer</th>
                                             <th>Payment Method</th>
                                             <th>Total</th>
                                             <th>Action</th>
@@ -100,7 +99,6 @@
                                                 <td>{{ $datas['bill_no'] }}</td>
                                                 <td> {{ $datas['date']  }}</td>
                                                 <td> {{ $datas['sales_type']  }}</td>
-                                                <td>{{ $datas['customer']}}</td>
                                                 <td>{{ $datas['payment_method']   }}</td>
                                                 <td>₹ {{ $datas['grandtotal']   }}</td>
                                                 <td>
@@ -121,6 +119,10 @@
                                                                 data-id="{{ $datas['unique_key'] }}"
                                                                 data-bs-target=".salesedelete-modal-xl{{ $datas['unique_key'] }}"
                                                                 class="badges bg-lightyellow" style="color: white">Delete</a>
+                                                        </li>
+                                                        <li>
+                                                                <a href="{{ route('sales.edit', ['unique_key' => $datas['unique_key']]) }}"
+                                                                    class="badges bg-lightgrey" style="color: white">Edit</a>
                                                         </li>
 
                                                     </ul>
@@ -159,7 +161,6 @@
                                                 <th>Bill No</th>
                                                 <th>Date</th>
                                                 <th>Sales Type</th>
-                                                <th>Customer</th>
                                                 <th>Payment Method</th>
                                                 <th>Total</th>
                                                 <th>Action</th>
@@ -171,7 +172,6 @@
                                                     <td>{{ $datas['bill_no'] }}</td>
                                                     <td> {{ $datas['date']  }}</td>
                                                     <td> {{ $datas['sales_type']  }}</td>
-                                                    <td>{{ $datas['customer']}}</td>
                                                     <td>{{ $datas['payment_method']   }}</td>
                                                     <td>₹ {{ $datas['grandtotal']   }}</td>
                                                     <td>
@@ -192,6 +192,10 @@
                                                                     data-id="{{ $datas['unique_key'] }}"
                                                                     data-bs-target=".salesedelete-modal-xl{{ $datas['unique_key'] }}"
                                                                     class="badges bg-lightyellow" style="color: white">Delete</a>
+                                                            </li>
+                                                            <li>
+                                                                    <a href="{{ route('sales.edit', ['unique_key' => $datas['unique_key']]) }}"
+                                                                        class="badges bg-lightgrey" style="color: white">Edit</a>
                                                             </li>
 
                                                         </ul>
@@ -218,7 +222,7 @@
                         </div>
 
                     </div>
-                <div class="tab-pane" id="solid-tab3">
+                <div class="tab-pane" id="solid-tab3" hidden>
                     <div class="card">
                                 <div class="card-body">
 
