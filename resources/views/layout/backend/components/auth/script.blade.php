@@ -356,6 +356,14 @@
                     
                 // }else if (window.location.href.indexOf("http://127.0.0.1:8000/zworktechnology/sales/create") > -1) {
                 //     var last_part = '';
+
+                // }else if (window.location.href.indexOf("http://127.0.0.1:8000/zworktechnology/deliverysales/delivery_edit") > -1){
+
+                //     var url = $(location).attr('href');
+                //     var parts = url.split("/");
+                //     var last_part = parts[parts.length-1];
+                // }else if (window.location.href.indexOf("http://127.0.0.1:8000/zworktechnology/deliverysales/delivery_create") > -1) {
+                //     var last_part = '';
                 // }
                 
 
@@ -367,7 +375,18 @@
                     
                 }else if (window.location.href.indexOf("https://annapooranifoods.com/zworktechnology/sales/create") > -1) {
                     var last_part = '';
+                }else if (window.location.href.indexOf("https://annapooranifoods.com/zworktechnology/deliverysales/delivery_edit") > -1){
+
+                    var url = $(location).attr('href');
+                    var parts = url.split("/");
+                    var last_part = parts[parts.length-1];
+                }else if (window.location.href.indexOf("https://annapooranifoods.com/zworktechnology/deliverysales/delivery_create") > -1) {
+                    var last_part = '';
                 }
+
+
+
+              
 
               
                 
@@ -824,6 +843,7 @@ $('#sales_store').submit(function(e){
     var sale_discount = $('#sale_discount').val();
     var grandtotal = $('#grandtotal').val();
     var saleid = $('#saleid').val();
+    var session_ids = $('input[name=session_ids]:checked').val();
 
     var product_ids = $("input[name='product_id[]']")
             .map(function () {
@@ -882,6 +902,7 @@ $('#sales_store').submit(function(e){
                     saleid: saleid,
                     saleproductsid: saleproductsid,
                     deliveryboy_id: deliveryboy_id,
+                    session_ids: session_ids,
                 },
                 dataType: 'json',
                 success: function(response) {
@@ -898,8 +919,8 @@ $('#sales_store').submit(function(e){
                         var last_salesid = response.last_id;
                         
                     
-                       //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
-                        window.location= "https://annapooranifoods.com/zworktechnology/sales/print/" + last_salesid;
+                       window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                      //  window.location= "https://annapooranifoods.com/zworktechnology/sales/print/" + last_salesid;
 
                         $('button[type=submit], input[type=submit]').prop('disabled',false);
                         document.getElementById("sales_store").reset();
@@ -926,6 +947,7 @@ $('#sales_store').submit(function(e){
                         $('.salepaymentpaid_customerid').select2().trigger('change');
                         $('.deliveryboy_id').val('');
                         $('.deliveryboy_id').select2().trigger('change');
+                        $('input[name=session_ids]:checked').val('');
 
                     }
                     //alert('Bill Added').attr('style', 'background-color:yellow;');
@@ -957,6 +979,7 @@ $('#sales_update').submit(function(e){
     var sale_discount = $('#sale_discount').val();
     var grandtotal = $('#grandtotal').val();
     var saleid = $('#saleid').val();
+    var session_ids = $('input[name=session_ids]:checked').val();
 
     var product_ids = $("input[name='product_id[]']")
             .map(function () {
@@ -1015,6 +1038,7 @@ $('#sales_update').submit(function(e){
                     saleid: saleid,
                     saleproductsid: saleproductsid,
                     deliveryboy_id: deliveryboy_id,
+                    session_ids: session_ids,
                 },
                 dataType: 'json',
                 success: function(response) {
@@ -1030,9 +1054,15 @@ $('#sales_update').submit(function(e){
 
                         var last_salesid = response.last_id;
                         
-                    
-                      //  window.location= "http://127.0.0.1:8000/zworktechnology/sales/";
+                    if(response.status == 'delivery'){
+
+                       // window.location= "http://127.0.0.1:8000/zworktechnology/deliverysales/";
                         window.location= "https://annapooranifoods.com/zworktechnology/sales";
+                    }else {
+                       // window.location= "http://127.0.0.1:8000/zworktechnology/sales/";
+                        window.location= "https://annapooranifoods.com/zworktechnology/sales";
+                    }
+                       
 
 
                         document.getElementById("sales_update").reset();
@@ -1060,6 +1090,7 @@ $('#sales_update').submit(function(e){
                         $('.salepaymentpaid_customerid').select2().trigger('change');
                         $('.deliveryboy_id').val('');
                         $('.deliveryboy_id').select2().trigger('change');
+                        $('input[name=session_ids]:checked').val('');
 
                     }
                     //alert('Bill Added').attr('style', 'background-color:yellow;');
