@@ -198,9 +198,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/sales/autocomplete', [SaleController::class, 'autocomplete'])->name('sales.autocomplete');
         // DELIVERY UPDATE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/sales/deliveryupdate/{unique_key}', [SaleController::class, 'deliveryupdate'])->name('sales.deliveryupdate');
-        
         // EDIT
         Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/sales/edit/{unique_key}', [SaleController::class, 'edit'])->name('sales.edit');
+
+        
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/deliverysales', [SaleController::class, 'delivery_index'])->name('deliverysales.delivery_index');
+        // CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/deliverysales/delivery_create', [SaleController::class, 'delivery_create'])->name('deliverysales.delivery_create');
     });
 
 

@@ -612,6 +612,7 @@ class SaleController extends Controller
                 $data->sale_discount = $request->sale_discount;
                 $data->grandtotal = $request->grandtotal;
                 $data->payment_method = $request->paymentmethod;
+                $data->deliveryboy_id = $request->deliveryboy_id;
                 $data->save();
         
         
@@ -707,6 +708,7 @@ class SaleController extends Controller
             $OldSaleData->sale_discount = $request->sale_discount;
             $OldSaleData->grandtotal = $request->grandtotal;
             $OldSaleData->payment_method = $request->paymentmethod;
+            $OldSaleData->deliveryboy_id = $request->deliveryboy_id;
             $OldSaleData->update(); 
             
             
@@ -1118,6 +1120,218 @@ class SaleController extends Controller
         $Getsale = Sale::where('soft_delete', '!=', 1)->latest('id')->first();
         $userData['data'] = $Getsale->bill_no;
         echo json_encode($userData);
+    }
+
+
+
+
+
+
+
+
+    public function delivery_index()
+    {
+        
+        $today = Carbon::now()->format('Y-m-d');
+
+
+        $deliverydata = Sale::where('date', '=', $today)->where('sales_type', '=', 'Delivery')->where('soft_delete', '!=', 1)->orderBy('id', 'desc')->get();
+        $saledelivery_data = [];
+        $terms = [];
+        foreach ($deliverydata as $key => $datas) {
+            
+            if($datas->customer_id != ""){
+                $customer = Customer::findOrFail($datas->customer_id);
+                $customername = $customer->name;
+            }else {
+                $customername = '';
+            }
+
+
+            $SaleProducts = SaleProduct::where('sales_id', '=', $datas->id)->get();
+            foreach ($SaleProducts as $key => $SaleProducts_arr) {
+
+                $productid = Product::findOrFail($SaleProducts_arr->product_id);
+                $terms[] = array(
+                    'product_name' => $productid->name,
+                    'quantity' => $SaleProducts_arr->quantity,
+                    'price' => $SaleProducts_arr->price,
+                    'total_price' => $SaleProducts_arr->total_price,
+                    'sales_id' => $SaleProducts_arr->sales_id,
+                );
+            }
+
+            if($datas->deliveryboy_id != ""){
+                $Delivery_boy = Deliveryboy::findOrFail($datas->deliveryboy_id);
+                $Delivery_boyname = $Delivery_boy->name;
+            }else {
+                $Delivery_boyname = '';
+            }
+
+
+            $saledelivery_data[] = array(
+                'date' => date('d-m-Y', strtotime($datas->date)),
+                'bill_no' => $datas->bill_no,
+                'time' => $datas->time,
+                'sales_type' => $datas->sales_type,
+                'customer_type' => $datas->customer_type,
+                'customer' => $customername,
+                'Delivery_boyname' => $Delivery_boyname,
+                'sub_total' => $datas->sub_total,
+                'tax' => $datas->tax,
+                'total' => $datas->total,
+                'sale_discount' => $datas->sale_discount,
+                'grandtotal' => $datas->grandtotal,
+                'payment_method' => $datas->payment_method,
+                'id' => $datas->id,
+                'unique_key' => $datas->unique_key,
+                'terms' => $terms,
+            );
+        }
+
+
+
+
+
+
+
+        
+        $session = Session::where('soft_delete', '!=', 1)->get();
+        $category = Category::where('soft_delete', '!=', 1)->get();
+        $Bank = Bank::where('soft_delete', '!=', 1)->get();
+        $Deliveryboy = Deliveryboy::where('soft_delete', '!=', 1)->get();
+        $todaydate = Carbon::now()->format('d-m-Y');
+
+
+        $total_sale_amount = Sale::where('date', '=', $today)->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_sale_amount != ""){
+                $totsaleAmount = $total_sale_amount;
+            }else {
+                $totsaleAmount = '0';
+            }
+
+        $total_dinein = Sale::where('date', '=', $today)->where('sales_type', '=', 'Dine In')->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_dinein != ""){
+                $total_dine_in = $total_dinein;
+            }else {
+                $total_dine_in = '0';
+            }
+
+
+        $total_takeaway = Sale::where('date', '=', $today)->where('sales_type', '=', 'Take Away')->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_takeaway != ""){
+                $total_take_away = $total_takeaway;
+            }else {
+                $total_take_away = '0';
+            }
+
+
+        $total_delivery = Sale::where('date', '=', $today)->where('sales_type', '=', 'Delivery')->where('soft_delete', '!=', 1)->sum('grandtotal');
+            if($total_delivery != ""){
+                $totaldelivery = $total_delivery;
+            }else {
+                $totaldelivery = '0';
+            }
+
+        return view('page.backend.deliverysales.delivery_index', compact('saledelivery_data',  'session', 'category', 'today', 'todaydate', 'totsaleAmount', 'total_dine_in', 'total_take_away', 'totaldelivery', 'Bank', 'Deliveryboy'));
+    }
+
+
+
+    public function delivery_create()
+    {
+        $session = Session::where('soft_delete', '!=', 1)->get();
+        $category = Category::where('soft_delete', '!=', 1)->get();
+        $product_array = Product::where('soft_delete', '!=', 1)->get();
+        $Bank = Bank::where('soft_delete', '!=', 1)->get();
+        $today = Carbon::now()->format('Y-m-d');
+        $timenow = Carbon::now()->format('H:i');
+        $customer_rray = Customer::where('soft_delete', '!=', 1)->get();
+        $Deliveryboy = Deliveryboy::where('soft_delete', '!=', 1)->get();
+
+        $catProductsession = Productsession::select('session_id','category_id','category_name')->distinct('category_id')->where('soft_delete', '!=', 1)->get();
+        $cat_Productsession = [];
+        foreach ($catProductsession as $key => $catProductsessions) {
+
+            $cat_session = Session::findOrFail($catProductsessions->session_id);
+            $cat_order = Category::findOrFail($catProductsessions->category_id);
+
+            $cat_Productsession[] = array(
+                'session_id' => $cat_session->id,
+                'category_id' => $cat_order->id,
+                'category_name' => $cat_order->name
+            );
+        }
+
+        $Productsession = Productsession::select('category_id','productname','productimage', 'productprice', 'product_id', 'id', 'session_id')->distinct('product_id')->where('session_id', '=', 1)->where('soft_delete', '!=', 1)->get();
+        $produc_session_arr = [];
+        foreach ($Productsession as $key => $Productsession_arr) {
+
+            $cat_orderid = Category::findOrFail($Productsession_arr->category_id);
+            $product_orderid = Product::findOrFail($Productsession_arr->product_id);
+
+            $produc_session_arr[] = array(
+                'category_id' => $cat_orderid->id,
+                'product_id' => $product_orderid->id,
+                'productname' => $product_orderid->name,
+                'productimage' => $product_orderid->image,
+                'productprice' => $product_orderid->price,
+                'id' => $Productsession_arr->id,
+                'session_id' => $Productsession_arr->session_id
+            );
+        }
+
+        $Latest_Sale = Sale::where('soft_delete', '!=', 1)->latest('id')->first();
+        if($Latest_Sale != ''){
+            $latestbillno = $Latest_Sale->bill_no + 1;
+        }else {
+            $latestbillno = 1;
+        }
+
+        $DineIn = Sale::where('sales_type', '=', 'Dine In')->where('soft_delete', '!=', 1)->latest()->take(10)->get();
+        $DineInoutput = [];
+        foreach ($DineIn as $key => $DineIn_arr) {
+
+            $DineInoutput[] = array(
+                'date' => date('d-m-Y', strtotime($DineIn_arr->date)),
+                'bill_no' => $DineIn_arr->bill_no,
+                'grandtotal' => $DineIn_arr->grandtotal,
+                'unique_key' => $DineIn_arr->unique_key
+            );
+        }
+
+        $TakeAway = Sale::where('sales_type', '=', 'Take Away')->where('soft_delete', '!=', 1)->latest()->take(10)->get();
+        $TakeAwayInoutput = [];
+        foreach ($TakeAway as $key => $TakeAway_arr) {
+
+            $TakeAwayInoutput[] = array(
+                'date' => date('d-m-Y', strtotime($TakeAway_arr->date)),
+                'bill_no' => $TakeAway_arr->bill_no,
+                'grandtotal' => $TakeAway_arr->grandtotal,
+                'unique_key' => $TakeAway_arr->unique_key
+            );
+        }
+
+
+
+        $Delivery = Sale::where('sales_type', '=', 'Delivery')->where('soft_delete', '!=', 1)->latest()->take(10)->get();
+        $DeliveryInoutput = [];
+        foreach ($Delivery as $key => $Delivery_arr) {
+
+            $customer = Customer::findOrFail($Delivery_arr->customer_id);
+
+            $DeliveryInoutput[] = array(
+                'date' => date('d-m-Y', strtotime($Delivery_arr->date)),
+                'bill_no' => $Delivery_arr->bill_no,
+                'grandtotal' => $Delivery_arr->grandtotal,
+                'customer' => $customer->name,
+                'unique_key' => $Delivery_arr->unique_key
+            );
+        }
+
+
+        
+        return view('page.backend.deliverysales.delivery_create', compact('session', 'category', 'product_array', 'today', 'timenow', 'Bank', 'latestbillno', 'customer_rray', 'DineInoutput', 'TakeAwayInoutput', 'DeliveryInoutput', 'cat_Productsession', 'produc_session_arr', 'Deliveryboy'));
     }
 
     

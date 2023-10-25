@@ -816,6 +816,7 @@ $('#sales_store').submit(function(e){
     var sales_type = $('input[name=sales_type]:checked').val();
     var customer_type = $('#customer_type').val();
     var customer_id = $('#customer_id').val();
+    var deliveryboy_id = $('#deliveryboy_id').val();
     var subtotal = $('#subtotal').val();
     var taxamount = $('#taxamount').val();
     var paymentmethod = $('input[name=paymentmethod]:checked').val();
@@ -880,6 +881,7 @@ $('#sales_store').submit(function(e){
                     product_session_id: product_session_id,
                     saleid: saleid,
                     saleproductsid: saleproductsid,
+                    deliveryboy_id: deliveryboy_id,
                 },
                 dataType: 'json',
                 success: function(response) {
@@ -920,6 +922,10 @@ $('#sales_store').submit(function(e){
                         $('.customertyp').show();
                         $('.selectproduct').show();
                         $('.setvaluecash').show();
+                        $('.salepaymentpaid_customerid').val('');
+                        $('.salepaymentpaid_customerid').select2().trigger('change');
+                        $('.deliveryboy_id').val('');
+                        $('.deliveryboy_id').select2().trigger('change');
 
                     }
                     //alert('Bill Added').attr('style', 'background-color:yellow;');
@@ -936,13 +942,14 @@ $('#sales_update').submit(function(e){
     e.preventDefault();
 
     //console.log($(this).serialize());
-
+    $('button[type=submit], input[type=submit]').prop('disabled',true);
     //var billno = $('#bill_no').val();
     var date = $('#date').val();
     var time = $('#time').val();
     var sales_type = $('input[name=sales_type]:checked').val();
     var customer_type = $('#customer_type').val();
     var customer_id = $('#customer_id').val();
+    var deliveryboy_id = $('#deliveryboy_id').val();
     var subtotal = $('#subtotal').val();
     var taxamount = $('#taxamount').val();
     var paymentmethod = $('input[name=paymentmethod]:checked').val();
@@ -1007,6 +1014,7 @@ $('#sales_update').submit(function(e){
                     product_session_id: product_session_id,
                     saleid: saleid,
                     saleproductsid: saleproductsid,
+                    deliveryboy_id: deliveryboy_id,
                 },
                 dataType: 'json',
                 success: function(response) {
@@ -1023,7 +1031,7 @@ $('#sales_update').submit(function(e){
                         var last_salesid = response.last_id;
                         
                     
-                       // window.location= "http://127.0.0.1:8000/zworktechnology/sales/";
+                      //  window.location= "http://127.0.0.1:8000/zworktechnology/sales/";
                         window.location= "https://annapooranifoods.com/zworktechnology/sales";
 
 
@@ -1048,6 +1056,10 @@ $('#sales_update').submit(function(e){
                         $('.customertyp').show();
                         $('.selectproduct').show();
                         $('.setvaluecash').show();
+                        $('.salepaymentpaid_customerid').val('');
+                        $('.salepaymentpaid_customerid').select2().trigger('change');
+                        $('.deliveryboy_id').val('');
+                        $('.deliveryboy_id').select2().trigger('change');
 
                     }
                     //alert('Bill Added').attr('style', 'background-color:yellow;');
