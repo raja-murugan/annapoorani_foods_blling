@@ -808,6 +808,8 @@ $('#sales_store').submit(function(e){
 
     //console.log($(this).serialize());
 
+    $('button[type=submit], input[type=submit]').prop('disabled',true);
+
     //var billno = $('#bill_no').val();
     var date = $('#date').val();
     var time = $('#time').val();
@@ -894,10 +896,10 @@ $('#sales_store').submit(function(e){
                         var last_salesid = response.last_id;
                         
                     
-                       // window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
+                       //window.location= "http://127.0.0.1:8000/zworktechnology/sales/print/" + last_salesid;
                         window.location= "https://annapooranifoods.com/zworktechnology/sales/print/" + last_salesid;
 
-
+                        $('button[type=submit], input[type=submit]').prop('disabled',false);
                         document.getElementById("sales_store").reset();
                         $('.product-table').empty('');
                         $('.selectproduct').attr('style', 'background-color:#7367f0;color: #fff;').val('Add to Cart').attr('disabled', false);
@@ -1677,7 +1679,7 @@ $("#discount_type").on('change', function() {
                 $(".paidamount").val('');
             }
     });
-
+   
 
 function purchasesubmitForm(btn) {
         // disable the button
