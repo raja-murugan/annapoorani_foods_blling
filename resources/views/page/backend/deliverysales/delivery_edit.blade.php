@@ -62,7 +62,7 @@
                                 </select>
                             </div>
                     </div>
-                    <div class="col-lg-12 col-sm-6 col-12">
+                    <div class="col-lg-12 col-sm-6 col-12" hidden>
                            
                                  <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Status<span
                                         style="color: red;">*</span></label>
