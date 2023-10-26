@@ -1,24 +1,24 @@
 <div class="modal-dialog modal-l">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="myExtraLargeModalLabel">Update</h5>
+            <h5 class="modal-title" id="myExtraLargeModalLabel">Create Lunch Delivery</h5>
         </div>
         <div class="modal-body">
-            <form autocomplete="off" method="POST" action="{{ route('deliverysales.delivery_edit', ['unique_key' => $Sale_Delivery_Datas['unique_key']]) }}" enctype="multipart/form-data">
+            <form autocomplete="off" method="POST" action="{{ route('deliverysales.store') }}">
                 @csrf
                 <div class="row">
                     <div class="col-lg-12 col-sm-6 col-12">
                            <div class="form-group">
                                 <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Date<span
                                         style="color: red;">*</span></label>
-                                <input type="date" name="date" placeholder="" value="{{ $Sale_Delivery_Datas['saledate'] }}" required>
+                                <input type="date" name="date" placeholder="" value="{{ $today }}" required>
                             </div>
                     </div>
                     <div class="col-lg-12 col-sm-6 col-12">
                            <div class="form-group">
                                  <label style="font-size:15px;padding-top: 5px;padding-bottom: 2px;">Time<span
                                         style="color: red;">*</span></label>
-                                <input type="time" name="time" placeholder="" value="{{ $Sale_Delivery_Datas['time'] }}" required>
+                                <input type="time" name="time" placeholder="" value="{{ $timenow }}" required>
                             </div>
                     </div>
                     <div class="col-lg-12 col-sm-6 col-12" hidden>
@@ -28,7 +28,7 @@
                                     <select class="form-control js-example-basic-single select" name="session_id" id="session_id">
                                     <option value="" disabled selected hiddden>Select Session</option>
                                     @foreach ($sesionarr as $sessions)
-                                        <option value="{{ $sessions->id }}"@if ($sessions->id === $Sale_Delivery_Datas['session_id']) selected='selected' @endif>{{ $sessions->name }}</option>
+                                        <option value="{{ $sessions->id }}"@if ($sessions->id === 2) selected='selected' @endif>{{ $sessions->name }}</option>
                                         
                                     @endforeach
                                 </select>
@@ -43,7 +43,7 @@
                                         <select class="form-control js-example-basic-single select" name="customer_id" id="customer_id">
                                     <option value="" disabled selected hiddden>Select Customer</option>
                                     @foreach ($customer_arrdata as $customer_arrdatas)
-                                        <option value="{{ $customer_arrdatas->id }}" @if ($customer_arrdatas->id === $Sale_Delivery_Datas['customer_id']) selected='selected' @endif>{{ $customer_arrdatas->name }}</option>
+                                        <option value="{{ $customer_arrdatas->id }}">{{ $customer_arrdatas->name }}</option>
                                         
                                     @endforeach
                                 </select>
@@ -56,7 +56,7 @@
                                     <select class="form-control js-example-basic-single select" name="deliveryboyid" id="deliveryboyid">
                                     <option value="" disabled selected hiddden>Select Customer</option>
                                     @foreach ($deliveryboy as $deliveryboys)
-                                        <option value="{{ $deliveryboys->id }}"@if ($deliveryboys->id === $Sale_Delivery_Datas['deliveryboyid']) selected='selected' @endif>{{ $deliveryboys->name }}</option>
+                                        <option value="{{ $deliveryboys->id }}">{{ $deliveryboys->name }}</option>
                                         
                                     @endforeach
                                 </select>
@@ -77,9 +77,10 @@
                                 </select>
                            
                     </div>
+                    
                     <hr>
                     <div class="col-lg-12 button-align">
-                        <button type="submit" class="btn btn-submit me-2">Update</button>
+                        <button type="submit" class="btn btn-submit me-2">Save</button>
                         <button type="button" class="btn btn-cancel" data-bs-dismiss="modal"
                             aria-label="Close">Cancel</button>
                     </div>

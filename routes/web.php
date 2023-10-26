@@ -204,14 +204,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         
         // INDEX
         Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/deliverysales', [SaleController::class, 'delivery_index'])->name('deliverysales.delivery_index');
-        // CREATE
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/deliverysales/delivery_create', [SaleController::class, 'delivery_create'])->name('deliverysales.delivery_create');
         // EDIT
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zworktechnology/deliverysales/delivery_edit/{unique_key}', [SaleController::class, 'delivery_edit'])->name('deliverysales.delivery_edit');
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/deliverysales/delivery_edit/{unique_key}', [SaleController::class, 'delivery_edit'])->name('deliverysales.delivery_edit');
         // DELETE
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/deliverysales/delivery_delete/{unique_key}', [SaleController::class, 'delivery_delete'])->name('deliverysales.delivery_delete');
         // DATAE FILTER
         Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/deliverysales/delivery_datefilter', [SaleController::class, 'delivery_datefilter'])->name('deliverysales.delivery_datefilter');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zworktechnology/deliverysales/store', [SaleController::class, 'store'])->name('deliverysales.store');
     });
 
 
