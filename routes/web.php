@@ -53,6 +53,10 @@ Auth::routes();
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // DASHBOARD
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // DASHBOARD FILTER
+    Route::middleware(['auth:sanctum', 'verified'])->put('/zworktechnology/home/datefilter', [App\Http\Controllers\HomeController::class, 'datefilter'])->name('home.datefilter');
+
+
     // MANAGER & INVITE CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX

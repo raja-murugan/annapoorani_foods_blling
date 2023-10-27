@@ -5,7 +5,7 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Menu</h6>
                     <ul>
-                        <li class="{{ Route::is('home') ? 'active' : '' }} m-2">
+                        <li class="{{ Route::is('home', 'home.datefilter') ? 'active' : '' }} m-2">
                             <a href="{{ route('home') }}"><i data-feather="grid"></i><span>Dashboard</span></a>
                         </li>
                     </ul>
